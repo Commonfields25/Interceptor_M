@@ -1,6 +1,13 @@
+---
+title: OPERATIONS_WORKFLOW
+version: 2.0
+author: Agent Manager
+validator: DG
+last_updated: 2026-06-22
+type: SOP
+---
+
 # 🛡️ OPERATIONS_WORKFLOW.md — Opération Drone Interception
-**Version:** 2.0 | **Rédigé par :** Agent Manager | **Validé par :** DG
-**Dernière mise à jour :** 22/06/2026
 
 > **CHANGELOG V2.0:**
 > - ✅ Added Section 0: "OÙ LE DG DOIT INTERVENIR" with decision tree
