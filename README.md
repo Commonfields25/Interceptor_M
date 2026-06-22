@@ -34,7 +34,10 @@ Project focused on developing a modular drone platform, with a primary emphasis 
 ### ⚙️ Operations
 - [OPERATIONS_WORKFLOW_V2.md](./docs/ops/OPERATIONS_WORKFLOW_V2.md) - Standard Operating Procedures
 - [concurrency_analysis.md](./docs/ops/concurrency_analysis.md) - Bottleneck & Risk Analysis
+- [PARAMETERS.json](./docs/ops/PARAMETERS.json) - System Parameters
 
-### 🎯 Planning
+### 🎯 Planning & Concepts
 - [PROTOTYPE_ROADMAP.md](./docs/planning/PROTOTYPE_ROADMAP.md) - 4-Week Technical Roadmap
 - [success_evaluation.md](./docs/planning/success_evaluation.md) - Success Metrics & Red Flags
+- [INTERCEPTOR_M_concept_v1.md](./docs/concepts/INTERCEPTOR_M_concept_v1.md) - Initial Concept
+- [note_cadrage_CAO.md](./docs/concepts/note_cadrage_CAO.md) - CAD Framing Note
