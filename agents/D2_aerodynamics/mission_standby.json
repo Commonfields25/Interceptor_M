@@ -1,0 +1,14 @@
+{
+  "agent_id": "D2",
+  "role": "Agent D2",
+  "status": "waiting",
+  "waiting_for": "technical_parameters.json from D1 (Ingénierie)",
+  "instruction": "Ne pas commencer les spécifications techniques tant que D1 n'a pas livré les paramètres validés. Le fichier technical_parameters.json doit être disponible et approved avant toute progression sur les missions de D2.",
+  "current_mission": {
+    "id": "MISSION-D2-STANDBY",
+    "title": "En attente des paramètres techniques — Phase d'étude marché",
+    "objective": "Préparer l'environnement de travail et les dépendances, mais ne pas entamer les spécifications tant que les paramètres techniques ne sont pas définis par D1.",
+    "dependencies": ["technical_parameters.json (D1)"],
+    "blocked_since": "2026-06-24T14:50:00Z"
+  }
+}
