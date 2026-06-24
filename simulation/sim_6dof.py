@@ -168,7 +168,6 @@ def integrer(etat, alpha_rad, lat_accel_m_s2, dt):
     """
     Avance l'état d'un pas de temps dt (méthode d'Euler explicite).
     """
-   derivees(etat, alpha_rad, lat_accel_m_s2)
     dr = derivees(etat, alpha_rad, lat_accel_m_s2)
     pos = etat["position"]
     vel = etat["vitesse"]
