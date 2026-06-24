@@ -1,0 +1,571 @@
+{
+  "project": "Interceptor_M",
+  "version": "2.0",
+  "classification": "INTERNAL CONFIDENTIAL",
+  "updated": "2026-06-24",
+  "objective": "Développement de drones UAV multi-ligne (Civil, Industriel, Défense) avec agents IA autonomes coordinés. Cible commerciale : Europa + armasuisse.",
+  "parameters": {
+    "mass": {
+      "total_kg": 15.5,
+      "max_takeoff_kg": 24.9
+    },
+    "dimensions": {
+      "span_mm": 1200,
+      "length_mm": 950,
+      "height_mm": 310
+    },
+    "flight": {
+      "max_speed_kmh": 140,
+      "cruise_speed_kmh": 72,
+      "range_km": 35,
+      "endurance_min": 45,
+      "ceiling_m": 4000,
+      "payload_kg": 1.0,
+      "max_wind_kmh": 45
+    },
+    "propulsion": {
+      "thrust_per_motor_N": 4.0,
+      "motors_count": 4,
+      "battery_V": 22.2,
+      "esc_A": 60,
+      "propeller_inches": 17
+    },
+    "electronics": {
+      "flight_controller": "STM32H7 based",
+      "gps": "Dual band RTK",
+      "telemetry_freq_MHz": 915,
+      "camera_4k_kg": 0.35,
+      "waterproof_rating": "IP67"
+    },
+    "cost_targets": {
+      "prototype_EUR": 15000,
+      "series_production_EUR": 8000,
+      "target_margin_pct": 35
+    }
+  },
+  "products": [
+    {
+      "id": "CIVIL",
+      "name": "Drone Civil",
+      "use_cases": [
+        "Aerial Photography",
+        "Delivery",
+        "Agriculture"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "INDUSTRIAL",
+      "name": "Drone Industriel",
+      "use_cases": [
+        "Inspection",
+        "Surveillance",
+        "Thermal Imaging"
+      ],
+      "priority": "high",
+      "notes": "IP67 waterproof required"
+    },
+    {
+      "id": "DEFENSE",
+      "name": "Drone Défense",
+      "use_cases": [
+        "Interceptor Swarm",
+        "Compressed Air Launcher"
+      ],
+      "priority": "critical",
+      "classification": "CONFIDENTIAL",
+      "notes": "Zero external transmission without explicit DG validation"
+    }
+  ],
+  "roadmap": [
+    {
+      "phase": 0,
+      "name": "Brief Client",
+      "duration_days": 1,
+      "activities": [
+        "Requirements gathering",
+        "DG validation"
+      ],
+      "gate": "G0"
+    },
+    {
+      "phase": 1,
+      "name": "Concept",
+      "duration_days": 7,
+      "activities": [
+        "3D concept explorations (D1+D2+D3)",
+        "Structural screening (E1)",
+        "Propulsion check (E2)",
+        "Electronics review (E3)",
+        "Collective debrief",
+        "DG GO/NO-GO"
+      ],
+      "gate": "G1"
+    },
+    {
+      "phase": 2,
+      "name": "CAO Détaillée",
+      "duration_days": 12,
+      "activities": [
+        "Detailed CAD (D1 lead)",
+        "NDC + FEA iteration (E1)",
+        "Propulsion specs validated (E2)",
+        "Electronic schematics (E3)",
+        "Payload integration (D2)",
+        "CAD integrates all feedback",
+        "Collective debrief",
+        "DG GO/NO-GO"
+      ],
+      "gate": "G2"
+    },
+    {
+      "phase": 3,
+      "name": "Simulation",
+      "duration_days": 9,
+      "activities": [
+        "Full FEA stress/fatigue/vibration (E1)",
+        "Flight performance sim (E1+E2)",
+        "EMI + thermal sim (E3)",
+        "ML-driven topology optimization (D3)",
+        "Collective debrief",
+        "DG GO/NO-GO"
+      ],
+      "gate": "G3"
+    },
+    {
+      "phase": 4,
+      "name": "Prototype",
+      "duration_days": 34,
+      "activities": [
+        "Prototype package preparation (D1+E1)",
+        "Physical fabrication",
+        "QC checks",
+        "Lessons learned",
+        "DG GO/NO-GO Production"
+      ],
+      "gate": "G4"
+    },
+    {
+      "phase": 5,
+      "name": "Production",
+      "duration_days": null,
+      "activities": [
+        "Business case finalization",
+        "Series production",
+        "armasuisse delivery"
+      ],
+      "gate": "G5"
+    }
+  ],
+  "workflow": {
+    "handoffs": [
+      {
+        "id": "H1",
+        "from": [
+          "D1",
+          "D2",
+          "D3"
+        ],
+        "to": [
+          "E1",
+          "E2",
+          "E3"
+        ],
+        "file": "BRIEF_CONCEPT_v{VER}.pdf",
+        "sla_days": 1,
+        "review": "Agent Manager"
+      },
+      {
+        "id": "H2",
+        "from": [
+          "E1"
+        ],
+        "to": [
+          "D1"
+        ],
+        "file": "NDC_STRUCT_v{VER}.xlsx",
+        "sla_days": 3,
+        "review": "Peer E2 check"
+      },
+      {
+        "id": "H2b",
+        "from": [
+          "E2"
+        ],
+        "to": [
+          "D1"
+        ],
+        "file": "SPECS_PROPULSION_v{VER}.xlsx",
+        "sla_days": 3,
+        "review": "E1 sign-off"
+      },
+      {
+        "id": "H2c",
+        "from": [
+          "E3"
+        ],
+        "to": [
+          "D2"
+        ],
+        "file": "SCHEMATIC_ELEC_v{VER}.pdf",
+        "sla_days": 3,
+        "review": "D2 sign-off"
+      },
+      {
+        "id": "H3",
+        "from": [
+          "D1"
+        ],
+        "to": [
+          "E1"
+        ],
+        "file": "CAD_REVISED_v{VER}.SLDPRT",
+        "sla_days": 5,
+        "review": "E1 approval"
+      },
+      {
+        "id": "H4",
+        "from": [
+          "D1"
+        ],
+        "to": [
+          "E1"
+        ],
+        "file": "SIM_GEOMETRY_v{VER}.SLDPRT",
+        "sla_days": 5,
+        "review": "E1 QC check"
+      },
+      {
+        "id": "H5",
+        "from": [
+          "E1"
+        ],
+        "to": [
+          "D1",
+          "DG"
+        ],
+        "file": "FEA_REPORT_v{VER}.pdf",
+        "sla_days": 8,
+        "review": "DG review",
+        "gate": "G3"
+      },
+      {
+        "id": "H6",
+        "from": [
+          "D1"
+        ],
+        "to": [
+          "E1",
+          "E2",
+          "E3",
+          "DG"
+        ],
+        "file": "CAD_RELEASE_v{VER}",
+        "sla_days": 10,
+        "review": "DG GO required",
+        "gate": "G2"
+      },
+      {
+        "id": "H7",
+        "from": [
+          "D1",
+          "E1",
+          "E2",
+          "E3"
+        ],
+        "to": [
+          "Proto"
+        ],
+        "file": "PROTOTYPE_PKG_v{VER}.zip",
+        "sla_days": 10,
+        "review": "Agent Manager"
+      }
+    ],
+    "naming_convention": {
+      "format": "{PRODUIT}_{PHASE}_{SECTION}_{AGENT}_{DATE}_v{VERSION}.{EXT}",
+      "examples": [
+        "CIVIL_Concept_Bras_D1_220626_v1.0.SLDPRT",
+        "DEFENSE_CAO_Lanceur_D3_220626_v2.1.SLDPRT",
+        "INDUSTRIAL_Sim_FEA_E1_220626_v1.0.pdf",
+        "CIVIL_BOM_Final_D1+E1+E2+E3_220626_v1.0.xlsx"
+      ],
+      "versioning": {
+        "v1.0": "Première version",
+        "v1.1": "Révision mineure (correction, léger adjustment)",
+        "v2.0": "Changement majeur (nouvelle géométrie, new specs)",
+        "vFINAL": "Version finale validée DG"
+      }
+    },
+    "peer_review_matrix": {
+      "description": "★ = obligatoire, ◦ = recommandé, — = pas de relation directe. Tout livrable passe par au moins 1 peer review avant transmission.",
+      "rules": [
+        "D1 revoit TOUJOURS les assemblies de D2/D3",
+        "E1 revoit TOUJOURS les NDC de E2/E3 (cohérence structurale)",
+        "Agent Manager revoit TOUS les livrables DG-facing"
+      ],
+      "matrix": {
+        "D1": {
+          "D1": "—",
+          "D2": "★",
+          "D3": "★",
+          "E1": "★",
+          "E2": "★",
+          "E3": "◦",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "D2": {
+          "D1": "★",
+          "D2": "—",
+          "D3": "◦",
+          "E1": "★",
+          "E2": "★",
+          "E3": "★",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "D3": {
+          "D1": "★",
+          "D2": "◦",
+          "D3": "—",
+          "E1": "★",
+          "E2": "◦",
+          "E3": "◦",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "E1": {
+          "D1": "★",
+          "D2": "★",
+          "D3": "★",
+          "E1": "—",
+          "E2": "★",
+          "E3": "★",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "E2": {
+          "D1": "★",
+          "D2": "★",
+          "D3": "◦",
+          "E1": "★",
+          "E2": "—",
+          "E3": "★",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "E3": {
+          "D1": "◦",
+          "D2": "★",
+          "D3": "◦",
+          "E1": "★",
+          "E2": "★",
+          "E3": "—",
+          "Mgr": "★",
+          "DG": "★"
+        },
+        "Mgr": {
+          "D1": "★",
+          "D2": "★",
+          "D3": "★",
+          "E1": "★",
+          "E2": "★",
+          "E3": "★",
+          "Mgr": "—",
+          "DG": "★"
+        }
+      }
+    },
+    "problem_resolution": {
+      "detection_methods": [
+        {
+          "type": "KPI Alert",
+          "channel": "Slack #ops-alerts",
+          "detected_by": "Agent Manager"
+        },
+        {
+          "type": "Agent Flag",
+          "channel": "Slack #problem-escalation",
+          "detected_by": "Any agent"
+        },
+        {
+          "type": "Peer Review Failure",
+          "channel": "Email + Slack",
+          "detected_by": "Peer reviewer"
+        },
+        {
+          "type": "Weekly Sync",
+          "channel": "Weekly meeting",
+          "detected_by": "Agent Manager"
+        },
+        {
+          "type": "DG Flag",
+          "channel": "Any channel",
+          "detected_by": "DG"
+        }
+      ],
+      "escalation_tree": {
+        "DESIGN": {
+          "contact": "D1",
+          "response_time_h": 24,
+          "fallback": "D2 or D3",
+          "emergency_meeting": "D1+D2+(E1 if structural) within 48h"
+        },
+        "ENGINEERING": {
+          "contact": "E1",
+          "response_time_h": 24,
+          "fallback": "E2 or E3",
+          "emergency_meeting": "E1+E2+E3+DG within 48h"
+        },
+        "PROCESS": {
+          "contact": "Agent Manager",
+          "response_time_h": 24,
+          "emergency_meeting": "Agent Manager + relevant agents within 48h"
+        }
+      },
+      "auto_actions": {
+        "gate_sla_exceeded": "Auto-NO-GO at gate SLA + 50% time"
+      }
+    },
+    "daily_weekly_rhythm": {
+      "daily": [
+        "Agent Manager publishes Daily Digest",
+        "All agents report KPIs",
+        "Blockers flagged in #problem-escalation"
+      ],
+      "weekly": [
+        "Weekly sync meeting (Agent Manager chair)",
+        "KPI dashboard review",
+        "Upcoming gates preparation"
+      ],
+      "per_phase_end": [
+        "Collective debrief (all agents)",
+        "Agent Manager synthesizes lessons learned",
+        "Prepare GO/NO-GO package for DG"
+      ]
+    },
+    "aiml_integration": {
+      "topology_optimization": {
+        "agents": [
+          "D1",
+          "D3"
+        ],
+        "tools": [
+          "PyTorch",
+          "Isaac Gym"
+        ],
+        "description": "ML-driven design exploration"
+      },
+      "predictive_maintenance": {
+        "agents": [
+          "E3"
+        ],
+        "tools": [
+          "PyTorch",
+          "TensorRT"
+        ],
+        "description": "Failure prediction for ESC/motor"
+      },
+      "flight_performance_prediction": {
+        "agents": [
+          "E2"
+        ],
+        "tools": [
+          "TensorRT"
+        ],
+        "description": "Autonomy and performance models"
+      },
+      "simulation_versioning": {
+        "agents": [
+          "E1"
+        ],
+        "tools": [
+          "MLflow",
+          "DVC"
+        ],
+        "description": "Versioning résultats de simulation"
+      },
+      "firmware_inference": {
+        "agents": [
+          "E3"
+        ],
+        "tools": [
+          "TensorRT"
+        ],
+        "description": "Déploiement modèles embarqué"
+      }
+    }
+  },
+  "agents": [
+    {
+      "agent_id": "D1",
+      "role": "Lead Mechanical Designer",
+      "domain": "Design"
+    },
+    {
+      "agent_id": "D2",
+      "role": "Systems Designer",
+      "domain": "Design"
+    },
+    {
+      "agent_id": "D3",
+      "role": "Defense & Concept Design Specialist",
+      "domain": "Design"
+    },
+    {
+      "agent_id": "E1",
+      "role": "Responsable Mécanique Structures",
+      "domain": "Engineering"
+    },
+    {
+      "agent_id": "E2",
+      "role": "Responsable Propulsion",
+      "domain": "Engineering"
+    },
+    {
+      "agent_id": "E3",
+      "role": "Responsable Électronique & Firmware",
+      "domain": "Engineering"
+    },
+    {
+      "agent_id": "agent_manager",
+      "role": "Agent Manager",
+      "domain": "Coordination"
+    }
+  ],
+  "deleted_files": [
+    "BOT_GUIDELINES.md",
+    "OPERATIONS_WORKFLOW.md",
+    "OPERATIONS_WORKFLOW_V2.md",
+    "PROTOTYPE_ROADMAP.md",
+    "concurrency_analysis.md",
+    "guidelines.md",
+    "rules.md",
+    "success_evaluation.md",
+    "INTERCEPTOR_M_concept_v1.md",
+    "governance/BOT_GUIDELINES.md",
+    "governance/guidelines.md",
+    "governance/rules.md",
+    "note_cadrage_CAO.md",
+    "agents/D1/INSTRUCTIONS_D1.md",
+    "agents/D2/INSTRUCTIONS_D2.md",
+    "agents/D2/STATUS.md",
+    "agents/D3/INSTRUCTIONS_D3.md",
+    "agents/D3/STATUS.md",
+    "agents/E1/INSTRUCTIONS_E1.md",
+    "agents/E1/STATUS.md",
+    "agents/E2/INSTRUCTIONS_E2.md",
+    "agents/E2/STATUS.md",
+    "agents/E3/INSTRUCTIONS_E3.md",
+    "agents/E3/STATUS.md",
+    "agents/agent_manager/AGENT_MANAGER_RULES.md",
+    "agents/agent_manager/DECISION_LOG.md"
+  ],
+  "kept_files": [
+    "LICENSE",
+    "README.md",
+    "PARAMETERS.json",
+    "architecture_interceptor.pdf",
+    "note_cadrage_CAO.pdf"
+  ]
+}
