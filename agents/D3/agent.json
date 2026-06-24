@@ -1,162 +1,17 @@
 {
   "agent_id": "D3",
-  "role": "Defense & Concept Design Specialist",
-  "domain": "Mechanical Design",
-  "responsibilities": [
-    "Gardien du concept défense (intercepteurs essaim, lanceurs air comprimé)",
-    "Lead designer de toutes les nouvelles architectures conceptuelles",
-    "Production concepts avancés, designs déposables (patentable)",
-    "Proposals techniques pour armasuisse et appels d'offres défense",
-    "Lien design avec pipeline commercial défense",
-    "Renders et visualisations pour pitch deck et présentations commerciales"
-  ],
-  "inputs": [
-    {
-      "from": "DG",
-      "type": "brief_defense",
-      "description": "Brief armasuisse / call for tender"
-    },
-    {
-      "from": "E1",
-      "type": "structural_sizing",
-      "description": "Dimensionnement structurel lanceur"
-    },
-    {
-      "from": "E2",
-      "type": "micro_propulsion_specs",
-      "description": "Specs propulsion micro-drones"
-    },
-    {
-      "from": "E3",
-      "type": "miniature_electronics",
-      "description": "Électronique miniaturisée pour intercepteurs"
-    },
-    {
-      "from": "D1",
-      "type": "peer_review",
-      "description": "Cohérence avec designs existants"
-    }
-  ],
-  "outputs": [
-    {
-      "type": "advanced_concept",
-      "file_pattern": "DEFENSE_Concept_{TYPE}_D3_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "proposal_defense",
-      "file_pattern": "DEFENSE_Proposal_D3_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "swarm_architecture",
-      "file_pattern": "DEFENSE_Swarm_D3_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "launcher_design",
-      "file_pattern": "DEFENSE_Launcher_D3_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "rendering",
-      "file_pattern": "DEFENSE_Render_D3_{DATE}_v{VER}.png"
-    },
-    {
-      "type": "patent_docs",
-      "file_pattern": "DEFENSE_Patent_D3_{DATE}_v{VER}.pdf"
-    }
-  ],
-  "tools": [
-    {
-      "name": "SolidWorks (shared)",
-      "usage": "Concept design, early-stage 3D"
-    },
-    {
-      "name": "Fusion 360",
-      "usage": "Rapid concepting, design sketching 3D"
-    },
-    {
-      "name": "Autodesk Sketchbook",
-      "usage": "Conceptual sketching, storyboarding"
-    },
-    {
-      "name": "Python (matplotlib, PIL)",
-      "usage": "Visualisation, rendu rapide de concepts"
-    },
-    {
-      "name": "Blender",
-      "usage": "Rendu visuel conceptuel, animation"
-    },
-    {
-      "name": "PyTorch / Isaac Gym",
-      "usage": "ML-driven topology optimization défensive"
-    }
-  ],
-  "dependencies": [
-    "D1",
-    "E1",
-    "E2",
-    "E3"
-  ],
-  "current_tasks": [],
-  "status": "active",
-  "kpis": [
-    {
-      "metric": "concepts_delivered_on_time",
-      "target": ">=90%",
-      "alert_below": "<80%",
-      "frequency": "per_proposal"
-    },
-    {
-      "metric": "visual_renders_for_pitch_deck",
-      "target": ">=1/week",
-      "frequency": "weekly"
-    },
-    {
-      "metric": "defense_concepts_validated_dg",
-      "target": "100%",
-      "frequency": "per_submission"
-    },
-    {
-      "metric": "new_patent_designs_per_quarter",
-      "target": ">=1",
-      "frequency": "quarterly"
-    },
-    {
-      "metric": "avg_concept_to_proposal_time",
-      "target": "<=5 days",
-      "alert_above": ">7 days",
-      "frequency": "per_proposal"
-    }
-  ],
-  "handoffs": [
-    {
-      "to": "E1",
-      "deliverable": "CONCEPT_LANCEUR",
-      "sla_days": 3,
-      "review_required": "E1 sign"
-    },
-    {
-      "to": "E2",
-      "deliverable": "CONCEPT_MICRO_DRONE",
-      "sla_days": 3,
-      "review_required": "E2 sign"
-    },
-    {
-      "to": "E3",
-      "deliverable": "CONCEPT_AVIONICS",
-      "sla_days": 3,
-      "review_required": "E3 sign"
-    },
-    {
-      "to": "D1",
-      "deliverable": "CONCEPT_FOR_PEER_REVIEW",
-      "sla_days": 5,
-      "review_required": "D1 mandatory review"
-    },
-    {
-      "to": "DG",
-      "deliverable": "CONCEPT_DEFENSE_RELEASE",
-      "sla_days": 7,
-      "review_required": "DG GO required",
-      "gate": "G6"
-    }
-  ]
+  "role": "Conception Structurelle",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-003",
+    "title": "Conception de la structure mécanique principale",
+    "description": "Concevoir la structure mécanique principale de l'Interceptor_M : fuselage, matériaux sélectionnés (fibres de carbone / aluminium), points de fixation moteur, répartition des charges. Définir les contraintes admissibles et produire un blueprint structurel传给 E1 (intégration propulsion).",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/D3/structure_blueprint.md",
+    "dependencies": ["MISSION-001"]
+  },
+  "capabilities": ["conception mécanique", "CAE", "simulation matériaux"],
+  "last_updated": "2026-06-24T14:37:00Z"
 }
