@@ -1,158 +1,17 @@
 {
   "agent_id": "E1",
-  "role": "Responsable Mécanique Structures",
-  "domain": "Engineering",
-  "responsibilities": [
-    "Dimensionnement chaque composant structural du drone (bras, fuselage, supports moteur, tray)",
-    "Garant que les designs survive aux charges de vol et contraintes environnementales",
-    "Analyse éléments finis (FEA) : contrainte Von Mises, facteur de sécurité, déformation, modes propres",
-    "Simulation fatigue et vibration",
-    "Production notes de calcul (NDC) signées par élément structurel",
-    "Validation BOM (masses, matériaux, fournisseurs)"
-  ],
-  "inputs": [
-    {
-      "from": "D1",
-      "type": "cad_concept",
-      "description": "Concept 3D pour dimensionnement structural"
-    },
-    {
-      "from": "D2",
-      "type": "payload_inputs",
-      "description": "Contraintes d'emport et interfaces"
-    },
-    {
-      "from": "D3",
-      "type": "launcher_concept",
-      "description": "Concept lanceur pour dimensionnement pression"
-    },
-    {
-      "from": "E2",
-      "type": "loads_propulsion",
-      "description": "Charges et masses pour calcul thrust needed"
-    },
-    {
-      "from": "E3",
-      "type": "thermal_constraints",
-      "description": "Contraintes thermiques et vibration pour fatigue"
-    }
-  ],
-  "outputs": [
-    {
-      "type": "ndc",
-      "file_pattern": "{PRODUIT}_NDC_Struct_{ELEMENT}_E1_{DATE}_v{VER}.xlsx"
-    },
-    {
-      "type": "fea_report",
-      "file_pattern": "{PRODUIT}_FEA_E1_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "bom_validated",
-      "file_pattern": "{PRODUIT}_BOM_Validated_E1_{DATE}_v{VER}.xlsx"
-    },
-    {
-      "type": "cad_simplified",
-      "file_pattern": "{PRODUIT}_SimModel_E1_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "topo_optimization",
-      "file_pattern": "{PRODUIT}_TopoOpt_E1_{DATE}_v{VER}.SLDPRT"
-    }
-  ],
-  "tools": [
-    {
-      "name": "SolidWorks Simulation / Simulation Premium",
-      "usage": "FEA",
-      "shared_seat": "D1"
-    },
-    {
-      "name": "Fusion 360 Simulation",
-      "usage": "Validation secondaire / collaboration"
-    },
-    {
-      "name": "ANSYS Mechanical",
-      "usage": "FEA avancée, non-linéaire"
-    },
-    {
-      "name": "Python + NumPy/SciPy",
-      "usage": "Post-processing données de simulation"
-    },
-    {
-      "name": "MLflow",
-      "usage": "Versioning résultats de simulation"
-    },
-    {
-      "name": "Excel / Google Sheets",
-      "usage": "Tableaux de dimensionnement"
-    }
-  ],
-  "dependencies": [
-    "D1",
-    "D2",
-    "D3",
-    "E2",
-    "E3"
-  ],
-  "current_tasks": [],
-  "status": "active",
-  "kpis": [
-    {
-      "metric": "ndc_delivered_on_time",
-      "target": ">=90%",
-      "alert_below": "<80%",
-      "frequency": "weekly"
-    },
-    {
-      "metric": "redesign_iterations_per_component",
-      "target": "<=3",
-      "alert_above": ">5",
-      "frequency": "per_project"
-    },
-    {
-      "metric": "avg_simulation_time_per_component",
-      "target": "<=4h",
-      "alert_above": ">6h",
-      "frequency": "monthly"
-    },
-    {
-      "metric": "fea_first_pass_validation",
-      "target": ">=85%",
-      "alert_below": "<70%",
-      "frequency": "per_deliverable"
-    },
-    {
-      "metric": "cad_transmitted_to_e2_within_24h",
-      "target": ">=95%",
-      "alert_below": "<90%",
-      "frequency": "daily"
-    }
-  ],
-  "handoffs": [
-    {
-      "to": "D1",
-      "deliverable": "NDC_VALIDATED",
-      "sla_days": 3,
-      "review_required": "Peer E2 check"
-    },
-    {
-      "to": "D1",
-      "deliverable": "FEA_REPORT",
-      "sla_days": 8,
-      "review_required": "DG review",
-      "gate": "G3"
-    },
-    {
-      "to": "D3",
-      "deliverable": "NDC_LANCEUR",
-      "sla_days": 3,
-      "review_required": "E1 sign",
-      "for_defense": true
-    },
-    {
-      "to": "AgentManager",
-      "deliverable": "KPI_REPORT",
-      "frequency": "daily",
-      "review_required": "Agent Manager"
-    }
-  ]
+  "role": "Propulsion & Énergie",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-004",
+    "title": "Calcul de la poussée nécessaire et sélection du système de propulsion",
+    "description": "Calculer la poussée nécessaire pour l'Interceptor_M en fonction des specs aerodynamiques. Sélectionner le type de propulsion optimal (EDF, turbine électrique, hybride) — évaluer puissance, poids, efficacité, bruit. Proposer une architecture propulsion complète avec intégration structurelle.",
+    "priority": "critical",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/E1/propulsion_analysis.md",
+    "dependencies": ["MISSION-001", "MISSION-003"]
+  },
+  "capabilities": ["propulsion", "thermodynamique", "simulation moteur"],
+  "last_updated": "2026-06-24T14:37:00Z"
 }
