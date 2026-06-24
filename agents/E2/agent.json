@@ -1,157 +1,17 @@
 {
   "agent_id": "E2",
-  "role": "Responsable Propulsion",
-  "domain": "Engineering",
-  "responsibilities": [
-    "Dimensionnement motorisation pour chaque configuration de vol (poids total, autonomie, plafond)",
-    "Sélection composants propulsion : moteurs brushless, ESC, hélices, batteries",
-    "Spécifications techniques buy-or-build par composant",
-    "Sélection fournisseurs et intégration propulsion-structure",
-    "Production courbes de performance (thrust vs RPM, puissance, autonomie)",
-    "Configuration fichiers ESC (Betaflight/iNav)"
-  ],
-  "inputs": [
-    {
-      "from": "D1",
-      "type": "cad_constraints",
-      "description": "Spécifications contraintes structurelles et Emport"
-    },
-    {
-      "from": "E1",
-      "type": "loads_mass",
-      "description": "Charges et masses pour calcul thrust needed"
-    },
-    {
-      "from": "E3",
-      "type": "thermal_integration",
-      "description": "Intégration thermique moteur/batterie"
-    },
-    {
-      "from": "D2",
-      "type": "cooling_design",
-      "description": "Design système de refroidissement moteur"
-    }
-  ],
-  "outputs": [
-    {
-      "type": "propulsion_selection_dossier",
-      "file_pattern": "{PRODUIT}_Propulsion_E2_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "performance_curves",
-      "file_pattern": "{PRODUIT}_PerfCurves_E2_{DATE}_v{VER}.png"
-    },
-    {
-      "type": "bom_propulsion",
-      "file_pattern": "{PRODUIT}_BOM_Prop_E2_{DATE}_v{VER}.xlsx"
-    },
-    {
-      "type": "esc_config",
-      "file_pattern": "{PRODUIT}_ESC_Config_E2_{DATE}_v{VER}.txt"
-    },
-    {
-      "type": "battery_specs",
-      "file_pattern": "{PRODUIT}_Battery_E2_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "motor_test_report",
-      "file_pattern": "{PRODUIT}_MotorTest_E2_{DATE}_v{VER}.pdf"
-    }
-  ],
-  "tools": [
-    {
-      "name": "SolidWorks (shared)",
-      "usage": "Modélisation composants propulsion"
-    },
-    {
-      "name": "Excel / Google Sheets",
-      "usage": "Tableaux de sélection moteur, courbes thrust/poids"
-    },
-    {
-      "name": "Python (matplotlib, pandas)",
-      "usage": "Modélisation performance, analyse données vol"
-    },
-    {
-      "name": "eCalc / Motor Calculator",
-      "usage": "Pré-dimensionnement rapide moteur/hélice"
-    },
-    {
-      "name": "LMS Amesim / Simscape",
-      "usage": "Simulation système de propulsion"
-    },
-    {
-      "name": "TensorRT",
-      "usage": "Modèles de prédiction performance"
-    },
-    {
-      "name": "Isaac Gym (RL)",
-      "usage": "Optimisation politique de contrôle moteur"
-    }
-  ],
-  "dependencies": [
-    "D1",
-    "D2",
-    "E1",
-    "E3"
-  ],
-  "current_tasks": [],
-  "status": "active",
-  "kpis": [
-    {
-      "metric": "propulsion_selection_time_per_config",
-      "target": "<=2 days",
-      "alert_above": ">3 days",
-      "frequency": "per_project"
-    },
-    {
-      "metric": "propulsion_specs_first_pass_validation",
-      "target": ">=90%",
-      "alert_below": "<80%",
-      "frequency": "per_deliverable"
-    },
-    {
-      "metric": "suppliers_identified_per_component",
-      "target": ">=2",
-      "frequency": "per_component"
-    },
-    {
-      "metric": "esc_files_transmitted_to_d1_within_48h",
-      "target": ">=95%",
-      "alert_below": "<90%",
-      "frequency": "per_deliverable"
-    },
-    {
-      "metric": "autonomy_prediction_accuracy",
-      "target": "+-10%",
-      "alert_above": ">20%",
-      "frequency": "per_test"
-    }
-  ],
-  "handoffs": [
-    {
-      "to": "D1",
-      "deliverable": "SPECS_PROPULSION",
-      "sla_days": 3,
-      "review_required": "E1 sign-off"
-    },
-    {
-      "to": "D1",
-      "deliverable": "CAD_PROPULSION",
-      "sla_days": 5,
-      "review_required": "E2 sign",
-      "gate": "G2"
-    },
-    {
-      "to": "E1",
-      "deliverable": "LOADS_AND_MASS",
-      "frequency": "daily",
-      "review_required": "E1"
-    },
-    {
-      "to": "AgentManager",
-      "deliverable": "PIPELINE_EU_SPECS",
-      "frequency": "weekly",
-      "for_defense": true
-    }
-  ]
+  "role": "Avionique & Électronique",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-005",
+    "title": "Architecture avionique — capteurs et liaison datalink",
+    "description": "Définir l'architecture avionique complète : capteurs IMU (accéléromètres + gyroscopes), récepteur GPS, tube Pitot, liaison datalink (radio). Dimensionner le câblage, l'alimentation électrique, et proposer le hardware board sélectionné (Pixhawk, NAVIO, ou équivalent).",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/E2/avionics_architecture.md",
+    "dependencies": ["MISSION-001"]
+  },
+  "capabilities": ["électronique embarquée", "systèmes de navigation", "radiocommunication"],
+  "last_updated": "2026-06-24T14:37:00Z"
 }
