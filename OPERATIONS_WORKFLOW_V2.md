@@ -821,20 +821,22 @@ PHASE 7: PRODUCTION
 
 ### 4.1 Tableau récapitulatif — Tous les GO/NO-GO
 
-| Gate # | EN Name | FR Nom | Phase | Who triggers | DG SLA | Auto-action if no response |
+| Gate # | EN Name | FR Nom | Phase | Who triggers | Validator & SLA | Auto-action if no response |
 |---|---|---|---|---|---|---|
-| **G0** | Project Initiation | Lancement Projet | 0 | DG/Commercial | 24h | NO-GO — project cannot start |
-| **G1** | Brief Validation | Validation du Brief | Brief | Agent Manager | 24h | Auto-proceed if no objection |
-| **G2** | Concept Selection | Sélection du Concept | 1 | D1/D2/D3 | 48h | Concept frozen at last approved version |
-| **G3** | NDC Validation | Validation NDC | 2 | E1 | 48h | NDC frozen at last version |
-| **G4** | CAO Validation | Validation CAO | 3 | D1 | 48h | CAO frozen |
-| **G5** | Simulation GO | GO Simulation | 4 | E1 | 48h | Simulation delayed 1 week |
-| **G6** | Simulation Results | Résultats Simulation | 4 | E1 | 48h | Results logged as preliminary |
-| **G7** | Prototype GO | GO Prototype | 5 | E1+E2+E3 | 72h | Prototype phase skipped (jump to test) |
-| **G8** | Test Results Validation | Validation Résultats Tests | 6 | E1 | 48h | Test results logged as preliminary |
-| **G9** | Production GO | GO Production | 7 | DG | 72h | Production on hold |
-| **G10** | Commercial Offer | Offre Commerciale | Commercial | Commercial | 24h | Offer at client's risk |
-| **G11** | Emergency Response | Réponse Urgence | Emergency | Agent Manager | 2h | Emergency protocol activated |
+| **G0** | Project Initiation | Lancement Projet | 0 | DG/Commercial | DG (24h) | NO-GO — project cannot start |
+| **G1** | Brief Validation | Validation du Brief | Brief | Agent Manager | AM/AC* or DG (24h) | Auto-proceed if no objection |
+| **G2** | Concept Selection | Sélection du Concept | 1 | D1/D2/D3 | DG (48h) | Concept frozen at last approved version |
+| **G3** | NDC Validation | Validation NDC | 2 | E1 | DG (48h) | NDC frozen at last version |
+| **G4** | CAO Validation | Validation CAO | 3 | D1 | DG (48h) | CAO frozen |
+| **G5** | Simulation GO | GO Simulation | 4 | E1 | AM/AC* or DG (48h) | Simulation delayed 1 week |
+| **G6** | Simulation Results | Résultats Simulation | 4 | E1 | DG (48h) | Results logged as preliminary |
+| **G7** | Prototype GO | GO Prototype | 5 | E1+E2+E3 | DG (72h) | Prototype phase skipped (jump to test) |
+| **G8** | Test Results Validation | Validation Résultats Tests | 6 | E1 | AM/AC* or DG (48h) | Test results logged as preliminary |
+| **G9** | Production GO | GO Production | 7 | DG | DG (72h) | Production on hold |
+| **G10** | Commercial Offer | Offre Commerciale | Commercial | Commercial | DG (24h) | Offer at client's risk |
+| **G11** | Emergency Response | Réponse Urgence | Emergency | Agent Manager | DG (2h) | Emergency protocol activated |
+
+*\*Note sur la délégation (Seuils de Performance v1.2) :* La validation des Gates G1, G5 et G8 est déléguée par défaut à l'Agent Manager (AM) ou à l'Agent Amélioration Continue (AC) tant que le taux de livraison dans les délais (On-time rate) >= 85% et le taux de complétion des peer reviews >= 80%. Si les KPIs chutent en dessous de ces seuils, l'autorité de validation de ces Gates revient immédiatement et exclusivement au DG.
 
 ### 4.2 Format d'information reçu par DG à chaque GO
 
