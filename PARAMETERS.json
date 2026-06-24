@@ -1,0 +1,9 @@
+{
+  "tube_diameter_mm": 40.0,
+  "fuselage_outer_diameter_mm": 35.0,
+  "arm_length_mm": 75.0,
+  "wing_chord_mm": 60.0,
+  "fasteners": ["M2", "M3"],
+  "motor_mount_mm": [9.0, 12.0],
+  "mtow_g": 250.0
+}
