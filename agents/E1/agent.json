@@ -5,7 +5,7 @@
   "current_mission": {
     "id": "MISSION-004",
     "title": "Calcul de la poussée nécessaire et sélection du système de propulsion",
-    "description": "Calculer la poussée nécessaire pour l'Interceptor_M en fonction des specs aerodynamic. Sélectionner le type de propulsion optimal (EDF, turbine électrique, hybride) — évaluer puissance, poids, efficiency, bruit. Proposer une architecture propulsion complète avec intégration structurelle.",
+    "description": "Calculer la poussée nécessaire pour l'Interceptor_M en fonction des specs aerodynamiques. Sélectionner le type de propulsion optimal (EDF, turbine électrique, hybride) — évaluer puissance, poids, efficacité, bruit. Proposer une architecture propulsion complète avec intégration structurelle.",
     "priority": "critical",
     "assigned_at": "2026-06-24T14:37:00Z",
     "deadline": "2026-07-01T00:00:00Z",
