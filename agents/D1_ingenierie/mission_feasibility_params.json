@@ -1,0 +1,40 @@
+{
+  "agent_id": "D1",
+  "role": "Ingénierie — Définition des Paramètres",
+  "status": "standby",
+  "mission": {
+    "id": "MISSION-D1-PARAM-001",
+    "title": "Définition des paramètres techniques de faisabilité — Prototype Interceptor_M",
+    "objective": "Définir les paramètres techniques clés du prototype intercepteur sur la base des opportunités de marché identifiées par E1. Ce document servira de référence pour D2 (aérodynamisme), D3 (propulsion), E2 (électronique) et E3 (intégration système).",
+    "key_questions": [
+      "Quel type de cibles le système doit-il intercepter (drone, missile subsonique/supersonique, avion) ?",
+      "Quelle plage de vitesse de la cible (MACH) ?",
+      "Quelle altitude d'engagement (basse <3km, moyenne, haute) ?",
+      "Quelle portée d'interception (courte <10km, moyenne, longue) ?",
+      "Quelle est la plateforme de lancement (sol, naval, aérien, véhicule) ?",
+      "Quel système de guidage (radar actif, infrarouge, laser, GPS/INS, réseau) ?",
+      "Quelle charge utile (fragmentation, blast, KKV cinétique) ?",
+      "Quelles sont les contraintes de poids et dimensions (enveloppe) ?",
+      "Quel budget unitaire cible (coût par unité) ?"
+    ],
+    "deliverable": {
+      "file": "technical_parameters.json",
+      "format": "structured JSON",
+      "sections": {
+        "target_specification": "Spécifications des cibles visées",
+        "engagement_envelope": "Envelope d'engagement (portée, altitude, vitesse)",
+        "launch_platform": "Plateforme de lancement",
+        "guidance_system": "Système de guidage retenu",
+        "payload": "Charge utile et efectos",
+        "physical_constraints": "Contraintes poids/dimensions",
+        "cost_target": "Budget cible par unité",
+        "manufacturing_constraints": "Contraintes de fabrication et délais"
+      }
+    },
+    "dependencies": ["E1_market_opportunity_report"],
+    "priority": "critical",
+    "assigned_at": "2026-06-24T14:50:00Z",
+    "deadline": "TBD",
+    "note": "Tous les paramètres demeurent TBD jusqu'à la livraison du rapport de marché par E1"
+  }
+}
