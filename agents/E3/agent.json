@@ -1,164 +1,17 @@
 {
   "agent_id": "E3",
-  "role": "Responsable Électronique & Firmware",
-  "domain": "Engineering",
-  "responsibilities": [
-    "Dimensionnement et conception électronique du drone (FC, capteurs, power distribution, LEDs, radio)",
-    "Écriture et maintenance firmware contrôleurs de vol (Betaflight, INAV ou custom)",
-    "Garant de la compatibilité électromagnétique et fiabilité électrique",
-    "Schémas électroniques et PCB design",
-    "Protocoles de test électronique (checklists pré-vol, tests EMI)",
-    "Logs de vol analysés et modèles de maintenance prédictive"
-  ],
-  "inputs": [
-    {
-      "from": "D2",
-      "type": "enclosure_design",
-      "description": "Design enclosure électronique (caisson IP67)"
-    },
-    {
-      "from": "D3",
-      "type": "payload_electronics",
-      "description": "Intégration payload électronique (caméra, capteurs)"
-    },
-    {
-      "from": "E1",
-      "type": "mass_constraints",
-      "description": "Contraintes de masse et размещения pour electronics bays"
-    },
-    {
-      "from": "E2",
-      "type": "power_interface",
-      "description": "Interface power entre batterie, ESC, FC"
-    }
-  ],
-  "outputs": [
-    {
-      "type": "electronic_schematics",
-      "file_pattern": "{PRODUIT}_Schematic_{SUBSYSTEM}_E3_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "pcb_design",
-      "file_pattern": "{PRODUIT}_PCB_{SUBSYSTEM}_E3_{DATE}_v{VER}.kicad"
-    },
-    {
-      "type": "firmware_config",
-      "file_pattern": "{PRODUIT}_Firmware_{TYPE}_E3_{DATE}_v{VER}.hex"
-    },
-    {
-      "type": "cable_specs",
-      "file_pattern": "{PRODUIT}_Cables_E3_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "test_protocol",
-      "file_pattern": "{PRODUIT}_TestProtocol_E3_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "flight_log_analysis",
-      "file_pattern": "{PRODUIT}_LogAnalysis_E3_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "predictive_maintenance_model",
-      "file_pattern": "{PRODUIT}_PredictiveModel_E3_{DATE}_v{VER}.pt"
-    }
-  ],
-  "tools": [
-    {
-      "name": "KiCad",
-      "usage": "Schémas électroniques et PCB design"
-    },
-    {
-      "name": "SolidWorks Electrical 3D",
-      "usage": "Routing câbles dans CAO"
-    },
-    {
-      "name": "Arduino IDE / PlatformIO",
-      "usage": "Prototypage firmware"
-    },
-    {
-      "name": "Betaflight / INAV Configurator",
-      "usage": "Configuration firmware drone"
-    },
-    {
-      "name": "Python (pymavlink, DroneKit)",
-      "usage": "Scripts de test et analyse logs vol"
-    },
-    {
-      "name": "DVC",
-      "usage": "Versioning firmware et datasets de vol"
-    },
-    {
-      "name": "PyTorch",
-      "usage": "Modèles de prédiction défaillance composants"
-    },
-    {
-      "name": "TensorRT",
-      "usage": "Déploiement modèles inference embarqué"
-    }
-  ],
-  "dependencies": [
-    "D2",
-    "D3",
-    "E1",
-    "E2"
-  ],
-  "current_tasks": [],
-  "status": "active",
-  "kpis": [
-    {
-      "metric": "firmware_validated_before_inaugural_flight",
-      "target": "100%",
-      "frequency": "per_project"
-    },
-    {
-      "metric": "bug_resolution_time",
-      "target": "<=48h",
-      "alert_above": ">72h",
-      "frequency": "per_incident"
-    },
-    {
-      "metric": "electronic_components_sourced",
-      "target": ">=95%",
-      "alert_below": "<90%",
-      "frequency": "weekly"
-    },
-    {
-      "metric": "flight_logs_analyzed_within_24h",
-      "target": ">=90%",
-      "alert_below": ">48h",
-      "frequency": "per_flight"
-    },
-    {
-      "metric": "failure_prediction_accuracy",
-      "target": ">=80%",
-      "alert_below": "<75%",
-      "frequency": "monthly"
-    }
-  ],
-  "handoffs": [
-    {
-      "to": "D2",
-      "deliverable": "SCHEMATIC_ELEC",
-      "sla_days": 3,
-      "review_required": "D2 sign-off"
-    },
-    {
-      "to": "D1",
-      "deliverable": "ELECTRONICS_BAY_CAD_INPUTS",
-      "sla_days": 5,
-      "review_required": "D1"
-    },
-    {
-      "to": "E2",
-      "deliverable": "POWER_INTERFACE_SPECS",
-      "frequency": "daily",
-      "review_required": "E2"
-    },
-    {
-      "to": "AgentManager",
-      "deliverable": "INTEGRATION_REPORT",
-      "frequency": "weekly",
-      "review_required": "Agent Manager"
-    }
-  ]
+  "role": "Logiciel & Autonomie",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-006",
+    "title": "Module de contrôle de vol autonome — PID baseline et modes de vol",
+    "description": "Écrire le module de contrôle de vol autonome : PID baseline (roll, pitch, yaw, altitude hold), définition des modes de vol (stabilize, altitude hold, waypoint, return-to-launch). Définir l'architecture logicielle (PX4, ArduPilot, ou custom), l'interface de communication avec E2, et les tests de validation.",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/E3/flight_control_poc.py",
+    "dependencies": ["MISSION-005"]
+  },
+  "capabilities": ["contrôle automatique", "firmware embarqué", "intelligence artificielle"],
+  "last_updated": "2026-06-24T14:37:00Z"
 }
