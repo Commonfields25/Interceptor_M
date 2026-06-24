@@ -1,140 +1,17 @@
 {
   "agent_id": "D2",
-  "role": "Systems Designer",
-  "domain": "Mechanical Design",
-  "responsibilities": [
-    "Intégration des sous-systèmes dans le design global (électronique, propulsion, payload)",
-    "Gestion des interfaces mécaniques entre sous-systèmes",
-    "Conception systèmes d'emport (payloads) pour drones industriels et civils",
-    "Garant de la modularité du design (standardized payload rails, quick-release)",
-    "Design système de refroidissement actif et passif",
-    "Études d'emport (centrage gravité, inertie, stabilité vol)",
-    "Design waterproofing (joints, presses, IP67 pour inspection drones)"
-  ],
-  "inputs": [
-    {
-      "from": "E1",
-      "type": "structural_validation",
-      "description": "Validation structural payload integration"
-    },
-    {
-      "from": "E2",
-      "type": "cooling_interface",
-      "description": "Interface refroidissement moteur"
-    },
-    {
-      "from": "E3",
-      "type": "electronics_enclosure",
-      "description": "Design enclosure électronique co-design"
-    },
-    {
-      "from": "D1",
-      "type": "main_structure",
-      "description": "CAO structure principale pour intégration"
-    },
-    {
-      "from": "D3",
-      "type": "payload_specialized",
-      "description": "Design payload spécialisé (inspection, agriculture)"
-    }
-  ],
-  "outputs": [
-    {
-      "type": "subsystems_design",
-      "file_pattern": "{PRODUIT}_Subsystems_D2_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "interface_control_drawing",
-      "file_pattern": "{PRODUIT}_Interface_D2_{DATE}_v{VER}.pdf"
-    },
-    {
-      "type": "payload_mount_design",
-      "file_pattern": "{PRODUIT}_PayloadMount_D2_{DATE}_v{VER}.SLDPRT"
-    },
-    {
-      "type": "cg_study",
-      "file_pattern": "{PRODUIT}_CG_Study_D2_{DATE}_v{VER}.xlsx"
-    },
-    {
-      "type": "waterproof_design",
-      "file_pattern": "{PRODUIT}_IP67_D2_{DATE}_v{VER}.SLDPRT"
-    }
-  ],
-  "tools": [
-    {
-      "name": "SolidWorks (shared with D1)",
-      "usage": "Design subsystems, payload integration"
-    },
-    {
-      "name": "Fusion 360",
-      "usage": "Collaboration, design alternatif"
-    },
-    {
-      "name": "Python (numpy, scipy)",
-      "usage": "Calculs d'interface, études d'intégration"
-    },
-    {
-      "name": "SolidWorks Tolerance Analysis",
-      "usage": "Analyse de tolérances"
-    }
-  ],
-  "dependencies": [
-    "D1",
-    "D3",
-    "E1",
-    "E2",
-    "E3"
-  ],
-  "current_tasks": [],
-  "status": "active",
-  "kpis": [
-    {
-      "metric": "interface_control_docs_delivered",
-      "target": ">=90%",
-      "alert_below": "<80%",
-      "frequency": "per_project"
-    },
-    {
-      "metric": "emport_designs_validated_cg",
-      "target": "100%",
-      "frequency": "per_configuration"
-    },
-    {
-      "metric": "interface_problem_resolution_time",
-      "target": "<=2 days",
-      "alert_above": ">3 days",
-      "frequency": "per_problem"
-    },
-    {
-      "metric": "modular_designs_reused",
-      "target": ">=3 projects",
-      "frequency": "quarterly"
-    },
-    {
-      "metric": "peer_reviews_d1_d2",
-      "target": ">=1/week",
-      "frequency": "weekly"
-    }
-  ],
-  "handoffs": [
-    {
-      "to": "E1",
-      "deliverable": "PAYLOAD_STRUCTURAL_INPUTS",
-      "sla_days": 3,
-      "review_required": "E1 sign"
-    },
-    {
-      "to": "D1",
-      "deliverable": "INTERFACE_DRAWINGS",
-      "sla_days": 8,
-      "review_required": "Peer E1"
-    },
-    {
-      "to": "DG",
-      "deliverable": "SUBSYSTEMS_RELEASE",
-      "sla_days": 10,
-      "review_required": "DG GO required",
-      "gate": "G2"
-    }
-  ]
+  "role": "Simulation Aérodynamique",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-002",
+    "title": "Simulation CFD simplifiée — 3 configurations d'aile candidates",
+    "description": "Simuler le comportement aérodynamique (CFD simplifié) pour 3 configurations d'aile candidates. Évaluer la portance (Cl), la traînée (Cd), le ratio Cl/Cd, et la stabilité pour chaque configuration. Comparer les résultats et recommander la configuration optimale.",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/D2/cfd_results.md",
+    "dependencies": ["MISSION-001"]
+  },
+  "capabilities": ["CFD", "simulation numérique", "analyse structurale"],
+  "last_updated": "2026-06-24T14:37:00Z"
 }
