@@ -11,6 +11,10 @@ Résultat : estimation de P(intercept) avec intervalle de confiance à 95 %
 (approximation gaussienne sur la proportion).
 
 Le nombre de tirages est défini par NB_TIRAGES dans constants.py.
+
+Performance: keep_traj=False par défaut dans simulate_engagement — la trajectoire
+n'est jamais construite pendant le Monte Carlo. Seuls les résultats agrégés
+(P_intercept, temps moyen) sont retournés.
 """
 
 import math
@@ -19,6 +23,17 @@ import statistics
 from . import constants as C
 from .sim_6dof import simulate_engagement
 from .flight_control_poc import loi_guidage
+
+# ------------------------------------------------------------------
+# Hot locals — bound once, reused in the inner loop
+# ------------------------------------------------------------------
+_P_MIN    = C.PORTEE_MIN_M
+_P_MAX    = C.PORTEE_MAX_M
+_ALT_MIN  = C.ALTITUDE_MIN_M
+_ALT_MAX  = C.ALTITUDE_MAX_M
+_V_REL_MAX = 0.3 * C.V_CIBLE_MAX_M_S
+_V_CIBLE  = C.V_CIBLE_MAX_M_S
+_ALPHA    = 0.05                   # rad — incidence pour portance initiale
 
 
 # =============================================================================
@@ -51,28 +66,22 @@ def tirer_config():
     --------
     dict — dictionnaire de paramètres d'engagement
     """
-    # --- Position et vitesse de l'interceptor ---
-    portee_m   = random.uniform(C.PORTEE_MIN_M, C.PORTEE_MAX_M)
-    alt_init_m = random.uniform(C.ALTITUDE_MIN_M, C.ALTITUDE_MAX_M)
+    alt_init_m  = random.uniform(_ALT_MIN, _ALT_MAX)
     cap_rad    = random.uniform(0.0, 2.0 * math.pi)
 
     pos_init_i = [0.0, 0.0, alt_init_m]
-    vel_init_i = C.V_CIBLE_MAX_M_S   # vitesse interceptor ≈ Mach 2
+    vel_init_i = _V_CIBLE   # vitesse interceptor ≈ Mach 2
 
-    # --- Cible : portée aléatoire dans E1, altitude aléatoire ---
-    portee_cibl_m   = random.uniform(C.PORTEE_MIN_M, C.PORTEE_MAX_M)
-    alt_cibl_m      = random.uniform(C.ALTITUDE_MIN_M, C.ALTITUDE_MAX_M)
-    cap_cibl_rad    = random.uniform(0.0, 2.0 * math.pi)
+    portee_cibl_m = random.uniform(_P_MIN, _P_MAX)
+    alt_cibl_m    = random.uniform(_ALT_MIN, _ALT_MAX)
+    cap_cibl_rad  = random.uniform(0.0, 2.0 * math.pi)
 
     pos_cible = [
         portee_cibl_m * math.cos(cap_cibl_rad),
         portee_cibl_m * math.sin(cap_cibl_rad),
         alt_cibl_m,
     ]
-    vel_cible_m_s = random.uniform(
-        0.3 * C.V_CIBLE_MAX_M_S,
-        C.V_CIBLE_MAX_M_S
-    )
+    vel_cible_m_s = random.uniform(_V_REL_MAX, _V_CIBLE)
     cap_cible_rad = random.uniform(0.0, 2.0 * math.pi)
 
     return {
@@ -101,7 +110,8 @@ def un_tirage():
         vel_cible_m_s = cfg["vel_cible_m_s"],
         cap_cible_rad = cfg["cap_cible_rad"],
         guidage_fn    = loi_guidage,
-        alpha_rad     = 0.05,      # rad — faible incidence pour portance initiale
+        alpha_rad     = _ALPHA,
+        keep_traj     = False,       # ← PERF: pas de trajectoire en MC
     )
     return res["intercept"]
 
@@ -135,10 +145,11 @@ def run_monte_carlo(nb_tirages=None, silencieux=False):
     if not silencieux:
         print(f"[Monte Carlo] Lancement de {nb_tirages} tirages...")
         print(f"  Enveloppe E1 : portée [{C.PORTEE_MIN_KM}–{C.PORTEE_MAX_KM} km], "
-              f"altitude [{C.ALTITUDE_MIN_M:.0f}–{C.ALTITUDE_MAX_M:.0f} m]")
+              f"altitude [{_ALT_MIN:.0f}–{_ALT_MAX:.0f} m]")
         print(f"  Accélération lat max : {C.ACCELERATION_LATERALE_MAX_G} g "
               f"({C.ACCELERATION_LATERALE_MAX_M_S2:.1f} m/s²)")
         print(f"  Gain PN : {C.GAIN_PN} | Pas de temps : {C.PAS_DE_TEMPS_S} s")
+        print(f"  keep_traj=False (trajectoires désactivées en MC)")
         print()
 
     succes       = 0
@@ -155,7 +166,8 @@ def run_monte_carlo(nb_tirages=None, silencieux=False):
             vel_cible_m_s = cfg["vel_cible_m_s"],
             cap_cible_rad = cfg["cap_cible_rad"],
             guidage_fn    = loi_guidage,
-            alpha_rad     = 0.05,
+            alpha_rad     = _ALPHA,
+            keep_traj     = False,    # ← PERF: pas de trajectoire en MC
         )
 
         if res["intercept"]:

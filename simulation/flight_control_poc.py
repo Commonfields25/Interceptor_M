@@ -1,24 +1,29 @@
 """
 simulation/flight_control_poc.py
-================================
-Loi de guidage Proportional Navigation (PN) avec commande bang-bang
-sur l'accélération latérale.
+===============================
+Loi de guidage par navigation proportionnelle (PN).
 
-Principe
---------
-On calcule la vitesse de rotation de la ligne de visée (LOS) entre
-l'interceptor et la cible. La PN commande une accélération latérale
-proportionnelle à cette vitesse de rotation, multipliée par le gain PN.
+La commande d'accélération latérale est proportionnelle à la vitesse angulaire
+de la ligne de visée (LOS) et à la vitesse relative interceptor–cible :
 
-Commande bang-bang : la saturation en accélération latérale est appliquée
-par le modèle de vol (sim_6dof.py) ; ici on возвращает le sinal brut
-qui sera saturé en aval.
+    a_cmd = N * |V_rel| * omega_LOS
 
-Fonction principale : proportional_navigation(etat_interceptor, etat_cible)
+où :
+  N      = gain de navigation (C.GAIN_PN)
+  V_rel  = vitesse relative interceptor – cible
+
 """
 
 import math
 from . import constants as C
+
+# ------------------------------------------------------------------
+# Hot locals — bound once, reused in every proportional_navigation() call
+# ------------------------------------------------------------------
+_GAIN_PN      = C.GAIN_PN
+_ACCEL_MAX    = C.ACCELERATION_LATERALE_MAX_M_S2
+_EPS          = 0.1            # minimum LOS norm (m)
+_EPS_SQ       = _EPS * _EPS
 
 
 # =============================================================================
@@ -26,25 +31,23 @@ from . import constants as C
 # =============================================================================
 def proportional_navigation(etat_interceptor, etat_cible):
     """
-    Calcule l'accélération latérale de commande selon la loi PN classique.
+    Calcule la commande d'accélération latérale par la loi PN.
 
     a_cmd = N * |V_rel| * omega_LOS
 
     où :
       N      = gain de navigation (C.GAIN_PN)
       V_rel  = vitesse relative interceptor – cible
-      omega_LOS = vitesse angulaire de la ligne de visée (LOS)
 
     Paramètres
     ----------
-    etat_interceptor : dict — état de l'interceptor (doit contenir "position", "vitesse")
-    etat_cible       : dict — état de la cible (doit contenir "position", "vitesse")
+    etat_interceptor : dict — état de l'interceptor (position, vitesse)
+    etat_cible       : dict — état de la cible (position, vitesse)
 
     Retourne
     --------
-    float — accélération latérale commandée en m/s² (signe : vers la cible)
+    float — accélération latérale commandée en m/s²
     """
-    # Vecteurs position et vitesse
     pos_i = etat_interceptor["position"]
     pos_c = etat_cible["position"]
     vel_i = etat_interceptor["vitesse"]
@@ -55,41 +58,49 @@ def proportional_navigation(etat_interceptor, etat_cible):
     los_y = pos_c[1] - pos_i[1]
     los_z = pos_c[2] - pos_i[2]
 
-    norme_los = math.sqrt(los_x**2 + los_y**2 + los_z**2)
-    if norme_los < 0.1:
-        return 0.0   # trop près — pas de guidage significatif
+    los_sq = los_x*los_x + los_y*los_y + los_z*los_z
+    if los_sq < _EPS_SQ:
+        return 0.0
+
+    norme_los = math.sqrt(los_sq)
 
     # Vitesse relative
     vrx = vel_i[0] - vel_c[0]
     vry = vel_i[1] - vel_c[1]
     vrz = vel_i[2] - vel_c[2]
 
-    # Produit croisé LOS × V_rel  (perpendiculaire au plan LOS)
-    cx = los_y * vrz - los_z * vry
-    cy = los_z * vrx - los_x * vrz
-    cz = los_x * vry - los_y * vrx
+    # Cross product LOS × V_rel (component along binormal)
+    omega_binorm = (los_x * vry - los_y * vrx)   # z-component only (planar)
+    # Note: full 3-D LOS rate would be (LOS × V_rel) / |LOS|²
+    # omega = cross(los, v_rel) / los_sq
+    omega_x = (los_y * vrz - los_z * vry) / los_sq
+    omega_y = (los_z * vrx - los_x * vrz) / los_sq
+    omega_z = (los_x * vry - los_y * vrx) / los_sq
 
-    # Dérivée de la LOS : (LOS × V_rel) / |LOS|²
-    omega_x = cx / (norme_los ** 2.0)
-    omega_y = cy / (norme_los ** 2.0)
-    omega_z = cz / (norme_los ** 2.0)
-
-    # Module de la vitesse de rotation LOS
-    omega_LOS = math.sqrt(omega_x**2 + omega_y**2 + omega_z**2)
+    # Module de la vitesse de rotation LOS (squared norm of rate vector)
+    omega_LOS = math.sqrt(omega_x*omega_x + omega_y*omega_y + omega_z*omega_z)
 
     # Vitesse relative module
-    v_rel = math.sqrt(vrx**2 + vry**2 + vrz**2)
+    v_rel = math.sqrt(vrx*vrx + vry*vry + vrz*vrz)
 
     # Commande PN : a = N * V_rel * omega_LOS
-    a_cmd = C.GAIN_PN * v_rel * omega_LOS
+    a_cmd = _GAIN_PN * v_rel * omega_LOS
 
-    # Direction : on projette sur le vecteur croisé LOS × omega_LOS
-    # pour déterminer le signe (gauche / droite du plan de collision)
     los_unit_x = los_x / norme_los
     los_unit_y = los_y / norme_los
     los_unit_z = los_z / norme_los
 
-    signe = (omega_y * los_unit_x - omega_x * los_unit_y)
+    # Sign from z-component of cross(LOS_unit, V_rel_unit) to get turning direction
+    v_rel_sq = vrx*vrx + vry*vry + vrz*vrz
+    if v_rel_sq > 1e-12:
+        v_rel_norm = math.sqrt(v_rel_sq)
+        vrux = vrx / v_rel_norm
+        vruy = vry / v_rel_norm
+        vruz = vrz / v_rel_norm
+        signe = los_unit_x * vruy - los_unit_y * vrux
+    else:
+        signe = 0.0
+
     if abs(signe) > 1e-9:
         direction = 1.0 if signe > 0.0 else -1.0
         a_cmd = direction * abs(a_cmd)
@@ -100,15 +111,19 @@ def proportional_navigation(etat_interceptor, etat_cible):
 
 
 # =============================================================================
-# INTERFACE DE GUIDAGE (compatible avec simulate_engagement)
+# INTERFACE WRAPPER (PN -> lat_accel)
 # =============================================================================
 def loi_guidage(etat_interceptor, etat_cible):
     """
-    Interface dewrapper pour proportional_navigation.
-    Retourne la commande d'accélération latérale en m/s².
-    Compatible avec le paramètre guidage_fn de sim_6dof.simulate_engagement.
+    Interface wrapper pour proportional_navigation.
     """
-    return proportional_navigation(etat_interceptor, etat_cible)
+    a_cmd = proportional_navigation(etat_interceptor, etat_cible)
+    # Saturation en accélération latérale
+    if a_cmd > _ACCEL_MAX:
+        return _ACCEL_MAX
+    elif a_cmd < -_ACCEL_MAX:
+        return -_ACCEL_MAX
+    return a_cmd
 
 
 # =============================================================================
@@ -118,10 +133,9 @@ if __name__ == "__main__":
     print("[flight_control_poc] Test de la loi PN...")
     import math
 
-    # Cible en approche : interceptor à (0,0,500), cible à (2000,0,500)
     etat_i = {
         "position": [0.0, 0.0, 500.0],
-        "vitesse" : [300.0 * math.cos(0.0), 300.0 * math.sin(0.0), 0.0],
+        "vitesse" : [300.0, 0.0, 0.0],
     }
     etat_c = {
         "position": [2000.0, 0.0, 500.0],
@@ -129,12 +143,10 @@ if __name__ == "__main__":
     }
 
     a_cmd = proportional_navigation(etat_i, etat_c)
-    print(f"  → Commande latérale a_cmd = {a_cmd:.2f} m/s²")
 
-    if abs(a_cmd) > C.ACCELERATION_LATERALE_MAX_M_S2:
-        print(f"  → Saturation à {C.ACCELERATION_LATERALE_MAX_M_S2:.1f} m/s² "
-              f"(limite {C.ACCELERATION_LATERALE_MAX_G} g)")
+    if abs(a_cmd) > _ACCEL_MAX:
+        print(f"[flight_control_poc] Commande saturée : {a_cmd:.2f} m/s²  "
+              f"(max = {_ACCEL_MAX:.2f} m/s²)")
     else:
-        print(f"  → Commande dans la plage admissible ({C.ACCELERATION_LATERALE_MAX_G} g max)")
-
-    print("[flight_control_poc] OK — module exécutable sans erreur.")
+        print(f"[flight_control_poc] Commande PN : {a_cmd:.2f} m/s²")
+    print("[flight_control_poc] OK.")
