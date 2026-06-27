@@ -147,3 +147,25 @@ D2, D3, E2, E3 released from standby. All agents may proceed on G2 workstream.
 - E1 begins NDC/cahier des charges (engineering/NDC/NDC-INTERCEPTOR-DD.md)
 - E2 activates CFD study plan (engineering/CFD/CFD-PLAN.md)
 - E3 begins avionics plan (engineering/simulation/E3-AVIONICS-PLAN.md)
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T15:32:00Z
+related_gate: G2 / C2
+status: Validated
+---
+
+### 2026-06-27 — DEC-007: C2 Resolved — DD MTOW = 400 g
+- **Decision:** Defense Design (DD) interceptor MTOW = **400 g**. The 250 g figure in PARAMETERS.json is confirmed as the Civil Line programme only and does not apply to DD.
+- **Contexte:** MTOW condition C2 resolved via MTOW-RECOMMENDATION.md (E1). Component-by-component mass budget in DD-CONCEPT.md (D3) confirms 397 g total (within 0.75% of 400 g). CG = 158 mm from nose (41.6% of 380 mm length), positive static margin confirmed.
+- **Auteur:** Agent Manager (E1 analysis + D3 mass budget)
+- **Validateur:** DG
+- **Impact:** E1 NDC updated; E2 CFD plan updated with correct mass; AC KPI tracking updated; PARAMETERS.json clarification noted (separate DD-PARAMETERS.json recommended)
+- **Gate liee:** G2 / C2
+
+> **Condition C2 status: CLOSED**
+> - DD MTOW = 400 g (per MTOW-RECOMMENDATION.md)
+> - Civil programme MTOW = 250 g (per PARAMETERS.json — separate programme)
+> - Mass budget: 397 g, 14-row component table (DD-CONCEPT.md)
+> - CG: ~158 mm from nose (41.6% of 380 mm) — positive static margin ✅
