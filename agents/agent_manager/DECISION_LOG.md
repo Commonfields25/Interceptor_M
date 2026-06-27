@@ -74,3 +74,28 @@ status: Validated
 - **Impact :** D2, D3, E2, E3 — en attente; D1 continue Engineering
 - **Gate liée :** G1
 
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T15:18:00Z
+related_gate: G1
+status: Validated
+---
+
+### 2026-06-27 — Gate G1 DG RATIFICATION — RATIFIED
+- **Décision :** Gate G1 (Brief) formellement ratifiée par le DG (Délégué Governance). Résultat officiel : G1 RATIFIED — 17/18 critères satisfaits + 4 conditions ouvertes documentées.
+- **Contexte :** Revue formelle des livrables de phase 1 en regard de DEC-003 (G1 CONDITIONAL GO). Le DG approuve la progression vers G2 sous réserve du suivi des conditions C1–C4.
+- **Auteur :** DG
+- **Validateur :** DG
+- **Impact :** D1, D2, D3, E2, E3 — G1 ratifiée; libération conditionnelle des agents standby; G2 en préparation
+- **Gate liée :** G1
+
+> **Conditions C1–C4 (DG-ratified, OPEN — suivre jusqu'à résolution) :**
+>
+> | # | Condition | Détail | Owner | Status |
+> |---|---|---|---|---|
+> | C1 | G2 target date aligné | G2 target = 2026-07-09 — vérifier alignment D1/D2/D3 | TBD | OPEN |
+> | C2 | MTOW corrigé dans PARAMETERS.json | MTOW = 250 g — valider/vérifier valeur actuelle | TBD | OPEN |
+> | C3 | Livrables G2 définis | SolidWorks assembly, BOM, FEA preliminary — périmètre à valider | TBD | OPEN |
+> | C4 | Go-ahead DG pour libérer standby | Autorisation DG requise avant libération D2/D3/E2/E3 | DG | OPEN |
