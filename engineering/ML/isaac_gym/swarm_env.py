@@ -34,7 +34,7 @@ from typing import Dict, Optional
 # ─── Constants ────────────────────────────────────────────────────────────────
 N_AGENTS_MAX: int = 4
 DT: float = 0.05              # integration timestep [s]
-MAX_STEPS: int = 200          # max episode length
+MAX_STEPS: int = 60          # max episode length
 
 # 6-DOF physical constants
 MASS: float = 200.0           # kg  — interceptor dry mass
@@ -53,17 +53,18 @@ BODY_RATE_MAX: float = 1.5    # rad/s  — max commanded rate
 BODY_RATE_TC: float = 0.2     # s       — rate convergence time constant
 
 # Targets
-TARGET_SPEED: float = 250.0   # m/s  — incoming threat speed
+TARGET_SPEED: float = 500.0   # m/s  — incoming threat speed
 TARGET_WOBBLE_AMP: float = 30.0  # m  — lateral wobble amplitude (weaving)
 
 # Reward
 R_INTERCEPT: float = 100.0
 R_EFFICIENCY: float = 0.01
+FUEL_PENALTY: float = 0.05    # per step cost for thrust
 R_SEPARATION: float = 0.1
 R_FRATRICIDE: float = -50.0
 R_GROUND: float = -20.0
 
-D_INTERCEPT: float = 2.0      # m — intercept radius
+D_INTERCEPT: float = 1.5      # m — intercept radius
 D_SEPARATION: float = 5.0     # m
 D_FRATRICIDE: float = 1.0     # m
 GROUND_LIMIT: float = -500.0  # m — altitude below = crash
@@ -183,7 +184,7 @@ def target_step(pos: np.ndarray, t: float, seed: int) -> np.ndarray:
 
     # Lateral wobble (weaving)
     rng = np.random.default_rng(seed + int(t / DT))
-    delta_v = rng.uniform(-5.0, 5.0, size=3)
+    delta_v = rng.uniform(-8.0, 8.0, size=3)
 
     # Clamp lateral component to not overpower head-on velocity
     wobble = np.array([0.0, delta_v[1] * np.sin(t * 0.5), delta_v[2] * np.cos(t * 0.7)])
@@ -266,7 +267,7 @@ class SwarmInterceptEnv:
         self._alive = np.ones(n, dtype=np.float32)
 
         # Initialise interceptors in a spread around the origin
-        spread = 15.0
+        spread = 8.0
         for i in range(n):
             angle = 2 * np.pi * i / n + self._rng.uniform(0, 0.5)
             self._pos[i] = np.array([
@@ -280,14 +281,14 @@ class SwarmInterceptEnv:
             dir_to_tgt = tgt_init - self._pos[i]
             dist = np.linalg.norm(dir_to_tgt)
             if dist > 0.01:
-                speed = self._rng.uniform(25.0, 45.0)
+                speed = self._rng.uniform(10.0, 25.0)
                 self._vel[i] = (dir_to_tgt / dist) * speed
 
             # Initial quaternion: identity (body aligned with world)
             self._quat[i] = np.array([0., 0., 0., 1.], dtype=np.float32)
 
         # Target starts ahead of the swarm
-        self._tgt_pos = np.array([150.0, 0.0, 0.0], dtype=np.float32)
+        self._tgt_pos = np.array([250.0, 0.0, 0.0], dtype=np.float32)
         self._tgt_vel = np.array([-TARGET_SPEED, 0.0, 0.0], dtype=np.float32)
 
         obs = self._get_obs()
@@ -348,7 +349,7 @@ class SwarmInterceptEnv:
                 continue
 
             # (c) Efficiency (alive step)
-            rewards[i] += R_EFFICIENCY
+            rewards[i] += R_EFFICIENCY - FUEL_PENALTY
 
             # (d) Separation / fratricide
             for j in range(i + 1, n):
