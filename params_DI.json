@@ -1,26 +1,34 @@
 {
-  "project": "Interceptor_M",
-  "product_line": "DI",
-  "line_label": "Industrial",
-  "mtow_g": 300.0,
-  "mtow_source": "provisional — midpoint DC/DD, à confirmer par produit",
-  "description": "Industrial line — infrastructure protection. 300 g MTOW (provisoire).",
-  "shared_geometry": {
-    "tube_diameter_mm": 40.0,
-    "fuselage_outer_diameter_mm": 35.0,
-    "arm_length_mm": 75.0,
-    "wing_chord_mm": 60.0,
-    "fasteners": ["M2", "M3"],
-    "motor_mount_mm": [9.0, 12.0]
+  "project": "Interceptor M",
+  "version": "1.0.0",
+  "line": "DI",
+  "mtow_g": 300,
+  "mtow_source": "provisional midpoint DC/DD",
+  "segments": {
+    "fuselage": {
+      "L_mm": 403.81,
+      "W_mm": 191.28,
+      "H_mm": 100.95
+    },
+    "wing_span_m": 1.594,
+    "wall_mm": 2.191
   },
-  "scaling_factors": {
-    "linear": "L × (MTOW/250)^(1/3)",
-    "wall_thickness": "t × (MTOW/250)^0.5",
-    "note": "ACT-001 fixed by E3 spec"
-  },
-  "geometry": {
-    "BRK-001": {"mass_g": 118.78, "length_mm": 78.99, "width_mm": 57.88, "thickness_mm": 10.35},
-    "ACT-001": {"mass_g": 55.49,  "length_mm": 65.0,  "width_mm": 45.0,  "thickness_mm": 7.0},
-    "NCR-001": {"mass_g": 94.93,  "outer_diameter_mm": 46.27, "bore_mm": 35.0, "length_mm": 21.04}
+  "parts": {
+    "BRK-001": {
+      "description": "Structure primaire \u2014 Coque fuselage + \u652f\u7ffc",
+      "material": "AlSi10Mg (DMLS)",
+      "mass_g": 134.14
+    },
+    "ACT-001": {
+      "description": "V\u00e9rin tubulaire 3 axes",
+      "material": "AlSi10Mg (DMLS)",
+      "mass_g": 55.49,
+      "note": "MTOW-insensitive \u2014 spec E3 drives geometry"
+    },
+    "NCR-001": {
+      "description": "Car\u00e9nage aero \u2014 Coque complexe",
+      "material": "Nomex honeycomb + CF skins",
+      "mass_g": 107.2
+    }
   }
 }
