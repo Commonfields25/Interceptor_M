@@ -2,7 +2,7 @@
   "metadata": {
     "project": "Interceptor_M",
     "product_family": true,
-    "note": "Shared geometry parameters. Line-specific MTOW/length in per-line files below."
+    "note": "Shared geometry parameters. Line-specific MTOW in per-line params files."
   },
   "shared_geometry": {
     "tube_diameter_mm": 40.0,
@@ -16,6 +16,7 @@
     "DD": {
       "product_line": "Defense",
       "mtow_g": 400.0,
+      "mtow_source": "validated",
       "airframe_length_mm": 380.0,
       "target_market": "Anti-drone / SHORAD NATO (Priority 1)",
       "payload_type": "Warhead + multi-mode seeker (RF/IR dual-mode)",
@@ -25,6 +26,7 @@
     "DC": {
       "product_line": "Civil",
       "mtow_g": 250.0,
+      "mtow_source": "validated",
       "airframe_length_mm": null,
       "target_market": "Photography / delivery / agriculture (Priority 3)",
       "payload_type": "RGB camera / multispectral sensor",
@@ -33,7 +35,8 @@
     },
     "DI": {
       "product_line": "Industrial",
-      "mtow_g": null,
+      "mtow_g": 300.0,
+      "mtow_source": "provisional — midpoint DC/DD, à confirmer par produit",
       "airframe_length_mm": null,
       "target_market": "Critical infrastructure protection (Priority 2)",
       "payload_type": "Neutralisation payload (TBD specification)",
