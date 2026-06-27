@@ -17,7 +17,7 @@ Valider la configuration aérodynamique dérivée en D1 par une analyse semi-ana
 - Masse au lancement 2,5 kg
 
 **Méthode :** méthodes de stabilité & contrôle (Etkins §4–6), pression dynamique de culot,
-frottement turbulent de plaque plate (Cf = 0.003), méthode des surfaces portantes de Schlichting pour ailes minces, stabilité statique derivative来源于 DATCOM 1978 — vol. I–II.
+frottement turbulent de plaque plate (Cf = 0.003), méthode des surfaces portantes de Schlichting pour ailes minces, stabilité statique derivative DATCOM 1978 — vol. I–II.
 
 ---
 

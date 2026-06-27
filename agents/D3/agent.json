@@ -10,8 +10,15 @@
     "assigned_at": "2026-06-24T14:37:00Z",
     "deadline": "2026-07-01T00:00:00Z",
     "deliverable": "docs/D3/structure_blueprint.md",
-    "dependencies": ["MISSION-001"]
+    "dependencies": [
+      "MISSION-001"
+    ]
   },
-  "capabilities": ["conception mécanique", "CAE", "simulation matériaux"],
-  "last_updated": "2026-06-24T14:37:00Z"
+  "capabilities": [
+    "conception mécanique",
+    "CAE",
+    "simulation matériaux"
+  ],
+  "last_updated": "2026-06-24T14:37:00Z",
+  "description": ""
 }

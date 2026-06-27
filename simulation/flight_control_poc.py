@@ -104,7 +104,7 @@ def proportional_navigation(etat_interceptor, etat_cible):
 # =============================================================================
 def loi_guidage(etat_interceptor, etat_cible):
     """
-    Interface de包装 pour proportional_navigation.
+    Interface dewrapper pour proportional_navigation.
     Retourne la commande d'accélération latérale en m/s².
     Compatible avec le paramètre guidage_fn de sim_6dof.simulate_engagement.
     """

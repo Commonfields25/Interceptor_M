@@ -169,3 +169,16 @@ status: Validated
 > - Civil programme MTOW = 250 g (per PARAMETERS.json — separate programme)
 > - Mass budget: 397 g, 14-row component table (DD-CONCEPT.md)
 > - CG: ~158 mm from nose (41.6% of 380 mm) — positive static margin ✅
+
+### 2026-06-27 — DEC-008: Adoption of a Common-Platform Product Family Strategy
+- **Decision:** Interceptor_M adopts a common-platform product family strategy across three lines (DD / DI / DC). A shared set of platform modules (avionics, propulsion brick, datalink, software stack) reduces per-line NRE cost and time-to-market. Each line differentiates at the airframe scale and payload level.
+- **Contexte:** With three target markets (Defense P1, Industrial P2, Civil P3), maintaining three independent product programmes is inefficient. The DD interceptor (400 g / 380 mm) provides the reference platform for shared modules. DI and DC inherit the common platform with line-specific airframe scaling and payload selection.
+- **Actions:**
+  - PARAMETERS.json split into per-line structure (DD: 400 g/380 mm; DC: 250 g; DI: TBD)
+  - models/DD/DD-PARAMETERS.md corrected from 250 g/900 mm to 400 g/380 mm per DEC-007
+  - PRODUCT-FAMILY.md created — product line matrix and platform architecture
+  - SHARED-COMPONENTS.md created — registry of 6 shared modular building blocks (SC-01 to SC-06)
+- **Auteur:** Product Management / Agent Manager
+- **Validateur:** DG
+- **Impact:** E1, E2, E3, D1, D2, D3 — common platform baseline now defined; per-line workstream alignment required
+- **Gate liee:** G2 / Family Strategy

@@ -10,7 +10,7 @@
 
 ## 3.1 Introduction & Portée
 
-Valider la conception mécanique结构和 matériaux sélectionnés en D1, confirmer le budget masse de 2,5 kg, et définir :
+Valider la conception mécanique matériaux sélectionnés en D1, confirmer le budget masse de 2,5 kg, et définir :
 - Sélection des matériaux et épaisseurs
 - Plan de assemblage et interfaces
 - Joints, attaches, intégration des sous-ensembles
@@ -191,7 +191,7 @@ Warhead (Ø33 mm × 180 mm) inserted from forward, retained by:
 Motor case (Ø33,6 mm × 200 mm) inserted from aft, retained by:
 - Aft retainer ring (Al-7075, 2 mm) — 4× M3 bolts
 - Forward motor clip (steel spring, 0,5 mm) — axial retention
-- Nozzle，出口: phenolic insert bonded + 4× M2 screws
+- Nozzle，: phenolic insert bonded + 4× M2 screws
 
 ### 3.6.4 Interface Dérives / Fuselage
 
@@ -224,7 +224,7 @@ Motor case (Ø33,6 mm × 200 mm) inserted from aft, retained by:
 | Test & inspection | NDT + AIM (acceptance) | NDT equipment | 30 min/unit |
 
 **Temps total par unité (prototype) : ≈ 5,5 h**  
-**Temps total par unité (série 500+/an) : ≈ 3,0 h (经工业化)**
+**Temps total par unité (série 500+/an) : ≈ 3,0 h (after industrialisation)**
 
 ---
 

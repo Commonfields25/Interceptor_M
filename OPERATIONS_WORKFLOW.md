@@ -513,7 +513,7 @@ PHASE 0: BRIEF CLIENT
 
 ### 3.3 DRONE DÉFENSE (Micro-drone Interceptor Swarm + Lanceur Air Comprimé)
 
-> ⚠️ **Classification :** CONFIDENTIEL — Concept défense只在内部流传
+> ⚠️ **Classification :** CONFIDENTIEL — Concept défense
 > ⚠️ **Règle spéciale** : Zéro transmission externe sans validation DG explicite.
 
 | Phase | Step | Qui | Quoi | Input | Output | Validation | SLA |
@@ -708,7 +708,7 @@ Problème détecté
       │    GO si OK / Redesk si needed
       │
       └─── Si D1 ne peut pas résoudre seul → réunion d'urgence
-                D1 + D2 (+ E1 si涉及结构)
+                D1 + D2 (+ E1 siinvolving structural analysis)
                 dans les 48h
 ```
 

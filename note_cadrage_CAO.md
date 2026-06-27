@@ -79,7 +79,7 @@ Livrables attendus par D3 :
 **Contraintes à intégrer :**
 - Les dimensions sont des hypothèses de départ — **flaguer chaque feature comme `[PROPOSÉ]` dans iProperty**
 - Garder le design **modulaire** : chaque sous-assemblage éditable indépendamment
-- Prévoir des zones de flexibilité (slots d'ajustement) là où les contraintes工程师 ne sont pas encore figées
+- Prévoir des zones de flexibilité (slots d'ajustement) là où les contraintesengineering ne sont pas encore figées
 - Créer un fichier `PARAMETERS.json` (fourni en annexe de cette note) pour piloter les variables globales
 
 ### 3.2 Semaine 2 — Interface Sabot / Lanceur (TASK_DD_004)

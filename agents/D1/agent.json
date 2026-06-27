@@ -12,6 +12,11 @@
     "deliverable": "docs/D1/specs_aerodynamiques.md",
     "dependencies": []
   },
-  "capabilities": ["analyse CFD", "conception avion", "simulation numérique"],
-  "last_updated": "2026-06-24T14:37:00Z"
+  "capabilities": [
+    "analyse CFD",
+    "conception avion",
+    "simulation numérique"
+  ],
+  "last_updated": "2026-06-24T14:37:00Z",
+  "description": ""
 }
