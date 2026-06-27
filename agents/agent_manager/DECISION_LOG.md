@@ -118,3 +118,32 @@ status: Validated
 - **Validateur :** DG (pour ratification ownership)
 - **Impact :** Tous les agents — état visible; D2/D3/E2/E3 débloqués dès C4 résolu
 - **Gate liée :** G1→G2
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T15:24:00Z
+related_gate: G1
+status: Validated
+---
+## DEC-006 — C4 Release & G2 Workstream Activation
+
+**DG releases C4 (go-ahead granted). C1-C4 owners ratified. Standby agents released. G2 open.**
+
+### Condition Status Update
+
+| ID  | Owner  | Status    | Notes                                   |
+|-----|--------|-----------|-----------------------------------------|
+| C1  | D3,E1  | OPEN      | Assigned; awaiting delivery             |
+| C2  | E1     | OPEN      | Assigned; MTOW constraint pending       |
+| C3  | D3,E1  | OPEN      | Assigned; awaiting delivery             |
+| C4  | DG     | CLOSED/RELEASED | Go-ahead granted 2026-06-27       |
+
+### Standby Agents Released
+D2, D3, E2, E3 released from standby. All agents may proceed on G2 workstream.
+
+### G2 Workstream Opened
+- D3 begins concept layout (models/DD/DD-CONCEPT.md)
+- E1 begins NDC/cahier des charges (engineering/NDC/NDC-INTERCEPTOR-DD.md)
+- E2 activates CFD study plan (engineering/CFD/CFD-PLAN.md)
+- E3 begins avionics plan (engineering/simulation/E3-AVIONICS-PLAN.md)
