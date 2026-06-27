@@ -222,3 +222,48 @@ status: Validated
 > - No more than 2 consecutive auto-approvals without process review
 > - DG override window: 48 h after auto-approval notification
 > - Auto-approval immediately suspended if any KPI falls below alert threshold
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T16:30:00Z
+related_gate: G2 / DI
+status: Proposed
+---
+
+### 2026-06-27 — DEC-011: DI Target Specification Proposed (Issue #19)
+- **Décision :** Proposer les spécifications cibles pour l'intercepteur DI (Defense Interceptor — Defense product line) : vitesse max ≥ 350 km/h, endurance ≥ 20 min, plafond 0–3 500 m AGL, MTOW 8–12 kg, payload modulaire cinétique + filet, seeker IR/EO + IA embarquée.
+- **Contexte :** Étude de marché complète finalisée (DI-MARKET-STUDY.md, engineering/DI/). Analyse compétitive (MARSS Interceptor-MR, Anduril Anvil/Roadrunner-M, DroneHunter, Coyote Block 2/3NK, FPV ukrainiens) + enveloppe de menace (Group 1–3 FPV, Shahed, UAS tactiques) → spécifications ciblées fondées sur données réelles.
+- **Statut :** PROPOSED — validation client requise (discovery / outreach) avant verrouillage.
+- **Auteurs :** D1 (market study + specs) / E1 (product family integration)
+- **Validateur :** DG (pending)
+- **Impact :** D1, E1 — DI engineering démarrer; E2 (avionics) / E3 (integration) / D2 (aerodynamics) / D3 (propulsion) — aligner sous-systèmes sur specs DI
+- **Gate liée :** G2 / DI #19
+
+> **DI Proposed Target Specs (DEC-011 — PROPOSED)**
+>
+> | Parameter | Proposed Target |
+> |-----------|----------------|
+> | Role | Ground-launched autonomous interceptor drone — point & area defense |
+> | Weight (MTOW) | 8–12 kg |
+> | Top Speed | ≥ 350 km/h |
+> | Operating Ceiling | 0–3 500 m AGL |
+> | Endurance / Loiter | ≥ 20 min loiter / ≥ 15 min intercept |
+> | Range (one-way) | 5–8 km base / 15 km extended |
+> | Seeker / Guidance | Imaging IR (uncooled) + EO + onboard AI (NiDAR-class) |
+> | Autonomy | Semi-autonomous (human-in-loop for engagement) + autonomous tracking |
+> | Kill Mechanism | Modular dual-payload bay: (A) kinetic ram (hit-to-kill, no explosive), (B) net entanglement |
+> | Multi-Target | Up to 3–5 simultaneous engagements per sortie |
+> | Reusability | ≥ 80% recovery rate |
+> | Unit Cost Target | USD 30 000–60 000 |
+> | Compliance | MIL-STD-810H, NATO STANAG 4586 |
+
+> **Open Questions (pending customer-discovery):**
+> - Autonomy level: full HITL vs. authorized autonomous mode?
+> - Solo vs. swarm deployment (3–5 coordinated DI?)
+> - DI deployment concept: point defense vs. mobile vs. man-portable
+> - Recovery rate target and landing system
+> - IR vs. RF primary seeker for low-RCS FPV threats
+> - Unit cost vs. production rate trade-off
+
+
