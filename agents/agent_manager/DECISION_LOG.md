@@ -205,6 +205,20 @@ status: Validated
 
 > **DEC-009 Conditions:**
 > - Monthly KPI review by AC (reports to DG)
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T16:00:00Z
+related_gate: G2 / RF1
+status: Validated
+---
+
+### 2026-06-27 — Swarm RL Bootstrap Started (DEC-010)
+- **Decision :** Swarm RL bootstrap launched — Isaac Gym env skeleton, MAPPO config, scenarios, and standalone-runnable multi-agent intercept environment created under `engineering/ML/isaac_gym/`. Owners E2+D3.
+- **Validateur :** DG
+- **Gate liee :** G2 / RF1
+- **Mitigation :** RF1 red flag partially mitigated; Week-1 tasks 5.1–5.3 marked [x] Done; Phase 1 env setup now in progress.
 > - No more than 2 consecutive auto-approvals without process review
 > - DG override window: 48 h after auto-approval notification
 > - Auto-approval immediately suspended if any KPI falls below alert threshold
