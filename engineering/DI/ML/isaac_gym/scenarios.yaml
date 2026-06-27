@@ -1,0 +1,158 @@
+# scenarios.yaml — Swarm RL training scenarios for Interceptor-M
+# Reference: ../SWARM-RL-PLAN.md §Scenarios
+# Format: compatible with Isaac Gym / Isaac Lab RL environment loader + custom env
+
+default_settings:
+  timestep: 0.05          # [s] per step
+  max_episode_steps: 200  # 200 * 0.05s = 10s per episode
+  num_envs: 4096          # parallel envs for MAPPO training
+  seed: 42
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Scenario 1 — Baseline: 2 interceptors vs 1 target
+# ─────────────────────────────────────────────────────────────────────────────
+scenario_2v1_baseline:
+  n_agents: 2
+  n_targets: 1
+  description: >
+    Two interceptors launch from a 15 m spread formation and engage a single
+    stationary/low-velocity target. Primary goal: both agents learn to converge
+    and intercept without colliding. Used to validate MAPPO baseline.
+
+  initial_conditions:
+    interceptors:
+      - position: [0.0, -7.5, 2.0]    # x, y, z [m] world frame
+        velocity: [20.0, 0.0, 5.0]    # m/s
+        heading: [0.0, 0.0, 0.0]      # pitch, yaw, roll [rad]
+        thrust: 0.8
+      - position: [0.0, 7.5, 2.0]
+        velocity: [20.0, 0.0, 5.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 0.8
+    target:
+      position: [0.0, 0.0, 50.0]      # 50 m ahead, centered
+      velocity: [1.0, 0.0, 0.0]       # slow drift
+
+  reward_targets:
+    intercept_success: 100.0
+    intercept_fail: -10.0
+    efficiency_per_step: 0.01
+    separation_penalty: 0.1
+    fratricide_penalty: -50.0
+  thresholds:
+    intercept_distance: 2.0   # [m]
+    separation_warning: 5.0   # [m]
+    fratricide_distance: 1.0  # [m]
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Scenario 2 — 3 interceptors vs 1 evasive target
+# ─────────────────────────────────────────────────────────────────────────────
+scenario_3v1_evasive:
+  n_agents: 3
+  n_targets: 1
+  description: >
+    Three interceptors coordinate to engage a target performing piecewise-constant
+    evasive maneuvers (direction change every 20 steps = 1 s). Requires coordination
+    and collision avoidance — one agent may sacrifice intercept opportunity to avoid
+    fratricide. Tests MAPPO multi-agent cooperation.
+
+  initial_conditions:
+    interceptors:
+      - position: [-7.5, 0.0, 0.0]
+        velocity: [25.0, 0.0, 5.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 0.8
+      - position: [0.0, -7.5, 5.0]
+        velocity: [25.0, 0.0, 5.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 0.8
+      - position: [0.0, 7.5, -5.0]
+        velocity: [25.0, 0.0, 5.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 0.8
+    target:
+      position: [0.0, 0.0, 50.0]
+      velocity: [5.0, 0.0, 0.0]
+      evasive:
+        enabled: true
+        direction_change_steps: 20   # change heading every 20 steps
+        max_lateral_speed: 10.0      # m/s
+
+  reward_targets:
+    intercept_success: 100.0
+    intercept_fail: -10.0
+    efficiency_per_step: 0.01
+    separation_penalty: 0.1
+    fratricide_penalty: -50.0
+  thresholds:
+    intercept_distance: 2.0
+    separation_warning: 5.0
+    fratricide_distance: 1.0
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Scenario 3 — 4 interceptors vs 1 target (swarm coordination)
+# ─────────────────────────────────────────────────────────────────────────────
+scenario_4v1_swarm:
+  n_agents: 4
+  n_targets: 1
+  description: >
+    Four interceptors from a spread formation engage a fast target (Mach 0.8).
+    Full swarm coordination required: role assignment (lead/pursuit/cover),
+    collision avoidance, and efficient intercept. Tests scalability of MAPPO
+    to 4-agent cooperative tasks.
+
+  initial_conditions:
+    interceptors:
+      - id: lead
+        position: [0.0, 0.0, 0.0]
+        velocity: [30.0, 0.0, 0.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 1.0
+      - id: pursuer_left
+        position: [-10.0, -10.0, 5.0]
+        velocity: [28.0, -2.0, 3.0]
+        heading: [0.0, -0.2, 0.0]
+        thrust: 0.9
+      - id: pursuer_right
+        position: [-10.0, 10.0, -5.0]
+        velocity: [28.0, 2.0, -3.0]
+        heading: [0.0, 0.2, 0.0]
+        thrust: 0.9
+      - id: rear
+        position: [-20.0, 0.0, 0.0]
+        velocity: [25.0, 0.0, 0.0]
+        heading: [0.0, 0.0, 0.0]
+        thrust: 0.8
+    target:
+      position: [100.0, 0.0, 0.0]   # 100 m away, moving fast
+      velocity: [250.0, 0.0, 0.0]   # Mach 0.8 ~250 m/s
+
+  reward_targets:
+    intercept_success: 150.0        # higher for harder scenario
+    intercept_fail: -15.0
+    efficiency_per_step: 0.015
+    separation_penalty: 0.12
+    fratricide_penalty: -50.0
+    swarm_coordination_bonus: 5.0   # bonus if >=2 agents intercept in same episode
+  thresholds:
+    intercept_distance: 2.5
+    separation_warning: 6.0
+    fratricide_distance: 1.5
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Curriculum progression
+# ─────────────────────────────────────────────────────────────────────────────
+curriculum:
+  phase_1: scenario_2v1_baseline
+  phase_2: scenario_3v1_evasive
+  phase_3: scenario_4v1_swarm
+  unlock_criteria:
+    phase_1_done:
+      condition: "mean_success_rate > 0.8 over 500 episodes"
+      metric: intercept_success_rate
+    phase_2_done:
+      condition: "mean_success_rate > 0.75 over 500 episodes"
+      metric: intercept_success_rate
+    phase_3_done:
+      condition: "mean_fratricide_rate < 0.05 and mean_success_rate > 0.7 over 500 episodes"
+      metric: fratricide_rate, intercept_success_rate
