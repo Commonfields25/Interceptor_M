@@ -37,17 +37,38 @@ DEFAULTS = {
 
 # ── Load parameters ────────────────────────────────────────────────────────────
 def load_parameters() -> dict:
-    """Load repo PARAMETERS.json; fall back to DEFAULTS if not found."""
+    """
+    Load repo PARAMETERS.json; fall back to DEFAULTS if not found.
+
+    Canonical path:  repo_root/PARAMETERS.json
+    Structure expected:
+      {
+        "shared_geometry": { "tube_diameter_mm": ..., "arm_length_mm": ..., ... },
+        "lines": { "DD": { "mtow_g": 400.0 }, "DC": { "mtow_g": 250.0 }, ... }
+      }
+    We flatten shared_geometry to the top level and inject the selected
+    line's MTOW.  Default line = DC (mtow_g = 250).
+    """
     candidates = [
         SCRIPT_DIR.parent.parent / "PARAMETERS.json",   # repo root
         SCRIPT_DIR.parent.parent.parent / "PARAMETERS.json",  # workspace root
     ]
+    selected_line = "DC"   # civil line — default for machining prototypes
+
     for path in candidates:
         if path.is_file():
             with open(path) as f:
-                data = json.load(f)
-            print(f"[gen_geometry] Loaded parameters from {path}")
-            return data
+                raw = json.load(f)
+            shared = raw.get("shared_geometry", {})
+            lines  = raw.get("lines", {})
+            line_data = lines.get(selected_line, {})
+            params = dict(shared)
+            if "mtow_g" in line_data and line_data["mtow_g"] is not None:
+                params["mtow_g"] = line_data["mtow_g"]
+            print(f"[gen_geometry] Loaded shared_geometry from {path}  "
+                  f"(line={selected_line}, mtow={params.get('mtow_g','?')} g)")
+            return params
+
     print("[gen_geometry] WARNING: PARAMETERS.json not found — using defaults")
     return DEFAULTS
 
