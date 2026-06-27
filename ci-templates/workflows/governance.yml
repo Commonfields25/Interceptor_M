@@ -1,8 +1,12 @@
 name: Governance CI
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   namespace-isolation:
@@ -17,19 +21,20 @@ jobs:
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             CHANGED=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
               "${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" | \
-              python3 -c "import sys,json; print('
-'.join([f['filename'] for f in json.load(sys.stdin)]))")
+              python3 -c "import sys,json; print('\n'.join([f['filename'] for f in json.load(sys.stdin)]))")
           else
             CHANGED=$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
           fi
           echo "changed=$CHANGED" >> $GITHUB_OUTPUT
           echo "branch=${{ github.head_ref }}" >> $GITHUB_OUTPUT
+
       - name: Run namespace isolation check
         run: |
           python3 governance/ci_checks/namespace_isolation.py \
             --json-input '[ ${{ steps.files.outputs.changed }} ]' \
             --branch-name '${{ steps.files.outputs.branch }}' \
             --verbose || true
+
       - name: Auto-approval KPI check
         run: |
           python3 governance/ci_checks/autoapproval_kpi_checker.py \
