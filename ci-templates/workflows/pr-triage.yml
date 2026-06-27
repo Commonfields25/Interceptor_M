@@ -1,8 +1,12 @@
 name: PR Triage
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
     branches: [main]
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
 jobs:
   triage:
@@ -16,26 +20,25 @@ jobs:
             python3 -c "
 import sys,json
 files=[f['filename'] for f in json.load(sys.stdin)]
-print('
-'.join(files))
+print('\n'.join(files))
 ")
           echo "files=$FILES" >> $GITHUB_OUTPUT
+
       - name: Add labels by area
         uses: actions/github-script@v7
         with:
           script: |
-            const files = `${{ steps.triage.outputs.files }}`.trim().split('
-').filter(Boolean);
+            const files = `${{ steps.triage.outputs.files }}`.trim().split('\n').filter(Boolean);
             const labels = new Set();
             files.forEach(f => {
               if (f.startsWith('engineering/DI/ML/') || f.startsWith('swarm_env') || f.includes('mappo')) labels.add('area:swarm-rl');
               if (f.startsWith('engineering/DC/')) labels.add('area:dc');
-              if (f.startsWith('governance/') || f.startsWith('.github/')) labels.add('area:governance');
+              if (f.startsWith('governance/') || f.startsWith('.github/') || f.startsWith('ci-templates/')) labels.add('area:governance');
               if (f.endsWith('.md') || f.startsWith('docs/')) labels.add('type:docs');
               if (f.includes('simulation') || f.includes('montecarlo')) labels.add('area:simulation');
               if (f.startsWith('engineering/DI/NDC/') || f.startsWith('models/')) labels.add('area:dd');
+              if (f.includes('hardware') || f.includes('manufacturing')) labels.add('area:hardware');
             });
-            // Size label
             if (files.length > 10) labels.add('size:xl');
             else if (files.length > 5) labels.add('size:l');
             else if (files.length > 2) labels.add('size:m');
@@ -49,19 +52,20 @@ print('
               });
               console.log('Added labels:', [...labels]);
             }
+
       - name: Add PR comment with triage summary
         uses: actions/github-script@v7
         with:
           script: |
-            const files = `${{ steps.triage.outputs.files }}`.trim().split('
-').filter(Boolean);
+            const files = `${{ steps.triage.outputs.files }}`.trim().split('\n').filter(Boolean);
             const areas = [...new Set(files.map(f => {
-              if (f.startsWith('engineering/DI/ML/')||f.includes('mappo')) return 'swarm-rl';
+              if (f.startsWith('engineering/DI/ML/') || f.includes('mappo')) return 'swarm-rl';
               if (f.startsWith('engineering/DC/')) return 'dc';
-              if (f.startsWith('governance/')||f.startsWith('.github/')||f.startsWith('ci-templates/')) return 'governance';
-              if (f.endsWith('.md')||f.startsWith('docs/')) return 'docs';
+              if (f.startsWith('governance/') || f.startsWith('.github/') || f.startsWith('ci-templates/')) return 'governance';
+              if (f.endsWith('.md') || f.startsWith('docs/')) return 'docs';
               if (f.includes('simulation')) return 'simulation';
               if (f.startsWith('models/')) return 'dd';
+              if (f.includes('hardware') || f.includes('manufacturing')) return 'hardware';
               return 'di';
             }))];
             const body = [
@@ -72,8 +76,7 @@ print('
               `**Areas:** ${areas.map(a => `\`${a}\``).join(', ')}`,
               '',
               '_Auto-labeled by PR Triage workflow. Review the checklist in CONTRIBUTING.md before merge._',
-            ].join('
-');
+            ].join('\n');
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
