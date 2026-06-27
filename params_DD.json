@@ -1,0 +1,26 @@
+{
+  "project": "Interceptor_M",
+  "product_line": "DD",
+  "line_label": "Defense",
+  "mtow_g": 400.0,
+  "mtow_source": "validated",
+  "description": "Defense line — anti-drone / SHORAD NATO. 400 g MTOW.",
+  "shared_geometry": {
+    "tube_diameter_mm": 40.0,
+    "fuselage_outer_diameter_mm": 35.0,
+    "arm_length_mm": 75.0,
+    "wing_chord_mm": 60.0,
+    "fasteners": ["M2", "M3"],
+    "motor_mount_mm": [9.0, 12.0]
+  },
+  "scaling_factors": {
+    "linear": "L × (MTOW/250)^(1/3)",
+    "wall_thickness": "t × (MTOW/250)^0.5",
+    "note": "ACT-001 fixed by E3 spec"
+  },
+  "geometry": {
+    "BRK-001": {"mass_g": 130.74, "length_mm": 82.49, "width_mm": 60.51, "thickness_mm": 10.63},
+    "ACT-001": {"mass_g": 55.49,  "length_mm": 65.0,  "width_mm": 45.0,  "thickness_mm": 7.0},
+    "NCR-001": {"mass_g": 104.48, "outer_diameter_mm": 48.38, "bore_mm": 35.0, "length_mm": 21.99}
+  }
+}
