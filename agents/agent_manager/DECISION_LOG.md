@@ -99,3 +99,22 @@ status: Validated
 > | C2 | MTOW corrigé dans PARAMETERS.json | MTOW = 250 g — valider/vérifier valeur actuelle | TBD | OPEN |
 > | C3 | Livrables G2 définis | SolidWorks assembly, BOM, FEA preliminary — périmètre à valider | TBD | OPEN |
 > | C4 | Go-ahead DG pour libérer standby | Autorisation DG requise avant libération D2/D3/E2/E3 | DG | OPEN |
+
+### 2026-06-27 — TEAM UPDATE & C1–C4 Owner Proposal
+- **Décision :** Production du premier TEAM UPDATE consolidé — statut de tous les agents, G2 readiness checklist, et propositions d'ownership pour les conditions C1–C4.
+- **Contexte :** G1 ratifiée (DEC-004). Tous les agents ont été "exécutés" depuis leur workspace/guidelines. Quatre starter artifacts créés (NDC skeleton, FEA plan, CFD plan, DD parameters). D2/D3/E2/E3 toujours en standby-release (C4 non résolu).
+- **Actions :**
+  - `engineering/NDC/NDC-SKELETON.md` créé par E1
+  - `engineering/FEA/FEA-PLAN.md` créé par E1
+  - `engineering/CFD/CFD-PLAN.md` créé par E2
+  - `models/DD/DD-PARAMETERS.md` créé par D3
+  - `agents/agent_manager/TEAM_UPDATE_2026-06-27.md` créé (rapport consolidé)
+- **Propositions C1–C4 owner (en attente validation DG) :**
+  - C1: D3 + E1 (co-lead, CAD + NDC)
+  - C2: E1 (Systems / NDC)
+  - C3: D3 + E1 (CAD + NDC, périmNiveau G2)
+  - C4: DG (self — seule entité pouvant lever le standby)
+- **Auteur :** Agent Manager
+- **Validateur :** DG (pour ratification ownership)
+- **Impact :** Tous les agents — état visible; D2/D3/E2/E3 débloqués dès C4 résolu
+- **Gate liée :** G1→G2

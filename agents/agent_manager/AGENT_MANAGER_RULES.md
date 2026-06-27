@@ -4,7 +4,7 @@
 >
 > Ce fichier est un pointeur. Toute modification des règles de l'Agent Manager
 > doit être effectuée dans le fichier canonical ci-dessus. Les changements
-> pullés depuis `governance/` remplaceront ce pointeur lors des下次 synchronisations.
+> pullés depuis `governance/` remplaceront ce pointeur lors desprochaine session synchronisations.
 
 ## 🔗 Lien vers le canonical
 
