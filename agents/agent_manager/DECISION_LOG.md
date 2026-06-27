@@ -182,3 +182,29 @@ status: Validated
 - **Validateur:** DG
 - **Impact:** E1, E2, E3, D1, D2, D3 — common platform baseline now defined; per-line workstream alignment required
 - **Gate liee:** G2 / Family Strategy
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-27T16:15:00Z
+related_gate: G1/G2 / Governance
+status: Validated
+---
+
+### 2026-06-27 — DEC-009: Adoption of Threshold-Based Auto-Approval Policy
+- **Decision:** The project adopts a Threshold-Based Auto-Approval Policy (governance/AUTO-APPROVAL-POLICY.md). When all 4 KPIs are above their auto-approval threshold (On-time >= 90%, Peer review >= 80%, Blocker resolution <= 24 h, Agent utilization >= 70%), the Agent Manager may autonomously sign off on MINOR gates (G1, G3, G5, G6, G8) without DG involvement. MAJOR gates (G0, G2, G4, G7, G9, G10, G11) always require DG validation.
+- **Contexte:** DG is a single point of failure for all 11 gates. With three concurrent red flags identified (Swarm RL not started, merge hell risk, DG overload risk), the project needs a governance mechanism that maintains quality gates while avoiding paralysis when KPIs are healthy. The policy was designed by AC and formalized by the Agent Manager.
+- **Actions:**
+  - governance/AUTO-APPROVAL-POLICY.md created — KPI thresholds, gate classification (MINOR/MAJOR), auto-approval procedure, audit trail, escalation rules
+  - governance/BOT_GUIDELINES.md updated — namespace isolation operational rules added (Section 2.1) including branch naming, PR review, lock files, no co-editing
+  - engineering/ML/SWARM-RL-PLAN.md created — concrete kickoff plan for Isaac Gym multi-agent RL simulation (E2 + D3 owners; 4 phases, 12 weeks, T-SWARM-001 to 003 defined)
+- **Auteur:** Agent Manager (AC proposal)
+- **Validateur:** DG
+- **Impact:** Agent Manager — new conditional approval authority; DG — reduced governance load for minor gates; all agents — namespace isolation now enforced
+- **Gate liee:** G1 / Governance
+
+> **DEC-009 Conditions:**
+> - Monthly KPI review by AC (reports to DG)
+> - No more than 2 consecutive auto-approvals without process review
+> - DG override window: 48 h after auto-approval notification
+> - Auto-approval immediately suspended if any KPI falls below alert threshold
