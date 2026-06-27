@@ -58,6 +58,16 @@ PAS_DE_TEMPS_S = 0.01          # s — pas d'intégration (Euler explicite)
 DUREE_MAX_S = 60.0             # s — au-delà → engagement raté
 
 # =============================================================================
+# RL ENV — MEDIAN CALIBRATION (feat/env/rebalance)
+#   Signal: random ~0%  trained ~15-40%
+# =============================================================================
+V_CIBLE_RL_M_S = 300.0         # m/s — vitesse cible médiane (dure, pas triviale)
+RL_MAX_STEPS = 120             # steps — fenêtre d'engagement réalisable
+RL_INTERCEPT_RADIUS_M = 8.0    # m — rayon d'interception
+RL_START_DISTANCE_M = 5000.0  # m — distance initiale cible/interceptor (calibré)
+RL_FUEL_PENALTY = 0.05         # par step — coût carburant
+
+# =============================================================================
 # MONTE CARLO
 # =============================================================================
 NB_TIRAGES = 10000            # nombre d'échantillons pour P(intercept)
