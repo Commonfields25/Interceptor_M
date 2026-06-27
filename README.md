@@ -10,6 +10,10 @@ date: 2026-06-27
 
 **Modular Swarm Drone Interceptor System**
 
+[![Pylint](https://github.com/Commonfields25/Interceptor_M/actions/workflows/pylint.yml/badge.svg)](https://github.com/Commonfields25/Interceptor_M/actions/workflows/pylint.yml)
+[![Python CI](https://github.com/Commonfields25/Interceptor_M/actions/workflows/python-ci.yml/badge.svg)](https://github.com/Commonfields25/Interceptor_M/actions/workflows/python-ci.yml)
+[![Node 24 Validation](https://github.com/Commonfields25/Interceptor_M/actions/workflows/node24-validation.yml/badge.svg)](https://github.com/Commonfields25/Interceptor_M/actions/workflows/node24-validation.yml)
+
 A three-line family of tube-launched interceptor drones (DD / DI / DC) sharing a common platform. Designed for autonomous and semi-autonomous point-defense, infrastructure protection, and civil drone management.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -194,6 +198,33 @@ git clone https://github.com/Commonfields25/Interceptor_M.git
 cd Interceptor_M
 \`\`\`
 
+### Quickstart
+
+```bash
+# Install core simulation dependencies
+pip install numpy scipy matplotlib
+
+# Run the 6-DOF interceptor simulation (proportional navigation, standalone)
+python simulation/sim_6dof.py
+
+# Run Monte Carlo PN intercept study
+python simulation/montecarlo_pintercept.py
+
+# Run the PN flight-control proof-of-concept
+python simulation/flight_control_poc.py
+```
+
+> **Expected:** `sim_6dof.py` produces a single-intercept run with proportional navigation. `montecarlo_pintercept.py` runs 100+ trials and prints P_k statistics. `flight_control_poc.py` validates the PN law against a head-on target.
+
+**Optional — ML / RL training stack:**
+
+```bash
+pip install torch gymnasium PyYAML
+# Isaac Gym: follow instructions at isaac sim.nvidia.com
+# export ISAAC_GYM_PATH=/path/to/isaac_gym
+# python isaac_gym/swarm_env.py
+```
+
 ### Dependencies
 
 \`\`\`bash
@@ -207,24 +238,6 @@ pip install torch gymnasium PyYAML
 # Then:
 # export ISAAC_GYM_PATH=/path/to/isaac_gym
 \`\`\`
-
-### Run the Smoke Test
-
-\`\`\`bash
-cd simulation
-python sim_6dof.py
-\`\`\`
-
-Expected output: single interceptor intercept test with proportional navigation law.
-
-### Isaac Gym Multi-Agent Smoke Test
-
-\`\`\`bash
-cd isaac_gym
-python swarm_env.py
-\`\`\`
-
-Expected output: two-interceptor scenario, reward +0.50/+0.50 after 50 steps.
 
 ---
 
