@@ -1,0 +1,82 @@
+name: PR Triage
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Triage PR
+        id: triage
+        run: |
+          FILES=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
+            "${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" | \
+            python3 -c "
+import sys,json
+files=[f['filename'] for f in json.load(sys.stdin)]
+print('
+'.join(files))
+")
+          echo "files=$FILES" >> $GITHUB_OUTPUT
+      - name: Add labels by area
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = `${{ steps.triage.outputs.files }}`.trim().split('
+').filter(Boolean);
+            const labels = new Set();
+            files.forEach(f => {
+              if (f.startsWith('engineering/DI/ML/') || f.startsWith('swarm_env') || f.includes('mappo')) labels.add('area:swarm-rl');
+              if (f.startsWith('engineering/DC/')) labels.add('area:dc');
+              if (f.startsWith('governance/') || f.startsWith('.github/')) labels.add('area:governance');
+              if (f.endsWith('.md') || f.startsWith('docs/')) labels.add('type:docs');
+              if (f.includes('simulation') || f.includes('montecarlo')) labels.add('area:simulation');
+              if (f.startsWith('engineering/DI/NDC/') || f.startsWith('models/')) labels.add('area:dd');
+            });
+            // Size label
+            if (files.length > 10) labels.add('size:xl');
+            else if (files.length > 5) labels.add('size:l');
+            else if (files.length > 2) labels.add('size:m');
+            else labels.add('size:s');
+            if (labels.size > 0) {
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: [...labels],
+              });
+              console.log('Added labels:', [...labels]);
+            }
+      - name: Add PR comment with triage summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const files = `${{ steps.triage.outputs.files }}`.trim().split('
+').filter(Boolean);
+            const areas = [...new Set(files.map(f => {
+              if (f.startsWith('engineering/DI/ML/')||f.includes('mappo')) return 'swarm-rl';
+              if (f.startsWith('engineering/DC/')) return 'dc';
+              if (f.startsWith('governance/')||f.startsWith('.github/')||f.startsWith('ci-templates/')) return 'governance';
+              if (f.endsWith('.md')||f.startsWith('docs/')) return 'docs';
+              if (f.includes('simulation')) return 'simulation';
+              if (f.startsWith('models/')) return 'dd';
+              return 'di';
+            }))];
+            const body = [
+              '## 🔍 PR Triage Summary',
+              '',
+              `**Files changed:** \`${files.length}\``,
+              '',
+              `**Areas:** ${areas.map(a => `\`${a}\``).join(', ')}`,
+              '',
+              '_Auto-labeled by PR Triage workflow. Review the checklist in CONTRIBUTING.md before merge._',
+            ].join('
+');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });
