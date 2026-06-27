@@ -36,14 +36,34 @@ To avoid concurrency issues (stepping on toes):
   - **D2:** `agents/D2/`, `models/DI/`
   - **D3:** `agents/D3/`, `models/DD/`
   - **E1:** `agents/E1/`, `engineering/NDC/`, `engineering/FEA/`, `engineering/simulation/`
-  - **E2:** `agents/E2/`, `engineering/CFD/`
+  - **E2:** `agents/E2/`, `engineering/ML/`, `engineering/CFD/`
   - **E3:** `agents/E3/`, `engineering/simulation/`
   - **AC:** `agents/AC/`, `governance/` (proposals only, DG validates)
   - **Commercial:** `agents/commercial/`
   - **Marketing:** `agents/marketing/`
+
+### 2.1 Namespace Isolation — Operational Rules
+
+To prevent Git merge hell when multiple agents edit documentation concurrently:
+
+1. **Single-owner files:** Every file has exactly one owning agent. Only that agent may modify the file in a given work cycle. Exceptions require AM approval.
+2. **No co-editing:** Two agents must never edit the same file in the same commit cycle. If overlap is needed, use a PR with explicit review.
+3. **Shared files — integration owner only:**
+   - `PARAMETERS.json`: WRITE via validated proposal (agent -> AM -> DG) only. No direct write by sub-agents.
+   - `agents/agent_manager/DECISION_LOG.md`: APPEND-ONLY. Never delete or edit existing entries. New entries go at the bottom.
+   - `governance/BOT_GUIDELINES.md`, `governance/AGENT_MANAGER_RULES.md`: Proposals via AC agent only; DG validates.
+4. **Branch naming convention per agent:**
+   - `feat/<agentID>/<short-description>` — feature work
+   - `fix/<agentID>/<short-description>` — bug fixes
+   - `docs/<agentID>/<short-description>` — documentation only
+   - Example: `feat/E2/swarm-rl-kickoff`, `fix/D3-mass-budget`
+5. **Locking for shared files:** Before starting a long task on a shared file, create a `.lock` file in the file's directory with content: `Agent: <ID> | Expected duration: <X>h | Start: <ISO timestamp>`. Remove the lock file when done.
+6. **Merge conflict resolution:** If a merge conflict occurs, the owning agent resolves it. The AM is notified. Do not force-merge over unresolved conflicts.
+7. **PR review requirement:** All PRs to `main` require at least one review from an agent other than the author before merge.
+
 - **Shared Files:** Use "APPEND-ONLY" mode for logs (e.g., `agents/agent_manager/DECISION_LOG.md`). Do not rewrite history.
 - **Locking:** Before starting a long task on a shared file, create a `.lock` file (e.g., `ROOT_ASSEMBLY.iam.lock`) with your Agent ID and expected duration.
-- **PARAMETERS.json:** Located at project root. READ by all agents. WRITE only via a validated proposal (agent → AM → DG).
+- **PARAMETERS.json:** Located at project root. READ by all agents. WRITE only via a validated proposal (agent -> AM -> DG).
 
 ## 3. IAMD FORMATTING (Information Augmented Markdown)
 
