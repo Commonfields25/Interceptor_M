@@ -19,6 +19,19 @@ Fonction principale : simulate_engagement(...)
 import math
 from . import constants as C
 
+# ------------------------------------------------------------------
+# Hot locals — bound once, reused in every derivees() call
+# ------------------------------------------------------------------
+_M_G         = C.MASSE_INTERCEPTOR_KG
+_S_REF       = C.SURFACE_REF_M2
+_CX_DRAG     = C.COEFF_TRAITEE_Cx
+_CL_ALPHA    = C.COEFF_PORTANCE_CL_ALPHA
+_G0          = C.G0
+_DUREE_MAX   = C.DUREE_MAX_S
+_DT          = C.PAS_DE_TEMPS_S
+_SEUIL_SQ    = 5.0 * 5.0          # SEUIL_INTERCEPT_M² (avoids sqrt in loop)
+_ACCEL_MAX   = C.ACCELERATION_LATERALE_MAX_M_S2
+
 
 # =============================================================================
 # CONVERSION ANGULAIRE
@@ -34,14 +47,15 @@ def rad_to_deg(r):
 # =============================================================================
 # MODÈLE ATMOSPHÉRIQUE (ISA niveau mer — simplification)
 # =============================================================================
+_H_SCALE   = 8500.0           # m — hauteur d'échelle de l'atmosphère
+_RHO_0     = C.MASSE_VOLUME_AIR_SLP
+
 def densite(altitude_m):
     """
     Masse volumique de l'air en fonction de l'altitude (modèle isotherme simple).
     Retourne kg/m³.
     """
-    h_scale = 8500.0           # m — hauteur d'échelle de l'atmosphère
-    rho_0   = C.MASSE_VOLUME_AIR_SLP
-    return rho_0 * math.exp(-altitude_m / h_scale)
+    return _RHO_0 * math.exp(-altitude_m / _H_SCALE)
 
 
 # =============================================================================
@@ -53,7 +67,7 @@ def trainee(vitesse_m_s, altitude_m):
     D = 0.5 * rho * v² * S_ref * Cx
     """
     rho = densite(altitude_m)
-    return 0.5 * rho * (vitesse_m_s ** 2.0) * C.SURFACE_REF_M2 * C.COEFF_TRAITEE_Cx
+    return 0.5 * rho * (vitesse_m_s ** 2.0) * _S_REF * _CX_DRAG
 
 
 def portance(vitesse_m_s, incidence_rad, altitude_m):
@@ -62,8 +76,8 @@ def portance(vitesse_m_s, incidence_rad, altitude_m):
     L = 0.5 * rho * v² * S_ref * C_L_alpha * alpha
     """
     rho = densite(altitude_m)
-    c_l = C.COEFF_PORTANCE_CL_ALPHA * incidence_rad
-    return 0.5 * rho * (vitesse_m_s ** 2.0) * C.SURFACE_REF_M2 * c_l
+    c_l = _CL_ALPHA * incidence_rad
+    return 0.5 * rho * (vitesse_m_s ** 2.0) * _S_REF * c_l
 
 
 # =============================================================================
@@ -83,7 +97,6 @@ def etat_initial(position_m, vitesse_m_s, cap_rad):
     --------
     dict — état complet du système
     """
-    # Vitesse dans le repère ENG (x = Nord, y = Est, z = Haut)
     vx = vitesse_m_s * math.cos(cap_rad)
     vy = vitesse_m_s * math.sin(cap_rad)
     vz = 0.0  # vol planar (pas de pente initiale)
@@ -91,7 +104,7 @@ def etat_initial(position_m, vitesse_m_s, cap_rad):
     return {
         "position": list(position_m),    # [x, y, z]
         "vitesse" : [vx, vy, vz],        # [vx, vy, vz]
-        "masse"   : C.MASSE_INTERCEPTOR_KG,
+        "masse"   : _M_G,
     }
 
 
@@ -115,43 +128,38 @@ def derivees(etat, alpha_rad, lat_accel_m_s2):
     pos = etat["position"]
     vel = etat["vitesse"]
 
-    # Modules
     vx, vy, vz = vel
-    vitesse_module = math.sqrt(vx**2 + vy**2 + vz**2)
+    v_sq = vx*vx + vy*vy + vz*vz
+    vitesse_module = math.sqrt(v_sq)
 
     # Sécurité : si vitesse quasi-nulle, on garde le cap
     if vitesse_module < 0.1:
         return [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
-    # Direction unitaire de la vitesse
-    ux = vx / vitesse_module
-    uy = vy / vitesse_module
-    uz = vz / vitesse_module
+    inv_v = 1.0 / vitesse_module
+    ux = vx * inv_v
+    uy = vy * inv_v
+    uz = vz * inv_v
 
     # Repère local (T, N, B) — tangent, normal (vertical), binormal (lateral)
-    # Plan de vol : T = [ux, uy, uz]
-    # N (vertical dans le plan) : projection de la gravité + portance
-    grav_z = -C.G0
-    portance_z = portance(vitesse_module, alpha_rad, pos[2]) / C.MASSE_INTERCEPTOR_KG
+    grav_z = -_G0
+    portance_z = portance(vitesse_module, alpha_rad, pos[2]) / _M_G
     accel_verticale = grav_z + portance_z
 
-    # Normalisé dans le plan
-    norm_plan = math.sqrt(ux**2 + uy**2 + 0.0001)
-    nx = 0.0
-    ny = 0.0
-    nz = (accel_verticale / abs(accel_verticale + 0.001)) if abs(accel_verticale) > 0.001 else 0.0
+    norm_plan = math.sqrt(ux*ux + uy*uy + 0.0001)
+    nz = (1.0 if accel_verticale > 0.001 else -1.0) if abs(accel_verticale) > 0.001 else 0.0
 
     # Binormal (perpendiculaire au plan) = direction de la commande latérale
     bx = -uy
     by =  ux
     bz = 0.0
-    norm_b = math.sqrt(bx**2 + by**2 + bz**2) + 1e-9
+    norm_b = math.sqrt(bx*bx + by*by + bz*bz) + 1e-9
     bx /= norm_b
     by /= norm_b
     bz /= norm_b
 
     # Traînée (opposée à la vitesse)
-    d_tr = trainee(vitesse_module, pos[2]) / C.MASSE_INTERCEPTOR_KG
+    d_tr = trainee(vitesse_module, pos[2]) / _M_G
 
     # Accélérations dans chaque direction
     dvx = -d_tr * ux + lat_accel_m_s2 * bx
@@ -188,7 +196,8 @@ def integrer(etat, alpha_rad, lat_accel_m_s2, dt):
 # =============================================================================
 def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
                         pos_cible_m,   vel_cible_m_s, cap_cible_rad,
-                        guidage_fn=None, alpha_rad=0.0):
+                        guidage_fn=None, alpha_rad=0.0,
+                        keep_traj=False):
     """
     Simule un engagement interceptor / cible.
 
@@ -206,79 +215,83 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
     guidage_fn      : callable               fonction(etat_i, etat_c) -> lat_accel_m_s2
                                              ou None (vol en ligne droite)
     alpha_rad       : float                  angle d'incidence (portance), rad
+    keep_traj       : bool                   si True, construit la trajectoire sous-échantillonnée;
+                                             si False (défaut), renvoie [] pour perf.
 
     Retourne
     --------
     dict {
         "intercept"  : bool   — True si intercept atteint
         "temps_s"    : float  — durée de l'engagement ou DUREE_MAX_S
-        "trajectoire": list   — liste de {t, x, y, z} (sous-échantillonné)
+        "trajectoire": list   — liste de {t, x, y, z} (sous-échantillonné) ou []
         "distance_min_m": float — distance minimale atteinte
     }
     """
     etat_i = etat_initial(pos_init_m, vel_init_m_s, cap_init_rad)
 
-    # État de la cible (rectiligne uniforme)
+    # État de la cible (rectiligne uniforme) — bound as locals
     vcx = vel_cible_m_s * math.cos(cap_cible_rad)
     vcy = vel_cible_m_s * math.sin(cap_cible_rad)
-    pos_c = list(pos_cible_m)
+    pos_cx = pos_cible_m[0]
+    pos_cy = pos_cible_m[1]
+    pos_cz = pos_cible_m[2]
 
-    temps   = 0.0
-    dt      = C.PAS_DE_TEMPS_S
-    traj    = []
-    dist_min = float("inf")
+    temps = 0.0
+    traj  = [] if keep_traj else None          # alloc only when needed
+    dist_min_sq = float("inf")
     intercept = False
 
-    # Seuil d'interception (distance < seuil → intercept)
-    SEUIL_INTERCEPT_M = 5.0     # m — distance à partir de laquelle on considère l'interception
-
-    while temps < C.DUREE_MAX_S:
+    while temps < _DUREE_MAX:
 
         # Sous-échantillonnage pour la trajectoire (tous les 0.1 s)
-        if len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.1:
-            traj.append({
-                "t": round(temps, 3),
-                "x": round(etat_i["position"][0], 1),
-                "y": round(etat_i["position"][1], 1),
-                "z": round(etat_i["position"][2], 1),
-            })
+        if traj is not None:
+            if len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.1:
+                traj.append({
+                    "t": round(temps, 3),
+                    "x": round(etat_i["position"][0], 1),
+                    "y": round(etat_i["position"][1], 1),
+                    "z": round(etat_i["position"][2], 1),
+                })
 
-        # Distance interceptor / cible
-        dx = etat_i["position"][0] - pos_c[0]
-        dy = etat_i["position"][1] - pos_c[1]
-        dz = etat_i["position"][2] - pos_c[2]
-        dist = math.sqrt(dx**2 + dy**2 + dz**2)
+        # Distance interceptor / cible — compare squared to avoid sqrt
+        dx = etat_i["position"][0] - pos_cx
+        dy = etat_i["position"][1] - pos_cy
+        dz = etat_i["position"][2] - pos_cz
+        dist_sq = dx*dx + dy*dy + dz*dz
 
-        if dist < dist_min:
-            dist_min = dist
+        if dist_sq < dist_min_sq:
+            dist_min_sq = dist_sq
 
-        # Test d'interception
-        if dist < SEUIL_INTERCEPT_M:
+        # Test d'interception via squared threshold
+        if dist_sq < _SEUIL_SQ:
             intercept = True
             break
 
         # Commande de guidage (ou zéro si pas de loi)
         lat_accel = 0.0
         if guidage_fn is not None:
-            lat_accel = guidage_fn(etat_i, {"position": pos_c, "vitesse": [vcx, vcy, 0.0]})
+            lat_accel = guidage_fn(etat_i, {"position": [pos_cx, pos_cy, pos_cz],
+                                             "vitesse": [vcx, vcy, 0.0]})
             # Saturation en accélération latérale
-            lat_accel = max(-C.ACCELERATION_LATERALE_MAX_M_S2,
-                            min(C.ACCELERATION_LATERALE_MAX_M_S2, lat_accel))
+            if lat_accel > _ACCEL_MAX:
+                lat_accel = _ACCEL_MAX
+            elif lat_accel < -_ACCEL_MAX:
+                lat_accel = -_ACCEL_MAX
 
         # Intégration interceptor
-        integrer(etat_i, alpha_rad, lat_accel, dt)
+        integrer(etat_i, alpha_rad, lat_accel, _DT)
 
         # Avance cible
-        pos_c[0] += vcx * dt
-        pos_c[1] += vcy * dt
+        pos_cx += vcx * _DT
+        pos_cy += vcy * _DT
 
-        temps += dt
+        temps += _DT
 
     return {
         "intercept"     : intercept,
-        "temps_s"       : round(temps, 3),
-        "trajectoire"   : traj,
-        "distance_min_m": round(dist_min, 2),
+        "temps_s"      : round(temps, 3),
+        "trajectoire"  : traj if traj is not None else [],
+        "distance_min_m": round(math.sqrt(dist_min_sq), 2),
     }
 
 
@@ -286,8 +299,6 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
 # AUTO-TEST
 # =============================================================================
 if __name__ == "__main__":
-    # Scénario simple : interceptor en (0,0,500), cible en (3000,0,500)
-    # Vitesse égale → intercept impossible sans guidage
     res = simulate_engagement(
         pos_init_m    = [0.0, 0.0, 500.0],
         vel_init_m_s  = 300.0,
