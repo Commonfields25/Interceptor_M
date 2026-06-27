@@ -51,3 +51,26 @@ status: Validated
 - **Validateur :** DG
 - **Impact :** D3, E1, E2, E3 — paramètres de base pour la modélisation
 - **Gate liée :** N/A
+
+### 2026-06-27 — Gate G1 CONDITIONAL GO — Prototypage valid & Phase 2 authorized
+- **Décision :** Gate G1 (Brief) passée avec résultat CONDITIONAL GO — 17/18 critères satisfaits
+- **Contexte :** Revue formelle des livrables de phase 1 (Prototype Roadmap, Parameters, Operations Workflow, Concurrency Analysis). L'agent D1 a finalisé le prototype. Tous les agents sont en mode standby-release. Conditions nécessaires avant G2.
+- **Auteur :** Agent Manager (après synthèse DG)
+- **Validateur :** DG
+- **Impact :** D2, D3, E2, E3 — passent en mode standby-release; D1 continue Engineering; DG ratifie les conditions
+- **Gate liée :** G1
+
+> **Conditions C1–C4 (DG-ratification-pending):**
+> - C1: G2 target = 2026-07-09 (vérifier alignement D1/D2/D3)
+> - C2: MTOW 250 g — corriger PARAMETERS.json (valeur actuelle potentiellement erronée)
+> - C3: Définir les livrables G2 (SolidWorks assembly, BOM, FEA preliminary)
+> - C4: Autorisation DG requise pour libérer D2/D3/E2/E3 du standby
+
+### 2026-06-27 — Standby-Release orders for D2, D3, E2, E3
+- **Décision :** D2 (Aerodynamics), D3 (Propulsion), E2 (Electronics), E3 (Integration) passent en mode standby — ne commencent pas leurs tâches tant que DG n'a pas ratifié C4 et libéré le go-ahead
+- **Contexte :** Le prototype D1 n'est pas encore intégré dans un modèle CAO complet. Les agents aval ne peuvent pas travailler efficacement sur leurs sous-systèmes sans cette base. Évite le rework.
+- **Auteur :** Agent Manager
+- **Validateur :** DG
+- **Impact :** D2, D3, E2, E3 — en attente; D1 continue Engineering
+- **Gate liée :** G1
+
