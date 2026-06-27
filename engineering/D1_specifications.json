@@ -5,11 +5,17 @@
     "date": "2026-06-24",
     "project": "Interceptor_M",
     "status": "initial specifications — to be refined by D2/D3/E2/E3",
-    "derived_from": ["agents/E1_marketing/market_study.json"],
-    "referenced_by": ["D2_aerodynamics", "D3_propulsion", "E2_electronics", "E3_integration"],
+    "derived_from": [
+      "agents/E1_marketing/market_study.json"
+    ],
+    "referenced_by": [
+      "D2_aerodynamics",
+      "D3_propulsion",
+      "E2_electronics",
+      "E3_integration"
+    ],
     "note": "All parameters are engineering targets. Final values require CFD (D2) and structural/avionics validation."
   },
-
   "system_overview": {
     "designation": "Interceptor_M",
     "role": "Short-to-Medium Range Air Defense (SHORAD/M-SHORAD) interceptor — anti-drone, anti-swarm, anti-cruise missile",
@@ -22,7 +28,6 @@
       "Design-for-manufacturing (DFM) prioritized over performance peak"
     ]
   },
-
   "threat_envelope": {
     "primary_threats": [
       {
@@ -73,7 +78,6 @@
       "engagement_geometry": "尾追 / head-on / lateral (360°)"
     }
   },
-
   "airframe": {
     "configuration": "Missile with cruciform delta wings + rear cruciform tail fins",
     "fuselage": {
@@ -109,7 +113,6 @@
       "fin_span_mm": 75
     }
   },
-
   "mass_budget": {
     "total_mass_g": 2500,
     "mass_breakdown": {
@@ -139,7 +142,6 @@
     },
     "note": "Mass budget drives propulsion selection. Total MTOW ≤ 2.5 kg to meet 1-12 km range with solid rocket motor."
   },
-
   "propulsion": {
     "type": "Solid rocket motor (SRM) — single-stage",
     "propellant": {
@@ -177,7 +179,6 @@
     "safety_classification": "UN 1.4C / US DoD 1.3B",
     "shelf_life_years": 10
   },
-
   "guidance_and_seeker": {
     "primary_mode": "Semi-active radar (SAR) with radio-frequency datalink for mid-course guidance",
     "terminal_mode": "Active millimeter-wave radar (MMW) autonomous —回家",
@@ -223,7 +224,6 @@
       "fire_control_compatibility": "Rheinmetall Skynex, Diehl Iris-T, Rafael Drone Dome"
     }
   },
-
   "warhead": {
     "type": "Blast-fragmentation (BF)",
     "mass_g": 450,
@@ -249,7 +249,6 @@
     "effective_kill_radius_m": 3,
     "note": "Fragmentation tuned for air-target defeat (spall, structural failure). Lethal radius adequate for drone-class targets at miss distances up to 5 m."
   },
-
   "kinematics": {
     "launch_method": "canister or rail launcher (ground/naval vehicle)",
     "launch_velocity_m_s": 50,
@@ -266,7 +265,6 @@
     "maneuverability_g": 25,
     "note": "Missile designed to close the gap at > 500 m/s relative velocity with subsonic targets at 12 km."
   },
-
   "launch_platforms": {
     "primary": {
       "type": "ground-based mobile launcher",
@@ -285,7 +283,6 @@
       "configuration": "fixed silo or bunker launcher, 4-12 tubes"
     }
   },
-
   "unit_cost_breakdown": {
     "target_cost_usd": 27500,
     "ceiling_cost_usd": 30000,
@@ -343,7 +340,6 @@
     },
     "cost_note": "Unit cost target is achievable at 500+ units/year production volume. At 1000+ units/year, cost could drop to $20-22k via learning curve. Non-recurring engineering (NRE) estimated separately at $15-25M."
   },
-
   "manufacturing_and_scalability": {
     "production_target": {
       "initial_units_per_year": 200,
@@ -372,28 +368,42 @@
       "UN 1.4C / US DoD 1.3B classification for transport"
     ]
   },
-
   "d2_dependencies": {
     "scope": "Validate aerodynamic coefficients (Cx, Cl, Cl/Cd), stability derivatives, and wing/fin geometry optimization via simplified CFD.",
-    "input_from_D1": ["airframe.dimensions", "airframe.wings", "airframe.tail_fins", "mass_budget.total_mass_g", "kinematics.launch_velocity_m_s"],
+    "input_from_D1": [
+      "airframe.dimensions",
+      "airframe.wings",
+      "airframe.tail_fins",
+      "mass_budget.total_mass_g",
+      "kinematics.launch_velocity_m_s"
+    ],
     "expected_output": "Cf (friction), Cd0 (zero-lift drag), Cl_alpha, Cma, Cnp — 3 candidate configurations"
   },
-
   "d3_dependencies": {
     "scope": "Validate structure design, select structural materials, define loads, and produce mechanical blueprint.",
-    "input_from_D1": ["airframe.configuration", "airframe.materials", "mass_budget.breakdown", "propulsion.motor_case", "warhead.mass_g"],
+    "input_from_D1": [
+      "airframe.configuration",
+      "airframe.materials",
+      "mass_budget.breakdown",
+      "propulsion.motor_case",
+      "warhead.mass_g"
+    ],
     "expected_output": "Material selection, wall thickness, joint detail, fastener schedule"
   },
-
   "e2_dependencies": {
     "scope": "Define electronics and seeker subsystem specifications (radar, datalink, flight computer).",
-    "input_from_D1": ["guidance_and_seeker", "unit_cost_breakdown.guidance_seeker", "launch_platforms"],
+    "input_from_D1": [
+      "guidance_and_seeker",
+      "unit_cost_breakdown.guidance_seeker",
+      "launch_platforms"
+    ],
     "expected_output": "Schematic, PCB stack-up, component selection, power budget"
   },
-
   "e3_dependencies": {
     "scope": "System-level integration: launch sequence, C2 interface, vehicle integration, TRL roadmap.",
-    "input_from_D1": ["all_sections"],
+    "input_from_D1": [
+      "all_sections"
+    ],
     "expected_output": "System architecture diagram, integration ICD, TRL plan"
   }
 }

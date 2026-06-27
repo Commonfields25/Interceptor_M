@@ -147,7 +147,7 @@ Step 11: Acceptance testing
 | TRL 3 | Demonstration analytique/critique | ✅ Done (this study) |
 | TRL 4 | Composant/breadboard validé en lab | 🔲 Year 1–2 |
 | TRL 5 | Composant/breadboard validé en env. pertinent | 🔲 Year 2–3 |
-| TRL 6 | Modèle système/segment原型 en env. pertinent | 🔲 Year 3–4 |
+| TRL 6 | Modèle système/segmentprototype en env. pertinent | 🔲 Year 3–4 |
 | TRL 7 | Prototype système en environnement opérationnel | 🔲 Year 4–5 |
 | TRL 8 | Système complet qualifié en vol réelle | 🔲 Year 5+ |
 | TRL 9 | Système prouvé en mission réelle | 🔲 Year 6+ |

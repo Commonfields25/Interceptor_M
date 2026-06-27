@@ -962,7 +962,7 @@ Problème détecté
       │         D1 les contacte directement
       │         │
       │         ▼
-      │    D1 + D2 (+ E1 si涉及结构)
+      │    D1 + D2 (+ E1 siinvolving structural analysis)
       │    dans les 48h
       │
       ▼
@@ -981,7 +981,7 @@ Problème détecté
 Problème détecté
       │
       ▼
-[1] E1 évalue si涉及结构
+[1] E1 évalue siinvolving structural analysis
       │
       │         │
       │         ▼

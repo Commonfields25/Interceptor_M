@@ -23,7 +23,7 @@ Validation aérodynamique du micro-intercepteur en configuration :
 
 | Config | Description | Outil cible | Priorité |
 |---|---|---|---|
-| C1 | Aile delta 4× déployée — M 0,3–2,2 | OpenFOAM /手段 | HAUTE |
+| C1 | Aile delta 4× déployée — M 0,3–2,2 | OpenFOAM /tool/method | HAUTE |
 | C2 | Configuration launcher — sabotinside tube | OpenFOAM | Moyenne |
 | C3 | Empennage cruciforme — stabilité | OpenFOAM | Moyenne |
 

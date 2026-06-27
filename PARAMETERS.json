@@ -1,9 +1,44 @@
 {
-  "tube_diameter_mm": 40.0,
-  "fuselage_outer_diameter_mm": 35.0,
-  "arm_length_mm": 75.0,
-  "wing_chord_mm": 60.0,
-  "fasteners": ["M2", "M3"],
-  "motor_mount_mm": [9.0, 12.0],
-  "mtow_g": 250.0
+  "metadata": {
+    "project": "Interceptor_M",
+    "product_family": true,
+    "note": "Shared geometry parameters. Line-specific MTOW/length in per-line files below."
+  },
+  "shared_geometry": {
+    "tube_diameter_mm": 40.0,
+    "fuselage_outer_diameter_mm": 35.0,
+    "arm_length_mm": 75.0,
+    "wing_chord_mm": 60.0,
+    "fasteners": ["M2", "M3"],
+    "motor_mount_mm": [9.0, 12.0]
+  },
+  "lines": {
+    "DD": {
+      "product_line": "Defense",
+      "mtow_g": 400.0,
+      "airframe_length_mm": 380.0,
+      "target_market": "Anti-drone / SHORAD NATO (Priority 1)",
+      "payload_type": "Warhead + multi-mode seeker (RF/IR dual-mode)",
+      "mission_profile": "Point-defense interceptor / loitering munition delivery",
+      "reference_file": "models/DD/DD-PARAMETERS.md"
+    },
+    "DC": {
+      "product_line": "Civil",
+      "mtow_g": 250.0,
+      "airframe_length_mm": null,
+      "target_market": "Photography / delivery / agriculture (Priority 3)",
+      "payload_type": "RGB camera / multispectral sensor",
+      "mission_profile": "Lightweight surveillance and delivery platform",
+      "reference_file": null
+    },
+    "DI": {
+      "product_line": "Industrial",
+      "mtow_g": null,
+      "airframe_length_mm": null,
+      "target_market": "Critical infrastructure protection (Priority 2)",
+      "payload_type": "Neutralisation payload (TBD specification)",
+      "mission_profile": "Site surveillance and threat neutralisation",
+      "reference_file": null
+    }
+  }
 }

@@ -29,7 +29,7 @@
     "key_trends": [
       "Effacement rapide des stocks d'intercepteurs en Ukraine et au Moyen-Orient (2025-2026) — besoin urgent de reconstitution",
       "C-UAS market en hyper-croissance (25%/an) driven par proliferations de drones et essaims (drone swarms)",
-      "Europe en独立化制导建设 : Rheinmetall-Lockheed (10 000 missiles/an), COMLOG MBDA-Raytheon (1 000 PAC-2)",
+      "Europe enindependent guidance system construction : Rheinmetall-Lockheed (10 000 missiles/an), COMLOG MBDA-Raytheon (1 000 PAC-2)",
       "Panique US sur les stocks : les USA ont tiré ~150 THAAD en 12 jours (Iran 2025), puis réorientation des actifs depuis la Corée du Sud",
       "Golden Dome USA : $25 milliards alloués par le One Big Beautiful Bill Act (juillet 2025)",
       "NATO SAFE program : fonds européens pour indépendance capacitaire",
@@ -40,7 +40,7 @@
     "growth_drivers": [
       "Escalade des conflits régionaux : Ukraine, Moyen-Orient, Indo-Pacifique",
       "Prolifération de masse des drones et essaims (UAV swarms)",
-      "Augmentation des budgets défense NATO (+2% PIB承诺)",
+      "Augmentation des budgets défense NATO (+2% PIBcommitment)",
       "Insuffisance critique des stocks d'intercepteurs occidentaux",
       "Demande de systèmes de défense multicouches (layered C-UAS architectures)",
       "Marché export dynamique pour systèmes air defense",
@@ -139,7 +139,7 @@
         "name": "MILITARY — NATO & EUROPE AIR DEFENSE MODERNIZATION",
         "priority": "HIGH",
         "estimated_tam_usd": "8-12 milliards USD (2025-2030)",
-        "rationale": "Europe en独立化制导建设 urgently — stocks interceptors NATO critique bas (PAC-2/PAC-3 très demandés, délais 3-5 ans). Allemagne, Poland, Balticsinvesting massivement via SAFE etachats directs. Opportunity pour intercepteurs SHORT-TO-MEDIUM RANGE manufactured locally.",
+        "rationale": "Europe enindependent guidance system construction urgently — stocks interceptors NATO critique bas (PAC-2/PAC-3 très demandés, délais 3-5 ans). Allemagne, Poland, Balticsinvesting massivement via SAFE etachats directs. Opportunity pour intercepteurs SHORT-TO-MEDIUM RANGE manufactured locally.",
         "key_countries": ["Germany", "Poland", "France", "Netherlands", "Baltic states", "Italy"],
         "target_application": "Short-to-medium range point defense, protection de bases, couverture antimissile et anti-drone"
       },
@@ -175,7 +175,7 @@
         "name": "HOMELAND SECURITY — BORDER & URBAN SECURITY",
         "priority": "MEDIUM",
         "estimated_tam_usd": "1-2 milliards USD (2025-2030)",
-        "rationale": "North America représente 31% du C-UAS market. US border surveillance + urban anti-drone. Europe (NATO) aussi en croissance. Marchémoins高端 mais très recurrent (volumes réguliers).",
+        "rationale": "North America représente 31% du C-UAS market. US border surveillance + urban anti-drone. Europe (NATO) aussi en croissance. Marchémoins mais très recurrent (volumes réguliers).",
         "key_countries": ["USA", "UK", "France", "Germany"],
         "target_application": "Short-range mobile systems, hand-held anti-drone, urban deployment"
       },
