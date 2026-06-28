@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 """
-model_parts.py — Interceptor_M FreeCAD Model Generator
+model_parts.py  -  Interceptor_M FreeCAD Model Generator
 Part IDs : BRK-001 (Structural Bracket), ACT-001 (Actuator Mount), NCR-001 (Nose-Cone Interface Ring)
 Generates parametric 3D models from params_DC.json / params_DD.json / params_DI.json
 Outputs  : .FCStd FreeCAD documents + STEP files per product line
@@ -40,7 +40,7 @@ __author__  = "D1/D2/D3 agents"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 1 — PATHS
+#  SECTION 1  -  PATHS
 # ═══════════════════════════════════════════════════════════════════════════════
 
 BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +53,7 @@ for _d in (MODEL_DIR, STEP_DIR):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 2 — JSON PARAMETER LOADING
+#  SECTION 2  -  JSON PARAMETER LOADING
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def load_params(line_code: str) -> dict:
@@ -68,18 +68,18 @@ def load_params(line_code: str) -> dict:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 3 — SKETCH HELPERS  (Sketcher API)
+#  SECTION 3  -  SKETCH HELPERS  (Sketcher API)
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def new_sketch(body, name: str) -> Sketcher.Sketch:
-    """Crée une Sketch sur le plan XY du Body."""
+    """Cree une Sketch sur le plan XY du Body."""
     sk = body.newObject("Sketcher::SketchObject", name)
     sk.MapMode = "FlatFace"
     return sk
 
 
 def add_rectangle(sk, x: float, y: float, w: float, h: float, label: str = ""):
-    """Rectangle centré en (x,y) de dimensions w×h."""
+    """Rectangle centre en (x,y) de dimensions w×h."""
     g = sk.addGeometry(Part.Rectangle(x - w/2, y - h/2,
                                       x + w/2, y + h/2), False)
     sk.addConstraint(Sketcher.Constraint("Coincident", -1, 1, g, 3))
@@ -89,7 +89,7 @@ def add_rectangle(sk, x: float, y: float, w: float, h: float, label: str = ""):
 
 
 def add_circle(sk, cx: float, cy: float, r: float, label: str = "") -> int:
-    """Cercle centré en (cx,cy) de rayon r. Renvoie l'index de géométrie."""
+    """Cercle centre en (cx,cy) de rayon r. Renvoie l'index de geometrie."""
     g = sk.addGeometry(Part.Circle(cx, cy, 0, r), False)
     if label:
         sk.setAlias(label)
@@ -97,29 +97,29 @@ def add_circle(sk, cx: float, cy: float, r: float, label: str = "") -> int:
 
 
 def add_slot(sk, x: float, y: float, w: float, h: float, label: str = ""):
-    """Slot (ovale) centré en (x,y)."""
+    """Slot (ovale) centre en (x,y)."""
     g = sk.addGeometry(Part.Point(x, y), False)
     sk.addConstraint(Sketcher.Constraint("Distance", -1, 1, g, 4, w))
     return g
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 4 — PART BUILDERS
+#  SECTION 4  -  PART BUILDERS
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def build_BRK001(params: dict) -> Part.Solid:
     """
-    BRK-001 — Structural Bracket
+    BRK-001  -  Structural Bracket
     Material : 7075-T6 Aluminium  |  Stock : 80×60×12 mm
     Manufacturing : CNC 3-axis milling (described)
 
     Features modelled:
-      • Main plate          : 75 × 55 × 10 mm (from specs)
-      • Central bore Ø35 H7 (depth 8 mm)
-      • 4× arm holes Ø5 H8  (radial, r=20 mm, 90° apart)
-      • 4× motor-mount holes Ø9 H8 (cross pattern)
-      • 8× M2 tapped holes   (Ø2.0 mm, depth 4 mm)
-      • 4× M3 tapped holes   (Ø2.5 mm, depth 6 mm)
+        Main plate          : 75 × 55 × 10 mm (from specs)
+        Central bore Ø35 H7 (depth 8 mm)
+        4× arm holes Ø5 H8  (radial, r=20 mm, 90deg apart)
+        4× motor-mount holes Ø9 H8 (cross pattern)
+        8× M2 tapped holes   (Ø2.0 mm, depth 4 mm)
+        4× M3 tapped holes   (Ø2.5 mm, depth 6 mm)
     """
     L    = 75.0   # mm  (overall length from spec)
     W    = 55.0   # mm  (overall width  from spec)
@@ -131,7 +131,10 @@ def build_BRK001(params: dict) -> Part.Solid:
     motor_hole = 9.0
     arm_angle_list = [0, 90, 180, 270]  # degrees
 
-    solid = Part.Solid(Part.Shell([]))   # placeholder
+    # ── Base plate (main rectangular body) ─────────────────────────
+    main_solid = Part.makeCylinder(L/2, T, FreeCAD.Vector(0, 0, 0), FreeCAD.Vector(0, 0, 1))
+    # Extend to rectangular footprint by adding bounding box approach
+    main_solid = Part.makeBox(L, W, T, FreeCAD.Vector(-L/2, -W/2, 0))
 
     # ── Base plate via Pad ──────────────────────────────────────────
     sk_plate = Sketcher.Sketch()
@@ -171,7 +174,7 @@ def build_BRK001(params: dict) -> Part.Solid:
         cyl = Part.makeCylinder(motor_hole/2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1))
         main_solid = main_solid.cut(cyl)
 
-    # ── 8× M2 tapped holes (Ø2.0 mm, depth 4 mm) — arranged around perimeter ─
+    # ── 8× M2 tapped holes (Ø2.0 mm, depth 4 mm)  -  arranged around perimeter ─
     m2_d = 2.0; m2_depth = 4.0
     m2_y_positions = [-W/4, W/4]
     for row_y in m2_y_positions:
@@ -195,19 +198,19 @@ def build_BRK001(params: dict) -> Part.Solid:
 
 def build_ACT001(params: dict) -> Part.Solid:
     """
-    ACT-001 — Actuator Mount
+    ACT-001  -  Actuator Mount
     Material : 7075-T6 Aluminium  |  Stock : 70×50×8 mm
     Manufacturing : CNC 3-axis milling (described)
 
     Features modelled:
-      • Main plate             : 65 × 45 × 7 mm
-      • ESC pocket             : 30.5 × 15.5 × 8.5 mm
-      • FC  pocket             : 30.5 × 30.5 × 8.5 mm
-      • Battery slot          : 20.5 × 6.0 mm (through-width slot)
-      • Thermal slot (ESC pad) : 32.0 × 17.0 × 0.5 mm (shallow recess)
-      • 2× Wire channels       : 3.0 mm wide × 2.0 mm deep
-      • 4× M3 clearance holes  : Ø3.3 mm
-      • 6× M2 clearance holes  : Ø2.2 mm
+        Main plate             : 65 × 45 × 7 mm
+        ESC pocket             : 30.5 × 15.5 × 8.5 mm
+        FC  pocket             : 30.5 × 30.5 × 8.5 mm
+        Battery slot          : 20.5 × 6.0 mm (through-width slot)
+        Thermal slot (ESC pad) : 32.0 × 17.0 × 0.5 mm (shallow recess)
+        2× Wire channels       : 3.0 mm wide × 2.0 mm deep
+        4× M3 clearance holes  : Ø3.3 mm
+        6× M2 clearance holes  : Ø2.2 mm
     """
     L   = 65.0;  W   = 45.0;  T   = 7.0
     esc_w = 30.5; esc_h = 15.5
@@ -278,18 +281,18 @@ def build_ACT001(params: dict) -> Part.Solid:
 
 def build_NCR001(params: dict) -> Part.Solid:
     """
-    NCR-001 — Nose-Cone Interface Ring
+    NCR-001  -  Nose-Cone Interface Ring
     Material : 316L Stainless Steel  |  Stock : Ø45×25 mm bar
     Manufacturing : CNC Turning (Lathe) + CNC Milling (secondary op)
 
     Features modelled:
-      • Body : Ø44.0 mm OD × 20.0 mm long (lathe profile)
-      • Fuselage bore Ø35 H7 (ID, full depth)
-      • Nose-cone pilot bore Ø15 H8 (ID, full depth)
-      • O-ring groove Ø36.5 mm × 2.80 mm wide  (OR-112 NBR)
-      • Anti-rotation flats ×2 (6 mm wide, 180° apart)
-      • 4× M3 threaded holes (interface to fuselage clamp)
-      • Through-bore Ø4 mm (wiring)
+        Body : Ø44.0 mm OD × 20.0 mm long (lathe profile)
+        Fuselage bore Ø35 H7 (ID, full depth)
+        Nose-cone pilot bore Ø15 H8 (ID, full depth)
+        O-ring groove Ø36.5 mm × 2.80 mm wide  (OR-112 NBR)
+        Anti-rotation flats ×2 (6 mm wide, 180deg apart)
+        4× M3 threaded holes (interface to fuselage clamp)
+        Through-bore Ø4 mm (wiring)
     """
     OD        = 44.0   # mm  outer diameter
     L_body    = 20.0   # mm  overall length
@@ -315,10 +318,10 @@ def build_NCR001(params: dict) -> Part.Solid:
     #   R=18.25  → O-ring groove mean radius
 
     profile_points = [
-        FreeCAD.Vector(0,      0,    0),    # Z=0  — reference face edge
-        FreeCAD.Vector(0,      OD/2, 0),    # Z=0  — OD outer
-        FreeCAD.Vector(0,      OD/2, L_body),   # Z=L  — OD tip
-        FreeCAD.Vector(0,      0,    L_body),   # Z=L  — bore axis
+        FreeCAD.Vector(0,      0,    0),    # Z=0   -  reference face edge
+        FreeCAD.Vector(0,      OD/2, 0),    # Z=0   -  OD outer
+        FreeCAD.Vector(0,      OD/2, L_body),   # Z=L   -  OD tip
+        FreeCAD.Vector(0,      0,    L_body),   # Z=L   -  bore axis
     ]
 
     # ── Build the main turning body via revolution ────────────────────
@@ -358,7 +361,7 @@ def build_NCR001(params: dict) -> Part.Solid:
     groove_ring = groove_cyl.cut(groove_sub)
     solid = solid.cut(groove_ring)
 
-    # ── Anti-rotation flats (×2, 180° apart) ─────────────────────────
+    # ── Anti-rotation flats (×2, 180deg apart) ─────────────────────────
     # Mill flat surfaces on the OD
     flat_d = 1.5   # depth of flat from OD surface
     flat_y = outer_r - flat_d
@@ -370,7 +373,7 @@ def build_NCR001(params: dict) -> Part.Solid:
                                                 -1))
         solid = solid.cut(flat_cut)
 
-    # ── 4× M3 threaded holes (90° apart, on OD circle) ────────────────
+    # ── 4× M3 threaded holes (90deg apart, on OD circle) ────────────────
     m3_d     = 2.5    # drill Ø before tapping
     m3_depth = 6.0
     hole_r   = outer_r + 0.5   # holes slightly beyond OD
@@ -380,7 +383,7 @@ def build_NCR001(params: dict) -> Part.Solid:
         hx  = hole_r * math.cos(rad)
         hy  = hole_r * math.sin(rad)
         cyl = Part.makeCylinder(m3_d/2, m3_depth + 2,
-                                 FreeCAD.Vector(hx, hy, T_m3 := L_body - m3_depth - 2),
+                                 FreeCAD.Vector(hx, hy, L_body - m3_depth - 2),
                                  FreeCAD.Vector(0, 0, 1))
         solid = solid.cut(cyl)
 
@@ -394,11 +397,11 @@ def build_NCR001(params: dict) -> Part.Solid:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 5 — FREECAD DOCUMENT ASSEMBLY
+#  SECTION 5  -  FREECAD DOCUMENT ASSEMBLY
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
-    """Crée / met à jour un document FreeCAD avec les 3 pièces BRK/ACT/NCR."""
+    """Cree / met a jour un document FreeCAD avec les 3 pieces BRK/ACT/NCR."""
 
     doc_name = f"Interceptor_M_{line_code}"
     Console.PrintMessage(f"\n[model_parts] Assembling document: {doc_name}\n")
@@ -455,14 +458,14 @@ def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  SECTION 6 — MAIN
+#  SECTION 6  -  MAIN
 # ═══════════════════════════════════════════════════════════════════════════════
 
 LINES = ["DC", "DD", "DI"]
 
 def main():
     print("=" * 70)
-    print("  model_parts.py — Interceptor_M FreeCAD Model Generator  v" + __version__)
+    print("  model_parts.py  -  Interceptor_M FreeCAD Model Generator  v" + __version__)
     print("=" * 70)
 
     if not FC_AVAILABLE:
@@ -472,7 +475,7 @@ def main():
         # Still write STEP files using pythonocc-core if available, else skip
         try:
             import OCC
-            print("[OK] pythonocc-core detected — STEP export possible headlessly.")
+            print("[OK] pythonocc-core detected  -  STEP export possible headlessly.")
         except ImportError:
             print("[SKIP] STEP export requires FreeCAD or pythonocc-core.")
         return
@@ -481,12 +484,12 @@ def main():
         try:
             params = load_params(line)
             assemble_doc(line, params)
-            print(f"[OK] Line {line} — all 3 parts modelled and exported.")
+            print(f"[OK] Line {line}  -  all 3 parts modelled and exported.")
         except FileNotFoundError as e:
-            print(f"[WARN] Line {line} — {e}")
+            print(f"[WARN] Line {line}  -  {e}")
             continue
         except Exception as e:
-            print(f"[ERROR] Line {line} — {e}")
+            print(f"[ERROR] Line {line}  -  {e}")
             import traceback
             traceback.print_exc()
             continue
