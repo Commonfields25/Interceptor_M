@@ -131,7 +131,10 @@ def build_BRK001(params: dict) -> Part.Solid:
     motor_hole = 9.0
     arm_angle_list = [0, 90, 180, 270]  # degrees
 
-    solid = Part.Solid(Part.Shell([]))   # placeholder
+    # ── Base plate (main rectangular body) ─────────────────────────
+    main_solid = Part.makeCylinder(L/2, T, FreeCAD.Vector(0, 0, 0), FreeCAD.Vector(0, 0, 1))
+    # Extend to rectangular footprint by adding bounding box approach
+    main_solid = Part.makeBox(L, W, T, FreeCAD.Vector(-L/2, -W/2, 0))
 
     # ── Base plate via Pad ──────────────────────────────────────────
     sk_plate = Sketcher.Sketch()
@@ -380,7 +383,7 @@ def build_NCR001(params: dict) -> Part.Solid:
         hx  = hole_r * math.cos(rad)
         hy  = hole_r * math.sin(rad)
         cyl = Part.makeCylinder(m3_d/2, m3_depth + 2,
-                                 FreeCAD.Vector(hx, hy, T_m3 := L_body - m3_depth - 2),
+                                 FreeCAD.Vector(hx, hy, L_body - m3_depth - 2),
                                  FreeCAD.Vector(0, 0, 1))
         solid = solid.cut(cyl)
 
