@@ -330,3 +330,9 @@ pip install torch gymnasium PyYAML
 
 This project is proprietary and confidential. All rights reserved.
 See [`LICENSE`](./LICENSE) for licensing terms.
+
+---
+## CI Status
+- Python CI: active (python-ci.yml, push+PR to main)
+- Node 24 Validation: active (node24-validation.yml, push+PR to main)
+- Last activation: 2026-06-28 (Vague 3)
