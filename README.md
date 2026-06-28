@@ -1,9 +1,9 @@
 ---
 project: Interceptor_M
 description: Modular Swarm Drone Interceptor System
-version: 1.0
+version: 1.1
 status: Active
-date: 2026-06-27
+date: 2026-06-28
 ---
 
 # Interceptor_M
@@ -94,17 +94,34 @@ Isaac Gym env: `isaac_gym/swarm_env.py` (multi-agent intercept, gym API)
 
 ```
 Interceptor_M/
-|-- BOT_GUIDELINES.md            # AI agent interaction rules
-|-- PARAMETERS.json              # Shared + per-line parameters
+|-- BOT_GUIDELINES.md            # AI agent interaction rules + namespace isolation
+|-- PARAMETERS.json              # Shared + per-line parameters (DD, DI, DC)
 |-- PRODUCT-FAMILY.md            # Product line matrix
-|-- SHARED-COMPONENTS.md         # Shared component registry
+|-- SHARED-COMPONENTS.md         # Shared component registry (SC-01 à SC-06)
 |--
-|-- agents/                      # Per-agent workspaces
-|    |-- agent_manager/          # AM workspace, DECISION_LOG, TEAM_UPDATE
+|-- agents/                      # Per-agent workspaces (D1/D2/D3, E1/E2/E3, AM)
+|    |-- agent_manager/          # AM workspace: DECISION_LOG, TEAM_UPDATE
 |    |-- D1/, D2/, D3/           # Design engineers
 |    |-- E1/, E2/, E3/           # Systems / Electronics / Integration
 |--
-|-- architecture_interceptor.pdf # CAD reference
+|-- Base_Launcher_Pieces/        # CAD base launcher parts
+|--
+|-- ci-templates/                # Canonical workflow templates
+|    |-- workflows/             # CI templates (replicated in .github/workflows/)
+|         |-- governance.yml    # Governance check workflow
+|         |-- metrics.yml       # Project metrics
+|         |-- pr-triage.yml     # PR triage automation
+|         |-- python-ci.yml     # Python CI template
+|         |-- docs-lint.yml     # Documentation lint
+|         |-- node24-validation.yml  # Node 24 validation
+|--
+|-- .github/workflows/          # Active CI/CD workflows (live copies)
+|    |-- pylint.yml             # Linting (specific files, multi-version)
+|    |-- python-ci.yml          # Python CI
+|    |-- node24-validation.yml  # Node 24 validation
+|    |-- docs-lint.yml          # Docs lint
+|    |-- build-provenance.yml   # Build provenance attestation
+|    |-- ci-cd-secrets-demo.yml # Secrets management demo
 |--
 |-- docs/                        # Design documentation
 |    |-- D2_aerodynamics.md
@@ -112,41 +129,53 @@ Interceptor_M/
 |    |-- E2_electronics.md
 |    |-- E3_integration.md
 |    |-- consolidated_definition.md
+|    |-- governance/            # Governance docs (cf. governance/ )
+|    |    |-- MECHANICAL_DEV_APPROVAL.md  # Mechanical dev approval chain
+|    |-- manufacturing/        # Manufacturing docs
 |--
 |-- engineering/                 # Engineering deliverables
-|    |-- CFD/                    # Aerodynamics (CFD-PLAN.md)
-|    |-- FEA/                    # Structural analysis (FEA-PLAN.md)
+|    |-- CFD/                   # Aerodynamics (CFD-PLAN.md)
+|    |-- DC/                    # DC line deliverables
+|    |-- DI/                    # DI line deliverables
+|    |-- FEA/                   # Structural analysis (FEA-PLAN.md)
 |    |-- ML/                    # ML / Swarm RL (SWARM-RL-PLAN.md)
-|    |-- NDC/                   # NDC / CdCF (NDC-INTERCEPTOR-DD.md)
-|    |-- simulation/            # 6-DOF sim, PN baseline, flight control
-|        |-- sim_6dof.py       # Interceptor 6-DOF model
-|        |-- montecarlo_pintercept.py  # PN Monte Carlo baseline
-|        |-- flight_control_poc.py     # PN law reference
-|        |-- constants.py
-|        |-- README.md
-|        |-- swarm_env.py      # Isaac Gym multi-agent env
-|        |-- scenarios.yaml     # Isaac Gym scenarios
-|        |-- mappo_config.yaml # MAPPO hyperparameters
+|    |-- simulation/            # Simulation: 6-DOF, PN baseline, flight control
+|         |-- sim_6dof.py       # Interceptor 6-DOF model
+|         |-- montecarlo_pintercept.py  # PN Monte Carlo
+|         |-- flight_control_poc.py     # PN law reference
+|         |-- constants.py
+|         |-- README.md
+|         |-- swarm_env.py      # Isaac Gym multi-agent env
+|         |-- scenarios.yaml    # Isaac Gym scenarios
+|         |-- mappo_config.yaml # MAPPO hyperparameters
 |--
 |-- governance/                  # Project governance
 |    |-- BOT_GUIDELINES.md      # Namespace isolation rules
 |    |-- AUTO-APPROVAL-POLICY.md # Threshold-based auto-approval
 |    |-- AGENT_MANAGER_RULES.md
 |    |-- guidelines.md / rules.md
+|    |-- ci_checks/            # CI governance checks
+|--
+|-- hardware/                    # Hardware / prototypes
+|    |-- prototypes/
+|--
+|-- manufacturing/              # Manufacturing process docs
 |--
 |-- models/                     # CAD models by product line
 |    |-- DD/
 |         |-- DD-CONCEPT.md     # DD design concept + mass budget
 |         |-- DD-PARAMETERS.md  # DD locked specs (400 g / 380 mm)
 |--
-|-- simulation/                 # Numerical simulation
-|    |-- sim_6dof.py           # 6-DOF interceptor model
+|-- scripts/                    # Utility scripts
+|--
+|-- simulation/                 # Numerical simulation (legacy, same as engineering/simulation/)
+|    |-- sim_6dof.py
 |    |-- montecarlo_pintercept.py
 |    |-- flight_control_poc.py
 |    |-- constants.py
 |    |-- README.md
 |--
-\`-- LICENSE
+|-- LICENSE
 ```
 
 ---
@@ -159,11 +188,11 @@ Interceptor_M uses a multi-agent governance model with 11 gates (G0-G11). See [`
 
 | Agent | Role |
 |-------|------|
-| DG | Director General - sole MAJOR gate authority |
+| DG | Director General — sole MAJOR gate authority |
 | Agent Manager | Day-to-day coordination, MINOR gate auto-approval |
 | D1 / D2 / D3 | Design engineers (platform, aerodynamics, propulsion) |
 | E1 / E2 / E3 | Systems, Electronics, Integration engineers |
-| AC | Amelioration Continue - continuous improvement |
+| AC | Amelioration Continue — continuous improvement |
 
 ### Gate System
 
@@ -171,85 +200,38 @@ Interceptor_M uses a multi-agent governance model with 11 gates (G0-G11). See [`
 - **MINOR gates (AM auto-approval eligible when KPIs > 90%):** G1, G3, G5, G6, G8
 
 KPI thresholds for auto-approval:
-- On-time delivery >= 90%
-- Peer review coverage >= 80%
-- Blocker resolution time <= 24 h
-- Agent utilization >= 70%
+- On-time delivery ≥ 90%
+- Peer review coverage ≥ 80%
+- Blocker resolution time ≤ 24 h
+- Agent utilization ≥ 70%
 
 ### Namespace Isolation
 
 Each agent operates within a defined scope. No two agents co-edit the same file in the same cycle. See [`governance/BOT_GUIDELINES.md`](./governance/BOT_GUIDELINES.md) Section 2.1.
 
----
+### Mechanical Dev Approval
 
-## Getting Started
-
-### Prerequisites
-
-- Python 3.9+
-- NVIDIA Isaac Gym or Isaac Lab (for RL training; see [`engineering/ML/SWARM-RL-PLAN.md`](./engineering/ML/SWARM-RL-PLAN.md))
-- PyTorch 2.0+
-- git
-
-### Clone
-
-\`\`\`bash
-git clone https://github.com/Commonfields25/Interceptor_M.git
-cd Interceptor_M
-\`\`\`
-
-### Quickstart
-
-```bash
-# Install core simulation dependencies
-pip install numpy scipy matplotlib
-
-# Run the 6-DOF interceptor simulation (proportional navigation, standalone)
-python simulation/sim_6dof.py
-
-# Run Monte Carlo PN intercept study
-python simulation/montecarlo_pintercept.py
-
-# Run the PN flight-control proof-of-concept
-python simulation/flight_control_poc.py
-```
-
-> **Expected:** `sim_6dof.py` produces a single-intercept run with proportional navigation. `montecarlo_pintercept.py` runs 100+ trials and prints P_k statistics. `flight_control_poc.py` validates the PN law against a head-on target.
-
-**Optional — ML / RL training stack:**
-
-```bash
-pip install torch gymnasium PyYAML
-# Isaac Gym: follow instructions at isaac sim.nvidia.com
-# export ISAAC_GYM_PATH=/path/to/isaac_gym
-# python isaac_gym/swarm_env.py
-```
-
-### Dependencies
-
-\`\`\`bash
-# Core simulation
-pip install numpy scipy matplotlib
-
-# ML / RL training (optional)
-pip install torch gymnasium PyYAML
-
-# Isaac Gym (follow NVIDIA instructions at isaac sim.nvidia.com)
-# Then:
-# export ISAAC_GYM_PATH=/path/to/isaac_gym
-\`\`\`
+All mechanical D1/D2/D3 deliverables require DG approval. See [`docs/governance/MECHANICAL_DEV_APPROVAL.md`](./docs/governance/MECHANICAL_DEV_APPROVAL.md).
 
 ---
 
-## Roadmap
+## Roadmap / État du projet
 
-### Red Flag Mitigations (Active)
+### 🔢 Milestones actifs (M5 → M9)
 
-| RF | Description | Owner | Status |
-|----|-------------|-------|--------|
-| RF1 | Swarm RL modules not started | E2 / D3 | In progress (PR #14 merged; issues #15-16 opened) |
-| RF2 | Git merge hell risk | Agent Manager | In progress (issue #17 opened; Namespace Isolation enforced) |
-| RF3 | DG single point of failure | Agent Manager | In progress (issue #18 opened; auto-approval policy adopted) |
+| Milestone | Échéance | Description |
+|-----------|----------|-------------|
+| **[M5] Branch Cleanup** | 10/07/2026 | Nettoyage branches inactives, politique de gestion des branches |
+| **[M6] CI Node24** | 17/07/2026 | Migration CI → Node24, activation workflows |
+| **[M7] Product Specs Lock DI** | 24/07/2026 | Finalisation specs DI, verrouillage BOM |
+| **[M8] RL Env Hardening** | 14/08/2026 | Renforcement RL env, rebalancing agents |
+| **[M9] Recrutement Ing. Conception** | 30/07/2026 | Recrutement ingénieur conception & design industriel |
+| **[M1] Swarm RL Foundations** | 31/07/2026 | Physique 6-DOF, MAPPO baseline, 3 scénarios |
+| **[M3] Governance & CI** | 15/08/2026 | Namespace isolation, auto-approval audit, CI pipeline |
+| **[M2] Product Specs Locked** | 31/08/2026 | Toutes specs DI/DC/DD validées |
+| **[M4] First Training Runs** | 30/09/2026 | Entraînement MAPPO GPU, courbes, métriques |
+
+*Voir [`BRANCH_REVIEW.md`](./BRANCH_REVIEW.md) pour l'état détaillé des branches actives.*
 
 ### Product Line Roadmap
 
@@ -267,6 +249,80 @@ pip install torch gymnasium PyYAML
 - **Week 9-12:** Sim-to-real + hardware-in-the-loop
 
 Full plan: [`engineering/ML/SWARM-RL-PLAN.md`](./engineering/ML/SWARM-RL-PLAN.md)
+
+---
+
+## 🚧 Éléments en attente de revue
+
+Les éléments suivants nécessitent une décision explicite avant action :
+
+| Élément | Statut | Action requise |
+|---------|--------|----------------|
+| `params/` | Dossier non listé — vérifer contenu | Inventorier, intégrer ou archiver |
+| `gen_geometry.py` (racine) | Script FreeCAD à la racine | Merger dans `scripts/` ou `engineering/simulation/` |
+| `governance/` vs `docs/governance/` | Dédoublement partial (MECHANICAL_DEV_APPROVAL.md dans `docs/governance/`) | Définir politique : `governance/` = live, `docs/governance/` = archivable |
+| `ci-templates/workflows/` vs `.github/workflows/` | 6 workflows identiques (governance, metrics, pr-triage, python-ci, docs-lint, node24) | Consolider : canonical = `ci-templates/`, `.github/` = live copies |
+| `OPERATIONS_WORKFLOW.md` vs `OPERATIONS_WORKFLOW_V2.md` | V1 (65 ko) et V2 (75 ko) — versions TRÈS différentes | **Les deux à conserver** (V2 = refonte majeure). Décider哪天 supprimer V1 |
+| `Base_Launcher_Pieces/` | Dossier CAD à la racine | Déplacer dans `models/` ou `hardware/prototypes/` |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.9+
+- NVIDIA Isaac Gym or Isaac Lab (for RL training; see [`engineering/ML/SWARM-RL-PLAN.md`](./engineering/ML/SWARM-RL-PLAN.md))
+- PyTorch 2.0+
+- git
+
+### Clone
+
+```bash
+git clone https://github.com/Commonfields25/Interceptor_M.git
+cd Interceptor_M
+```
+
+### Quickstart
+
+```bash
+# Install core simulation dependencies
+pip install numpy scipy matplotlib
+
+# Run the 6-DOF interceptor simulation (proportional navigation, standalone)
+python simulation/sim_6dof.py
+
+# Run Monte Carlo PN intercept study
+python simulation/montecarlo_pintercept.py
+
+# Run the PN flight-control proof-of-concept
+python flight_control_poc.py
+```
+
+> **Expected:** `sim_6dof.py` produces a single-intercept run with proportional navigation. `montecarlo_pintercept.py` runs 100+ trials and prints P_k statistics. `flight_control_poc.py` validates the PN law against a head-on target.
+
+**Optional — ML / RL training stack:**
+
+```bash
+pip install torch gymnasium PyYAML
+# Isaac Gym: follow instructions at isaac sim.nvidia.com
+# export ISAAC_GYM_PATH=/path/to/isaac_gym
+# python isaac_gym/swarm_env.py
+```
+
+### Dependencies
+
+```bash
+# Core simulation
+pip install numpy scipy matplotlib
+
+# ML / RL training (optional)
+pip install torch gymnasium PyYAML
+
+# Isaac Gym (follow NVIDIA instructions at isaac sim.nvidia.com)
+# Then:
+# export ISAAC_GYM_PATH=/path/to/isaac_gym
+```
 
 ---
 
