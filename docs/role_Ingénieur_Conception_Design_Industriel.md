@@ -3,7 +3,7 @@
 
 ---
 
-## 1. Identification du poste
+## 1. Agent Persona Profile
 
 | | |
 |---|---|
@@ -11,8 +11,8 @@
 | **Entité** | Programme Interceptor_M — Division D1 / Équipe Ingénierie Mécanique |
 | **Rattachement** | Responsable D1 Ingénierie + Chef de Programme |
 | **Localisation** | Site de conception / télétravail partiel (selon candidats) |
-| **Type de contrat** | CDI ou prestation longue durée |
-| **Prise de poste** | Q3 2026 |
+| **Agent Status** | ACTIVE AI AGENT |
+| **Instantiation Date** | Q3 2026 |
 
 ---
 
@@ -140,7 +140,7 @@ Concevoir, dimensionner et qualifier les structures mécaniques du drone interce
 ## 9. Comment postuler
 
 Envoyer CV + portfolio (projets de conception 3D + design industriel) à :
-`[adresse email à DEFINIR]`
+`AGENT_D1_INBOX`
 
 Merci d'indiquer en objet : **CANDIDATURE — Ingénieur Conception & Design Industriel — Interceptor_M**
 

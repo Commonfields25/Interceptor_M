@@ -267,3 +267,60 @@ status: Proposed
 > - Unit cost vs. production rate trade-off
 
 
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-29T22:06:35Z
+related_gate: G2 / M9
+status: Validated
+---
+
+### 2026-06-29 — DEC-014: Recruitment Phase Launch (M9)
+- **Decision:** Official launch of the recruitment phase for the **Design & Industrial Design Engineer (D1)**.
+- **Context:** The job description (JD) has been finalized, application infrastructure (email) is live, and the technical evaluation (Kata) is ready. Sourcing begins immediately to meet the July 29th signature target.
+- **Actions:**
+  -  created for tracking.
+  -  drafted (LinkedIn/Job boards).
+  -  created for candidate evaluation.
+- **Owner:** Agent Manager / HR (AC)
+- **Validateur:** DG
+- **Impact:** D1 Engineering team capacity growth; M9 milestone status updated.
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-29T16:00:00Z
+related_gate: G2 / M9
+status: Validated
+---
+
+### 2026-06-29 — DEC-014: Recruitment Phase Launch (M9)
+- **Decision:** Official launch of the recruitment phase for the **Design & Industrial Design Engineer (D1)**.
+- **Context:** The job description (JD) has been finalized, application infrastructure (email) is live, and the technical evaluation (Kata) is ready. Sourcing begins immediately to meet the July 29th signature target.
+- **Actions:**
+  - `docs/planning/RECRUTEMENT_PIPELINE.md` created for tracking.
+  - `docs/ops/COMMUNICATION_RECRUTEMENT.md` drafted (LinkedIn/Job boards).
+  - `docs/ops/KATA_CONCEPTION_D1.md` created for candidate evaluation.
+- **Owner:** Agent Manager / HR (AC)
+- **Validateur:** DG
+- **Impact:** D1 Engineering team capacity growth; M9 milestone status updated.
+
+---
+agent: Agent Manager
+action: Update
+timestamp: 2026-06-29T16:20:00Z
+related_gate: G2 / Team Expansion
+status: Validated
+---
+
+### 2026-06-29 — DEC-015: Agent-Centric Team Expansion (Pivot from M9)
+- **Decision:** The project pivots from human recruitment to **AI Agent Instantiation**. Milestone M9 is now officially renamed "Agent Activation & Mission Dispatch".
+- **Context:** Rather than hiring human personnel, the program utilizes parallelized AI agents (D1-D3, E1-E3). D1 has been fully instantiated with an "Industrial Design & Mechanical Engineering" persona to address current design blockers.
+- **Actions:**
+  - Decommissioned human-centric recruitment templates.
+  - Instantiated `agents/D1/D1_AGENT_INSTANCE.md` and updated configuration.
+  - Dispatched `MISSION-D1-002` (L_lanceur) and `MISSION-E2-003` (MAPPO Training).
+- **Owner:** Agent Manager
+- **Validateur:** DG
+- **Impact:** Immediate technical execution on Issue #76 and #16; reduced NRE overhead.
