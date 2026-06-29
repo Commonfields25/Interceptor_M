@@ -1,0 +1,15 @@
+{
+  "mission_id": "MISSION-D1-002",
+  "agent_id": "D1",
+  "issue_ref": "#76",
+  "task": "Update the SAB-02 documentation and ensure CAD models reflect L_lanceur = 1980 mm.",
+  "workflow": [
+    "Verify 1500mm rail reference in models/Base_Launcher_Pieces/README.md",
+    "Update docs/D3/SAB-02_L_lanceur_v1.0_2026-06-29.md to v1.2 SYNC",
+    "Generate updated CAD script for launcher assembly"
+  ],
+  "constraints": {
+    "tolerance": "±1 mm",
+    "safety_margin": "1.5"
+  }
+}
