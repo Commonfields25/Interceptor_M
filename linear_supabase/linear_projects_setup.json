@@ -1,0 +1,254 @@
+{
+  "projects": [
+    {
+      "name": "Interceptor_M - Agent E1 (Exploration)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Gestion de l'exploration de l'espace de configuration pour l'agent E1",
+      "color": "#FF6B6B",
+      "icon": "🚀",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent E1",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-E1"]
+          }
+        },
+        {
+          "name": "Blocage",
+          "description": "Signaler un blocage critique",
+          "fields": {
+            "priority": "urgent",
+            "labels": ["blocage", "agent-E1"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent E2 (Exploration)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Gestion de l'exploration de l'espace de configuration pour l'agent E2",
+      "color": "#FF6B6B",
+      "icon": "🚀",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent E2",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-E2"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent E3 (Exploration)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Gestion de l'exploration de l'espace de configuration pour l'agent E3",
+      "color": "#FF6B6B",
+      "icon": "🚀",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent E3",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-E3"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent D1 (Discrimination)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Aide à la discrimination des solutions pour l'agent D1",
+      "color": "#4ECDC4",
+      "icon": "⚖️",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent D1",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-D1"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent D2 (Discrimination)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Aide à la discrimination des solutions pour l'agent D2",
+      "color": "#4ECDC4",
+      "icon": "⚖️",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent D2",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-D2"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent D3 (Discrimination)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Aide à la discrimination des solutions pour l'agent D3",
+      "color": "#4ECDC4",
+      "icon": "⚖️",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent D3",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-D3"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent AM (Auto-Modélisation)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Auto-modélisation et meta-apprentissage",
+      "color": "#45B7D1",
+      "icon": "🧠",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent AM",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-AM"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent AC (Auto-Correction)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Auto-correction et ajustement dynamique des stratégies",
+      "color": "#96CEB4",
+      "icon": "🔧",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent AC",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-AC"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent G1 (Gouvernance)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Gouvernance et respect des règles NAMSPACE-ISOLATION",
+      "color": "#DDA0DD",
+      "icon": "🛡️",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent G1",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-G1"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Agent G2 (Gouvernance)",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Gouvernance et respect des règles NAMSPACE-ISOLATION",
+      "color": "#DDA0DD",
+      "icon": "🛡️",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent G2",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "agent-G2"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - RL Training Pipeline",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Optimisation des modèles RL (PPO, SAC, TD3) - blocages critiques identifiés",
+      "color": "#F7DC6F",
+      "icon": "🤖",
+      "templates": [
+        {
+          "name": "Bug RL",
+          "description": "Signaler un bug dans le pipeline RL",
+          "fields": {
+            "priority": "urgent",
+            "labels": ["bug", "rl-pipeline"]
+          }
+        },
+        {
+          "name": "Feature RL",
+          "description": "Nouvelle feature pour le pipeline RL",
+          "fields": {
+            "priority": "medium",
+            "labels": ["feature", "rl-pipeline"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Interceptor_M - Simulation Engine",
+      "teamId": "INTERCEPTOR-TEAM",
+      "description": "Moteur de simulation CFD et multi-physique",
+      "color": "#BB8FCE",
+      "icon": "⚡",
+      "templates": [
+        {
+          "name": "Rapport quotidien",
+          "description": "Rapport journalier de l'agent SIM",
+          "fields": {
+            "priority": "medium",
+            "labels": ["rapport-quotidien", "simulation"]
+          }
+        }
+      ]
+    }
+  ],
+  "labels": [
+    {"name": "rapport-quotidien", "color": "#36B5D0", "description": "Rapports journaliers des agents"},
+    {"name": "blocage", "color": "#FF0000", "description": "Blocage critique"},
+    {"name": "agent-E1", "color": "#FF6B6B", "description": "Agent E1"},
+    {"name": "agent-E2", "color": "#FF6B6B", "description": "Agent E2"},
+    {"name": "agent-E3", "color": "#FF6B6B", "description": "Agent E3"},
+    {"name": "agent-D1", "color": "#4ECDC4", "description": "Agent D1"},
+    {"name": "agent-D2", "color": "#4ECDC4", "description": "Agent D2"},
+    {"name": "agent-D3", "color": "#4ECDC4", "description": "Agent D3"},
+    {"name": "agent-AM", "color": "#45B7D1", "description": "Agent AM"},
+    {"name": "agent-AC", "color": "#96CEB4", "description": "Agent AC"},
+    {"name": "agent-G1", "color": "#DDA0DD", "description": "Agent G1"},
+    {"name": "agent-G2", "color": "#DDA0DD", "description": "Agent G2"},
+    {"name": "rl-pipeline", "color": "#F7DC6F", "description": "Pipeline RL"},
+    {"name": "simulation", "color": "#BB8FCE", "description": "Simulation"},
+    {"name": "sprint-p1", "color": "#00FF00", "description": "Sprint Priority 1"},
+    {"name": "sprint-p2", "color": "#FFFF00", "description": "Sprint Priority 2"},
+    {"name": "done", "color": "#808080", "description": "Terminé"},
+    {"name": "in-progress", "color": "#0000FF", "description": "En cours"}
+  ],
+  "milestones": [
+    {"name": "M1 - Initialisation du système multi-agents", "targetDate": "2026-07-15"},
+    {"name": "M2 - Phase d'exploration", "targetDate": "2026-08-01"},
+    {"name": "M3 - Phase de discrimination", "targetDate": "2026-08-15"},
+    {"name": "M4 - Optimisation RL", "targetDate": "2026-09-01"},
+    {"name": "M5 - Gouvernance Namespace", "targetDate": "2026-09-15"},
+    {"name": "M6 - Intégration finale", "targetDate": "2026-10-01"},
+    {"name": "M7 - Tests de performance", "targetDate": "2026-10-15"},
+    {"name": "M8 - Déploiement", "targetDate": "2026-11-01"}
+  ]
+}
