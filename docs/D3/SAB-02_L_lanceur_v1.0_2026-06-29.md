@@ -18,7 +18,7 @@
 | **L_lanceur** | **1 980** | **mm** |
 | Tolérance | **± 1** | **mm** |
 | Limite basse | 1 979 | mm |
-| Limite haute | 2 001 | mm |
+| Limite haute | 1 981 | mm |
 
 ---
 
@@ -97,6 +97,6 @@ L_lanceur = 1 980 mm
 
 ```
 L_lanceur = 1 980 ± 1 mm
-          = [1 979 mm ; 2 001 mm]
+          = [1 979 mm ; 1 981 mm]
 ```
 
