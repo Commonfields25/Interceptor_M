@@ -1,8 +1,8 @@
 # Interceptor_M — Product Family Overview
 
 **Strategy:** Common-platform modular product family
-**Version:** 1.1 — DI BOM locked · All lines geometrically characterised
-**Date:** 2026-06-28
+**Version:** 1.2 — Parameters synchronized to DD-380 baseline
+**Date:** 2026-06-29
 
 ---
 
@@ -25,9 +25,9 @@ in airframe scale, payload, and certification envelope.
 
 | Line | Market         | Priority | MTOW (g) | Fuselage LxWxH (mm) | Wing Span (m) | Wall (mm) | Status |
 |------|----------------|----------|----------|---------------------|---------------|-----------|--------|
-| DD   | Defense        | High     | 400      | 444.45x210.53x111.11 | 1.754       | 2.530   | Active |
-| DI   | Industrial     | High     | 300      | 403.81x191.28x100.95 | 1.594       | 2.191   | **BOM locked** |
-| DC   | Civil          | Medium   | 250      | 380.00x180.00x95.00  | 1.500       | 2.000   | Active |
+| DD   | Defense        | High     | 400      | 380.0x200.0x100.0   | 0.150         | 2.0       | Active |
+| DI   | Industrial     | High     | 300      | 365.0x180.0x90.0    | 0.135         | 1.8       | **BOM locked** |
+| DC   | Civil          | Medium   | 250      | 350.0x160.0x80.0    | 0.120         | 1.5       | Active |
 
 > **DI BOM Status:** Final. No changes without formal ECR (Engineering Change Request) + DG approval.
 
@@ -178,4 +178,3 @@ in airframe scale, payload, and certification envelope.
 | **M7** | **DI Product Specifications Lock & BOM** | **Primary owner - BOM locked** |
 | M8 | RL Environment Hardening & Agent Rebalancing | - |
 | M9 | Recrutement Ingenieur Conception & Design Industriel | Personnel |
-
