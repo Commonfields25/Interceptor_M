@@ -1,54 +1,54 @@
 {
   "project": "Interceptor M",
-  "version": "1.0.0",
-  "mtow_source": "provisional \u2014 \u00e0 confirmer produit",
+  "version": "1.0.1",
+  "mtow_source": "provisional — à confirmer produit",
   "lines": {
     "DC": {
-      "designation": "Drone Compact \u2014 Ligthweight",
+      "designation": "Drone Compact — Lightweight",
       "mtow_g": 250,
       "mtow_source": "spec E1 nominal",
       "segments": {
         "fuselage": {
-          "L_mm": 380.0,
-          "W_mm": 180.0,
-          "H_mm": 95.0
+          "L_mm": 350.0,
+          "W_mm": 160.0,
+          "H_mm": 80.0
         },
-        "wing_span_m": 1.5,
-        "hull_thickness_mm": 2.0
+        "wing_span_m": 0.12,
+        "hull_thickness_mm": 1.5
       }
     },
     "DD": {
-      "designation": "Drone D\u00e9ployable \u2014 Extended Range",
+      "designation": "Drone Déployable — Extended Range",
       "mtow_g": 400,
       "mtow_source": "spec E1 nominal",
       "segments": {
         "fuselage": {
-          "L_mm": 480.0,
-          "W_mm": 228.0,
-          "H_mm": 120.0
+          "L_mm": 380.0,
+          "W_mm": 200.0,
+          "H_mm": 100.0
         },
-        "wing_span_m": 2.0,
-        "hull_thickness_mm": 2.5
+        "wing_span_m": 0.15,
+        "hull_thickness_mm": 2.0
       }
     },
     "DI": {
       "designation": "Drone Industriel",
       "mtow_g": 300,
-      "mtow_source": "provisional \u2014 midpoint DC/DD, \u00e0 confirmer produit",
+      "mtow_source": "provisional — midpoint DC/DD, à confirmer produit",
       "segments": {
         "fuselage": {
-          "L_mm": 428.0,
-          "W_mm": 203.0,
-          "H_mm": 107.0
+          "L_mm": 365.0,
+          "W_mm": 180.0,
+          "H_mm": 90.0
         },
-        "wing_span_m": 1.75,
-        "hull_thickness_mm": 2.24
+        "wing_span_m": 0.135,
+        "hull_thickness_mm": 1.8
       }
     }
   },
   "parts": {
     "BRK-001": {
-      "description": "Structure primaire \u2014 Coque fuselage +\u652f\u7ffc",
+      "description": "Structure primaire — Coque fuselage +支翼",
       "material": "AlSi10Mg (DMLS)",
       "specs": {
         "E1": {
@@ -58,7 +58,7 @@
       }
     },
     "ACT-001": {
-      "description": "V\u00e9rin tubulaire 3 axes",
+      "description": "Vérin tubulaire 3 axes",
       "material": "AlSi10Mg (DMLS)",
       "specs": {
         "E3": {
@@ -68,7 +68,7 @@
       }
     },
     "NCR-001": {
-      "description": "Car\u00e9nage aero \u2014 Coque complexe",
+      "description": "Carénage aero — Coque complexe",
       "material": "Nomex honeycomb + CF skins",
       "specs": {
         "E2": {
@@ -86,8 +86,8 @@
     },
     "CNC": {
       "tolerances": {
-        "IT7": "\u00b10.015mm",
-        "IT10": "\u00b10.05mm"
+        "IT7": "±0.015mm",
+        "IT10": "±0.05mm"
       }
     },
     "FDM": {
