@@ -1,468 +1,312 @@
-# 🚀 Guide d'Intégration Linear + Supabase pour Interceptor_M
+# 📖 Guide d'Intégration Linear + Supabase pour Interceptor_M
 
-## 📋 Table des Matières
-1. [Vue d'Ensemble](#vue-densemble)
-2. [Prérequis](#prérequis)
-3. [Installation de Supabase](#installation-de-supabase)
-4. [Installation de Linear](#installation-de-linear)
-5. [Configuration des Variables d'Environnement](#configuration-des-variables-denvironnement)
-6. [Scripts d'Automatisation](#scripts-dautomatisation)
-7. [Workflows GitHub Actions](#workflows-github-actions)
-8. [Dashboard et Monitoring](#dashboard-et-monitoring)
+Ce guide explique comment configurer **Linear** et **Supabase** pour automatiser la gestion des tâches, des rapports et des alertes pour le projet **Interceptor_M**.
 
 ---
 
-## 🔭 Vue d'Ensemble
+## 📌 Prérequis
 
-### Architecture
+Avant de commencer, assurez-vous d'avoir :
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Interceptor_M Project                        │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────┐         ┌──────────────┐                      │
-│  │  GitHub      │◄────────│   Linear    │  ← Project Management │
-│  │  Repository  │────────►│   API       │                      │
-│  └──────────────┘         └──────────────┘                      │
-│         │                         │                             │
-│         │                         │                             │
-│         ▼                         ▼                             │
-│  ┌──────────────────────────────────────────────┐              │
-│  │            Supabase Database                  │              │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐     │              │
-│  │  │  Agents  │ │  Reports │ │  Tasks   │     │              │
-│  │  └──────────┘ └──────────┘ └──────────┘     │              │
-│  │  ┌──────────┐ ┌──────────┐ ┌──────────┐     │              │
-│  │  │   Sim    │ │  Logs    │ │  Alerts  │     │              │
-│  │  └──────────┘ └──────────┘ └──────────┘     │              │
-│  └──────────────────────────────────────────────┘              │
-│                        │                                        │
-│                        ▼                                        │
-│  ┌──────────────────────────────────────────────┐              │
-│  │         Alert Monitoring (blocages, etc.)     │              │
-│  │         Slack / Console / Email              │              │
-│  └──────────────────────────────────────────────┘              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+1. **Un compte Linear** : [https://linear.app](https://linear.app)
+   - Créer un **workspace** pour le projet.
+   - Récupérer votre **clé API** (dans **Settings > API**).
+   - Noter l'**ID de votre équipe** (dans l'URL de votre équipe : `https://linear.app/TEAM_ID`).
 
-### Flux de Données
+2. **Un projet Supabase** : [https://app.supabase.com](https://app.supabase.com)
+   - Créer un nouveau projet.
+   - Récupérer l'**URL du projet** et la **clé de service** (dans **Settings > API**).
 
-1. **Agents → Supabase**: Les agents soumettent leurs rapports quotidiens
-2. **GitHub → Linear**: Les issues sont synchronisées vers Linear
-3. **Linear → Supabase**: Les tâches sont stockées pour analytics
-4. **Supabase → Alerts**: Les blocages > 2h déclenchent des alertes
+3. **Un dépôt GitHub** : [https://github.com/Commonfields25/Interceptor_M](https://github.com/Commonfields25/Interceptor_M)
+   - Assurez-vous d'avoir un **token GitHub** avec les permissions `repo` (pour accéder aux issues).
 
----
-
-## ✅ Prérequis
-
-### Outils Requis
-
-```bash
-# Python 3.9+
-python --version
-
-# pip
-pip install -r requirements.txt
-
-# Git
-git --version
-```
-
-### Packages Python
-
-```bash
-# Créez un fichier requirements.txt
-cat > requirements.txt << 'EOF'
-requests>=2.28.0
-python-dotenv>=1.0.0
-rich>=13.0.0
-psycopg2-binary>=2.9.0
-schedule>=1.2.0
-EOF
-
-pip install -r requirements.txt
-```
-
----
-
-## 🗄️ Installation de Supabase
-
-### Option 1: Supabase Cloud (Recommandé)
-
-1. **Créer un compte**
-   ```
-   https://app.supabase.com
-   ```
-
-2. **Créer un nouveau projet**
-   ```
-   Name: interceptor-m-production
-   Region: Choisir la plus proche
-   Database Password: [générer un mot de passe fort]
-   ```
-
-3. **Récupérer les identifiants**
-   - Allez dans Settings > API
-   - Notez `Project URL` et `anon/public key`
-
-4. **Exécuter le Schema**
+4. **Python 3.8+** et les dépendances :
    ```bash
-   # Installez psql si nécessaire
-   brew install postgresql  # macOS
-   # ou
-   apt install postgresql-client  # Ubuntu
-   
-   # Connectez-vous
-   psql "postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres"
-   
-   # Exécutez le schema
-   \i supabase_schema.sql
+   pip install requests python-dotenv supabase
    ```
 
-### Option 2: Supabase Local (Docker)
-
-```bash
-# Installez Supabase CLI
-npm install -g supabase
-
-# Initialisez le projet
-supabase init
-
-# Démarrez Supabase
-supabase start
-
-# Le schema sera dans supabase/migrations/
-```
-
-### Initialisation des Données
-
-```bash
-# seed_data.json contient les données initiales
-# Importez-les via l'interface Supabase ou via script
-
-# Exemple d'import via curl
-curl -X POST "https://[PROJECT-REF].supabase.co/rest/v1/agents" \
-  -H "apikey: [ANON-KEY]" \
-  -H "Authorization: Bearer [ANON-KEY]" \
-  -H "Content-Type: application/json" \
-  -d @supabase_seed_data.json
-```
+5. **(Optionnel) Un webhook Slack** :
+   - Pour recevoir les alertes dans Slack, créez un **Incoming Webhook** dans votre espace Slack.
 
 ---
 
-## 📊 Installation de Linear
+## 🛠️ Configuration
 
-### 1. Créer un Workspace
+### 1️⃣ Configurer les variables d'environnement
 
-1. Allez sur https://linear.app
-2. Créez un workspace "Interceptor_M"
-3. Notez le Workspace ID
+Créez un fichier `.env` à la racine du projet avec les informations suivantes :
 
-### 2. Obtenir la Clé API
+```env
+# GitHub
+GITHUB_TOKEN=ghp_votre_token_github
+REPO_OWNER=Commonfields25
+REPO_NAME=Interceptor_M
 
-1. Allez dans Settings > API
-2. Créez une nouvelle clé API
-3. Sélectionnez les scopes:
-   - `read:issues`
-   - `write:issues`
-   - `read:labels`
-   - `write:labels`
-   - `read:projects`
-   - `read:users`
+# Linear
+LINEAR_API_KEY=votre_clé_api_linear
+LINEAR_TEAM_ID=votre_id_d_équipe_linear
 
-### 3. Configurer les Projets
+# Supabase
+SUPABASE_URL=https://votre-projet.supabase.co
+SUPABASE_SERVICE_KEY=votre_clé_de_service_supabase
 
-Importez `linear_projects_setup.json` via l'API Linear:
-
-```bash
-# Exemple avec curl (à adapter)
-curl -X POST "https://api.linear.app/graphql" \
-  -H "Authorization: Bearer [LINEAR-API-KEY]" \
-  -H "Content-Type: application/json" \
-  -d '{"query": "...", "variables": {...}}'
+# Slack (optionnel)
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/votre/webhook
 ```
 
-Ou configurez manuellement:
-- Créez un projet par type d'agent (E1-E3, D1-D3, AM, AC, G1-G2)
-- Ajoutez les labels appropriés
-- Créez les milestones M1-M8
-
-### 4. Configurer l'Équipe
-
-```bash
-# Team ID (trouvable dans les paramètres de l'équipe)
-LINEAR_TEAM_ID=INTERCEPTOR-TEAM
-```
+> ⚠️ **Ne partagez jamais ce fichier `.env` publiquement !** Ajoutez-le à votre `.gitignore`.
 
 ---
 
-## 🔐 Configuration des Variables d'Environnement
+### 2️⃣ Configurer Supabase
 
-Créez un fichier `.env` à la racine du projet:
+#### a. Créer le schéma de la base de données
 
-```bash
-# ===== SUPABASE =====
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+1. Allez dans votre projet Supabase : [https://app.supabase.com](https://app.supabase.com).
+2. Ouvrez l'onglet **SQL Editor**.
+3. Copiez-collez le contenu du fichier **`supabase_schema.sql`** et exécutez-le.
+   - Cela créera les tables : `agents`, `milestones`, `agent_reports`, `simulation_results`, `blockages`, `alerts`, `execution_logs`.
 
-# ===== LINEAR =====
-LINEAR_API_KEY=lin_api_xxxxx
-LINEAR_TEAM_ID=INTERCEPTOR-TEAM
-LINEAR_WORKSPACE_ID=INTERCEPTOR-M-WORKSPACE
+#### b. Peupler la base de données avec les données initiales
 
-# ===== GITHUB =====
-GITHUB_TOKEN=ghp_xxxxx
-GITHUB_OWNER=Commonfields25
-GITHUB_REPO=Interceptor_M
+1. Dans l'onglet **Table Editor**, sélectionnez la table `agents`.
+2. Cliquez sur **Import** et chargez le fichier **`supabase_seed_data.json`** pour importer les agents et milestones.
 
-# ===== SLACK (Optionnel) =====
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxx
-SLACK_CHANNEL=#interceptor-alerts
-
-# ===== ALERTES =====
-BLOCAGE_THRESHOLD_HOURS=2
-INACTIVE_THRESHOLD_HOURS=24
-
-# ===== LOGGING =====
-LOG_LEVEL=INFO
-```
-
-### Sécurité
-
-⚠️ **IMPORTANT**: Ne jamais commiter le fichier `.env`!
-
-```bash
-# Ajouter à .gitignore
-echo ".env" >> .gitignore
-echo ".env.local" >> .gitignore
-```
+> ✅ **Vérification** : Exécutez une requête SQL pour vérifier que les données sont bien importées :
+> ```sql
+> SELECT * FROM agents;
+> SELECT * FROM milestones;
+> ```
 
 ---
 
-## 🤖 Scripts d'Automatisation
+### 3️⃣ Configurer Linear
 
-### 1. Soumission de Rapports Agents
+#### a. Créer les projets pour chaque agent
 
+1. Allez dans votre espace Linear : [https://linear.app](https://linear.app).
+2. Pour chaque agent (E1, E2, E3, D1, D2, D3, AM, AC), créez un projet :
+   - Cliquez sur **+ New Project**.
+   - Donnez-lui un nom (ex: `E3 - Simulation Avancée`).
+   - Assignez-le à votre équipe.
+   - Ajoutez une description (ex: `Projet dédié aux tâches de simulation avancée pour l'agent E3`).
+
+> 💡 **Astuce** : Vous pouvez utiliser le fichier **`linear_projects_setup.json`** comme référence pour les noms et descriptions des projets.
+
+#### b. Synchroniser GitHub avec Linear
+
+1. Exécutez le script **`linear_github_sync_script.py`** pour synchroniser les issues GitHub avec Linear :
+   ```bash
+   python linear_github_sync_script.py
+   ```
+   - Cela créera automatiquement des tâches dans Linear pour chaque issue GitHub.
+   - Les issues avec un label `agent:E3` seront assignées au projet de l'agent E3.
+
+> ✅ **Vérification** : Allez dans Linear et vérifiez que les tâches sont bien créées.
+
+---
+
+### 4️⃣ Automatiser les rapports des agents
+
+Les agents doivent envoyer leurs rapports quotidiens au format :
+```
+[AGENT]|[DATE]|[ACTIONS]|[BLOCAGES]|[BESOINS]
+```
+
+#### a. Envoyer un rapport manuellement
+
+Exécutez le script **`agent_report_to_supabase.py`** pour envoyer un rapport :
 ```bash
-# Mode interactif
-python agent_report_to_supabase.py --interactive
-
-# Mode CLI
 python agent_report_to_supabase.py \
-  --agent E1 \
-  --date 2026-06-30 \
-  --actions "Exploration de 200 configurations. Résultats prometteurs sur 3 régions." \
-  --blocages "Mémoire GPU insuffisante" \
-  --besoins "Upgrade GPU ASAP"
+    --agent E3 \
+    --actions "Simulation CFD terminée, optimisation des paramètres RL" \
+    --blockages "Aucun" \
+    --needs "Validation des résultats par AM"
+```
 
-# Depuis un fichier formaté
+> ✅ **Vérification** : Dans Supabase, exécutez :
+> ```sql
+> SELECT * FROM agent_reports WHERE agent_id = 'E3';
+> ```
+
+#### b. Automatiser les rapports
+
+1. Modifiez le code de chaque agent pour qu'il appelle **`agent_report_to_supabase.py`** à la fin de chaque journée.
+2. Exemple pour l'agent E3 :
+   ```python
+   import subprocess
+   
+   def send_daily_report():
+       actions = "Synthèse des actions effectuées"
+       blockages = "Blocages en cours"
+       needs = "Besoins pour avancer"
+       
+       subprocess.run([
+           "python", "agent_report_to_supabase.py",
+           "--agent", "E3",
+           "--actions", actions,
+           "--blockages", blockages,
+           "--needs", needs
+       ])
+   ```
+
+---
+
+### 5️⃣ Configurer les alertes
+
+Le script **`supabase_alerts.py`** surveille :
+- Les **blocages ouverts depuis plus de 2 heures**.
+- Les **agents qui n'ont pas envoyé de rapport dans les 24 dernières heures**.
+
+#### a. Démarrer le script de surveillance
+
+Exécutez le script en arrière-plan :
+```bash
+nohup python supabase_alerts.py > alerts.log 2>&1 &
+```
+
+> ✅ **Vérification** :
+> - Dans Supabase, exécutez :
+>   ```sql
+>   SELECT * FROM alerts;
+>   ```
+> - Si vous avez configuré Slack, vérifiez que les alertes apparaissent dans votre canal.
+
+#### b. (Optionnel) Configurer un cron job
+
+Pour exécuter le script toutes les heures, ajoutez une entrée dans votre crontab :
+```bash
+0 * * * * /chemin/vers/venv/bin/python /chemin/vers/supabase_alerts.py >> /chemin/vers/alerts.log 2>&1
+```
+
+---
+
+### 6️⃣ Configurer GitHub Actions
+
+Le workflow **`.github/workflows/linear-supabase-sync.yml`** automatise :
+- La synchronisation **GitHub → Linear** toutes les 4 heures.
+- L'envoi des rapports des agents à Supabase.
+
+#### a. Configurer les secrets GitHub
+
+1. Allez dans **Settings > Secrets > Actions** de votre dépôt GitHub.
+2. Ajoutez les secrets suivants :
+   - `LINEAR_API_KEY` : Votre clé API Linear.
+   - `LINEAR_TEAM_ID` : L'ID de votre équipe Linear.
+   - `GITHUB_TOKEN` : Un token GitHub avec les permissions `repo`.
+   - `SUPABASE_URL` : L'URL de votre projet Supabase.
+   - `SUPABASE_SERVICE_KEY` : La clé de service de votre projet Supabase.
+
+#### b. Activer le workflow
+
+1. Le workflow est déjà dans le dépôt (`.github/workflows/linear-supabase-sync.yml`).
+2. Il s'exécutera automatiquement toutes les 4 heures.
+
+> ✅ **Vérification** : Allez dans l'onglet **Actions** de votre dépôt GitHub pour voir les exécutions du workflow.
+
+---
+
+## 🧪 Tests
+
+### 1️⃣ Tester la synchronisation GitHub → Linear
+
+1. Créez une nouvelle issue dans GitHub avec un label `agent:E3`.
+2. Exécutez le script :
+   ```bash
+   python linear_github_sync_script.py
+   ```
+3. Vérifiez dans Linear que la tâche a bien été créée.
+
+### 2️⃣ Tester l'envoi d'un rapport
+
+Exécutez :
+```bash
 python agent_report_to_supabase.py \
-  --input-file rapport_e1.txt
-
-# Afficher l'historique
-python agent_report_to_supabase.py --history E1
+    --agent E3 \
+    --actions "Test de rapport quotidien" \
+    --blockages "Aucun" \
+    --needs "Aucun"
 ```
 
-**Format du fichier**:
-```
-[E1]|2026-06-30|Exploration de 200 configurations|RAM saturée|Upgrade GPU
-```
-
-### 2. Synchronisation GitHub → Linear
-
-```bash
-# Synchroniser toutes les issues (mode réel)
-python linear_github_sync_script.py
-
-# Mode simulation (dry-run)
-python linear_github_sync_script.py --dry-run
-
-# Synchroniser aussi les labels
-python linear_github_sync_script.py --sync-labels
-
-# Mode verbose
-python linear_github_sync_script.py -v
-```
-
-### 3. Monitoring des Alertes
-
-```bash
-# Exécution unique
-python supabase_alerts.py --once
-
-# Monitoring continu (toutes les 5 minutes)
-python supabase_alerts.py --interval 300
-
-# Seuils personnalisés
-python supabase_alerts.py --blocage-hours 4 --inactive-hours 48
-```
-
----
-
-## ⚙️ Workflows GitHub Actions
-
-### Workflow: Sync GitHub Issues → Linear
-
-```yaml
-# .github/workflows/sync-linear.yml
-name: Sync GitHub to Linear
-
-on:
-  schedule:
-    - cron: '0 */4 * * *'  # Toutes les 4 heures
-  workflow_dispatch:
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      - name: Sync issues
-        env:
-          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
-          LINEAR_TEAM_ID: ${{ secrets.LINEAR_TEAM_ID }}
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-          GITHUB_OWNER: ${{ github.repository_owner }}
-          GITHUB_REPO: ${{ github.event.repository.name }}
-        run: python linear_github_sync_script.py
-```
-
-### Workflow: Daily Agent Reports Check
-
-```yaml
-# .github/workflows/daily-report-check.yml
-name: Daily Report Check
-
-on:
-  schedule:
-    - cron: '0 8 * * *'  # Chaque jour à 8h
-  workflow_dispatch:
-
-jobs:
-  check-reports:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-        
-      - name: Check alerts
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        run: python supabase_alerts.py --once
-```
-
-### Secrets à Configurer
-
-Dans GitHub > Settings > Secrets:
-
-```
-LINEAR_API_KEY=lin_api_xxxxx
-LINEAR_TEAM_ID=INTERCEPTOR-TEAM
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_SERVICE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SLACK_WEBHOOK_URL=https://hooks.slack.com/services/xxxxx
-```
-
----
-
-## 📈 Dashboard et Monitoring
-
-### Vues SQL Pré-définies
-
-Le schema crée automatiquement ces vues:
-
-1. **`v_agent_daily_status`**: État quotidien des agents
-2. **`v_active_tasks`**: Tâches actives par agent
-3. **`v_active_blocages`**: Blocages actifs (> 2h)
-4. **`v_milestone_progress`**: Progression des milestones
-
-### Requêtes Utiles
-
+Vérifiez dans Supabase :
 ```sql
--- Tous les blocages actifs
-SELECT * FROM v_active_blocages;
-
--- Progression des milestones
-SELECT * FROM v_milestone_progress;
-
--- Statistiques globales
-SELECT get_project_stats();
-
--- Rapports du jour
-SELECT * FROM agent_reports WHERE report_date = CURRENT_DATE;
-
--- Agents sans rapport aujourd'hui
-SELECT * FROM agents 
-WHERE is_active = true 
-AND agent_id NOT IN (
-  SELECT agent_id FROM agent_reports 
-  WHERE report_date = CURRENT_DATE
-);
+SELECT * FROM agent_reports WHERE agent_id = 'E3';
 ```
 
-### Intégration Metabase (Optionnel)
+### 3️⃣ Tester les alertes
 
-```bash
-# Démarrez Metabase
-docker run -d -p 3000:3000 \
-  -e MB_DB_TYPE=postgres \
-  -e MB_DB_DBNAME=postgres \
-  -e MB_DB_PORT=5432 \
-  -e MB_DB_USER=postgres \
-  -e MB_DB_PASS=[PASSWORD] \
-  -e MB_DB_HOST=[HOST] \
-  --name metabase metabase/metabase
-```
-
----
-
-## 🎯 Checklist d'Installation
-
-- [ ] Créer un projet Supabase
-- [ ] Exécuter `supabase_schema.sql`
-- [ ] Importer `supabase_seed_data.json`
-- [ ] Créer un workspace Linear
-- [ ] Générer une clé API Linear
-- [ ] Configurer les secrets GitHub
-- [ ] Tester `agent_report_to_supabase.py`
-- [ ] Tester `linear_github_sync_script.py --dry-run`
-- [ ] Tester `supabase_alerts.py --once`
-- [ ] Configurer les workflows GitHub Actions
-- [ ] (Optionnel) Configurer Slack webhook
-- [ ] (Optionnel) Installer Metabase
+1. Créez un blocage manuellement dans Supabase :
+   ```sql
+   INSERT INTO blockages (agent_id, issue_title, start_time, status)
+   VALUES ('E3', 'Test de blocage', NOW() - INTERVAL '3 hours', 'OPEN');
+   ```
+2. Exécutez le script d'alertes :
+   ```bash
+   python supabase_alerts.py
+   ```
+3. Vérifiez dans Supabase :
+   ```sql
+   SELECT * FROM alerts;
+   ```
 
 ---
 
-## 📞 Support
+## 📊 Tableau de bord (Optionnel)
 
-Pour toute question ou problème:
-1. Vérifiez les logs dans `linear_sync.log` et `supabase_alerts.log`
-2. Vérifiez la console pour les erreurs détaillées
-3. Utilisez `--verbose` pour plus de détails
+Pour visualiser les données, vous pouvez utiliser :
+
+1. **Supabase Dashboard** :
+   - Allez dans **Table Editor** pour voir les données brutes.
+   - Utilisez **SQL Editor** pour exécuter des requêtes personnalisées.
+
+2. **Metabase** :
+   - Connectez Metabase à votre projet Supabase.
+   - Créez des tableaux de bord pour :
+     - Suivre l'avancement des milestones.
+     - Visualiser les blocages et alertes.
+     - Analyser les rapports des agents.
+
+3. **Linear** :
+   - Utilisez les **vues Kanban** pour suivre les tâches par agent.
+   - Créez des **roadmaps** pour visualiser les milestones.
 
 ---
 
-*Document généré pour le projet Interceptor_M - Commonfields25*
-*Dernière mise à jour: 2026-06-30*
+## 🚨 Résolution des problèmes
+
+### Problème : Les issues GitHub ne sont pas synchronisées avec Linear
+- **Cause** : Token GitHub ou clé API Linear invalide.
+- **Solution** : Vérifiez vos variables d'environnement dans `.env`.
+
+### Problème : Les rapports ne sont pas envoyés à Supabase
+- **Cause** : URL ou clé de service Supabase incorrecte.
+- **Solution** : Vérifiez `SUPABASE_URL` et `SUPABASE_SERVICE_KEY` dans `.env`.
+
+### Problème : Les alertes ne sont pas envoyées à Slack
+- **Cause** : Webhook Slack non configuré ou invalide.
+- **Solution** : Vérifiez `SLACK_WEBHOOK_URL` dans `.env`.
+
+### Problème : Erreur de dépendance Python
+- **Cause** : Les dépendances ne sont pas installées.
+- **Solution** : Exécutez :
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+---
+
+## 📚 Références
+
+- [Documentation Linear API](https://developers.linear.app/docs)
+- [Documentation Supabase](https://supabase.com/docs)
+- [Documentation GitHub API](https://docs.github.com/en/rest)
+- [Dépôt Interceptor_M](https://github.com/Commonfields25/Interceptor_M)
+
+---
+
+## 🎯 Prochaines étapes
+
+1. **Tester l'intégration** avec quelques agents (ex: E3).
+2. **Automatiser les rapports** pour tous les agents.
+3. **Configurer Metabase** pour visualiser les données.
+4. **Améliorer les scripts** en fonction des retours des agents.
