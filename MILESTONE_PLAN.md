@@ -23,12 +23,14 @@
 
 ## Jalons Intermédiaires (SMART)
 
+> **Vague 3/4 — Mise à jour 2026-06-29** : J1 ✅, J2 ✅, J3 ✅, J4 ✅ (via PR #63/#64)
+
 | Jalon | Date | Critère Mesurable |
 |-------|------|-------------------|
-| J1 | 2026-07-02 | 0 issue orpheline, #43 traitée (doublon) |
-| J2 | 2026-07-09 | MS5 CLOSED — 0 branche archived avec ahead=0 |
-| J3 | 2026-07-16 | MS6 CLOSED — python-ci.yml + node24-validation.yml GREEN |
-| J4 | 2026-07-23 | MS7 CLOSED — BOM.json locked, PRODUCT-FAMILY.md updated |
+| J1 | 2026-07-02 | ✅ 0 issue orpheline, #43 traitée (doublon) | ✅ Done — Vague 3/4 audit |
+| J2 | 2026-07-09 | ✅ MS5 CLOSED — 0 branche archived avec ahead=0 | ✅ Done — Vague 3/4 audit |
+| J3 | 2026-07-16 | ✅ MS6 CLOSED — python-ci.yml + node24-validation.yml GREEN | ✅ Done — PR #64 merged, CI GREEN |
+| J4 | 2026-07-23 | ✅ MS7 CLOSED — BOM.json locked, PRODUCT-FAMILY.md updated | ✅ Done — PR #63 merged |
 | J5 | 2026-07-29 | MS9 CLOSED — offre émise ou contrat signé |
 | J6 | 2026-08-13 | MS8 CLOSED — P(intercept) random < 15%, MAPPO > 60% |
 
