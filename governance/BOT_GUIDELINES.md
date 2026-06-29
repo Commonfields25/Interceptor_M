@@ -138,9 +138,3 @@ A machine-readable file containing the specific parameters used for this instanc
 1. **DRAFT**: Agent produces the bundle in their workspace.
 2. **REVIEW**: Agent Manager/Peer reviews the bundle.
 3. **VALIDATE**: DG/AM approves the bundle, moving it to the `deliverables/` or `models/` directory.
-
-### 6.4 Verification Log (`VERIFICATION.md`)
-A mandatory log documenting the design's validation:
-- Results from \`scripts/check_constraints.py\`.
-- Peer review notes (which agent reviewed it and when).
-- Discrepancy tracking (any "Accepted Risks").
