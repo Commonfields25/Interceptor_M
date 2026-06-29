@@ -1,335 +1,112 @@
 {
   "agents": [
     {
-      "agent_id": "E1",
-      "agent_name": "Exploration Agent 1",
-      "agent_type": "EXPLORATION",
-      "description": "Agent d'exploration de l'espace de configuration",
-      "color": "#FF6B6B",
-      "icon": "🚀"
+      "id": "E1",
+      "name": "Ingénieur Simulation",
+      "role": "Simulation numérique, CFD, modèles dynamiques",
+      "namespace": "agents/E1/",
+      "workspace": "engineering/simulation/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "E2",
-      "agent_name": "Exploration Agent 2",
-      "agent_type": "EXPLORATION",
-      "description": "Agent d'exploration de l'espace de configuration",
-      "color": "#FF6B6B",
-      "icon": "🚀"
+      "id": "E2",
+      "name": "Ingénieur Modélisation",
+      "role": "Modélisation dynamique et optimisation",
+      "namespace": "agents/E2/",
+      "workspace": "engineering/modeling/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "E3",
-      "agent_name": "Exploration Agent 3",
-      "agent_type": "EXPLORATION",
-      "description": "Agent d'exploration de l'espace de configuration",
-      "color": "#FF6B6B",
-      "icon": "🚀"
+      "id": "E3",
+      "name": "Ingénieur Simulation",
+      "role": "Simulation numérique, CFD, modèles dynamiques",
+      "namespace": "agents/E3/",
+      "workspace": "engineering/simulation/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "D1",
-      "agent_name": "Discrimination Agent 1",
-      "agent_type": "DISCRIMINATION",
-      "description": "Agent d'aide à la discrimination des solutions",
-      "color": "#4ECDC4",
-      "icon": "⚖️"
+      "id": "D1",
+      "name": "Développeur Backend",
+      "role": "Développement backend et API",
+      "namespace": "agents/D1/",
+      "workspace": "development/backend/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "D2",
-      "agent_name": "Discrimination Agent 2",
-      "agent_type": "DISCRIMINATION",
-      "description": "Agent d'aide à la discrimination des solutions",
-      "color": "#4ECDC4",
-      "icon": "⚖️"
+      "id": "D2",
+      "name": "Développeur Frontend",
+      "role": "Développement frontend et UI",
+      "namespace": "agents/D2/",
+      "workspace": "development/frontend/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "D3",
-      "agent_name": "Discrimination Agent 3",
-      "agent_type": "DISCRIMINATION",
-      "description": "Agent d'aide à la discrimination des solutions",
-      "color": "#4ECDC4",
-      "icon": "⚖️"
+      "id": "D3",
+      "name": "Développeur Fullstack",
+      "role": "Développement fullstack et intégration",
+      "namespace": "agents/D3/",
+      "workspace": "development/fullstack/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "AM",
-      "agent_name": "Auto-Modélisation",
-      "agent_type": "AUTO-MODEL",
-      "description": "Agent d'auto-modélisation et meta-apprentissage",
-      "color": "#45B7D1",
-      "icon": "🧠"
+      "id": "AM",
+      "name": "Agent Manager",
+      "role": "Gestion et coordination des agents",
+      "namespace": "agents/agent_manager/",
+      "workspace": "management/",
+      "status": "OPERATIONAL"
     },
     {
-      "agent_id": "AC",
-      "agent_name": "Auto-Correction",
-      "agent_type": "AUTO-CORRECT",
-      "description": "Agent d'auto-correction et ajustement dynamique",
-      "color": "#96CEB4",
-      "icon": "🔧"
-    },
-    {
-      "agent_id": "G1",
-      "agent_name": "Gouvernance Agent 1",
-      "agent_type": "GOUVERNANCE",
-      "description": "Agent de gouvernance et conformité NAMSPACE-ISOLATION",
-      "color": "#DDA0DD",
-      "icon": "🛡️"
-    },
-    {
-      "agent_id": "G2",
-      "agent_name": "Gouvernance Agent 2",
-      "agent_type": "GOUVERNANCE",
-      "description": "Agent de gouvernance et conformité NAMSPACE-ISOLATION",
-      "color": "#DDA0DD",
-      "icon": "🛡️"
-    },
-    {
-      "agent_id": "SIM",
-      "agent_name": "Simulation Engine",
-      "agent_type": "SIMULATION",
-      "description": "Moteur de simulation multi-physique",
-      "color": "#BB8FCE",
-      "icon": "⚡"
+      "id": "AC",
+      "name": "Agent Coordonnateur",
+      "role": "Coordination et validation des tâches",
+      "namespace": "agents/agent_coordinator/",
+      "workspace": "coordination/",
+      "status": "OPERATIONAL"
     }
   ],
   "milestones": [
     {
-      "milestone_code": "M1",
-      "milestone_name": "Initialisation du système multi-agents",
-      "description": "Mise en place de l'architecture de base et configuration initiale",
-      "target_date": "2026-07-15",
-      "status": "completed"
+      "id": "M1",
+      "name": "Initialisation des Agents",
+      "description": "Mise en place et configuration initiale des agents.",
+      "due_date": "2026-07-15T00:00:00Z",
+      "status": "PENDING"
     },
     {
-      "milestone_code": "M2",
-      "milestone_name": "Phase d'exploration",
-      "description": "Exploration de l'espace de configuration par les agents E1-E3",
-      "target_date": "2026-08-01",
-      "status": "active"
+      "id": "M2",
+      "name": "Synchronisation GitHub-Linear",
+      "description": "Automatisation de la synchronisation entre GitHub et Linear.",
+      "due_date": "2026-07-20T00:00:00Z",
+      "status": "PENDING"
     },
     {
-      "milestone_code": "M3",
-      "milestone_name": "Phase de discrimination",
-      "description": "Discrimination des solutions candidates par les agents D1-D3",
-      "target_date": "2026-08-15",
-      "status": "planning"
+      "id": "M3",
+      "name": "Intégration Supabase",
+      "description": "Configuration de Supabase pour le stockage des données des agents.",
+      "due_date": "2026-07-25T00:00:00Z",
+      "status": "PENDING"
     },
     {
-      "milestone_code": "M4",
-      "milestone_name": "Optimisation RL",
-      "description": "Optimisation des modèles RL (PPO, SAC, TD3)",
-      "target_date": "2026-09-01",
-      "status": "planning"
+      "id": "M4",
+      "name": "Automatisation des Rapports",
+      "description": "Automatisation de l'envoi des rapports des agents vers Supabase.",
+      "due_date": "2026-07-30T00:00:00Z",
+      "status": "PENDING"
     },
     {
-      "milestone_code": "M5",
-      "milestone_name": "Gouvernance Namespace",
-      "description": "Implémentation complète des règles NAMESPACE-ISOLATION",
-      "target_date": "2026-09-15",
-      "status": "planning"
+      "id": "M5",
+      "name": "Surveillance des Blocages",
+      "description": "Mise en place d'un système de surveillance des blocages.",
+      "due_date": "2026-08-05T00:00:00Z",
+      "status": "PENDING"
     },
     {
-      "milestone_code": "M6",
-      "milestone_name": "Intégration finale",
-      "description": "Intégration de tous les composants",
-      "target_date": "2026-10-01",
-      "status": "planning"
-    },
-    {
-      "milestone_code": "M7",
-      "milestone_name": "Tests de performance",
-      "description": "Tests de performance et validation",
-      "target_date": "2026-10-15",
-      "status": "planning"
-    },
-    {
-      "milestone_code": "M8",
-      "milestone_name": "Déploiement",
-      "description": "Déploiement en production",
-      "target_date": "2026-11-01",
-      "status": "planning"
-    }
-  ],
-  "sample_reports": [
-    {
-      "agent_id": "E1",
-      "report_date": "2026-06-29",
-      "actions_taken": "Exploration de 150 configurations dans l'espace RL. Découverte de 3 régions prometteuses avec reward > 0.8. Lancement de simulations PPO.",
-      "blocages": null,
-      "besoins": "Plus de puissance GPU pour accélérer les simulations",
-      "status": "reviewed"
-    },
-    {
-      "agent_id": "E2",
-      "report_date": "2026-06-29",
-      "actions_taken": "Analyse des gradients pour les configurations E1. Validation de la convergence sur 5000 steps.",
-      "blocages": "Convergence lente sur les configs borderline",
-      "besoins": "Aide de AC pour diagnosis",
-      "status": "submitted"
-    },
-    {
-      "agent_id": "E3",
-      "report_date": "2026-06-29",
-      "actions_taken": "Test de nouvelles reward functions. Résultats mitigés mais интересные patterns identifiés.",
-      "blocages": null,
-      "besoins": null,
-      "status": "submitted"
-    },
-    {
-      "agent_id": "D1",
-      "report_date": "2026-06-29",
-      "actions_taken": "Comparaison de 12 configurations candidates. Utilisation de métriques multi-objectifs.",
-      "blocages": "Difficulté à quantifier le compromis performance/complexité",
-      "besoins": " Retour d'expérience de G1 sur les contraintes de gouvernance",
-      "status": "submitted"
-    },
-    {
-      "agent_id": "AM",
-      "report_date": "2026-06-29",
-      "actions_taken": "Mise à jour du modèle interne. Analyse des patterns d'erreur des autres agents.",
-      "blocages": null,
-      "besoins": null,
-      "status": "reviewed"
-    },
-    {
-      "agent_id": "AC",
-      "report_date": "2026-06-29",
-      "actions_taken": "Détection de 2 anomalies dans les logs de E2. Proposition de corrections.",
-      "blocages": null,
-      "besoins": "Validation des corrections par E2",
-      "status": "submitted"
-    },
-    {
-      "agent_id": "G1",
-      "report_date": "2026-06-29",
-      "actions_taken": "Audit des interactions agents. Vérification de la conformité NAMESPACE-ISOLATION. 3 violations mineures détectées et corrigées.",
-      "blocages": null,
-      "besoins": null,
-      "status": "reviewed"
-    },
-    {
-      "agent_id": "G2",
-      "report_date": "2026-06-29",
-      "actions_taken": "Mise à jour de la documentation des règles. Review des permissions inter-agents.",
-      "blocages": null,
-      "besoins": null,
-      "status": "submitted"
-    },
-    {
-      "agent_id": "SIM",
-      "report_date": "2026-06-29",
-      "actions_taken": "Simulation CFD sur 50 configurations. Résultats stockés dans Supabase. Calcul des métriques de performance.",
-      "blocages": "Mémoire GPU insuffisante pour batch > 20",
-      "besoins": "Upgrade GPU ou optimisation mémoire",
-      "status": "submitted"
-    }
-  ],
-  "sample_linear_tasks": [
-    {
-      "linear_identifier": "INT-1",
-      "title": "Corriger la synchronisation des agents E1-E3",
-      "description": "Les agents E1, E2, E3 ont des problèmes de synchronisation lors de l'exploration parallèle. Des deadlocks sont observés toutes les ~2 heures.",
-      "state": "in_progress",
-      "priority": 1,
-      "agent_id": "E1",
-      "milestone": "M2",
-      "assignee": "dev-lead",
-      "due_date": "2026-07-01"
-    },
-    {
-      "linear_identifier": "INT-2",
-      "title": "Optimiser le pipeline RL (PPO/SAC/TD3)",
-      "description": "Améliorer les performances du pipeline RL. currently at 65% efficiency. Objectif: 85%.",
-      "state": "in_progress",
-      "priority": 2,
-      "agent_id": "SIM",
-      "milestone": "M4",
-      "assignee": "ml-lead",
-      "due_date": "2026-08-01"
-    },
-    {
-      "linear_identifier": "INT-3",
-      "title": "Implémenter la validation NAMESPACE-ISOLATION complète",
-      "description": "Vérifier et implémenter tous les points de la规范 NAMESPACE-ISOLATION.md",
-      "state": "todo",
-      "priority": 2,
-      "agent_id": "G1",
-      "milestone": "M5",
-      "assignee": "security-lead",
-      "due_date": "2026-09-15"
-    },
-    {
-      "linear_identifier": "INT-4",
-      "title": "Intégrer les metrics de simulation dans le dashboard",
-      "description": "Créer un dashboard temps réel pour visualiser les métriques de simulation",
-      "state": "todo",
-      "priority": 3,
-      "agent_id": "SIM",
-      "milestone": "M6",
-      "assignee": "frontend-lead",
-      "due_date": "2026-10-01"
-    },
-    {
-      "linear_identifier": "INT-5",
-      "title": "Tests de performance sur 1000+ configurations",
-      "description": "Exécuter une série complète de tests de performance",
-      "state": "backlog",
-      "priority": 3,
-      "agent_id": "SIM",
-      "milestone": "M7",
-      "assignee": "qa-lead",
-      "due_date": "2026-10-15"
-    }
-  ],
-  "sample_simulation_results": [
-    {
-      "simulation_name": "PPO_Baseline_v1",
-      "simulation_type": "RL_TRAINING",
-      "agent_id": "E1",
-      "config": {
-        "algorithm": "PPO",
-        "learning_rate": 0.0003,
-        "batch_size": 64,
-        "epochs": 10
-      },
-      "metrics": {
-        "mean_reward": 0.72,
-        "max_reward": 0.95,
-        "convergence_steps": 45000,
-        "training_time_hours": 12.5
-      },
-      "status": "completed",
-      "started_at": "2026-06-28T08:00:00Z",
-      "completed_at": "2026-06-28T20:30:00Z"
-    },
-    {
-      "simulation_name": "CFD_SpeedTest_001",
-      "simulation_type": "CFD",
-      "agent_id": "SIM",
-      "config": {
-        "mesh_size": 1000000,
-        "timesteps": 5000,
-        "pressure": 101325
-      },
-      "metrics": {
-        "lift_coefficient": 0.45,
-        "drag_coefficient": 0.12,
-        "reynolds_number": 1000000
-      },
-      "status": "completed"
-    },
-    {
-      "simulation_name": "SAC_MultiObj_v2",
-      "simulation_type": "RL_TRAINING",
-      "agent_id": "E2",
-      "config": {
-        "algorithm": "SAC",
-        "learning_rate": 0.0003,
-        "tau": 0.005
-      },
-      "metrics": {
-        "mean_reward": 0.68,
-        "max_reward": 0.89
-      },
-      "status": "running",
-      "started_at": "2026-06-29T10:00:00Z"
+      "id": "M6",
+      "name": "Optimisation des Modèles",
+      "description": "Optimisation des modèles de simulation et RL.",
+      "due_date": "2026-08-15T00:00:00Z",
+      "status": "PENDING"
     }
   ]
 }
