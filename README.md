@@ -336,3 +336,6 @@ See [`LICENSE`](./LICENSE) for licensing terms.
 - Python CI: active (python-ci.yml, push+PR to main)
 - Node 24 Validation: active (node24-validation.yml, push+PR to main)
 - Last activation: 2026-06-28 (Vague 3)
+
+### Vague 4-bis (2026-06-29)
+- PRs #63/#64/#65 merged to main — CI GREEN ✓
