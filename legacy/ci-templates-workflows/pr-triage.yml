@@ -1,85 +1,83 @@
-name: PR Triage
-
-on:
-  pull_request:
-    types: [opened, synchronize, reopened]
-    branches: [main]
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
-
-jobs:
-  triage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Triage PR
-        id: triage
-        run: |
-          FILES=$(curl -s -H "Authorization: Bearer ${{ github.token }}" \
-            "${{ github.api_url }}/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}/files" | \
-            python3 -c "
-import sys,json
-files=[f['filename'] for f in json.load(sys.stdin)]
-print('\n'.join(files))
-")
-          echo "files=$FILES" >> $GITHUB_OUTPUT
-
-      - name: Add labels by area
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const files = `${{ steps.triage.outputs.files }}`.trim().split('\n').filter(Boolean);
-            const labels = new Set();
-            files.forEach(f => {
-              if (f.startsWith('engineering/DI/ML/') || f.startsWith('swarm_env') || f.includes('mappo')) labels.add('area:swarm-rl');
-              if (f.startsWith('engineering/DC/')) labels.add('area:dc');
-              if (f.startsWith('governance/') || f.startsWith('.github/') || f.startsWith('ci-templates/')) labels.add('area:governance');
-              if (f.endsWith('.md') || f.startsWith('docs/')) labels.add('type:docs');
-              if (f.includes('simulation') || f.includes('montecarlo')) labels.add('area:simulation');
-              if (f.startsWith('engineering/DI/NDC/') || f.startsWith('models/')) labels.add('area:dd');
-              if (f.includes('hardware') || f.includes('manufacturing')) labels.add('area:hardware');
-            });
-            if (files.length > 10) labels.add('size:xl');
-            else if (files.length > 5) labels.add('size:l');
-            else if (files.length > 2) labels.add('size:m');
-            else labels.add('size:s');
-            if (labels.size > 0) {
-              github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: [...labels],
-              });
-              console.log('Added labels:', [...labels]);
-            }
-
-      - name: Add PR comment with triage summary
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const files = `${{ steps.triage.outputs.files }}`.trim().split('\n').filter(Boolean);
-            const areas = [...new Set(files.map(f => {
-              if (f.startsWith('engineering/DI/ML/') || f.includes('mappo')) return 'swarm-rl';
-              if (f.startsWith('engineering/DC/')) return 'dc';
-              if (f.startsWith('governance/') || f.startsWith('.github/') || f.startsWith('ci-templates/')) return 'governance';
-              if (f.endsWith('.md') || f.startsWith('docs/')) return 'docs';
-              if (f.includes('simulation')) return 'simulation';
-              if (f.startsWith('models/')) return 'dd';
-              if (f.includes('hardware') || f.includes('manufacturing')) return 'hardware';
-              return 'di';
-            }))];
-            const body = [
-              '## 🔍 PR Triage Summary',
-              '',
-              `**Files changed:** \`${files.length}\``,
-              '',
-              `**Areas:** ${areas.map(a => `\`${a}\``).join(', ')}`,
-              '',
-              '_Auto-labeled by PR Triage workflow. Review the checklist in CONTRIBUTING.md before merge._',
-            ].join('\n');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body,
-            });
+bmFtZTogUFIgVHJpYWdlCgpvbjoKICBwdWxsX3JlcXVlc3Q6CiAgICB0eXBl
+czogW29wZW5lZCwgc3luY2hyb25pemUsIHJlb3BlbmVkXQogICAgYnJhbmNo
+ZXM6IFttYWluXQoKZW52OgogIEZPUkNFX0pBVkFTQ1JJUFRfQUNUSU9OU19U
+T19OT0RFMjQ6ICd0cnVlJwoKam9iczoKICB0cmlhZ2U6CiAgICBydW5zLW9u
+OiB1YnVudHUtbGF0ZXN0CiAgICBzdGVwczoKICAgICAgLSBuYW1lOiBUcmlh
+Z2UgUFIKICAgICAgICBpZDogdHJpYWdlCiAgICAgICAgcnVuOiB8CiAgICAg
+ICAgICBGSUxFUz0kKGN1cmwgLXMgLUggIkF1dGhvcml6YXRpb246IEJlYXJl
+ciAke3sgZ2l0aHViLnRva2VuIH19IiBcCiAgICAgICAgICAgICIke3sgZ2l0
+aHViLmFwaV91cmwgfX0vcmVwb3MvJHt7IGdpdGh1Yi5yZXBvc2l0b3J5IH19
+L3B1bGxzLyR7eyBnaXRodWIuZXZlbnQucHVsbF9yZXF1ZXN0Lm51bWJlciB9
+fS9maWxlcyIgfCBcCiAgICAgICAgICAgIHB5dGhvbjMgLWMgIgppbXBvcnQg
+c3lzLGpzb24KZmlsZXM9W2ZbJ2ZpbGVuYW1lJ10gZm9yIGYgaW4ganNvbi5s
+b2FkKHN5cy5zdGRpbildCnByaW50KCdcbicuam9pbihmaWxlcykpCiIpCiAg
+ICAgICAgICBlY2hvICJmaWxlcz0kRklMRVMiID4+ICRHSVRIVUJfT1VUUFVU
+CgogICAgICAtIG5hbWU6IEFkZCBsYWJlbHMgYnkgYXJlYQogICAgICAgIHVz
+ZXM6IGFjdGlvbnMvZ2l0aHViLXNjcmlwdEB2NwogICAgICAgIHdpdGg6CiAg
+ICAgICAgICBzY3JpcHQ6IHwKICAgICAgICAgICAgY29uc3QgZmlsZXMgPSBg
+JHt7IHN0ZXBzLnRyaWFnZS5vdXRwdXRzLmZpbGVzIH19YC50cmltKCkuc3Bs
+aXQoJ1xuJykuZmlsdGVyKEJvb2xlYW4pOwogICAgICAgICAgICBjb25zdCBs
+YWJlbHMgPSBuZXcgU2V0KCk7CiAgICAgICAgICAgIGZpbGVzLmZvckVhY2go
+ZiA9PiB7CiAgICAgICAgICAgICAgaWYgKGYuc3RhcnRzV2l0aCgnZW5naW5l
+ZXJpbmcvREkvTUwvJykgfHwgZi5zdGFydHNXaXRoKCdzd2FybV9lbnYnKSB8
+fCBmLmluY2x1ZGVzKCdtYXBwbycpKSBsYWJlbHMuYWRkKCdhcmVhOnN3YXJt
+LXJsJyk7CiAgICAgICAgICAgICAgaWYgKGYuc3RhcnRzV2l0aCgnZW5naW5l
+ZXJpbmcvREMvJykpIGxhYmVscy5hZGQoJ2FyZWE6ZGMnKTsKICAgICAgICAg
+ICAgICBpZiAoZi5zdGFydHNXaXRoKCdnb3Zlcm5hbmNlLycpIHx8IGYuc3Rh
+cnRzV2l0aCgnLmdpdGh1Yi8nKSB8fCBmLnN0YXJ0c1dpdGgoJ2NpLXRlbXBs
+YXRlcy8nKSkgbGFiZWxzLmFkZCgnYXJlYTpnb3Zlcm5hbmNlJyk7CiAgICAg
+ICAgICAgICAgaWYgKGYuZW5kc1dpdGgoJy5tZCcpIHx8IGYuc3RhcnRzV2l0
+aCgnZG9jcy8nKSkgbGFiZWxzLmFkZCgndHlwZTpkb2NzJyk7CiAgICAgICAg
+ICAgICAgaWYgKGYuaW5jbHVkZXMoJ3NpbXVsYXRpb24nKSB8fCBmLmluY2x1
+ZGVzKCdtb250ZWNhcmxvJykpIGxhYmVscy5hZGQoJ2FyZWE6c2ltdWxhdGlv
+bicpOwogICAgICAgICAgICAgIGlmIChmLnN0YXJ0c1dpdGgoJ2VuZ2luZWVy
+aW5nL0RJL05EQy8nKSB8fCBmLnN0YXJ0c1dpdGgoJ21vZGVscy8nKSkgbGFi
+ZWxzLmFkZCgnYXJlYTpkZCcpOwogICAgICAgICAgICAgIGlmIChmLmluY2x1
+ZGVzKCdoYXJkd2FyZScpIHx8IGYuaW5jbHVkZXMoJ21hbnVmYWN0dXJpbmcn
+KSkgbGFiZWxzLmFkZCgnYXJlYTpoYXJkd2FyZScpOwogICAgICAgICAgICB9
+KTsKICAgICAgICAgICAgaWYgKGZpbGVzLmxlbmd0aCA+IDEwKSBsYWJlbHMu
+YWRkKCdzaXplOnhsJyk7CiAgICAgICAgICAgIGVsc2UgaWYgKGZpbGVzLmxl
+bmd0aCA+IDUpIGxhYmVscy5hZGQoJ3NpemU6bCcpOwogICAgICAgICAgICBl
+bHNlIGlmIChmaWxlcy5sZW5ndGggPiAyKSBsYWJlbHMuYWRkKCdzaXplOm0n
+KTsKICAgICAgICAgICAgZWxzZSBsYWJlbHMuYWRkKCdzaXplOnMnKTsKICAg
+ICAgICAgICAgaWYgKGxhYmVscy5zaXplID4gMCkgewogICAgICAgICAgICAg
+IGdpdGh1Yi5yZXN0Lmlzc3Vlcy5hZGRMYWJlbHMoewogICAgICAgICAgICAg
+ICAgaXNzdWVfbnVtYmVyOiBjb250ZXh0Lmlzc3VlLm51bWJlciwKICAgICAg
+ICAgICAgICAgIG93bmVyOiBjb250ZXh0LnJlcG8ub3duZXIsCiAgICAgICAg
+ICAgICAgICByZXBvOiBjb250ZXh0LnJlcG8ucmVwbywKICAgICAgICAgICAg
+ICAgIGxhYmVsczogWy4uLmxhYmVsc10sCiAgICAgICAgICAgICAgfSk7CiAg
+ICAgICAgICAgICAgY29uc29sZS5sb2coJ0FkZGVkIGxhYmVsczonLCBbLi4u
+bGFiZWxzXSk7CiAgICAgICAgICAgIH0KCiAgICAgIC0gbmFtZTogQWRkIFBS
+IGNvbW1lbnQgd2l0aCB0cmlhZ2Ugc3VtbWFyeQogICAgICAgIHVzZXM6IGFj
+dGlvbnMvZ2l0aHViLXNjcmlwdEB2NwogICAgICAgIHdpdGg6CiAgICAgICAg
+ICBzY3JpcHQ6IHwKICAgICAgICAgICAgY29uc3QgZmlsZXMgPSBgJHt7IHN0
+ZXBzLnRyaWFnZS5vdXRwdXRzLmZpbGVzIH19YC50cmltKCkuc3BsaXQoJ1xu
+JykuZmlsdGVyKEJvb2xlYW4pOwogICAgICAgICAgICBjb25zdCBhcmVhcyA9
+IFsuLi5uZXcgU2V0KGZpbGVzLm1hcChmID0+IHsKICAgICAgICAgICAgICBp
+ZiAoZi5zdGFydHNXaXRoKCdlbmdpbmVlcmluZy9ESS9NTC8nKSB8fCBmLmlu
+Y2x1ZGVzKCdtYXBwbycpKSByZXR1cm4gJ3N3YXJtLXJsJzsKICAgICAgICAg
+ICAgICBpZiAoZi5zdGFydHNXaXRoKCdlbmdpbmVlcmluZy9EQy8nKSkgcmV0
+dXJuICdkYyc7CiAgICAgICAgICAgICAgaWYgKGYuc3RhcnRzV2l0aCgnZ292
+ZXJuYW5jZS8nKSB8fCBmLnN0YXJ0c1dpdGgoJy5naXRodWIvJykgfHwgZi5z
+dGFydHNXaXRoKCdjaS10ZW1wbGF0ZXMvJykpIHJldHVybiAnZ292ZXJuYW5j
+ZSc7CiAgICAgICAgICAgICAgaWYgKGYuZW5kc1dpdGgoJy5tZCcpIHx8IGYu
+c3RhcnRzV2l0aCgnZG9jcy8nKSkgcmV0dXJuICdkb2NzJzsKICAgICAgICAg
+ICAgICBpZiAoZi5pbmNsdWRlcygnc2ltdWxhdGlvbicpKSByZXR1cm4gJ3Np
+bXVsYXRpb24nOwogICAgICAgICAgICAgIGlmIChmLnN0YXJ0c1dpdGgoJ21v
+ZGVscy8nKSkgcmV0dXJuICdkZCc7CiAgICAgICAgICAgICAgaWYgKGYuaW5j
+bHVkZXMoJ2hhcmR3YXJlJykgfHwgZi5pbmNsdWRlcygnbWFudWZhY3R1cmlu
+ZycpKSByZXR1cm4gJ2hhcmR3YXJlJzsKICAgICAgICAgICAgICByZXR1cm4g
+J2RpJzsKICAgICAgICAgICAgfSkpXTsKICAgICAgICAgICAgY29uc3QgYm9k
+eSA9IFsKICAgICAgICAgICAgICAnIyMg8J+UjSBQUiBUcmlhZ2UgU3VtbWFy
+eScsCiAgICAgICAgICAgICAgJycsCiAgICAgICAgICAgICAgYCoqRmlsZXMg
+Y2hhbmdlZDoqKiBcYCR7ZmlsZXMubGVuZ3RofVxgYCwKICAgICAgICAgICAg
+ICAnJywKICAgICAgICAgICAgICBgKipBcmVhczoqKiAke2FyZWFzLm1hcChh
+ID0+IGBcYCR7YX1cYGApLmpvaW4oJywgJyl9YCwKICAgICAgICAgICAgICAn
+JywKICAgICAgICAgICAgICAnX0F1dG8tbGFiZWxlZCBieSBQUiBUcmlhZ2Ug
+d29ya2Zsb3cuIFJldmlldyB0aGUgY2hlY2tsaXN0IGluIENPTlRSSUJVVElO
+Ry5tZCBiZWZvcmUgbWVyZ2UuXycsCiAgICAgICAgICAgIF0uam9pbignXG4n
+KTsKICAgICAgICAgICAgZ2l0aHViLnJlc3QuaXNzdWVzLmNyZWF0ZUNvbW1l
+bnQoewogICAgICAgICAgICAgIGlzc3VlX251bWJlcjogY29udGV4dC5pc3N1
+ZS5udW1iZXIsCiAgICAgICAgICAgICAgb3duZXI6IGNvbnRleHQucmVwby5v
+d25lciwKICAgICAgICAgICAgICByZXBvOiBjb250ZXh0LnJlcG8ucmVwbywK
+ICAgICAgICAgICAgICBib2R5LAogICAgICAgICAgICB9KTsK
