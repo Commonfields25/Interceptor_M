@@ -252,21 +252,6 @@ Full plan: [`engineering/ML/SWARM-RL-PLAN.md`](./engineering/ML/SWARM-RL-PLAN.md
 
 ---
 
-## 🚧 Éléments en attente de revue
-
-Les éléments suivants nécessitent une décision explicite avant action :
-
-| Élément | Statut | Action requise |
-|---------|--------|----------------|
-| `params/` | Dossier non listé — vérifer contenu | Inventorier, intégrer ou archiver |
-| `gen_geometry.py` (racine) | Script FreeCAD à la racine | Merger dans `scripts/` ou `engineering/simulation/` |
-| `governance/` vs `docs/governance/` | Dédoublement partial (MECHANICAL_DEV_APPROVAL.md dans `docs/governance/`) | Définir politique : `governance/` = live, `docs/governance/` = archivable |
-| `ci-templates/workflows/` vs `.github/workflows/` | 6 workflows identiques (governance, metrics, pr-triage, python-ci, docs-lint, node24) | Consolider : canonical = `ci-templates/`, `.github/` = live copies |
-| `OPERATIONS_WORKFLOW.md` vs `OPERATIONS_WORKFLOW_V2.md` | V1 (65 ko) et V2 (75 ko) — versions TRÈS différentes | **Les deux à conserver** (V2 = refonte majeure). Décider哪天 supprimer V1 |
-| `Base_Launcher_Pieces/` | Dossier CAD à la racine | Déplacer dans `models/` ou `hardware/prototypes/` |
-
----
-
 ## Getting Started
 
 ### Prerequisites
