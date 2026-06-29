@@ -115,3 +115,32 @@ Interceptor_M/
 
 ---
 > **Note to Agents:** This file is a living document. Propose updates via the `AC Agent` (Amélioration Continue). All proposals go through `governance/` update process.
+
+## 6. PLAN PRODUCTION PROTOCOL (Artifact Bundles)
+
+When an agent is tasked with producing a "Plan" (Mechanical, Electronic, or Simulation), they must deliver a **Plan Artifact Bundle** consisting of three mandatory components:
+
+### 6.1 Technical Specification (`.md`)
+A human-readable document following the IAMD header protocol, containing:
+- Design rationale and assumptions.
+- Performance characteristics.
+- Materials and manufacturing notes.
+
+### 6.2 Geometry/Execution Script (`.py`)
+A standalone, executable Python script that generates the artifact.
+- For Mechanical: Uses `model_parts.py` or similar to output a 3D description or `.stl`.
+- For Simulation: A scenario script compatible with the physics engine.
+
+### 6.3 Configuration Metadata (`.json`)
+A machine-readable file containing the specific parameters used for this instance, cross-referenced with `PARAMETERS.json`.
+
+**Protocol:**
+1. **DRAFT**: Agent produces the bundle in their workspace.
+2. **REVIEW**: Agent Manager/Peer reviews the bundle.
+3. **VALIDATE**: DG/AM approves the bundle, moving it to the `deliverables/` or `models/` directory.
+
+### 6.4 Verification Log (`VERIFICATION.md`)
+A mandatory log documenting the design's validation:
+- Results from \`scripts/check_constraints.py\`.
+- Peer review notes (which agent reviewed it and when).
+- Discrepancy tracking (any "Accepted Risks").
