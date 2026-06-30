@@ -1,0 +1,17 @@
+{
+  "agent_id": "E2",
+  "role": "Avionique & Électronique",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-005",
+    "title": "Architecture avionique — capteurs et liaison datalink",
+    "description": "Définir l'architecture avionique complète : capteurs IMU (accéléromètres + gyroscopes), récepteur GPS, tube Pitot, liaison datalink (radio). Dimensionner le câblage, l'alimentation électrique, et proposer le hardware board sélectionné (Pixhawk, NAVIO, ou équivalent).",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/E2/avionics_architecture.md",
+    "dependencies": ["MISSION-001"]
+  },
+  "capabilities": ["électronique embarquée", "systèmes de navigation", "radiocommunication"],
+  "last_updated": "2026-06-24T14:37:00Z"
+}

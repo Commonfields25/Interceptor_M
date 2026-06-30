@@ -1,0 +1,22 @@
+{
+  "agent_id": "D1",
+  "role": "Conception Aérodynamique",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-001",
+    "title": "Spécifications aérodynamiques générales de l'Interceptor_M",
+    "description": "Définir les spécifications aérodynamiques générales de l'Interceptor_M : forme de l'aile, envergure, profil d'aile, coefficient de traînée (Cx) cible, estimation de la portance. Produire un document de spécifications validées pour传给 D2 (CFD) et D3 (structure).",
+    "priority": "critical",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/D1/specs_aerodynamiques.md",
+    "dependencies": []
+  },
+  "capabilities": [
+    "analyse CFD",
+    "conception avion",
+    "simulation numérique"
+  ],
+  "last_updated": "2026-06-24T14:37:00Z",
+  "description": ""
+}
