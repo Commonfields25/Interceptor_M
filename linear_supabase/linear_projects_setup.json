@@ -1,0 +1,106 @@
+{
+  "agents": [
+    {
+      "id": "E1",
+      "name": "Ingénieur Simulation",
+      "linear_project_name": "E1 - Simulation & CFD",
+      "description": "Projet dédié aux tâches de simulation numérique et CFD pour l'agent E1.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "E2",
+      "name": "Ingénieur Modélisation",
+      "linear_project_name": "E2 - Modélisation Dynamique",
+      "description": "Projet dédié aux tâches de modélisation dynamique pour l'agent E2.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "E3",
+      "name": "Ingénieur Simulation",
+      "linear_project_name": "E3 - Simulation Avancée",
+      "description": "Projet dédié aux tâches de simulation avancée pour l'agent E3.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "D1",
+      "name": "Développeur Backend",
+      "linear_project_name": "D1 - Backend & API",
+      "description": "Projet dédié au développement backend et API pour l'agent D1.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "D2",
+      "name": "Développeur Frontend",
+      "linear_project_name": "D2 - Frontend & UI",
+      "description": "Projet dédié au développement frontend et UI pour l'agent D2.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "D3",
+      "name": "Développeur Fullstack",
+      "linear_project_name": "D3 - Fullstack & Intégration",
+      "description": "Projet dédié au développement fullstack et intégration pour l'agent D3.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "AM",
+      "name": "Agent Manager",
+      "linear_project_name": "AM - Gestion des Agents",
+      "description": "Projet dédié à la gestion et coordination des agents pour l'Agent Manager.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    },
+    {
+      "id": "AC",
+      "name": "Agent Coordonnateur",
+      "linear_project_name": "AC - Coordination & Validation",
+      "description": "Projet dédié à la coordination et validation des tâches pour l'Agent Coordonnateur.",
+      "team_id": "LINEAR_TEAM_ID",
+      "state": "active"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M1",
+      "name": "Initialisation des Agents",
+      "description": "Mise en place et configuration initiale des agents.",
+      "due_date": "2026-07-15"
+    },
+    {
+      "id": "M2",
+      "name": "Synchronisation GitHub-Linear",
+      "description": "Automatisation de la synchronisation entre GitHub et Linear.",
+      "due_date": "2026-07-20"
+    },
+    {
+      "id": "M3",
+      "name": "Intégration Supabase",
+      "description": "Configuration de Supabase pour le stockage des données des agents.",
+      "due_date": "2026-07-25"
+    },
+    {
+      "id": "M4",
+      "name": "Automatisation des Rapports",
+      "description": "Automatisation de l'envoi des rapports des agents vers Supabase.",
+      "due_date": "2026-07-30"
+    },
+    {
+      "id": "M5",
+      "name": "Surveillance des Blocages",
+      "description": "Mise en place d'un système de surveillance des blocages.",
+      "due_date": "2026-08-05"
+    },
+    {
+      "id": "M6",
+      "name": "Optimisation des Modèles",
+      "description": "Optimisation des modèles de simulation et RL.",
+      "due_date": "2026-08-15"
+    }
+  ]
+}

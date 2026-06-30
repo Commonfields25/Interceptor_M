@@ -1,0 +1,17 @@
+{
+  "agent_id": "E3",
+  "role": "Logiciel & Autonomie",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-006",
+    "title": "Module de contrôle de vol autonome — PID baseline et modes de vol",
+    "description": "Écrire le module de contrôle de vol autonome : PID baseline (roll, pitch, yaw, altitude hold), définition des modes de vol (stabilize, altitude hold, waypoint, return-to-launch). Définir l'architecture logicielle (PX4, ArduPilot, ou custom), l'interface de communication avec E2, et les tests de validation.",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/E3/flight_control_poc.py",
+    "dependencies": ["MISSION-005"]
+  },
+  "capabilities": ["contrôle automatique", "firmware embarqué", "intelligence artificielle"],
+  "last_updated": "2026-06-24T14:37:00Z"
+}
