@@ -176,6 +176,8 @@ class SwarmInterceptEnv:
     def __init__(self, n_agents: int = 2, max_steps: int = MAX_STEPS):
         self.n_agents = n_agents
         self.max_steps = max_steps
+        self.observation_space = Box(None, None, (13,))
+        self.action_space = Box(None, None, (3,))
 
     def reset(self, seed=None):
         self._rng = np.random.default_rng(seed)
