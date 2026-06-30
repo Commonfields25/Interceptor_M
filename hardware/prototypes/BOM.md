@@ -1,29 +1,67 @@
-# Interceptor_M — Prototype Batch 01 · Bill of Materials (v1.5)
+# Interceptor_M — Prototype Batch 01 · Bill of Materials
 
-## Product Lines
-- **DD** — Defense (MTOW 400 g) - Primary focus of this audit.
-
----
-
-## Part Breakdown (DD Line)
-
-| Part ID | Description | Material | Qty | Process | Masse (g) |
-|---|---|---|---|---|---|
-| **BRK-001** | Structural Junction Bracket | 7075-T6 Al | 1 | CNC / DMLS | 130.74 |
-| **ACT-001** | Actuator Mount | 7075-T6 Al | 1 | CNC / DMLS | 55.49 |
-| **NCR-001** | Nose-Cone Interface Ring | 316L SS | 1 | Lathe / Mill | 104.48 |
-| **SABOT-001** | Launcher Interface Sabot | ASA | 1 | FDM | 15.00 |
-| **FC-001** | Flight Controller | PCB/COTS | 1 | SMT | 12.50 |
-| **PDB-001** | Power Dist. Board | PCB/COTS | 1 | SMT | 18.00 |
-
-**Total Batch 01 Mass** | | | | | **336.21 g**
+## Product Lines Covered
+- **DC** — Civil (MTOW 250 g, reference)
+- **DD** — Defense (MTOW 400 g)
+- **DI** — Industrial (MTOW 300 g, provisional)
 
 ---
 
-## 🚀 Electronics (v1.5 Integrated)
-- **Flight Controller:** STM32H743VIT6, ICM-42688-P.
-- **PDB:** Integrated 4-in-1 ESC, TPH1R204PL MOSFETs.
-- **Connectors:** XT60 (Power), GH1.25 (Signal).
+## Part Breakdown per Line
+
+| Part ID | Description | Material | Stock | Qty |
+|---|---|---|---|---|
+| BRK-001 | Structural Junction Bracket | 7075-T651 Al | 80×60×12 mm | 3 (one per line) |
+| ACT-001 | Actuator / FC / ESC Mount | 7075-T651 Al | 70×50×9 mm | 3 (identical across lines) |
+| NCR-001 | Nose-Cone Interface Ring | 316L SS | bar Ø48 mm | 3 (one per line) |
 
 ---
-*Classification: CONFIDENTIEL — Segment Défense*
+
+## Mass Summary
+
+| Part ID | DC mass (g) | DD mass (g) | DI mass (g) |
+|---|---|---|---|
+| BRK-001 | 111.78 | 130.74 | 118.78 |
+| ACT-001 | 55.49 | 55.49 | 55.49 |
+| NCR-001 | 89.33 | 104.48 | 94.93 |
+| **Total per line** | **256.60** | **290.71** | **269.20** |
+
+> **ACT-001 is MTOW-insensitive** — ESC/FC pocket dimensions fixed by E3 integration spec.
+
+---
+
+## Material Specifications
+
+| Material | Specification | Hardness | Notes |
+|---|---|---|---|
+| 7075-T651 Al | AMS 2770 / ASTM B209 | 86 HRB min | Al-Zn-Mg-Cu alloy; peak strength T6→T651 temper |
+| 316L SS | ASTM A276 / A479 | ≤ 217 HB | Low-carbon; excellent corrosion resistance |
+
+---
+
+## Fasteners (prototype assembly kit)
+
+| Specification | Qty | Usage |
+|---|---|---|
+| M2×0.4 pan head SS316 | 12 | ACT-001 standoff grid |
+| M3×0.5 pan head SS316 | 20 | BRK/NCR structural assembly |
+| M3×0.5 set screw SS316 | 8 | Motor mount locking |
+
+---
+
+## Process Routes
+
+| Part | Primary | Secondary | Finish |
+|---|---|---|---|
+| BRK-001 | CNC 3-axis mill (Al) | — | Alodine 1200S + MIL-PRF-23377 epoxy primer |
+| ACT-001 | CNC 3-axis mill (Al) | — | same as BRK-001 |
+| NCR-001 | Lathe (SS) | CNC mill (flats/taps) | Passivate + bead-blast (Ra ≤ 1.6 µm) |
+
+---
+
+## Reference Documents
+- `hardware/prototypes/gen_geometry.py` — parametric generator
+- `docs/manufacturing/BRK-001_machining.md`
+- `docs/manufacturing/ACT-001_machining.md`
+- `docs/manufacturing/NCR-001_machining.md`
+- `docs/additive-manufacturing.md` — AM analysis & process selection
