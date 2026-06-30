@@ -19,7 +19,7 @@
 | M6 | CI Migration Node24 & Workflow Activation | 2026-07-16 | 1 | 1 | J3 |
 | M7 | DI Product Specs Lock & BOM | 2026-07-23 | 1 | 0 | J4 |
 | M8 | RL Environment Hardening & Agent Rebalancing | 2026-08-13 | 1 | 0 | J6 |
-| M9 | Recrutement Ingénieur Conception | 2026-07-29 | 1 | 1 | J5 |
+| M9 | Agent Activation (D1) & Mission Dispatch | 2026-07-29 | 1 | 1 | J5 |
 
 ## Jalons Intermédiaires (SMART)
 
@@ -31,7 +31,7 @@
 | J2 | 2026-07-09 | ✅ MS5 CLOSED — 0 branche archived avec ahead=0 | ✅ Done — Vague 3/4 audit |
 | J3 | 2026-07-16 | ✅ MS6 CLOSED — python-ci.yml + node24-validation.yml GREEN | ✅ Done — PR #64 merged, CI GREEN |
 | J4 | 2026-07-23 | ✅ MS7 CLOSED — BOM.json locked, PRODUCT-FAMILY.md updated | ✅ Done — PR #63 merged |
-| J5 | 2026-07-29 | MS9 CLOSED — offre émise ou contrat signé |
+| J5 | 2026-07-29 | 🔄 In Progress — Sourcing lancé (J5 cible 2026-07-29) |
 | J6 | 2026-08-13 | MS8 CLOSED — P(intercept) random < 15%, MAPPO > 60% |
 
 ---
