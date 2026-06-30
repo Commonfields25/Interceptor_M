@@ -1,0 +1,38 @@
+{
+    "project": "Interceptor_M",
+    "assembly": "Flight_Controller",
+    "version": "1.0",
+    "units": "mm",
+    "components": [
+        {
+            "id": "U1",
+            "type": "MCU",
+            "model": "STM32H743",
+            "pins": 144
+        },
+        {
+            "id": "U2",
+            "type": "IMU",
+            "model": "ICM-42688-P",
+            "interface": "SPI"
+        },
+        {
+            "id": "U3",
+            "type": "Baro",
+            "model": "BMP388",
+            "interface": "I2C"
+        },
+        {
+            "id": "J1",
+            "type": "Connector",
+            "model": "USB-C",
+            "purpose": "Data/Config"
+        },
+        {
+            "id": "P1",
+            "type": "Header",
+            "model": "GH1.25",
+            "purpose": "Receiver/GPS"
+        }
+    ]
+}

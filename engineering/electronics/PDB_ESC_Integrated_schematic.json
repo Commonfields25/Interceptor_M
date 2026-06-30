@@ -1,0 +1,26 @@
+{
+    "project": "Interceptor_M",
+    "assembly": "PDB_ESC_Integrated",
+    "version": "1.0",
+    "units": "mm",
+    "components": [
+        {
+            "id": "Q1-Q4",
+            "type": "MOSFET",
+            "model": "TPH1R204PL",
+            "rating": "40V/150A"
+        },
+        {
+            "id": "U4",
+            "type": "Regulator",
+            "model": "LM5164",
+            "output": "5V/1A"
+        },
+        {
+            "id": "J2",
+            "type": "Power_In",
+            "model": "XT60",
+            "rating": "60A"
+        }
+    ]
+}
