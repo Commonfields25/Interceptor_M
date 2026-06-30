@@ -1,7 +1,6 @@
-part_number,part_name,qty,unit_material,process,mass_g_each,designer,gate,v1.5_status
-BRK-001,Structural Bracket,1,7075-T6 Aluminium,CNC/DMLS,130.74,D2,E1,Refactored
-ACT-001,Actuator Mount,1,7075-T6 Aluminium,CNC/DMLS,55.49,D3,E1,Refactored
-NCR-001,Nose-Cone Ring,1,316L SS,Turning,104.48,D1,E1,Locked
-SABOT-001,Launcher Sabot,1,ASA,FDM,15.00,D3,G2,NEW
-FC-001,Flight Controller,1,PCB,SMT,12.50,E2,G2,NEW
-PDB-001,Integrated PDB,1,PCB,SMT,18.00,E2,G2,NEW
+part_number,part_name,qty,unit_material,stock_dimensions_mm,process,machining_notes,mass_g_each,est_unit_cost_eur,est_lead_time_days,designer,reviewer,gate
+BRK-001,Structural Bracket,1,7075-T6 Aluminium,80x60x12 block,CNC 3-axis Milling,Anodize Type III hard-coat after machining; Ra 0.8 µm faces [MASS RECONCILED gen_geometry.py v0.2],111.79,45,5,D2,E2,E1
+ACT-001,Actuator Mount,1,7075-T6 Aluminium,70x50x8 block,CNC 3-axis Milling,Ra 0.8 µm component seats; thermal pad pre-applied [MASS RECONCILED gen_geometry.py v0.2],55.49,35,5,D3,E2,E1
+NCR-001,Nose-Cone Interface Ring,1,316L Stainless Steel,Ø45x25 bar,CNC Turning + CNC Milling (secondary),Passivate ASTM A967; Ra 0.4 µm O-ring groove; two-operation setup [MASS RECONCILED gen_geometry.py v0.2],89.35,60,7,D1,E1,E1
+OR-112-NBR,O-Ring NBR AS568-112,1,NBR 70 Shore A,N/A — purchased component,N/A,Install into NCR-001 groove; press-fit ~20% compression; verify no extrusion at 10 bar,1,3,2,N/A,E3,E1
+TOTAL — First Batch,,4,,BOM total,,92,143,14,,,,
