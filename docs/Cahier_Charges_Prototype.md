@@ -1,11 +1,11 @@
 # Cahier des Charges Technique — Prototype Interceptor M
 
-> **Version** : PRELIMINARY 0.1  
-> **Date** : 2026-06-29  
-> **Statut** : 🟡 En cours — soumis à validation Ingénierie  
-> **Milestone** : [M6 — Prototype : Plans & Conception](https://github.com/Commonfields25/Interceptor_M/milestone/14)  
-> **Parent** : [#34 Mechanical prototypes for machining](https://github.com/Commonfields25/Interceptor_M/issues/34)  
-> **Issue livrable** : [#67 [Ingé] Cahier des charges technique](https://github.com/Commonfields25/Interceptor_M/issues/67)  
+> **Version** : PRELIMINARY 0.1
+> **Date** : 2026-06-29
+> **Statut** : 🟡 En cours — soumis à validation Ingénierie
+> **Milestone** : [M6 — Prototype : Plans & Conception](https://github.com/Commonfields25/Interceptor_M/milestone/14)
+> **Parent** : [#34 Mechanical prototypes for machining](https://github.com/Commonfields25/Interceptor_M/issues/34)
+> **Issue livrable** : [#67 [Ingé] Cahier des charges technique](https://github.com/Commonfields25/Interceptor_M/issues/67)
 > **Classification** : Interne confidentiel —'usage restreint
 
 ---
@@ -236,5 +236,5 @@ Le prototype est transportable sans outillage spécialisé. Dismontable pour exp
 
 ---
 
-*Document produit dans le cadre de Vague 6 — Prototype : Plans & Conception.*  
+*Document produit dans le cadre de Vague 6 — Prototype : Plans & Conception.*
 *Derniere mise a jour : 2026-06-29*

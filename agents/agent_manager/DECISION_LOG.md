@@ -265,5 +265,3 @@ status: Proposed
 > - Recovery rate target and landing system
 > - IR vs. RF primary seeker for low-RCS FPV threats
 > - Unit cost vs. production rate trade-off
-
-

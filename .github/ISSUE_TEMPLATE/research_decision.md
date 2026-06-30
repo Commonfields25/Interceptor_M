@@ -33,4 +33,3 @@ body:
     id: recommendation
     attributes:
       label: What do you recommend and why?
-
