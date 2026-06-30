@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Interceptor_M - Drone Launcher Base Parts Generator (High-Fidelity Edition)
-Generates parametric CAD parts using numpy-stl with integrated assembly points and tolerances.
+Interceptor_M - Drone Launcher Base Parts Generator
+Generates parametric CAD parts using numpy-stl and gmsh for STEP export
 """
 
 import numpy as np
@@ -15,151 +15,341 @@ OUTPUT_DIR = SCRIPT_DIR
 ASSEMBLIES_DIR = os.path.join(OUTPUT_DIR, "Assemblies")
 
 def create_box_mesh(width, height, depth, center=(0, 0, 0)):
-    if width <= 0 or height <= 0 or depth <= 0: raise ValueError("Dimensions must be positive")
+    """Create a box mesh"""
     w, h, d = width/2, height/2, depth/2
     cx, cy, cz = center
+
+    # 8 vertices
     vertices = np.array([
         [cx-w, cy-h, cz-d], [cx+w, cy-h, cz-d],
         [cx+w, cy+h, cz-d], [cx-w, cy+h, cz-d],
         [cx-w, cy-h, cz+d], [cx+w, cy-h, cz+d],
         [cx+w, cy+h, cz+d], [cx-w, cy+h, cz+d]
     ])
+
+    # 12 triangular faces
     faces = np.array([
-        [0,3,1], [1,3,2], [0,4,7], [0,7,3],
-        [4,5,6], [4,6,7], [1,2,6], [1,6,5],
-        [0,1,5], [0,5,4], [2,3,7], [2,7,6]
+        [0, 3, 1], [1, 3, 2],  # Bottom face
+        [4, 5, 7], [5, 6, 7],  # Top face
+        [0, 1, 5], [0, 5, 4],  # Front face
+        [2, 3, 7], [2, 7, 6],  # Back face
+        [0, 4, 7], [0, 7, 3],  # Left face
+        [1, 2, 6], [1, 6, 5]   # Right face
     ])
+
     return vertices, faces
 
 def create_cylinder_mesh(radius, height, center=(0, 0, 0), segments=32):
-    if radius <= 0 or height <= 0: raise ValueError("Dimensions must be positive")
+    """Create a cylinder mesh"""
     cx, cy, cz = center
-    vertices = [[cx, cy, cz - height/2]]
-    for i in range(segments):
-        theta = 2.0 * math.pi * i / segments
-        vertices.append([cx + radius * math.cos(theta), cy + radius * math.sin(theta), cz - height/2])
-    vertices.append([cx, cy, cz + height/2])
-    for i in range(segments):
-        theta = 2.0 * math.pi * i / segments
-        vertices.append([cx + radius * math.cos(theta), cy + radius * math.sin(theta), cz + height/2])
-    vertices = np.array(vertices)
-    n = segments
-    faces = []
-    for i in range(1, n + 1):
-        next_i = 1 if i == n else i + 1
-        faces.append([0, next_i, i])
-    top_center = n + 1
-    for i in range(1, n + 1):
-        next_i = 1 if i == n else i + 1
-        faces.append([top_center, i + n + 1, next_i + n + 1])
-    for i in range(1, n + 1):
-        next_i = 1 if i == n else i + 1
-        faces.append([i, next_i, i + n + 1])
-        faces.append([next_i, next_i + n + 1, i + n + 1])
-    return vertices, np.array(faces)
+    vertices = [np.array([cx, cy, cz])]  # Center point
+    angles = np.linspace(0, 2*math.pi, segments+1)[:-1]
 
-def create_hollow_cylinder_mesh(outer_radius, inner_radius, height, center=(0, 0, 0), segments=32):
-    cx, cy, cz = center
-    vertices = []
-    for z_off in [-height/2, height/2]:
-        for r in [inner_radius, outer_radius]:
-            for i in range(segments):
-                theta = 2.0 * math.pi * i / segments
-                vertices.append([cx + r * math.cos(theta), cy + r * math.sin(theta), cz + z_off])
-    vertices = np.array(vertices)
-    n = segments
+    # Bottom circle
+    for angle in angles:
+        vertices.append(np.array([cx + radius*math.cos(angle),
+                                   cy + radius*math.sin(angle), cz]))
+
+    # Top circle
+    for angle in angles:
+        vertices.append(np.array([cx + radius*math.cos(angle),
+                                   cy + radius*math.sin(angle), cz + height]))
+
+    vertices.append(np.array([cx, cy, cz + height]))  # Top center
+
+    n = len(vertices) - 1
     faces = []
-    for i in range(n):
-        next_i = (i + 1) % n
-        faces.append([i, i + n, next_i])
-        faces.append([next_i, i + n, next_i + n])
-    for i in range(n):
-        next_i = (i + 1) % n
-        faces.append([i + 2*n, next_i + 2*n, i + 3*n])
-        faces.append([next_i + 2*n, next_i + 3*n, i + 3*n])
-    for i in range(n):
-        next_i = (i + 1) % n
-        faces.append([i + n, next_i + n, i + 3*n])
-        faces.append([next_i + n, next_i + 3*n, i + 3*n])
-    for i in range(n):
-        next_i = (i + 1) % n
-        faces.append([i, i + 2*n, next_i])
-        faces.append([next_i, i + 2*n, next_i + 2*n])
-    return vertices, np.array(faces)
+
+    # Bottom triangles
+    for i in range(1, segments+1):
+        next_i = 1 if i == segments else i + 1
+        faces.append([0, i, next_i])
+
+    # Side faces (quads split into triangles)
+    for i in range(1, segments+1):
+        next_i = 1 if i == segments else i + 1
+        current_top = i + segments
+        next_top = 1 + segments if i == segments else i + 1 + segments
+        faces.append([i, next_i, current_top])
+        faces.append([next_i, next_top, current_top])
+
+    # Top triangles
+    for i in range(1, segments+1):
+        next_i = 1 if i == segments else i + 1
+        faces.append([n, current_top, n])
+        faces.append([i + segments, (i + segments) % segments + segments + 1, n])
+
+    return np.array(vertices), np.array(faces)
 
 def combine_meshes(mesh_list):
+    """Combine multiple meshes into one"""
     combined_vertices = []
     combined_faces = []
     offset = 0
+
     for vertices, faces in mesh_list:
         combined_vertices.append(vertices)
         combined_faces.append(faces + offset)
         offset += len(vertices)
-    return np.vstack(combined_vertices), np.vstack(combined_faces)
+
+    all_vertices = np.vstack(combined_vertices)
+    all_faces = np.vstack(combined_faces)
+
+    return all_vertices, all_faces
 
 def save_stl(vertices, faces, filename):
+    """Save mesh as STL"""
     stl_mesh = mesh.Mesh(np.zeros(len(faces), dtype=mesh.Mesh.dtype))
     for i, face in enumerate(faces):
         stl_mesh.vectors[i] = vertices[face]
     stl_mesh.save(filename)
 
-# --- Refactored Part Generators ---
+def create_box_stl(filename, width, height, depth, center=(0, 0, 0)):
+    """Create and save a box STL"""
+    vertices, faces = create_box_mesh(width, height, depth, center)
+    save_stl(vertices, faces, filename)
+    return filename
 
+def create_cylinder_stl(filename, radius, height, center=(0, 0, 0)):
+    """Create and save a cylinder STL"""
+    vertices, faces = create_cylinder_mesh(radius, height, center)
+    save_stl(vertices, faces, filename)
+    return filename
+
+# ============================================================
+# PART 1: Main Chassis/Frame Structure
+# ============================================================
 def create_main_chassis():
-    print("Creating main chassis (v2.3)...")
+    """
+    Creates the main frame structure for the drone launcher.
+    Material: Aluminum 6061-T6
+    Dimensions: 2000mm x 500mm x 1000mm
+    """
+    print("Creating main chassis...")
     mesh_list = []
-    for y_pos in [-100, 100]:
-        v, f = create_box_mesh(2000, 50, 10, center=(0, y_pos, 0))
-        mesh_list.append((v, f))
-        v, f = create_box_mesh(2000, 10, 50, center=(0, y_pos + 20, 25))
-        mesh_list.append((v, f))
-    for x_pos in [-900, 0, 900]:
-        v, f = create_box_mesh(10, 250, 50, center=(x_pos, 0, 25))
-        mesh_list.append((v, f))
-    combined = combine_meshes(mesh_list)
-    save_stl(*combined, os.path.join(OUTPUT_DIR, "01_Main_Chassis.stl"))
 
+    width = 2000
+    height = 100
+    depth = 50
+
+    # Main longitudinal beams (2x)
+    v1, f1 = create_box_mesh(depth, height, width/2 - 25, center=(-width/4, 0, 0))
+    v2, f2 = create_box_mesh(depth, height, width/2 - 25, center=(width/4, 0, 0))
+    mesh_list.append((v1, f1))
+    mesh_list.append((v2, f2))
+
+    # Cross beams at 3 heights
+    for z_pos in [0, height/2, height]:
+        v, f = create_box_mesh(width - 2*depth, depth, depth, center=(0, 0, z_pos))
+        mesh_list.append((v, f))
+
+    # Mounting brackets at corners
+    bracket_positions = [
+        (-width/2 + 50, 0, 0),
+        (width/2 - 50, 0, 0),
+        (-width/2 + 50, 0, height),
+        (width/2 - 50, 0, height)
+    ]
+    for pos in bracket_positions:
+        v, f = create_box_mesh(depth + 20, height + 20, 10, center=pos)
+        mesh_list.append((v, f))
+
+    combined = combine_meshes(mesh_list)
+    output_path = os.path.join(OUTPUT_DIR, "01_Main_Chassis.stl")
+    save_stl(*combined, output_path)
+    return output_path
+
+# ============================================================
+# PART 2: Launch Rails System
+# ============================================================
 def create_launch_rails():
-    print("Creating launch rails (v2.3)...")
+    """
+    Creates the launch rail system for the drone.
+    Material: Hardened Steel
+    Length: 1500mm
+    """
+    print("Creating launch rails...")
     mesh_list = []
-    v, f = create_box_mesh(1500, 60, 20, center=(0, 0, 0))
-    mesh_list.append((v, f))
-    for pos_y in [-20, 20]:
-        v, f = create_box_mesh(1500, 10, 40, center=(0, pos_y, 15))
-        mesh_list.append((v, f))
-    combined = combine_meshes(mesh_list)
-    save_stl(*combined, os.path.join(OUTPUT_DIR, "02_Launch_Rails.stl"))
 
+    rail_length = 1500
+    rail_width = 30
+    rail_height = 40
+
+    # Main rail body
+    v, f = create_box_mesh(rail_length, rail_height, rail_width, center=(0, 0, 0))
+    mesh_list.append((v, f))
+
+    # Guide flanges
+    v, f = create_box_mesh(rail_length, 5, rail_width + 10, center=(0, rail_height/2 - 2.5, 0))
+    mesh_list.append((v, f))
+    v, f = create_box_mesh(rail_length, 5, rail_width + 10, center=(0, -rail_height/2 + 2.5, 0))
+    mesh_list.append((v, f))
+
+    combined = combine_meshes(mesh_list)
+    output_path = os.path.join(OUTPUT_DIR, "02_Launch_Rails.stl")
+    save_stl(*combined, output_path)
+    return output_path
+
+# ============================================================
+# PART 3: Drone Mounting Bracket
+# ============================================================
 def create_drone_mounting_bracket():
-    """Refactored Mounting Bracket with light-weighting and M3 holes"""
-    print("Creating drone mounting bracket (v2.3)...")
+    """
+    Creates the drone mounting bracket.
+    Material: Aluminum 6061-T6
+    Max load: 20kg
+    """
+    print("Creating drone mounting bracket...")
     mesh_list = []
-    # Main structural ring (approximated as hollow cylinder)
-    v, f = create_hollow_cylinder_mesh(60, 40, 15, center=(0, 0, 0))
+
+    base_size = 300
+    base_thickness = 15
+    arm_height = 80
+    arm_width = 40
+
+    # Main base plate
+    v, f = create_box_mesh(base_size, base_size, base_thickness, center=(0, 0, 0))
     mesh_list.append((v, f))
-    # 4 Mounting arms with M3 holes
-    for angle in [0, math.pi/2, math.pi, 3*math.pi/2]:
-        cx, cy = 80 * math.cos(angle), 80 * math.sin(angle)
-        # Arm
-        v, f = create_box_mesh(30, 30, 10, center=(cx, cy, 0))
+
+    # 4 vertical arms
+    arm_positions = [
+        (-base_size/3, -base_size/3, base_thickness),
+        (-base_size/3, base_size/3, base_thickness),
+        (base_size/3, -base_size/3, base_thickness),
+        (base_size/3, base_size/3, base_thickness)
+    ]
+    for pos in arm_positions:
+        v, f = create_box_mesh(arm_width, arm_width, arm_height, center=pos)
         mesh_list.append((v, f))
-        # M3 Hole (represented as small additive cylinder for boundary)
-        v, f = create_cylinder_mesh(1.6, 12, center=(cx, cy, 0))
-        mesh_list.append((v, f))
+
+    # Top mounting plate
+    v, f = create_box_mesh(base_size - 50, base_size - 50, 10, center=(0, 0, base_thickness + arm_height))
+    mesh_list.append((v, f))
+
     combined = combine_meshes(mesh_list)
-    save_stl(*combined, os.path.join(OUTPUT_DIR, "03_Drone_Mounting_Bracket.stl"))
+    output_path = os.path.join(OUTPUT_DIR, "03_Drone_Mounting_Bracket.stl")
+    save_stl(*combined, output_path)
+    return output_path
 
-def create_sabot():
-    v, f = create_hollow_cylinder_mesh(20, 17.5, 60, center=(0, 0, 0))
-    save_stl(v, f, os.path.join(OUTPUT_DIR, "SABOT-001.stl"))
+# ============================================================
+# PART 4: Drone Locking/Unlocking Mechanism
+# ============================================================
+def create_locking_mechanism():
+    """
+    Creates the drone locking/unlocking mechanism.
+    Material: Steel for locking pins, Aluminum for housing
+    """
+    print("Creating locking mechanism...")
+    mesh_list = []
 
+    housing_length = 200
+    housing_width = 100
+    housing_height = 60
+
+    # Main housing
+    v, f = create_box_mesh(housing_length, housing_width, housing_height, center=(0, 0, 0))
+    mesh_list.append((v, f))
+
+    # Locking pins (3x)
+    pin_positions = [-60, 0, 60]
+    for x_pos in pin_positions:
+        v, f = create_box_mesh(16, 40, housing_height - 10, center=(x_pos, housing_width/2, housing_height/2))
+        mesh_list.append((v, f))
+
+    # Actuator mechanism housing
+    v, f = create_box_mesh(80, 60, 80, center=(0, housing_width/2 + 30, housing_height/2))
+    mesh_list.append((v, f))
+
+    combined = combine_meshes(mesh_list)
+    output_path = os.path.join(OUTPUT_DIR, "04_Locking_Mechanism.stl")
+    save_stl(*combined, output_path)
+    return output_path
+
+# ============================================================
+# PART 5: Support Feet and Stabilizers
+# ============================================================
+def create_support_feet():
+    """
+    Creates adjustable support feet with stabilizers.
+    Material: Steel feet, Aluminum structure
+    """
+    print("Creating support feet...")
+    mesh_list = []
+
+    foot_base_diameter = 150
+    foot_thickness = 20
+    rod_diameter = 40
+    rod_length = 400
+
+    # Base plate (cylinder approximated as box for simplicity)
+    v, f = create_box_mesh(foot_base_diameter, foot_base_diameter, foot_thickness, center=(0, 0, 0))
+    mesh_list.append((v, f))
+
+    # Adjustment rod
+    v, f = create_box_mesh(rod_diameter, rod_diameter, rod_length, center=(0, 0, foot_thickness))
+    mesh_list.append((v, f))
+
+    # Rod collar
+    v, f = create_box_mesh(rod_diameter + 20, rod_diameter + 20, 30, center=(0, 0, foot_thickness + rod_length/2))
+    mesh_list.append((v, f))
+
+    combined = combine_meshes(mesh_list)
+    output_path = os.path.join(OUTPUT_DIR, "05_Support_Feet.stl")
+    save_stl(*combined, output_path)
+    return output_path
+
+# ============================================================
+# PART 6: Side Protection Panels
+# ============================================================
+def create_side_protection():
+    """
+    Creates side protection panels.
+    Material: Aluminum 5052-H32
+    """
+    print("Creating side protection panels...")
+    mesh_list = []
+
+    panel_length = 1000
+    panel_height = 500
+    panel_thickness = 3
+
+    # Main panel
+    v, f = create_box_mesh(panel_length, panel_height, panel_thickness, center=(0, 0, 0))
+    mesh_list.append((v, f))
+
+    # Reinforcement ribs
+    for x_pos in [-panel_length/3, 0, panel_length/3]:
+        v, f = create_box_mesh(5, panel_height - 20, 30, center=(x_pos, 0, -15))
+        mesh_list.append((v, f))
+
+    combined = combine_meshes(mesh_list)
+    output_path = os.path.join(OUTPUT_DIR, "06_Side_Protection_Panel.stl")
+    save_stl(*combined, output_path)
+    return output_path
+
+# ============================================================
+# MAIN EXECUTION
+# ============================================================
 def main():
+    print("=" * 60)
+    print("Interceptor_M - Drone Launcher Base Parts Generator")
+    print("=" * 60)
+
     os.makedirs(ASSEMBLIES_DIR, exist_ok=True)
-    create_main_chassis()
-    create_launch_rails()
-    create_drone_mounting_bracket()
-    create_sabot()
-    print("All parts generated.")
+
+    parts = {
+        "01_Main_Chassis": create_main_chassis(),
+        "02_Launch_Rails": create_launch_rails(),
+        "03_Drone_Mounting_Bracket": create_drone_mounting_bracket(),
+        "04_Locking_Mechanism": create_locking_mechanism(),
+        "05_Support_Feet": create_support_feet(),
+        "06_Side_Protection_Panel": create_side_protection()
+    }
+
+    print("\n" + "=" * 60)
+    print("All STL parts generated successfully!")
+    print(f"Output directory: {OUTPUT_DIR}")
+    print("=" * 60)
 
 if __name__ == "__main__":
     main()

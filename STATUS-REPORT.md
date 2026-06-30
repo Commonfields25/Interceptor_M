@@ -1,39 +1,67 @@
 # Status Report — Interceptor_M
 
-**Version:** 1.5
-**Date:** 2026-06-30
-**Author:** Lead Designer (Jules / D1-D2-D3 Composite)
+**Version:** 1.2
+**Date:** 2026-06-29
+**Author:** Agent Manager (Jules / Physics Expert)
 
 ---
 
 ## 1. Executive Summary
-Critical design gaps have been remediated. The project has transitioned from primitive placeholders to high-fidelity parametric CAD and structured electronic design, enabling transition to manufacturing-ready engineering.
+Critical blockers in physics modeling (RF1) and governance (RF3) have been resolved. The project baseline is now synchronized across the DD-400 platform.
 
 ---
 
-## 2. Design & Engineering Baseline (v1.5)
-- **Mechanical CAD**: Parametric generation of Chassis (L-profile), Rails (V-groove/T-slot), and Mounting Bracket (Lightweight) finalized.
-- **Interface Engineering**: SABOT-001 (35mm/40mm) designed and integrated into the launcher ecosystem.
-- **Electronics**: Structured JSON schematics and Gerber layer placeholders for Flight Controller (STM32H7) and PDB/ESC established.
-- **Traceability**: All design artifacts are now generated via version-controlled scripts, ensuring ISO 9001 design control compliance.
+## 2. Product Family Synchronization (Baseline 1.2)
+
+### 2.1 DD - Defense Line (Priority 1)
+- **MTOW**: 400 g (Locked)
+- **Airframe length**: 380 mm (Locked)
+- **Physics**: 6-DOF Real Dynamics (Resolved)
+- **Key documents**: `PARAMETERS.json`, `PRODUCT-FAMILY.md`, `models/DD/DD-PARAMETERS.md`
+
+### 2.2 DI - Industrial Line (Priority 2)
+- **MTOW**: 300 g (Baseline set)
+- **Airframe length**: 365 mm (Baseline set)
+- **Status**: **Unblocked**
+
+### 2.3 DC - Civil Line (Priority 3)
+- **MTOW**: 250 g (Baseline set)
+- **Airframe length**: 350 mm (Baseline set)
+- **Status**: **Unblocked**
 
 ---
 
-## 3. Technical Remediations
-- **Primitive STLs**: REPLACED with high-fidelity versions containing assembly hardpoints (M8/M3).
-- **Missing Components**: SABOT-001 implemented, closing the critical launcher-drone interface gap.
-- **Operational Status**: Agents D1, D2, and D3 are fully operational and have delivered the v2.3 design baseline.
+## 3. Red Flags and Mitigations
+
+### RF1 - Swarm RL Physics Gap
+- **Severity**: RESOLVED
+- **Status**: **Complete**
+- **Action**: `engineering/ML/isaac_gym/swarm_env.py` upgraded to high-fidelity 6-DOF model.
+- **Verification**: Smoke test green; Newtonian trajectories validated.
+
+### RF3 - DG Single Point of Failure
+- **Severity**: RESOLVED
+- **Status**: **Operational**
+- **Action**: Auto-Approval Policy (DEC-009) operationalized with `GATE_AUDIT_LOG.md`.
+- **Audit**: First administrative audit entry logged.
 
 ---
 
-## 4. Next Phase
-- Kickoff G2 Concept Selection review with the high-fidelity design package.
-- Perform FEA and CFD analysis on the new SABOT-001 and V-groove rail profiles.
+## 4. Gate Status
+
+| Gate | Name | Status | Owner | Notes |
+|------|------|--------|-------|-------|
+| G0 | Programme Launch | PASSED | DG | |
+| G1 | Brief | **RATIFIED** | DG | |
+| G2 | Concept Selection | **IN PROGRESS** | DG | Target 2026-07-09 |
+| G3 | Preliminary Design Review | PENDING | AM eligible | **Ready for AM** |
+| G5 | Simulation GO | PENDING | AM eligible | **Ready for AM** |
+
+---
+
+## 5. Next Steps
+- Issue #16: Train MAPPO single-agent baseline on the new 6-DOF environment.
+- Issue #17: Finalize Namespace Isolation audit.
 
 ---
 *This report is maintained by the Agent Manager.*
-
-## 6. Autonomy Status
-- **Technical Production**: [🟢 AUTONOMOUS] — Agents D1/E2 delivering verified artifacts.
-- **Minor Gate Approval**: [🟡 CONDITIONAL] — Delegated to AM (KPIs monitored).
-- **Major Gate Approval**: [🔴 HITL] — Mandatory DG sign-off for G2, G4, G9.

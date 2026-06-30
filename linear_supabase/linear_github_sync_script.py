@@ -60,22 +60,22 @@ def create_linear_issue(title, description, agent_id=None):
             "labels": [{"name": agent_id}] if agent_id else []
         }
     }
-    
+
     payload = {
         "query": CREATE_LINEAR_ISSUE_MUTATION,
         "variables": variables
     }
-    
+
     response = requests.post(LINEAR_API_URL, headers=LINEAR_HEADERS, json=payload)
     if response.status_code != 200:
         print(f"Erreur lors de la création de la tâche Linear: {response.status_code}")
         return None
-    
+
     result = response.json()
     if result.get("errors"):
         print(f"Erreur GraphQL: {result['errors']}")
         return None
-    
+
     return result.get("data", {}).get("issueCreate", {}).get("issue")
 
 def sync_github_to_linear():
@@ -84,20 +84,20 @@ def sync_github_to_linear():
     if not issues:
         print("Aucune issue trouvée sur GitHub.")
         return
-    
+
     for issue in issues:
         title = issue.get("title", "Sans titre")
         description = issue.get("body", "")
         labels = issue.get("labels", [])
         agent_id = None
-        
+
         # Extraire l'agent depuis les labels (ex: "agent:E3")
         for label in labels:
             label_name = label.get("name", "")
             if label_name.startswith("agent:"):
                 agent_id = label_name.split(":")[1]
                 break
-        
+
         # Créer la tâche dans Linear
         linear_issue = create_linear_issue(title, description, agent_id)
         if linear_issue:

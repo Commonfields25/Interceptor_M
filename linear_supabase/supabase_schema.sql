@@ -109,7 +109,7 @@ BEGIN
         blockage_duration = NOW() - NEW.start_time;
         IF blockage_duration > INTERVAL '2 hours' THEN
             INSERT INTO alerts (agent_id, message, type)
-            VALUES (NEW.agent_id, 
+            VALUES (NEW.agent_id,
                     'Blocage > 2h détecté pour l'agent ' || NEW.agent_id || ': ' || NEW.issue_title,
                     'BLOCKAGE');
         END IF;

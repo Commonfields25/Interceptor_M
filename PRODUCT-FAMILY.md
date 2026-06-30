@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Product Lines
+## 1. Strategic Rationale
 
 Shared platform strategy maximises reuse across three market segments
 (Defense, Industrial, Civil) while preserving line-specific differentiation
@@ -128,21 +128,44 @@ in airframe scale, payload, and certification envelope.
 
 ---
 
-## 2. Shared Platform Modules (SC Registry)
+## 4. Platform Differentiation Logic
 
-All lines utilize the **SC-Series** shared components to minimize NRE and maximize supply chain efficiency.
-
-- **SC-01**: Autopilot / FC Board
-- **SC-02**: Propulsion Brick (Motor + ESC)
-- **SC-03**: Datalink / RF Modem
-- **SC-04**: Mission Software Stack
-- **SC-05**: Ground Control Station
-- **SC-06**: Launcher Interface (DD/DI only)
+```
+              +-------------+
+              |  PLATFORM   |  (common across all lines)
+              |  CORE       |
+              +-------------+
+               /    |    \
+              /     |     \
+    +---------+ +----+----+ +---------+
+    |   DD    | |    DI    | |   DC    |
+    | Defense | |Industrial| |  Civil  |
+    |  MTOW=400g  MTOW=300g  MTOW=250g
+    +---------+ +----------+ +---------+
+```
 
 ---
 
-## 3. Governance Rule: SPEC LOCK
-As of version 1.3, the MTOW and Fuselage dimensions for all three lines (DD, DI, DC) are **locked**. Any changes require a formal ECR (Engineering Change Request) and DG approval.
+## 5. BOM Governance Rules
+
+| Rule | Description |
+|------|-------------|
+| **DI BOM Lock** | DI structural parts are frozen as of 2026-06-28. Any change requires an ECR + DG approval. |
+| **DD/DC Iterative** | DD and DC geometries are actively refined; BOM remains open pending D2/D3 CFD validation. |
+| **SC Registry** | Shared components (SC-01 to SC-06) are versioned in `SHARED-COMPONENTS.md` and must not be silently substituted. |
+| **DMLS Lots** | AlSi10Mg DMLS print batches must record lot number, machine ID, and build date on the traveller sheet. |
+| **Mass Margins** | Structural mass must remain within +0% / -3% of BOM value. Exceedance triggers an NCR. |
+
+---
+
+## 6. Next Steps
+
+| Action | Owner | Gate |
+|--------|-------|------|
+| Lock DC geometry (scale from DD/DI data) | D3 | DC-spec |
+| Platform interface control document (ICD) | E3 | G3 |
+| Common GCS development kickoff | E3 | G2 (DD) |
+| Validate DI thermal margins (ACT-001 dissipation) | D2 | E2 |
 
 ---
 
