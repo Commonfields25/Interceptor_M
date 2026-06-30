@@ -27,7 +27,9 @@ jobs:
 
       - name: Validate ISO_UAS_BASELINE.md frontmatter
         run: |
-          if ! head -5 engineering/ISO_UAS_BASELINE.md | grep -q "ISO/UAS Baseline"; then
+          if ! head -5 engineering/ISO_UAS_BASELINE.md | grep -q \
+              "ISO/UAS Baseline"; then
+            then
             echo "ERROR: Missing ISO/UAS Baseline header"
             exit 1
           fi
@@ -42,12 +44,13 @@ jobs:
       - name: Parse ISO references in ISO_UAS_BASELINE.md
         run: |
           echo "=== ISO Reference Audit ==="
-          for ref in "ISO 9001" "ISO/IEC 27001" "ISO/IEC 15408" "ISO/IEC 42001" \
+          for ref in "ISO 9001" "ISO/IEC 27001" "ISO/IEC 15408" \
+                   "ISO/IEC 42001" \
                      "ASTM F3411" "JARUS SORA" "EASA SC-DT"; do
             if grep -q "$ref" engineering/ISO_UAS_BASELINE.md; then
-              echo "✅ $ref found"
+              echo "[OK] $ref found"
             else
-              echo "⚠️  $ref NOT found in ISO_UAS_BASELINE.md"
+              echo "[WARNING]  $ref NOT found in ISO_UAS_BASELINE.md"
             fi
           done
 
@@ -75,7 +78,8 @@ jobs:
 
       - name: Extract BOM line count
         run: |
-          lines=$(grep -c "^|" manufacturing/BOM_consolidee.md 2>/dev/null || echo 0)
+          lines=$(grep -c "^|" manufacturing/BOM_consolidee.md \
+                   2>/dev/null || echo 0)
           echo "BOM table lines: $lines"
 
   di-spec-lock-presence:
@@ -110,9 +114,9 @@ jobs:
           all_ok=true
           for doc in "${required[@]}"; do
             if [ -f "$doc" ]; then
-              echo "✅ $doc"
+              echo "[OK] $doc"
             else
-              echo "❌ MISSING $doc"
+              echo "[MISSING] MISSING $doc"
               all_ok=false
             fi
           done
@@ -127,7 +131,7 @@ jobs:
           for f in engineering/*.md security/*.md; do
             [ -f "$f" ] || continue
             if grep -q '\[.*\](\.\./' "$f"; then
-              echo "⚠️  Relative parent paths in $f"
+              echo "[WARNING]  Relative parent paths in $f"
             fi
           done
 
@@ -140,9 +144,9 @@ jobs:
       - name: Check Octave availability
         run: |
           if command -v octave &>/dev/null; then
-            echo "✅ Octave available: $(octave --version | head -1)"
+            echo "[OK] Octave available: $(octave --version | head -1)"
           else
-            echo "⚠️  Octave not installed — skipping .m file execution"
+            echo "[WARNING]  Octave not installed  --  skipping .m files"
           fi
 
       - name: Syntax-check MATLAB .m files
@@ -151,7 +155,8 @@ jobs:
             for f in matlab/*.m simulation/*.m 2>/dev/null; do
               [ -f "$f" ] || continue
               echo "Checking $f..."
-              octave --eval "try, parseInput('$f'), disp('OK'), catch, disp(lasterr), end" 2>/dev/null || true
+              octave --eval "try, parseInput('$f'), disp('OK'), catch, \
+                disp(lasterr), end" 2>/dev/null || true
             done
           else
             echo "SKIP: Octave not available for syntax validation"
@@ -187,7 +192,7 @@ jobs:
           if [ -f package.json ]; then
             npm audit --audit-level=moderate || echo "Audit completed"
           else
-            echo "SKIP: No package.json — no npm audit required"
+            echo "SKIP: No package.json  --  no npm audit required"
           fi
 
       - name: Check for known-vulnerable patterns in scripts
