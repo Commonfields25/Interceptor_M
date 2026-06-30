@@ -1,0 +1,63 @@
+name: Octave Simulation & Constraint Tests
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'engineering/simulation/**'
+      - '.github/workflows/octave-sim-ci.yml'
+  pull_request:
+    paths:
+      - 'engineering/simulation/**'
+      - '.github/workflows/octave-sim-ci.yml'
+
+jobs:
+  simulation-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install GNU Octave
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y octave octave-common
+          octave --version
+
+      - name: Run thermal transient PCB simulation
+        run: |
+          cd engineering/simulation/scripts
+          octave --no-gui --eval "addpath('engineering/simulation/scripts'); thermal_transient_pcb(); exit(0);" 2>&1 | tee ../logs/thermal_transient.log
+          echo "THERMAL_EXIT=$?" >> $GITHUB_ENV
+
+      - name: Run aeroload proxy simulation
+        run: |
+          cd engineering/simulation/scripts
+          octave --no-gui --eval "addpath('engineering/simulation/scripts'); aeroload_proxy(); exit(0);" 2>&1 | tee ../logs/aeroload.log
+          echo "AEROLOAD_EXIT=$?" >> $GITHUB_ENV
+
+      - name: Run constraint test suite
+        run: |
+          cd engineering/simulation/tests
+          octave --no-gui --eval "addpath('engineering/simulation/tests'); addpath('engineering/simulation/scripts'); result = constraint_test_runner(); exit(any(result == 0) ? 1 : 0);" 2>&1 | tee ../logs/constraints.log
+          echo "CONSTRAINT_EXIT=$?" >> $GITHUB_ENV
+
+      - name: Upload simulation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-artifacts
+          path: |
+            engineering/simulation/logs/*.log
+            engineering/simulation/*.png
+            engineering/simulation/scripts/*.png
+          retention-days: 30
+
+      - name: Fail on test errors
+        if: env.THERMAL_EXIT != '0' || env.AEROLOAD_EXIT != '0' || env.CONSTRAINT_EXIT != '0'
+        run: |
+          echo "=== Test failures detected ==="
+          echo "  thermal_transient_pcb.m  exit=$THERMAL_EXIT"
+          echo "  aeroload_proxy.m         exit=$AEROLOAD_EXIT"
+          echo "  constraint_test_runner.m exit=$CONSTRAINT_EXIT"
+          exit 1
