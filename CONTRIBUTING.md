@@ -12,5 +12,3 @@
 - `governance/AUTO-APPROVAL-POLICY.md` — KPI thresholds for auto-approval
 - `engineering/DI/ML/SWARM-RL-PLAN.md` — RL training roadmap
 - `docs/INSIGHTS_REPORT.md` — weekly metrics and improvement tracking
-
-

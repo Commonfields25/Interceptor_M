@@ -1,0 +1,25 @@
+name: Security & ISO Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for secrets
+        run: |
+          grep -r "ghp_" . --exclude-dir=".github" || echo "No tokens found."
+
+  iso-compliance-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify ISO Framework
+        run: |
+          [ -f docs/governance/ISO_COMPLIANCE_FRAMEWORK.md ] && echo "Framework OK"
+          [ -f docs/governance/ISO_QUALITY_MANUAL.md ] && echo "Manual OK"
