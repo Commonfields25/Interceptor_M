@@ -16,7 +16,7 @@ from pathlib import Path
 def load_config(config_path: str = ".github/auth/.git_credentials_config.json") -> dict:
     """Load GitHub credentials from config file or environment variables."""
     config = {}
-    
+
     # Try to load from config file
     if os.path.exists(config_path):
         try:
@@ -25,7 +25,7 @@ def load_config(config_path: str = ".github/auth/.git_credentials_config.json") 
         except (json.JSONDecodeError, IOError) as e:
             print(f"Error loading config file: {e}")
             sys.exit(1)
-    
+
     # Override with environment variables if they exist
     if "GITHUB_TOKEN" in os.environ:
         config["github"] = config.get("github", {})
@@ -39,7 +39,7 @@ def load_config(config_path: str = ".github/auth/.git_credentials_config.json") 
     if "GIT_USER_EMAIL" in os.environ:
         config["github"] = config.get("github", {})
         config["github"]["user_email"] = os.environ["GIT_USER_EMAIL"]
-    
+
     return config
 
 
@@ -48,7 +48,7 @@ def validate_config(config: dict) -> bool:
     github_config = config.get("github", {})
     required_keys = ["token", "username", "user_name", "user_email"]
     missing_keys = [key for key in required_keys if key not in github_config or not github_config[key]]
-    
+
     if missing_keys:
         print(f"Error: Missing required configuration keys: {', '.join(missing_keys)}")
         return False
@@ -108,23 +108,23 @@ def create_pr(title: str, body: str, base: str, head: str):
     config = load_config()
     if not validate_config(config):
         return False
-    
+
     token = config["github"]["token"]
     repo = "Interceptor_M"
     api_url = f"https://api.github.com/repos/Commonfields25/{repo}/pulls"
-    
+
     headers = {
         "Authorization": f"token {token}",
         "Accept": "application/vnd.github.v3+json"
     }
-    
+
     payload = {
         "title": title,
         "body": body,
         "head": head,
         "base": base
     }
-    
+
     try:
         import requests
         response = requests.post(api_url, headers=headers, json=payload)
@@ -143,24 +143,24 @@ def create_pr(title: str, body: str, base: str, head: str):
 def main():
     parser = argparse.ArgumentParser(description="Git Authentication Helper")
     subparsers = parser.add_subparsers(dest="command", required=True)
-    
+
     # Test config
     subparsers.add_parser("test-config", help="Test the GitHub configuration")
-    
+
     # Clone repo
     clone_parser = subparsers.add_parser("clone-repo", help="Clone a Git repository")
     clone_parser.add_argument("repo_url", help="URL of the repository to clone")
     clone_parser.add_argument("--target", help="Target directory", default=None)
-    
+
     # Create PR
     pr_parser = subparsers.add_parser("create-pr", help="Create a Pull Request")
     pr_parser.add_argument("--title", required=True, help="Title of the PR")
     pr_parser.add_argument("--body", required=True, help="Body of the PR")
     pr_parser.add_argument("--base", default="main", help="Base branch for the PR")
     pr_parser.add_argument("--head", required=True, help="Head branch for the PR")
-    
+
     args = parser.parse_args()
-    
+
     if args.command == "test-config":
         success = test_config()
         sys.exit(0 if success else 1)

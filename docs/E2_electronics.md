@@ -1,9 +1,9 @@
 # E2 — Électronique & Seekers
-**Agent :** E2 — Électronique / Avionique & Seekers  
-**Projet :** Interceptor_M  
-**Date :** 2026-06-24  
-**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)  
-**Dérivé de :** D1_specifications.json (§ guidance_and_seeker, unit_cost_breakdown)  
+**Agent :** E2 — Électronique / Avionique & Seekers
+**Projet :** Interceptor_M
+**Date :** 2026-06-24
+**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)
+**Dérivé de :** D1_specifications.json (§ guidance_and_seeker, unit_cost_breakdown)
 **Documents liés :** D1 (§ specifications), D3 (§ electronics packaging, mass), E3 (§ integration, TRL)
 
 ---
@@ -180,7 +180,7 @@ During midcourse the missile flies a pre-computed intercept trajectory using IMU
 Le stack-up électronique est compact pour tenir dans le Ø35 mm :
 
 ```
-Section 1 (Zone A+B): 
+Section 1 (Zone A+B):
   - Top layer: Seeker RF board (Ka-band, 4-layer PCB)
   - Bottom layer: IMU + power management
   - Enclosure: Al-7075 machined
@@ -256,5 +256,5 @@ Section 3 (Zone D):
 
 ## 4.10 Disclaimer
 
-> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**  
+> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**
 > This document is a **preliminary, unclassified, non-export-controlled** conceptual engineering analysis for academic and research purposes only. It does not contain, describe, or enable the manufacture of a controlled munition. All data is based on open-source component datasheets, public radar/airframe textbook methods, and engineering judgment. Not subject to ITAR (22 CFR 120–130) or EAR (15 CFR 730–774) classification. No proprietary or controlled data is used. All specifications are design targets, not verified hardware.

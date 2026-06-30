@@ -2,7 +2,7 @@
 title: Engineering Schematics & Traceability
 ---
 
-> **⚠ Notice — Conceptual / Traceability Only**  
+> **⚠ Notice — Conceptual / Traceability Only**
 > All diagrams below are abstract process and architecture schematics for program traceability, documentation, and governance purposes. They do **not** contain fabrication dimensions, launcher details, weaponization steps, or actionable construction instructions. Treat as internal engineering documentation.
 
 ---

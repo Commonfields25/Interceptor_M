@@ -1,7 +1,7 @@
 # MAPPO Single-Agent Baseline
 
-**Issue:** #16  
-**Branch:** `feat/E2/mappo-baseline`  
+**Issue:** #16
+**Branch:** `feat/E2/mappo-baseline`
 **Status:** In Progress → needs-review
 
 ## Overview
