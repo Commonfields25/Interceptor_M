@@ -1,0 +1,14 @@
+{
+  "mission_id": "MISSION-AC-001",
+  "agent_id": "AC",
+  "task": "Perform a full project quality sweep and categorize IAMD violations.",
+  "workflow": [
+    "Execute governance/ci_checks/project_quality_scanner.py",
+    "Categorize violations by agent namespace",
+    "Produce a 'Standardization Roadmap' to resolve all 🔴 violations by J2"
+  ],
+  "constraints": {
+    "target": "100% IAMD compliance",
+    "deadline": "2026-07-09"
+  }
+}
