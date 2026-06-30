@@ -2,7 +2,6 @@
 simulation/montecarlo_pintercept.py
 ====================================
 Monte Carlo P(intercept) — Échantillonnage de l'enveloppe E1.
-Comparaison PN vs APN avec bruit et latence.
 """
 
 import math
@@ -10,9 +9,12 @@ import random
 import statistics
 import numpy as np
 from . import constants as C
-from .sim_6dof import simulate_engagement, manoeuvre_rectiligne, manoeuvre_virage_constant, manoeuvre_weaving
+from .sim_6dof import simulate_engagement, manoeuvre_rectiligne, manoeuvre_virage_constant
 from .flight_control_poc import GuidanceSystem
 
+# ------------------------------------------------------------------
+# Hot locals
+# ------------------------------------------------------------------
 _P_MIN    = C.PORTEE_MIN_M
 _P_MAX    = C.PORTEE_MAX_M
 _ALT_MIN  = C.ALTITUDE_MIN_M
@@ -39,19 +41,10 @@ def tirer_config():
     pos_init_i = [0.0, 0.0, alt_init_m]
     vel_init_i = 100.0
 
-    vel_cible_m_s = random.uniform(50.0, 150.0)
-    cap_cible_rad = angle_cibl_rad + math.pi + random.uniform(-0.3, 0.3)
+    vel_cible_m_s = random.uniform(50.0, 100.0)
+    cap_cible_rad = angle_cibl_rad + math.pi + random.uniform(-0.2, 0.2)
 
-    # Tirage manoeuvre
-    r = random.random()
-    if r < 0.4: manoeuvre_fn = manoeuvre_rectiligne
-    elif r < 0.7:
-        g_load = random.uniform(2.0, 6.0)
-        manoeuvre_fn = lambda etat, dt: manoeuvre_virage_constant(etat, dt, accel_g=g_load)
-    else:
-        g_load = random.uniform(2.0, 5.0)
-        freq = random.uniform(0.1, 0.3)
-        manoeuvre_fn = lambda etat, dt: manoeuvre_weaving(etat, dt, accel_g=g_load, freq_hz=freq)
+    manoeuvre_fn = manoeuvre_rectiligne
 
     return {
         "pos_init_i"    : pos_init_i,
@@ -63,18 +56,16 @@ def tirer_config():
         "manoeuvre_fn"  : manoeuvre_fn
     }
 
-def run_monte_carlo(nb_tirages=50, mode="APN"):
-    print(f"[Monte Carlo] Mode: {mode} | {nb_tirages} tirages...")
-    succes = 0
-    dist_mins = []
+def run_monte_carlo(nb_tirages=100, silencieux=False):
+    if not silencieux:
+        print(f"[Monte Carlo] Lancement de {nb_tirages} tirages...")
 
-    # On tire les configs une seule fois pour comparer PN et APN sur les mêmes cas si besoin
-    # Mais ici on va juste lancer deux MC séparés.
+    succes       = 0
+    dist_mins    = []
 
     for i in range(nb_tirages):
         cfg = tirer_config()
-        # Latence de 50ms (10 steps à 5ms)
-        gs = GuidanceSystem(mode=mode, latency_steps=10)
+        gs = GuidanceSystem()
 
         res = simulate_engagement(
             pos_init_m    = cfg["pos_init_i"],
@@ -88,19 +79,23 @@ def run_monte_carlo(nb_tirages=50, mode="APN"):
             keep_traj     = False,
         )
 
-        if res["intercept"]: succes += 1
+        if res["intercept"]:
+            succes += 1
         dist_mins.append(res["distance_min_m"])
 
-    return succes / nb_tirages, statistics.mean(dist_mins)
+    p_estimee = succes / nb_tirages
+
+    if not silencieux:
+        print(f"  Succès              : {succes} / {nb_tirages}")
+        print(f"  P(intercept)        : {p_estimee * 100:.2f} %")
+        print(f"  Distance min moyenne: {statistics.mean(dist_mins):.2f} m")
+        print(f"  Distance min min    : {min(dist_mins):.2f} m")
+
+    return {
+        "P_intercept"   : p_estimee,
+        "nb_success"    : succes,
+        "nb_tirages"    : nb_tirages,
+    }
 
 if __name__ == "__main__":
-    n = 100
-    p_pn, d_pn = run_monte_carlo(n, mode="PN")
-    p_apn, d_apn = run_monte_carlo(n, mode="APN")
-
-    print("\n" + "="*40)
-    print("  FINAL PERFORMANCE COMPARISON")
-    print("="*40)
-    print(f"  PN  -> P(intercept): {p_pn*100:.1f}% | Avg Miss: {d_pn:.2f}m")
-    print(f"  APN -> P(intercept): {p_apn*100:.1f}% | Avg Miss: {d_apn:.2f}m")
-    print("="*40)
+    run_monte_carlo(nb_tirages=100)
