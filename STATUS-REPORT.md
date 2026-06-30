@@ -80,3 +80,8 @@ This session has finalized the project baseline. All primary technical blockers 
 
 ---
 *This report is maintained by the Agent Manager.*
+
+## 6. Autonomy Status
+- **Technical Production**: [🟢 AUTONOMOUS] — Agents D1/E2 delivering verified artifacts.
+- **Minor Gate Approval**: [🟡 CONDITIONAL] — Delegated to AM (KPIs monitored).
+- **Major Gate Approval**: [🔴 HITL] — Mandatory DG sign-off for G2, G4, G9.
