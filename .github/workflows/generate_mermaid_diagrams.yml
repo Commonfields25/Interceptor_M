@@ -1,0 +1,105 @@
+name: Generate Mermaid Diagrams
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'docs/mermaid/**/*.mmd'
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'docs/mermaid/**/*.mmd'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-diagrams:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Mermaid CLI
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          echo "$PATH"
+
+      - name: Create output directory
+        run: mkdir -p docs/mermaid/images
+
+      - name: Find all .mmd files
+        id: files
+        run: |
+          echo "files=$(find docs/mermaid -name '*.mmd' 2>/dev/null | sort | head -20)" >> $GITHUB_OUTPUT
+          find docs/mermaid -name '*.mmd' 2>/dev/null | sort | head -20
+
+      - name: Generate diagrams
+        run: |
+          cd docs/mermaid
+          for mmd_file in $(find . -name '*.mmd'); do
+            if [ -f "$mmd_file" ]; then
+              filename=$(basename "$mmd_file" .mmd)
+              output_file="images/${filename}.svg"
+              echo "Converting $mmd_file -> $output_file"
+              npx -y @mermaid-js/mermaid-cli \
+                -i "$mmd_file" \
+                -o "../$output_file" \
+                -t dark \
+                -w 1200 \
+                -H 800 \
+                -b transparent \
+                2>&1 || echo "Failed to convert $mmd_file"
+            fi
+          done
+
+      - name: List generated SVGs
+        run: |
+          echo "=== Generated SVGs ==="
+          ls -la docs/mermaid/images/ 2>/dev/null || echo "No SVGs found"
+
+      - name: Commit generated diagrams
+        run: |
+          cd docs/mermaid/images
+          if ls *.svg 1> /dev/null 2>&1; then
+            echo "=== Files to commit ==="
+            git status
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git diff --staged --quiet || git commit -m "ci: auto-generate Mermaid SVG diagrams [skip ci]"
+            git push origin HEAD || echo "Push failed - may need token configuration"
+          else
+            echo "No SVG files to commit"
+          fi
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mermaid-diagrams
+          path: docs/mermaid/images/*.svg
+          retention-days: 30
+
+  lint-mermaid:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Validate Mermaid syntax
+        run: |
+          npm install -g @mermaid-js/mermaid-cli
+          for mmd in $(find docs/mermaid -name '*.mmd'); do
+            echo "Linting: $mmd"
+            npx -y @mermaid-js/mermaid-cli -i "$mmd" -o /dev/null 2>&1 && echo "✓ $mmd valid" || echo "✗ $mmd has errors"
+          done
