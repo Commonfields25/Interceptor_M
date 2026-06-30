@@ -19,14 +19,3 @@ This package provides a 6-DOF (simplified) simulation environment for the Interc
 
 ## Requirements
 *   `numpy`
-
-## Advanced Improvements (Wave 8)
-
-1.  **Aerodynamics**: Added **Mach-dependent drag** coefficient with transonic rise and supersonic decay.
-2.  **Propulsion**: Implemented a **Boost-Sustain** thrust profile (60N boost / 20N sustain).
-3.  **Guidance**: Added **Augmented Proportional Navigation (APN)** to compensate for target acceleration.
-4.  **Targeting**: Implemented **Weaving (sinusoidal)** evasive maneuvers.
-5.  **Filtering**: Enhanced the Kalman Filter to 3rd order (position, velocity, acceleration) and added simulation of **measurement noise and seeker latency**.
-
-## Performance Comparison
-The upgrade from PN to APN shows a significant improvement in intercept probability (89% vs 82%) and a reduction in average miss distance against complex maneuvers.
