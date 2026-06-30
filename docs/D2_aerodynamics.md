@@ -1,9 +1,9 @@
 # D2 — Aérodynamique & CFD
-**Agent :** D2 — Aérodynamique / Simulation CFD  
-**Projet :** Interceptor_M  
-**Date :** 2026-06-24  
-**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)  
-**Dérivé de :** D1_specifications.json (§ airframe, kinematics, mass_budget)  
+**Agent :** D2 — Aérodynamique / Simulation CFD
+**Projet :** Interceptor_M
+**Date :** 2026-06-24
+**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)
+**Dérivé de :** D1_specifications.json (§ airframe, kinematics, mass_budget)
 **Documents liés :** D3 (§ mass structure), E2 (§ seeker), E3 (§ integration)
 
 ---
@@ -239,5 +239,5 @@ $E_{prop} = 1200 \times 9{,}81 \times 210 = 2{,}45 \ \text{MJ}$
 
 ## 2.10 Disclaimer
 
-> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**  
+> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**
 > This document is a **preliminary, unclassified, non-export-controlled** conceptual engineering analysis for academic and research purposes only. It does not contain, describe, or enable the manufacture of a controlled munition. All data is based on open-source references, public-domain textbook methods (DATCOM, Etkins, Schlichting), and engineering judgment. Not subject to ITAR (22 CFR 120–130) or EAR (15 CFR 730–774) classification. No proprietary or controlled data is used. All specifications are design targets, not verified hardware.

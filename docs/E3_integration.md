@@ -1,9 +1,9 @@
 # E3 — Intégration Système
-**Agent :** E3 — Intégration Système & Analyse de Risque  
-**Projet :** Interceptor_M  
-**Date :** 2026-06-24  
-**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)  
-**Dérivé de :** D1 (§ all), D2 (§ loads, aero), D3 (§ structure), E2 (§ electronics)  
+**Agent :** E3 — Intégration Système & Analyse de Risque
+**Projet :** Interceptor_M
+**Date :** 2026-06-24
+**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)
+**Dérivé de :** D1 (§ all), D2 (§ loads, aero), D3 (§ structure), E2 (§ electronics)
 **Documents liés :** D1, D2, D3, E2
 
 ---
@@ -163,7 +163,7 @@ Step 11: Acceptance testing
 | Phase 4 — Démonstration | 6 mois | Vols de démonstration, firing tests | Operational Assessment |
 | Phase 5 — Production | ongoing | Industrialisation, LRIP | FRP (Full-Rate Production) |
 
-**TRL actuel: 3** (étude de concept / analytique)  
+**TRL actuel: 3** (étude de concept / analytique)
 **TRL cible: 7** (prototype en environnement opérationnel)
 
 ---
@@ -199,7 +199,7 @@ Step 11: Acceptance testing
 | Terminal homing | Ka-band seeker ON | 5 |
 | Warhead live fire | Lethal radius test | 2 |
 
-**Total vols de démonstration : ~48**  
+**Total vols de démonstration : ~48**
 **Budget estimation (conceptuel) : $5–8 M pour campagne complète**
 
 ---
@@ -254,5 +254,5 @@ Step 11: Acceptance testing
 
 ## 5.9 Disclaimer
 
-> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**  
+> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**
 > This document is a **preliminary, unclassified, non-export-controlled** conceptual engineering analysis for academic and research purposes only. It does not contain, describe, or enable the manufacture of a controlled munition. All data is based on open-source references, public-domain systems engineering methods (ISO/IEC 15288, DoD TRL guide), and engineering judgment. Not subject to ITAR (22 CFR 120–130) or EAR (15 CFR 730–774) classification. No proprietary or controlled data is used. All specifications are design targets, not verified hardware.

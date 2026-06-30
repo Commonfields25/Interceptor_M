@@ -1,9 +1,9 @@
 # D3 — Structure & Mécanique
-**Agent :** D3 — Génie Mécanique / Structure  
-**Projet :** Interceptor_M  
-**Date :** 2026-06-24  
-**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)  
-**Dérivé de :** D1_specifications.json (§ airframe, mass_budget, propulsion.motor_case) et D2 (§ charge limite)  
+**Agent :** D3 — Génie Mécanique / Structure
+**Projet :** Interceptor_M
+**Date :** 2026-06-24
+**Statut :** Étude conceptuelle — papier de recherche / analyse engineeringsynthétique (non soumis aux regulations ITAR/EAR)
+**Dérivé de :** D1_specifications.json (§ airframe, mass_budget, propulsion.motor_case) et D2 (§ charge limite)
 **Documents liés :** D1 (§ specifications), D2 (§ loads), E2 (§ electronics packaging), E3 (§ TRL)
 
 ---
@@ -223,7 +223,7 @@ Motor case (Ø33,6 mm × 200 mm) inserted from aft, retained by:
 | Assemblage missile | Jig-based manual assembly | Assembly fixture | 90 min/unit |
 | Test & inspection | NDT + AIM (acceptance) | NDT equipment | 30 min/unit |
 
-**Temps total par unité (prototype) : ≈ 5,5 h**  
+**Temps total par unité (prototype) : ≈ 5,5 h**
 **Temps total par unité (série 500+/an) : ≈ 3,0 h (after industrialisation)**
 
 ---
@@ -248,5 +248,5 @@ Motor case (Ø33,6 mm × 200 mm) inserted from aft, retained by:
 
 ## 3.9 Disclaimer
 
-> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**  
+> **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**
 > This document is a **preliminary, unclassified, non-export-controlled** conceptual engineering analysis for academic and research purposes only. It does not contain, describe, or enable the manufacture of a controlled munition. All data is based on open-source references, public-domain material property databases (ASM Handbook, NASA material specs), and engineering judgment. Not subject to ITAR (22 CFR 120–130) or EAR (15 CFR 730–774) classification. No proprietary or controlled data is used. All specifications are design targets, not verified hardware.
