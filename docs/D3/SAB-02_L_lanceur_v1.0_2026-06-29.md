@@ -1,12 +1,12 @@
 # SAB-02 — L_lanceur à fournir
 
-**Issue:** [#76](https://github.com/Commonfields25/Interceptor_M/issues/76) — sub-issue de [#70](https://github.com/Commonfields25/Interceptor_M/issues/70)  
-**Milestone:** M6 — Prototype : Plans & Conception  
+**Issue:** [#76](https://github.com/Commonfields25/Interceptor_M/issues/76) — sub-issue de [#70](https://github.com/Commonfields25/Interceptor_M/issues/70)
+**Milestone:** M6 — Prototype : Plans & Conception
 **Version:** v1.1 | **Date:** 2026-06-29
 
 > **Historique:** v1.0 (2026-06-29) — Dérivation initiale.
-> v1.1 (2026-06-29) — Tolérance corrigée : ±25 mm → ±1 mm (RSS fabrication CNC structure 2 m, rail ±0,1 + châssis ±0,5 + assemblage ±0,87). Overlap sabot 20 mm sans impact sur L_total.  
-**Owner:** Commonfields25 (Agent Worker)  
+> v1.1 (2026-06-29) — Tolérance corrigée : ±25 mm → ±1 mm (RSS fabrication CNC structure 2 m, rail ±0,1 + châssis ±0,5 + assemblage ±0,87). Overlap sabot 20 mm sans impact sur L_total.
+**Owner:** Commonfields25 (Agent Worker)
 **Branche:** `fix/issue-76-L_lanceur`
 
 ---
@@ -99,4 +99,3 @@ L_lanceur = 1 980 mm
 L_lanceur = 1 980 ± 1 mm
           = [1 979 mm ; 1 981 mm]
 ```
-
