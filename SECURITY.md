@@ -1,21 +1,29 @@
-# Security Policy
+# Security Policy — Interceptor_M
 
-## Supported Versions
+## 1. Reporting a Vulnerability
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+We take the security of our counter-UAS systems seriously. If you discover a vulnerability, please report it immediately:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+- **Primary Contact**: Director General (DG)
+- **Method**: Secure message or PGP-encrypted email (Internal only).
+- **Response Time**: We acknowledge reports within 24 hours and provide an initial assessment within 72 hours.
 
-## Reporting a Vulnerability
+## 2. Secure Development Standards
 
-Use this section to tell people how to report a vulnerability.
+All agents must adhere to the following:
+- **No Hardcoded Secrets**: Use GitHub Secrets/Environment Variables.
+- **Dependency Audit**: Regular `pip audit` and `npm audit`.
+- **Namespace Isolation**: Do not bypass agent scope boundaries.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+## 3. Data Classification
+
+Data within this repository is classified under the following scheme:
+
+| Class | Label | Description | Storage Requirement |
+|---|---|---|---|
+| **L1** | PUBLIC | Marketing, General Documentation | No restrictions |
+| **L2** | INTERNAL | Operational plans, non-ITAR engineering | Repository access restricted |
+| **L3** | CONFIDENTIAL | Defense (DD) Engineering, Logic | High-grade encryption required |
+
+---
+*UAV Venture Security Protocol v1.0*
