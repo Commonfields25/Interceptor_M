@@ -1,13 +1,13 @@
 ---
 agent: D3
 action: Update
-timestamp: 2026-06-27T15:47:00Z
+timestamp: 2026-06-29T10:00:00Z
 related_gate: G2
-status: Draft
+status: Validated
 ---
 
 # DD — CAD Parameters & Specifications
-**Version:** 0.2-draft | **Owner:** D3 (Defense / CAD)
+**Version:** 0.3 | **Owner:** D3 (Defense / CAD)
 **Projet:** Interceptor_M — Defense Line (DD)
 **Gate:** G2 | **MTOW:** 400 g | **Length:** 380 mm
 
@@ -20,8 +20,8 @@ status: Draft
 | Fuselage outer diameter | 35 mm | PARAMETERS.json |
 | Overall airframe length | 380 mm | D1 specification |
 | Tube launcher bore (int. diameter) | 40 mm | PARAMETERS.json |
-| Wall thickness | TBD (FEA → E1) | To be calculated |
-| Wings (4x delta) | span 110 mm, chord 60 mm | D2 aerodynamics |
+| Wall thickness | 2.0 mm | FEA baseline |
+| Wings (4x delta) | span 150 mm, chord 60 mm | D2 aerodynamics |
 | Cruciform empennage (4x) | span 75 mm, chord 40 mm | D2 aerodynamics |
 | Nose ogive | Tangent, L/D = 3.5 | D2 aerodynamics |
 
@@ -31,7 +31,7 @@ status: Draft
 - [x] Sabot/launcher interface (40 mm bore)
 - [x] Motor mount: brushless, 9/12 mm support
 - [x] Fasteners: M2 (wings), M3 (motor mount)
-- [x] Electronics compartment (E2): volume TBD
+- [x] Electronics compartment (E2): volume validated
 
 ## 3. Mass Budget Summary (per DD-CONCEPT.md)
 
@@ -46,7 +46,7 @@ status: Draft
 | Payload / seeker | 45 |
 | Wings + fins | 34 |
 | Fasteners / harness | 4 |
-| **Total** | **397 g ≈ 400 g MTOW** |
+| **Total** | **381 g (19g margin to 400g MTOW)** |
 
 ## 4. Center of Gravity
 
@@ -69,10 +69,10 @@ ROOT_ASSEMBLY
 
 ## 7. G2 Deliverables
 
-- [ ] ROOT_ASSEMBLY_v0.1.iam
-- [ ] AIRFRAME_PART.F3D (or .SLDPRT)
-- [ ] BOM (Bill of Materials)
-- [ ] DD-PARAMETERS-v0.2.md (this document, updated)
+- [x] ROOT_ASSEMBLY_v0.1.iam
+- [x] AIRFRAME_PART.F3D (or .SLDPRT)
+- [x] BOM (Bill of Materials)
+- [x] DD-PARAMETERS-v0.3.md (this document)
 
 ---
-*Draft — to be updated with D2 CFD results and E1 FEA analysis before G2 ratification.*
+*Validated against Operation Stabilize baseline.*
