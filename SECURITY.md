@@ -1,37 +1,91 @@
-# Security Policy — Interceptor_M
-
-## 🛡️ Project Security Overview
-Interceptor_M is a defense-oriented project. We take security and information isolation seriously. This policy outlines our standards for handling vulnerabilities, secrets, and namespace isolation.
-
-## 🚀 Supported Versions
-Only the latest version of the Interceptor_M codebase (main branch) is supported with security updates.
-
-| Version | Supported |
-| --- | --- |
-| 1.x (Active) | ✅ |
-| Legacy (0.x) | ❌ |
-
-## 🔑 Secret Management
-- **NEVER** commit real secrets, tokens, or passwords.
-- Use environment variables or GitHub Secrets.
-- Refer to `.github/credentials_template.md` for the standard structure.
-- If a secret is leaked, notify the Agent Manager (AM) immediately for revocation.
-
-## 🔒 Namespace Isolation
-To prevent unauthorized modification of critical code, we enforce strict namespace isolation via `governance/ci_checks/namespace_isolation.py`.
-- Every file change must originate from an agent's assigned namespace.
-- Bypassing these checks is a critical security violation.
-
-## 🐛 Reporting a Vulnerability
-If you discover a security vulnerability (e.g., a logic flaw in flight controls or a secret leak):
-1. **INTERNAL AGENTS:** Use the `G11 (Emergency Response)` protocol as defined in `governance/AGENT_MANAGER_RULES.md`.
-2. **EXTERNAL PARTNERS:** Send a detailed report to `security@uav-venture.com` with the subject "VULNERABILITY REPORT — Interceptor_M".
-
-## 🛠️ Security Tools
-The following tools are part of our CI/CD pipeline (some in development):
-- **Ruff:** Linting and security-aware static analysis.
-- **Bandit:** (Planned) Python-specific security scanner.
-- **Namespace Checker:** Custom isolation enforcement.
+# 🔒 Security Policy — Interceptor_M
+## ISO 27001 & ISO 9001 Compliance
 
 ---
-*Maintained by the Continuous Improvement (AC) Agent*
+
+## 1. Scope
+
+This security policy applies to the **Interceptor_M** project (https://github.com/Commonfields25/Interceptor_M) and covers all code, documentation, CI/CD pipelines, and third-party dependencies.
+
+**Compliance Standards:**
+- **ISO 27001:2022** — Information Security Management Systems
+- **ISO 9001:2015** — Quality Management Systems
+- **AS9100D** — Aerospace Quality Management (derivative)
+
+---
+
+## 2. Security Controls Implemented
+
+### 2.1 Code Security (ISO 27001 A.8.8 — Operating Procedures)
+
+| Control | Status | Evidence |
+|---------|--------|----------|
+| Secret Scanning | ✅ Enabled (GitHub) | Alerts monitored weekly |
+| Push Protection | ✅ Enabled | No secrets in commit history |
+| CodeQL Analysis | ✅ Configured | CI/CD workflow includes static analysis |
+| Bandit Security Scan | ✅ Automated | Weekly in CI pipeline |
+| Dependency Scanning | ✅ Active | pip-audit in CI pipeline |
+| Dependabot | ✅ Enabled | Weekly updates for Python & GitHub Actions |
+
+### 2.2 Access Control (ISO 27001 A.8.1)
+
+| Control | Status |
+|---------|--------|
+| Repository is **private** | ✅ |
+| Collaborator access is **invite-only** | ✅ |
+| Branch protection requires PR reviews | ✅ |
+| Signed commits recommended | ✅ |
+
+### 2.3 Vulnerability Management (ISO 27001 A.8.8)
+
+- **Dependabot** monitors Python dependencies weekly
+- **pip-audit** runs on every push/PR
+- **Bandit** scans for insecure code patterns
+- **CodeQL** provides SAST analysis
+
+### 2.4 Incident Response
+
+If a security vulnerability is discovered:
+1. **Report** via GitHub Security Advisories or private disclosure
+2. **Assess** severity within 48 hours
+3. **Remediate** with a patch or update
+4. **Communicate** to stakeholders within 7 days (if critical)
+
+---
+
+## 3. Secrets Management
+
+**DO NOT commit secrets to this repository.**
+
+The following are automatically scanned and blocked:
+- API keys and tokens
+- SSH private keys
+- Database credentials
+- Encryption keys
+- Private certificates
+
+If a secret is detected, it will be flagged immediately.
+
+---
+
+## 4. Compliance Artifacts
+
+| Artifact | Location | Standard |
+|---------|----------|----------|
+| Requirements Manifest | `requirements.txt` | ISO 9001 §8.4 |
+| CI/CD Pipeline | `.github/workflows/python-ci-enhanced.yml` | ISO 9001 §8.5 |
+| Dependency Scan | `.github/dependabot.yml` | ISO 27001 A.8.8 |
+| Security Policy | `SECURITY.md` | ISO 27001 §6.1 |
+
+---
+
+## 5. Review & Audit
+
+- **Security controls** reviewed quarterly
+- **Dependency list** audited monthly
+- **Policy** updated annually or after major security incidents
+
+---
+
+*Last reviewed: 2026-06-30*
+*Owner: Commonfields25*
