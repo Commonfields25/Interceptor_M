@@ -37,10 +37,7 @@ Certification is critical for Swiss defense (armasuisse) and EASA airworthiness 
 ### Step 6: Certification Maintenance
 - Continuous improvement and annual surveillance audits.
 
----Z
-
-## 4. UAV-Specific Operational Standards
-Interceptor_M also adheres to UAV-specific ISO standards (ISO 23665, 21384-3, 22460). See [UAV_ISO_STANDARDS.md](../governance/UAV_ISO_STANDARDS.md) for details.
+---
 
 ## 3. Key Requirements for AS9100 Compliance
 - **Configuration Management:** Every part version must be traceable (Done: IAMD Protocol).
