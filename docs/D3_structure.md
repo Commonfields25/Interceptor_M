@@ -250,3 +250,18 @@ Motor case (Ø33,6 mm × 200 mm) inserted from aft, retained by:
 
 > **CONCEPTUAL ENGINEERING STUDY / RESEARCH PAPER**
 > This document is a **preliminary, unclassified, non-export-controlled** conceptual engineering analysis for academic and research purposes only. It does not contain, describe, or enable the manufacture of a controlled munition. All data is based on open-source references, public-domain material property databases (ASM Handbook, NASA material specs), and engineering judgment. Not subject to ITAR (22 CFR 120–130) or EAR (15 CFR 730–774) classification. No proprietary or controlled data is used. All specifications are design targets, not verified hardware.
+
+## 5. Internal Mechanism & Volume Allocation
+
+| Section | Payload / Volume | Length (mm) | Allocation |
+|---|---|---|---|
+| Nose | Seeker / Radar | 0 - 80 | Radar Front-end |
+| Avionics Bay | SC-01 + SC-03 | 80 - 160 | PCB Stack |
+| Battery Compartment | 3S LiPo | 160 - 240 | Power Source |
+| Actuators | SC-06 Fin Mechanism | 240 - 280 | Control Linkage |
+| Propulsion | SC-02 Brushless | 280 - 380 | Motor / ESC |
+
+## 6. Fin Actuator Mechanism (SC-06)
+- **Type**: High-torque micro-servos (metal gear).
+- **Torque Requirement**: > 0.5 kg·cm at 25g airload.
+- **Deflection**: ± 20° max.
