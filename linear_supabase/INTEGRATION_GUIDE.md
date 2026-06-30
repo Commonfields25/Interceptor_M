@@ -135,12 +135,12 @@ python agent_report_to_supabase.py \
 2. Exemple pour l'agent E3 :
    ```python
    import subprocess
-   
+
    def send_daily_report():
        actions = "Synthèse des actions effectuées"
        blockages = "Blocages en cours"
        needs = "Besoins pour avancer"
-       
+
        subprocess.run([
            "python", "agent_report_to_supabase.py",
            "--agent", "E3",
