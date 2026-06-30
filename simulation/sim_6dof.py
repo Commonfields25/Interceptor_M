@@ -15,7 +15,7 @@ from . import constants as C
 _M0          = C.MASSE_INTERCEPTOR_KG
 _M_PROP      = C.MASSE_PROPELLANT_KG
 _S_REF       = C.SURFACE_REF_M2
-_CX_DRAG     = C.COEFF_TRAITEE_Cx
+_CX_BASE     = C.COEFF_TRAITEE_Cx_BASE
 _CL_ALPHA    = C.COEFF_PORTANCE_CL_ALPHA
 _G0          = C.G0
 _DUREE_MAX   = C.DUREE_MAX_S
@@ -165,7 +165,6 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
     traj  = []
     dist_min_sq = float("inf")
     intercept = False
-
     while temps < _DUREE_MAX:
         if keep_traj and (len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.05):
             v_mod = np.linalg.norm(etat_i["vitesse"])

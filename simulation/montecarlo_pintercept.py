@@ -23,6 +23,7 @@ _V_CIBLE  = C.V_CIBLE_MAX_M_S
 
 if C.GRAIN_ALEA is not None:
     random.seed(C.GRAIN_ALEA)
+    np.random.seed(C.GRAIN_ALEA)
 
 def tirer_config():
     alt_init_m  = random.uniform(_ALT_MIN, _ALT_MAX)
