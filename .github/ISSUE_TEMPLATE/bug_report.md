@@ -41,4 +41,3 @@ body:
         - 'red-flag:rf1'
         - 'red-flag:rf2'
         - 'red-flag:rf3'
-

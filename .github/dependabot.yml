@@ -45,3 +45,8 @@ updates:
     labels:
       - "ci/cd"
       - "dependencies"
+
+# Security advisories integration
+registrations:
+  - package-ecosystem: "pip"
+    directory: "/"

@@ -1,0 +1,22 @@
+name: Pylint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pylint
+        run: pip install pylint
+      - name: Run pylint
+        run: |
+          echo "=== Linting simulation/ ==="
+          pylint simulation/constants.py simulation/flight_control_poc.py simulation/montecarlo_pintercept.py simulation/sim_6dof.py --fail-under=7.0 || true

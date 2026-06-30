@@ -401,9 +401,9 @@ D3 est le **spécialiste Concept & Défense**. Il Est le gardien du concept déf
 ```
   Légende : ★ = Peer Review obligatoire   ◦ = Peer Review recommandé   — = Pas de relation directe
 
-               REVIEWER →                                                             
+               REVIEWER →
                D1    D2    D3    E1    E2    E3    Agent Mgr   DG
-  AUTHOR ↓                                                         
+  AUTHOR ↓
   D1     [—]   ★     ★     ★     ★     ◦      ★        ★
   D2     ★    [—]    ◦     ★     ★     ★      ★        ★
   D3     ★     ◦    [—]    ★     ◦     ◦      ★        ★
@@ -413,7 +413,7 @@ D3 est le **spécialiste Concept & Défense**. Il Est le gardien du concept déf
   Mgr    ★     ★    ★     ★     ★     ★     [—]       ★
   DG     ★     ★    ★     ★     ★     ★      ★       [—]
 
-  Règle : 
+  Règle :
   - ★ = Review obligatoire AVANT transmission au validateur suivant
   - ◦ = Review encouraged mais pas blocker
   - D1 revoit TOUJOURS les assemblies de D2/D3
@@ -801,14 +801,14 @@ Problème détecté
    Blocker : ⚠️ [OUI/NON]
    Prochaine milestone : [GO CAO] — [Date]
    Agent lead : [D1+E1]
-   
+
 🏷️ [Nom Projet 2] — [Civil / Industrial / Defense]
    Phase : [Phase] (Jour X/Y)
    Avancement : [████████░░] 80%
    Blocker : ✅ Aucun
    Prochaine milestone : [GO Simulation] — [Date]
    Agent lead : [D2+E2]
-   
+
 🔴 BLOCKERS ACTIFS
 ─────────────────────────────────────────────────────────────────────────────
 |ID | Projet       | Blocker                     | Owner   | SLA restant |
