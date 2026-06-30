@@ -1,43 +1,29 @@
 # Security Policy — Interceptor_M
 
-## 🛡️ Project Security Overview
-Interceptor_M is a defense-oriented project. We take security and information isolation seriously. This policy outlines our standards for handling vulnerabilities, secrets, and namespace isolation.
+## 1. Reporting a Vulnerability
 
-## 🚀 Supported Versions
-Only the latest version of the Interceptor_M codebase (main branch) is supported with security updates.
+We take the security of our counter-UAS systems seriously. If you discover a vulnerability, please report it immediately:
 
-| Version | Supported |
-| --- | --- |
-| 1.x (Active) | ✅ |
-| Legacy (0.x) | ❌ |
+- **Primary Contact**: Director General (DG)
+- **Method**: Secure message or PGP-encrypted email (Internal only).
+- **Response Time**: We acknowledge reports within 24 hours and provide an initial assessment within 72 hours.
 
-## 🔑 Secret Management
-- **NEVER** commit real secrets, tokens, or passwords.
-- Use environment variables or GitHub Secrets.
-- Refer to `.github/credentials_template.md` for the standard structure.
-- If a secret is leaked, notify the Agent Manager (AM) immediately for revocation.
+## 2. Secure Development Standards
 
-## 🔒 Namespace Isolation
-To prevent unauthorized modification of critical code, we enforce strict namespace isolation via `governance/ci_checks/namespace_isolation.py`.
-- Every file change must originate from an agent's assigned namespace.
-- Bypassing these checks is a critical security violation.
+All agents must adhere to the following:
+- **No Hardcoded Secrets**: Use GitHub Secrets/Environment Variables.
+- **Dependency Audit**: Regular `pip audit` and `npm audit`.
+- **Namespace Isolation**: Do not bypass agent scope boundaries.
 
-## 🐛 Reporting a Vulnerability
-If you discover a security vulnerability (e.g., a logic flaw in flight controls or a secret leak):
-1. **INTERNAL AGENTS:** Use the `G11 (Emergency Response)` protocol as defined in `governance/AGENT_MANAGER_RULES.md`.
-2. **EXTERNAL PARTNERS:** Send a detailed report to `security@uav-venture.com` with the subject "VULNERABILITY REPORT — Interceptor_M".
+## 3. Data Classification
 
-## 🛠️ Security Tools
-The following tools are part of our CI/CD pipeline (some in development):
-- **Ruff:** Linting and security-aware static analysis.
-- **Bandit:** (Planned) Python-specific security scanner.
-- **Namespace Checker:** Custom isolation enforcement.
+Data within this repository is classified under the following scheme:
+
+| Class | Label | Description | Storage Requirement |
+|---|---|---|---|
+| **L1** | PUBLIC | Marketing, General Documentation | No restrictions |
+| **L2** | INTERNAL | Operational plans, non-ITAR engineering | Repository access restricted |
+| **L3** | CONFIDENTIAL | Defense (DD) Engineering, Logic | High-grade encryption required |
 
 ---
-*Maintained by the Continuous Improvement (AC) Agent*
-
-## ⚠️ Credential Exposure in Chat
-If a developer or user provides a credential (like a GitHub PAT) in the project's chat or issues:
-1. **REVOKE** the credential immediately at the source.
-2. **CLEAN** any logs or temporary files that may have captured the text.
-3. **NOTIFY** the AC agent to perform a repo-wide secret scan.
+*UAV Venture Security Protocol v1.0*

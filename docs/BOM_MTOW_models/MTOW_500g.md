@@ -1,6 +1,6 @@
 # MTOW 500g — Spécification Provisoire
-**STATUS:** `PROVISIONAL — awaiting DG lock`
-**Version:** 1.0-draft
+**STATUS:** `PROVISIONAL — awaiting DG lock`  
+**Version:** 1.0-draft  
 **Dernière mise à jour:** 2026-06-30
 
 ---
@@ -53,8 +53,8 @@
 | PU-003 | Réserve charge utile | 1 | 10 g | 10 g |
 | **TOTAL** | | | | **~511 g** |
 
-> ⚠️ UPSIZING vs 400g : propulsion +41%, batterie +14%, airframe +33%.
-> ⚠️ TWR légèrement réduit (2.8:1) — maniabilité toujours excellente.
+> ⚠️ UPSIZING vs 400g : propulsion +41%, batterie +14%, airframe +33%.  
+> ⚠️ TWR légèrement réduit (2.8:1) — maniabilité toujours excellente.  
 > ⚠️ Capacité de charge utile la plus élevée — usage ISR / surveillance.
 
 ---

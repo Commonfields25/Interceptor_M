@@ -1,6 +1,6 @@
 # Project Protection Policy — Interceptor_M
 
-> **Classification:** Confidentiel Projet | **Version:** 1.0 | **Date:** 2026-06-30
+> **Classification:** Confidentiel Projet | **Version:** 1.0 | **Date:** 2026-06-30  
 > **Approuvé par:** Direction Générale
 
 ---

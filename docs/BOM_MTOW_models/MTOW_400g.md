@@ -1,6 +1,6 @@
 # MTOW 400g — Spécification Provisoire
-**STATUS:** `PROVISIONAL — awaiting DG lock`
-**Version:** 1.0-draft
+**STATUS:** `PROVISIONAL — awaiting DG lock`  
+**Version:** 1.0-draft  
 **Dernière mise à jour:** 2026-06-30
 
 ---
@@ -51,7 +51,7 @@
 | PU-003 | Réserve charge utile | 1 | 20 g | 20 g |
 | **TOTAL** | | | | **~383 g** |
 
-> ⚠️ UPSIZING vs 300g : propulsion +42%, batterie +40%, airframe +26%.
+> ⚠️ UPSIZING vs 300g : propulsion +42%, batterie +40%, airframe +26%.  
 > ⚠️ Le TWR reste à 3:1 — performances de vol similaires mais autonomie accrue.
 
 ---

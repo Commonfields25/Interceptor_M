@@ -9,9 +9,7 @@ from stl import mesh
 import os
 import math
 
-# Use relative paths for portability
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = SCRIPT_DIR
+OUTPUT_DIR = "/app/models/Base_Launcher_Pieces"
 ASSEMBLIES_DIR = os.path.join(OUTPUT_DIR, "Assemblies")
 
 def create_box_mesh(width, height, depth, center=(0, 0, 0)):

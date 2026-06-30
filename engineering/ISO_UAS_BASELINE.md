@@ -1,6 +1,6 @@
 # ISO/UAS Baseline — Interceptor_M
 
-> **Status:** Active Baseline | **Version:** 1.0 | **Date:** 2026-06-30
+> **Status:** Active Baseline | **Version:** 1.0 | **Date:** 2026-06-30  
 > **Owner:** Direction Générale | **Classification:** Interne
 
 ---
@@ -112,5 +112,5 @@ remote_id:
 
 ---
 
-**Révision:** 1.0 — June 30, 2026
+**Révision:** 1.0 — June 30, 2026  
 **Approuvé par:** Direction Générale

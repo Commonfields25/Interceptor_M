@@ -8,7 +8,7 @@ on:
 
 jobs:
   node24-validation:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -39,6 +39,5 @@ jobs:
       - name: JS syntax scan (standalone scripts, no package.json)
         if: steps.pkg.outputs.found != 'true'
         run: |
-          echo "No package.json found  --  skipping npm steps"
-          find . -maxdepth 3 -name "*.js" -o -name "*.mjs" | head -20 \
-            || echo "No JS files found in tree"
+          echo "No package.json found — skipping npm steps"
+          find . -maxdepth 3 -name "*.js" -o -name "*.mjs" | head -20 || echo "No JS files found in tree"

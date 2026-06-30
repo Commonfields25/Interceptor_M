@@ -1,14 +1,14 @@
 # DI_SPEC_LOCK — Interceptor_M — Specification Lock Baseline
 
-> **Status:** LOCKED | **Lock Version:** 1.0 | **Lock Date:** 2026-06-30
+> **Status:** LOCKED | **Lock Version:** 1.0 | **Lock Date:** 2026-06-30  
 > **Owner:** Direction Générale | **Classification:** Interne — Protégé
 
 ---
 
 ## 1. Objet du Verrouillage
 
-Ce document fige la **Design Interface (DI) specifications** du projet Interceptor_M
-à la date du lock. Tout écart par rapport à ces spécifications doit suivre le
+Ce document fige la **Design Interface (DI) specifications** du projet Interceptor_M 
+à la date du lock. Tout écart par rapport à ces spécifications doit suivre le 
 processus NCR (Non-Conformance Report) défini dans `templates/NON_CONFORMANCE_REPORT.md`.
 
 ---

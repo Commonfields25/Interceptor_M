@@ -127,12 +127,3 @@ Pour éviter la paralysie opérationnelle, la validation de certaines Gates est 
 | 1.0 | 22.06.2026 | Agent Manager | Création initiale |
 | 1.1 | 22.06.2026 | Agent Manager | Ajout principe transparence, concept défense, évolutivité |
 | 1.2 | 24.06.2026 | Agent Amélioration Continue | Délégation conditionnelle des Gates G1, G5, G8 au Manager/AC |
-
----
-
-## 10. QUALITÉ & CERTIFICATION (ISO / AS9100)
-
-- **Engagement Qualité** : Le projet s'engage à suivre les standards ISO 9001 et AS9100 pour garantir la sécurité et la fiabilité des systèmes d'interception.
-- **Traçabilité** : Toute modification technique doit être traçable via un ID d'agent, un timestamp et une Gate de validation.
-- **Gestion des Risques** : Un registre des risques techniques doit être maintenu par l'Agent Manager et audité mensuellement par l'AC.
-- **Non-Conformité** : Tout écart par rapport aux spécifications (ex: dépassement MTOW) doit faire l'objet d'un rapport de non-conformité (NCR) immédiat.

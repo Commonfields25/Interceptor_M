@@ -20,10 +20,6 @@ Authors: Jules (Physics Expert) | Refs: STATUS-REPORT.md, issue #15
 
 from __future__ import annotations
 import numpy as np
-try:
-    from gymnasium.spaces import Box
-except ImportError:
-    from gym.spaces import Box
 from typing import Dict, Optional
 import math
 
@@ -56,13 +52,13 @@ CL_ALPHA: float = 2.0
 RHO_0: float = 1.225
 H_SCALE: float = 8500.0
 
-# Guidance / control (hardened)
+# Guidance / control
 BODY_RATE_MAX: float = 5.0    # rad/s — high maneuverability for 400g drone
 BODY_RATE_TC: float = 0.1     # s — fast response
 
 # Targets
 TARGET_SPEED: float = 300.0   # m/s
-D_INTERCEPT: float = 1.5      # m — reduced from 2.0m (-25%) per M8 hardening decision
+D_INTERCEPT: float = 2.0      # m
 
 # Reward
 R_INTERCEPT: float = 1000.0
@@ -71,6 +67,13 @@ FUEL_PENALTY: float = 0.1
 R_SEPARATION: float = 1.0
 R_FRATRICIDE: float = -500.0
 R_GROUND: float = -100.0
+
+# ─── Space Class (Gym Mock) ───────────────────────────────────────────────────
+class Box:
+    def __init__(self, low, high, shape):
+        self.low = low
+        self.high = high
+        self.shape = shape
 
 # ─── Physics Helpers ──────────────────────────────────────────────────────────
 def get_density(alt: float) -> float:
@@ -220,12 +223,16 @@ class SwarmInterceptEnv:
             if dist < D_INTERCEPT:
                 rewards[i] += R_INTERCEPT
                 self._alive[i] = 0.0
+                terminations[i] = True
             elif self._pos[i, 2] < 0:
                 rewards[i] += R_GROUND
                 self._alive[i] = 0.0
+                terminations[i] = True
 
-        done = np.all(self._alive < 0.5) or self._step_count >= self.max_steps
-        return self._get_obs(), rewards, done, {}
+        if self._step_count >= self.max_steps:
+            truncations[:] = True
+
+        return self._get_obs(), rewards, terminations, truncations, {}
 
     def _get_obs(self):
         obs = {}
@@ -235,9 +242,9 @@ class SwarmInterceptEnv:
 
 if __name__ == "__main__":
     env = SwarmInterceptEnv()
-    obs = env.reset()
+    obs, _ = env.reset()
     print("6-DOF Physics Engine Upgraded (DD-400 platform).")
     for _ in range(100):
-        obs, rewards, done, info = env.step({0: np.array([1.0, 0.1, 0.1]), 1: np.array([1.0, -0.1, -0.1])})
-        if done: break
+        obs, rewards, term, trunc, info = env.step({0: np.array([1.0, 0.1, 0.1]), 1: np.array([1.0, -0.1, -0.1])})
+        if term.any() or trunc.any(): break
     print(f"Simulation completed. Final Pos Agent 0: {obs[0][:3]}")
