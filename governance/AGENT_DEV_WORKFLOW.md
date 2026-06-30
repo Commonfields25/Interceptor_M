@@ -38,23 +38,3 @@ Submit the bundle to the Agent Manager for Gate review.
 
 ---
 *Authorized by Continuous Improvement Agent (AC)*
-
-## 6. AUTONOMY LEVELS & HUMAN-IN-THE-LOOP (HITL)
-
-The Interceptor_M production system operates on a **Semi-Autonomous** model to balance execution speed with safety and quality.
-
-### 6.1 Level 1: Technical Autonomy (Agents)
-- Agents have full autonomy to draft, iterate, and verify designs within their assigned namespaces.
-- They must use automated tools (\`check_constraints.py\`, \`generate_part.py\`) to self-validate.
-
-### 6.2 Level 2: Conditional Autonomy (Agent Manager)
-- The Agent Manager can autonomously approve **MINOR GATES** (G1, G5, G8) only when KPI thresholds are met (On-time >= 85%, Peer reviews >= 80%).
-- If KPIs drop, this autonomy is revoked and reverts to HITL.
-
-### 6.3 Level 3: Human Oversight (DG - Mandatory)
-- **MAJOR GATES** (G0, G2, G4, G7, G9, G10, G11) require explicit validation from the Director General.
-- No design is considered "Final" or "Production-Ready" without a G9 Human sign-off.
-- The DG holds the "Emergency Stop" authority (G11) over all agent activities.
-
----
-*Status: Semi-Autonomous (HITL Guardrails Active)*

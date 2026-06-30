@@ -11,4 +11,3 @@ Recommandation: **Option B (275 g)**.
 
 ## Décisions DG
 - DG-01, DG-02, DG-03 (cadrage validé).
-

@@ -1,3 +1,11 @@
+---
+agent: AM
+action: Create
+timestamp: 2026-06-29T14:45:00Z
+related_gate: G2
+status: Draft
+---
+
 # BOM Consolidée — Interceptor M (Toutes Lignes)
 
 | Réf. | Désignation | Matériau | Tech. Primaire | Tech. Secondaire | Masse (DC) | Masse (DD) | Masse (DI) |

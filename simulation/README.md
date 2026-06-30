@@ -4,7 +4,7 @@
 
 Cette chaîne simule un engagement interceptor / cible avec :
 
-- **Guidage Proportional Navigation (PN)** — loi de commande bang-bang  
+- **Guidage Proportional Navigation (PN)** — loi de commande bang-bang
   (`flight_control_poc.py`)
 - **Modèle de vol 6-DOF simplifié (point-masse 3D)** — intègre la dynamique, la traînée, la portance et la gravité (`sim_6dof.py`)
 - **Monte Carlo** — échantillonne l'enveloppe E1 et calcule la probabilité d'interception `P(intercept)` avec intervalle de confiance à 95 % (`montecarlo_pintercept.py`)
