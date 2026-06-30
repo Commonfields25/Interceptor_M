@@ -23,7 +23,7 @@ jobs:
       docs: ${{ steps.changed.outputs.docs }}
       count: ${{ steps.changed.outputs.count }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Find changed doc files
         id: changed
         run: |
@@ -49,7 +49,7 @@ jobs:
     needs: lint
     if: needs.lint.outputs.count != '0'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install markdownlint-cli
         run: npm install -g markdownlint-cli2 || true
       - name: Run markdownlint
