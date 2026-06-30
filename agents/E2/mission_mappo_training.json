@@ -1,0 +1,16 @@
+{
+  "mission_id": "MISSION-E2-003",
+  "agent_id": "E2",
+  "issue_ref": "#16",
+  "task": "Train the MAPPO single-agent baseline on the new 6-DOF environment.",
+  "workflow": [
+    "Initialize engineering/ML/isaac_gym/swarm_env.py with 6-DOF parameters",
+    "Execute training script in engineering/ML/mappo_baseline/train_ppo.py",
+    "Log results to engineering/ML/mappo_baseline/logs/rewards.csv",
+    "Reach P(intercept) > 60% threshold"
+  ],
+  "constraints": {
+    "model": "v0-pro",
+    "deadline": "2026-08-13"
+  }
+}
