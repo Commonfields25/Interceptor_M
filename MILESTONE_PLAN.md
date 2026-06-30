@@ -51,3 +51,4 @@ Les actions suivantes sont **proposées** (non appliquées) — nécessitent con
 
 - MS4 (MAPPO Training) est en retard — due 2026-09-28 sans issue ouverte, suggère que le travail est en cours dans des branches/PR non mergées
 - MS8 est le jalon le plus exigeant techniquement (RL hardening) — recommander un point DG avant J6
+| M14 | Audit à blanc ISO 9001 / AS9100 | 2027-04-15 | 1 | 0 | J7 |
