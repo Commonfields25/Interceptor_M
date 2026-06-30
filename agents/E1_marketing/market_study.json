@@ -1,0 +1,357 @@
+{
+  "meta": {
+    "agent": "E1 - Marketing & Market Research",
+    "branch": "e1-market-study",
+    "date": "2026-06-24",
+    "project": "Interceptor_M",
+    "status": "initial study — to be refined post field analysis"
+  },
+
+  "market_overview": {
+    "global_interceptor_missile_market": {
+      "market_size_2025_usd": "22.4 billions USD",
+      "market_size_2034_usd": "38.7 milliards USD",
+      "cagr_2025_2034": "6.8%",
+      "source": "MarketIntelo, Lucintel (2030 forecast)"
+    },
+    "counter_uas_anti_drone_market": {
+      "market_size_2025_usd": "6.64 milliards USD",
+      "market_size_2030_usd": "20.31 milliards USD",
+      "cagr_2025_2030": "25.1%",
+      "source": "MarketsandMarkets C-UAS 2025"
+    },
+    "missiles_defense_systems_broader_market": {
+      "market_size_2025_usd": "16.4 milliards USD",
+      "market_size_2035_usd": "26.9 milliards USD",
+      "cagr_2025_2035": "5%",
+      "source": "Market.US 2026"
+    },
+    "key_trends": [
+      "Effacement rapide des stocks d'intercepteurs en Ukraine et au Moyen-Orient (2025-2026) — besoin urgent de reconstitution",
+      "C-UAS market en hyper-croissance (25%/an) driven par proliferations de drones et essaims (drone swarms)",
+      "Europe enindependent guidance system construction : Rheinmetall-Lockheed (10 000 missiles/an), COMLOG MBDA-Raytheon (1 000 PAC-2)",
+      "Panique US sur les stocks : les USA ont tiré ~150 THAAD en 12 jours (Iran 2025), puis réorientation des actifs depuis la Corée du Sud",
+      "Golden Dome USA : $25 milliards alloués par le One Big Beautiful Bill Act (juillet 2025)",
+      "NATO SAFE program : fonds européens pour indépendance capacitaire",
+      "Crois régionales : Inde (S-400 Bharat), Moyen-Orient, Indo-Pacifique (croissance 19.6%/an)",
+      "Menace évoluant : loitering munitions, swarms, missiles de croisi\u00e8re low-flying, hypersoniques",
+      "Solutions \u00e0 coût raisonné devenant prioritaires (scalable, low-cost interceptors)"
+    ],
+    "growth_drivers": [
+      "Escalade des conflits régionaux : Ukraine, Moyen-Orient, Indo-Pacifique",
+      "Prolifération de masse des drones et essaims (UAV swarms)",
+      "Augmentation des budgets défense NATO (+2% PIBcommitment)",
+      "Insuffisance critique des stocks d'intercepteurs occidentaux",
+      "Demande de systèmes de défense multicouches (layered C-UAS architectures)",
+      "Marché export dynamique pour systèmes air defense",
+      "Opportunités ground-based \u00e0 dominante croissance forte",
+      "Réglementation accrue sur la protection des infrastructures critiques (aéroports, bases militaires, sites énergétiques, ports)"
+    ]
+  },
+
+  "key_players": {
+    "tier1_prime_integrators": [
+      {
+        "name": "Lockheed Martin",
+        "flagship_products": ["THAAD", "Patriot PAC-3 MSE", "Aegis SM-2/SM-3/SM-6"],
+        "market_position": "Leader mondial — US Golden Dome, NATO supply chain",
+        "key_advantage": "Capacité de production quadruplée en 2025"
+      },
+      {
+        "name": "Raytheon (RTX)",
+        "flagship_products": ["Patriot PAC-2/PAC-3", "Coyote C-UAS interceptor"],
+        "market_position": "Leader mondial — co-investisseur COMLOG avec MBDA",
+        "key_advantage": "Base industrielle en Europe (Allemagne)"
+      },
+      {
+        "name": "Rafael Advanced Defense Systems (Israël)",
+        "flagship_products": ["Iron Dome / Tamir interceptor", "Barak 8 / MX", "Drone Dome C-UAS"],
+        "market_position": "Leader anti-drone & short-range, mobilité terrain",
+        "key_advantage": "Testé en conditions réelles (Hauteurs de Gaza), export en expansion"
+      },
+      {
+        "name": "Thales / MBDA",
+        "flagship_products": ["Aster 30 (SAMP/T)", "CAMM family", "Mistral 3"],
+        "market_position": "Leader européen — indépendance capacitaire NATO",
+        "key_advantage": "Fabrication COMLOG Patriot PAC-2 en Allemagne"
+      },
+      {
+        "name": "Rheinmetall",
+        "flagship_products": ["Skynex / Skyguard", "Mantıs", "70mm & 155mm ordnance"],
+        "market_position": "Porte-parole industriel européen (Allemagne)",
+        "key_advantage": "Joint-venture missile 10k/an avec Lockheed"
+      },
+      {
+        "name": "Israel Aerospace Industries (IAI)",
+        "flagship_products": ["Barak 8", "Iron Dome Tamir", "C-UAS multi-layer"],
+        "market_position": "Export majeur en Inde, Europe de l'Est, Moyen-Orient",
+        "key_advantage": "Architecture modulaire anti-drone/missile"
+      },
+      {
+        "name": "Northrop Grumman",
+        "flagship_products": ["Ground-based Interceptor (GBI)", "C-UAS directed energy"],
+        "market_position": "Segment stratégique antibalistique",
+        "key_advantage": "Capacités space-based & hypersoniques"
+      },
+      {
+        "name": "Diehl Defence (Allemagne)",
+        "flagship_products": ["Iris-T SLM/SLS", "Paratrooper"],
+        "market_position": "Leader short-range air defense (SHORAD)",
+        "key_advantage": "Standard NATO utilisé par Ukraine, export en croissance"
+      }
+    ],
+    "tier2_niche_emerging": [
+      {
+        "name": "BAE Systems",
+        "flagship_products": ["M782 mortar", "Brimstone missile"],
+        "note": "Positionnement sur le low-cost precision strike"
+      },
+      {
+        "name": "Saab",
+        "flagship_products": ["Giraffe 4A radar", "RBS 70 NG (man-portable)"],
+        "note": "C-UAS detection + short-range mobile"
+      },
+      {
+        "name": "Aerojet Rocketdyne",
+        "flagship_products": ["Propulsion systems", "THAADboost motor"],
+        "note": "Fournisseur propulsion tiers 1"
+      },
+      {
+        "name": "Elbit Systems",
+        "flagship_products": ["C-UAS multi-layer contract €60M (2025, NATO member)"],
+        "note": "Montée en puissance contracts NATO en 2025"
+      }
+    ],
+    "market_gaps_opportunities": [
+      "Short-range, low-cost interceptor anti-drone manquant : marché saturé en high-end, underserved en low-cost scalable",
+      "Système intercepteur mobile léger pour bases avancées (expeditionary) : manque de solutions truly mobile",
+      "Architecture ouverte / modulaire : plupart des systèmes proprietaires, opportunity pour interopérabilité",
+      "Production independent européenne : stocks NATO critiques, opportunity manufacturing local",
+      "Drone swarm countermeasure : plupart des systèmes inefficaces contre essaims coordonnés",
+      "Intercepteur multi-cibles (drone + missile + aircraft) : plupart des systèmes dédiés, peu универсальный"
+    ]
+  },
+
+  "market_segments": {
+    "segments": [
+      {
+        "rank": 1,
+        "name": "MILITARY — NATO & EUROPE AIR DEFENSE MODERNIZATION",
+        "priority": "HIGH",
+        "estimated_tam_usd": "8-12 milliards USD (2025-2030)",
+        "rationale": "Europe enindependent guidance system construction urgently — stocks interceptors NATO critique bas (PAC-2/PAC-3 très demandés, délais 3-5 ans). Allemagne, Poland, Balticsinvesting massivement via SAFE etachats directs. Opportunity pour intercepteurs SHORT-TO-MEDIUM RANGE manufactured locally.",
+        "key_countries": ["Germany", "Poland", "France", "Netherlands", "Baltic states", "Italy"],
+        "target_application": "Short-to-medium range point defense, protection de bases, couverture antimissile et anti-drone"
+      },
+      {
+        "rank": 2,
+        "name": "MILITARY — ASIA-PACIFIC EXPORT & INDIGENOUS PROGRAMS",
+        "priority": "HIGH",
+        "estimated_tam_usd": "6-10 milliards USD (2025-2030)",
+        "rationale": "Asia-Pacific growth le plus rapide (CAGR 19.6%). Inde : S-400 Bharat $6.1B (2026), complément de systèmes low-range. Japon, South Korea, Taiwaninvesting dans C-UAS. Indonésie, Philippinesen build-up capacitaire. Export market fortement accessible avec partnerships locaux.",
+        "key_countries": ["India", "Japan", "South Korea", "Taiwan", "Indonesia", "Philippines"],
+        "target_application": "Medium-to-long range air defense, coastal defense, anti-drone perimeter"
+      },
+      {
+        "rank": 3,
+        "name": "CIVIL — INFRASTRUCTURE CRITIQUE (AIRPORTS, PORTS, ENERGY)",
+        "priority": "HIGH-MEDIUM",
+        "estimated_tam_usd": "3-5 milliards USD (2025-2030)",
+        "rationale": "C-UAS civil market en croissance rapide driven par unauthorized drone activities near airports et sites énergétiques. Long-range ground-based systems privilégiés pour perimeter security. MarketsandMarketsprojecte $20.3B C-UAS en 2030, portion civil représente ~30%.",
+        "key_segments": ["Airports / Aviation security", "Ports / Maritime security", "Energy infrastructure (oil rigs, pipelines)", "Correctional facilities", "Major public events"],
+        "target_application": "Long-range detection + neutralisation, layered defense, cost-effective"
+      },
+      {
+        "rank": 4,
+        "name": "MILITARY — DRONE SWARM COUNTERMEASURE",
+        "priority": "MEDIUM-HIGH",
+        "estimated_tam_usd": "2-4 milliards USD (2025-2030)",
+        "rationale": "Menace swarm croissante : Ukraine, Moyen-Orient utilisent des essaims de drones. Solutions actuelles (jamming, basic missiles) inefficaces contre essaims coordonnés. Besoin de interceptors scalables et low-cost. Opportunity pour kinetic interceptor avec AI-based targeting.",
+        "key_countries": ["Ukraine", "Middle East", "US (CENTCOM)", "NATO expeditionary forces"],
+        "target_application": "Scalable low-cost interceptor, high-volume engagement, autonomous swarm defeat"
+      },
+      {
+        "rank": 5,
+        "name": "HOMELAND SECURITY — BORDER & URBAN SECURITY",
+        "priority": "MEDIUM",
+        "estimated_tam_usd": "1-2 milliards USD (2025-2030)",
+        "rationale": "North America représente 31% du C-UAS market. US border surveillance + urban anti-drone. Europe (NATO) aussi en croissance. Marchémoins mais très recurrent (volumes réguliers).",
+        "key_countries": ["USA", "UK", "France", "Germany"],
+        "target_application": "Short-range mobile systems, hand-held anti-drone, urban deployment"
+      },
+      {
+        "rank": 6,
+        "name": "MIDDLE EAST — REGIONAL STABILIZATION PROCUREMENT",
+        "priority": "MEDIUM",
+        "estimated_tam_usd": "3-6 milliards USD (2025-2030)",
+        "rationale": "UAE et Arabie Saouditeinvesting apres Iran 2025-2026. Iron Dome deployment aux UAE (2026). Régime de sanctions complexes — opportunity systèmes non-US ou partenaires third-party.",
+        "key_countries": ["UAE", "Saudi Arabia", "Qatar", "Israel (system provider)"],
+        "target_application": "Short-to-medium range, proven systems, mobile configuration"
+      }
+    ]
+  },
+
+  "recommended_parameters": {
+    "preamble": "Parameters below are E1 recommended market-driven specifications. Final engineering parameters to be validated by D1 (Engineering) against feasibility and budget constraints.",
+    "target_system_role": "Short-to-Medium Range Air Defense (SHORAD/M-SHORAD) interceptor — anti-drone / anti-cruise missile / anti-aircraft — mobile, ground-based, cost-effective",
+    "priority_1_targets": [
+      {
+        "threat_type": "Tactical UAV / mini-drone / micro-drone swarms",
+        "speed_range": "50-300 km/h",
+        "altitude": "50-3000 m AGL",
+        "rcs_signature": "Low to very low (composite, wood, plastic)",
+        "engagement_mode": "High-volume, low-cost per shot"
+      },
+      {
+        "threat_type": "Loitering munitions / one-way attack UAVs",
+        "speed_range": "100-400 km/h",
+        "altitude": "200-5000 m",
+        "note": "Growing threat : used massively in Ukraine, Middle East 2024-2026"
+      },
+      {
+        "threat_type": "Cruise missiles / subsonic anti-ship missiles",
+        "speed_range": "M0.5-M0.9 (600-1100 km/h sea level)",
+        "altitude": "10-200 m sea level",
+        "rcs_signature": "Medium (metal airframe)",
+        "note": "Naval relevance, coastal defense use case"
+      }
+    ],
+    "priority_2_targets": [
+      {
+        "threat_type": "Rotary-wing aircraft (helicopters, light attack aircraft)",
+        "speed_range": "M0.2-M0.4",
+        "altitude": "0-6000 m",
+        "note": "Close-range air defense scenarios"
+      },
+      {
+        "threat_type": "Short-range rockets and artillery ( mortar, 107mm rockets)",
+        "speed_range": "M0.8-M1.2",
+        "altitude": "High-angle trajectory",
+        "note": "Iron Dome use case, point defense"
+      }
+    ],
+    "recommended_interceptor_specifications": {
+      "engagement_range": {
+        "minimum": "1 km",
+        "optimal": "3-8 km",
+        "extended": "12 km",
+        "note": "Short-to-medium range preferred — market gap between man-portable (1-2km) and medium SAM (20km+)"
+      },
+      "target_speed": {
+        "engagement_speed_max": "Mach 2.5 (900 m/s)",
+        "note": "Must handle subsonic + transonic threats; supersonic (>M1.5) anti-aircraft out of scope for initial version"
+      },
+      "altitude_band": {
+        "minimum_altitude": "ground level (0 m AGL)",
+        "maximum_altitude": "5000 m",
+        "note": "Low to medium altitude — most active threat band"
+      },
+      "platform": {
+        "primary": "Ground-based mobile (4x4 / 6x6 vehicle)",
+        "secondary": "Naval (corvette / offshore platform)",
+        "tertiary": "Fixed installation (base perimeter)"
+      },
+      "guidance_mode": {
+        "preferred": "Radar active + semi-active dual-mode",
+        "fallback": "Radar semi-active with datalink",
+        "note": "EO/IR supplementary for terminal guidance against low-RCS targets"
+      },
+      "warhead": {
+        "type": "Fragmentation / blast-fragmentation",
+        "weight_range": "2-8 kg",
+        "fuze": "Proximity + impact",
+        "note": "Must defeat drone airframe without excessive collateral; KKV considered for v2 upgrade"
+      },
+      "unit_cost_target": {
+        "target": "< $30 000 per unit",
+        "competitive_benchmark": "Diehl Iris-T SLS ~€40-50k, Iron Dome Tamir ~$40-100k",
+        "note": "Low unit cost critical for high-volume engagements and swarm scenarios"
+      },
+      "mobility": {
+        "requirement": "Fully mobile — deployable in < 30 min on unprepared terrain",
+        "configuration": "Containerized / containerized pod, vehicle-agnostic interface"
+      },
+      "production_rate": {
+        "initial_target": "200-500 units/year",
+        "scaled_target": "1000+ units/year",
+        "note": "Design for manufacturing (DFM) from day 1 — European NATO demand justifies volume production"
+      },
+      "interoperability": {
+        "standard": "NATO STANAG or MIL-STD-1553 for launchers",
+        "command_control": "Open architecture C2 (STANAG 4406 / Link 16 compatible preferred)",
+        "note": "Critical for NATO and export market access"
+      }
+    },
+    "market_positioning": {
+      "primary_segment": "SHORAD / M-SHORAD — anti-drone / anti-swarm",
+      "competitive_differentiation": [
+        "Coût par interception inférieur à $30k — compétitif vs Iris-T SLS et Tamir",
+        "Mobile ground-based — déploitable sur véhicule ou installation fixe",
+        "Modularité — échangeable entre plateformes (land / naval / fixed)",
+        "Architecture ouverte — interopérable NATO, adaptable aux upgrades",
+        "Production européen-friendly — pas de dépendance US (attractif pour NATO non-US markets)"
+      ],
+      "pricing_strategy": "Penetration pricing — compétitif pour gagner des contrats d'export et de démonstration, premium service support pour margin"
+    }
+  },
+
+  "risks_and_opportunities": {
+    "swot": {
+      "strengths": [
+        "Marché en hyper-croissance (25.1% CAGR C-UAS, 6.8% interceptor missiles) — fenêtre d'opportunité ouverte",
+        "Gaps de marché clairs : low-cost scalable interceptor anti-drone multi-cibles manquant",
+        "Indépendance européenne — opportunity manufacturing local NATO non dépendant US",
+        "Menace swarm émergente — besoins futurs non couverts par solutions actuelles",
+        "Design modulaire — adressable multiples segments (military, civil, export)"
+      ],
+      "weaknesses": [
+        "Pas de prototype fonctionnel — time-to-market incertain",
+        "Competition intense de tier-1 établis (Lockheed, Raytheon, MBDA, Rafael)",
+        "Coûts RDTE élevés avant premier contrat",
+        "Accès au marché military long (3-7 ans de cycle procurement government)",
+        "Dépendance eventuelle sur composants US (electronics, propulsion) — chaînes d'approvisionnement"
+      ],
+      "opportunities": [
+        "Contrats NATO via SAFE / PURL — processus accélérés pour replenishment stocks",
+        "Export market Inde / Asie-Pacifique — partenariats industriels locaux (Make in India, offset contracts)",
+        "Marché civil infrastructures critiques — cycle d'approvisionnement plus court que military",
+        "Co-développement avec pays NATO — partage RDTE costs, accès marché",
+        "Drone swarm countermeasure — segment en émergence sans leader établi",
+        "Golden Dome USA — spillover demande pour composants et sous-systèmes"
+      ],
+      "threats": [
+        "Barrières réglementaires export — ITAR, EAR sur composants sensibles",
+        "Dépassement de budget RDTE — complexité technique sous-estimée",
+        "Acquisition par competitors d'entreprises plus petites — consolidation du marché",
+        "Changement de menace rapide — drone AI-driven, hypersoniques pourraient rendre l'architecture obsolete",
+        "Risque politique — changement de gouvernement peut annuler programmes défense",
+        "Défaillance chaîne d'approvisionnement — rare-earth metals, semiconductors spécialisés",
+        "Risque de dépendance clients uniques (si 1-2 gros contracts) — diversification nécessaire"
+      ]
+    },
+    "key_recommendations": [
+      "Prioriser le segment NATO SHORT-RANGE ANTI-DRONE — processus d'approvisionnement plus court, urgence réelle",
+      "Développer architecture modulaire permettant upgrades (anti-cruise missile v2, KKV v3)",
+      "Stratégie partnership : co-développement avec Rheinmetall, MBDA, ou Diehl pour accès marché + partage RDTE",
+      "Cibler Inde et Asie-Pacifique pour premiers contrats export — offset requirements permettent partenariats locaux",
+      "Investir early dans production tooling — capacité 500+ units/year dès TRL-7 pour répondre à demande NATO",
+      "Sécuriser certification NATO / STANAG early — condition sine qua non pour marchés governmentaux",
+      "Développer version anti-swarm dedicated — volume engagement, targeting AI, coût < $20k par interception"
+    ]
+  },
+
+  "sources": [
+    "https://marketintelo.com/report/interceptor-missile-market",
+    "https://www.lucintel.com/interceptor-missiles-market.aspx",
+    "https://www.quincemarketinsights.com/industry-analysis/interceptor-missiles-market",
+    "https://market.us/report/missiles-and-missile-defense-systems-market/",
+    "https://www.fortunebusinessinsights.com/counter-uas-market-111906",
+    "https://www.fortunebusinessinsights.com/anti-drone-market-102593",
+    "https://www.marketsandmarkets.com/ResearchInsight/how-anti-drone-systems-are-driving-c-uas-market-growth.asp",
+    "https://www.marketsandmarkets.com/ResearchInsight/counter-cuas-systems-outlook-2030.asp",
+    "https://www.csis.org/analysis/europe-needs-asap-program-air-defense",
+    "https://cepa.org/article/a-defense-production-plan-for-europe/",
+    "https://en.wikipedia.org/wiki/Iron_Dome",
+    "https://www.nationaldefensemagazine.org/articles/2026/4/10/pentagons-flagship-golden-dome-missile-defense-program-spinning-its-wheels"
+  ]
+}

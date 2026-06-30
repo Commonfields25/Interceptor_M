@@ -1,0 +1,112 @@
+{
+  "agents": [
+    {
+      "id": "E1",
+      "name": "Ingénieur Simulation",
+      "role": "Simulation numérique, CFD, modèles dynamiques",
+      "namespace": "agents/E1/",
+      "workspace": "engineering/simulation/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "E2",
+      "name": "Ingénieur Modélisation",
+      "role": "Modélisation dynamique et optimisation",
+      "namespace": "agents/E2/",
+      "workspace": "engineering/modeling/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "E3",
+      "name": "Ingénieur Simulation",
+      "role": "Simulation numérique, CFD, modèles dynamiques",
+      "namespace": "agents/E3/",
+      "workspace": "engineering/simulation/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "D1",
+      "name": "Développeur Backend",
+      "role": "Développement backend et API",
+      "namespace": "agents/D1/",
+      "workspace": "development/backend/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "D2",
+      "name": "Développeur Frontend",
+      "role": "Développement frontend et UI",
+      "namespace": "agents/D2/",
+      "workspace": "development/frontend/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "D3",
+      "name": "Développeur Fullstack",
+      "role": "Développement fullstack et intégration",
+      "namespace": "agents/D3/",
+      "workspace": "development/fullstack/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "AM",
+      "name": "Agent Manager",
+      "role": "Gestion et coordination des agents",
+      "namespace": "agents/agent_manager/",
+      "workspace": "management/",
+      "status": "OPERATIONAL"
+    },
+    {
+      "id": "AC",
+      "name": "Agent Coordonnateur",
+      "role": "Coordination et validation des tâches",
+      "namespace": "agents/agent_coordinator/",
+      "workspace": "coordination/",
+      "status": "OPERATIONAL"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "M1",
+      "name": "Initialisation des Agents",
+      "description": "Mise en place et configuration initiale des agents.",
+      "due_date": "2026-07-15T00:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "M2",
+      "name": "Synchronisation GitHub-Linear",
+      "description": "Automatisation de la synchronisation entre GitHub et Linear.",
+      "due_date": "2026-07-20T00:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "M3",
+      "name": "Intégration Supabase",
+      "description": "Configuration de Supabase pour le stockage des données des agents.",
+      "due_date": "2026-07-25T00:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "M4",
+      "name": "Automatisation des Rapports",
+      "description": "Automatisation de l'envoi des rapports des agents vers Supabase.",
+      "due_date": "2026-07-30T00:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "M5",
+      "name": "Surveillance des Blocages",
+      "description": "Mise en place d'un système de surveillance des blocages.",
+      "due_date": "2026-08-05T00:00:00Z",
+      "status": "PENDING"
+    },
+    {
+      "id": "M6",
+      "name": "Optimisation des Modèles",
+      "description": "Optimisation des modèles de simulation et RL.",
+      "due_date": "2026-08-15T00:00:00Z",
+      "status": "PENDING"
+    }
+  ]
+}
