@@ -47,6 +47,3 @@ updates:
       - "dependencies"
 
 # Security advisories integration
-registrations:
-  - package-ecosystem: "pip"
-    directory: "/"
