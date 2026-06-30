@@ -1,21 +1,43 @@
-# Security Policy
+# Security Policy — Interceptor_M
 
-## Supported Versions
+## 🛡️ Project Security Overview
+Interceptor_M is a defense-oriented project. We take security and information isolation seriously. This policy outlines our standards for handling vulnerabilities, secrets, and namespace isolation.
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+## 🚀 Supported Versions
+Only the latest version of the Interceptor_M codebase (main branch) is supported with security updates.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported |
+| --- | --- |
+| 1.x (Active) | ✅ |
+| Legacy (0.x) | ❌ |
 
-## Reporting a Vulnerability
+## 🔑 Secret Management
+- **NEVER** commit real secrets, tokens, or passwords.
+- Use environment variables or GitHub Secrets.
+- Refer to `.github/credentials_template.md` for the standard structure.
+- If a secret is leaked, notify the Agent Manager (AM) immediately for revocation.
 
-Use this section to tell people how to report a vulnerability.
+## 🔒 Namespace Isolation
+To prevent unauthorized modification of critical code, we enforce strict namespace isolation via `governance/ci_checks/namespace_isolation.py`.
+- Every file change must originate from an agent's assigned namespace.
+- Bypassing these checks is a critical security violation.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+## 🐛 Reporting a Vulnerability
+If you discover a security vulnerability (e.g., a logic flaw in flight controls or a secret leak):
+1. **INTERNAL AGENTS:** Use the `G11 (Emergency Response)` protocol as defined in `governance/AGENT_MANAGER_RULES.md`.
+2. **EXTERNAL PARTNERS:** Send a detailed report to `security@uav-venture.com` with the subject "VULNERABILITY REPORT — Interceptor_M".
+
+## 🛠️ Security Tools
+The following tools are part of our CI/CD pipeline (some in development):
+- **Ruff:** Linting and security-aware static analysis.
+- **Bandit:** (Planned) Python-specific security scanner.
+- **Namespace Checker:** Custom isolation enforcement.
+
+---
+*Maintained by the Continuous Improvement (AC) Agent*
+
+## ⚠️ Credential Exposure in Chat
+If a developer or user provides a credential (like a GitHub PAT) in the project's chat or issues:
+1. **REVOKE** the credential immediately at the source.
+2. **CLEAN** any logs or temporary files that may have captured the text.
+3. **NOTIFY** the AC agent to perform a repo-wide secret scan.
