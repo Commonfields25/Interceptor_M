@@ -1,314 +1,232 @@
 """
 simulation/sim_6dof.py
 ======================
-Modèle de vol simplifié 6-DOF (point-masse 3D).
-
-L'interceptor est modélisé comme un point matériel de masse m avec :
-  - Traînée proportionnelle à v² et Cx
-  - Portance perpendiculaire à la vitesse (commande en incidence / alpha)
-  - Poussée axiale (nulle par défaut — missile purement réactif)
-  - Gravité
-  - Accélération latérale limitée à ACCELERATION_LATERALE_MAX
-
-Le pilote (flight_control_poc.py) fournit la commande d'accélération latérale
-en sortie de la loi PN ; ce module intègre la dynamique 3D correspondante.
-
-Fonction principale : simulate_engagement(...)
+Simulateur 6-DOF simplifié pour l'intercepteur DD-400.
+Amélioration : Boost-Sustain propulsion profile.
 """
 
 import math
+import numpy as np
 from . import constants as C
 
 # ------------------------------------------------------------------
-# Hot locals — bound once, reused in every derivees() call
+# Paramètres locaux
 # ------------------------------------------------------------------
-_M_G         = C.MASSE_INTERCEPTOR_KG
+_M0          = C.MASSE_INTERCEPTOR_KG
 _S_REF       = C.SURFACE_REF_M2
-_CX_DRAG     = C.COEFF_TRAITEE_Cx
+_CX_BASE     = C.COEFF_TRAITEE_Cx_BASE
 _CL_ALPHA    = C.COEFF_PORTANCE_CL_ALPHA
 _G0          = C.G0
 _DUREE_MAX   = C.DUREE_MAX_S
 _DT          = C.PAS_DE_TEMPS_S
-_SEUIL_SQ    = 5.0 * 5.0          # SEUIL_INTERCEPT_M² (avoids sqrt in loop)
+_SEUIL_SQ    = C.RL_INTERCEPT_RADIUS_M ** 2
 _ACCEL_MAX   = C.ACCELERATION_LATERALE_MAX_M_S2
 
+# ISA Constants
+_T0 = C.T0_ISA
+_P0 = C.P0_ISA
+_L  = C.L_ISA
+_R  = C.R_AIR
+_GAMMA = C.GAMMA_AIR
+
+# Propulsion Constants (Boost-Sustain)
+_DUREE_BOOST   = 2.0  # s
+_POUSSEE_BOOST = 60.0 # N
+_DUREE_SUSTAIN = 8.0  # s (Burn ends at 10.0s)
+_POUSSEE_SUSTAIN = 20.0 # N
+_ISP           = C.ISP_S
 
 # =============================================================================
-# CONVERSION ANGULAIRE
+# MODÈLE ATMOSPHÉRIQUE (ISA)
 # =============================================================================
-def deg_to_rad(d):
-    return d * math.pi / 180.0
-
-
-def rad_to_deg(r):
-    return r * 180.0 / math.pi
-
-
-# =============================================================================
-# MODÈLE ATMOSPHÉRIQUE (ISA niveau mer — simplification)
-# =============================================================================
-_H_SCALE   = 8500.0           # m — hauteur d'échelle de l'atmosphère
-_RHO_0     = C.MASSE_VOLUME_AIR_SLP
+def isa_atmosphere(altitude_m):
+    h = min(max(altitude_m, 0.0), 11000.0)
+    T = _T0 - _L * h
+    P = _P0 * (T / _T0)**(_G0 / (_R * _L))
+    rho = P / (_R * T)
+    a = math.sqrt(_GAMMA * _R * T)
+    return T, P, rho, a
 
 def densite(altitude_m):
-    """
-    Masse volumique de l'air en fonction de l'altitude (modèle isotherme simple).
-    Retourne kg/m³.
-    """
-    return _RHO_0 * math.exp(-altitude_m / _H_SCALE)
-
+    _, _, rho, _ = isa_atmosphere(altitude_m)
+    return rho
 
 # =============================================================================
-# ACTIONS AÉRODYNAMIQUES
+# MODÈLE DE TRAINÉE (MACH)
 # =============================================================================
-def trainee(vitesse_m_s, altitude_m):
-    """
-    Module de la force de traînée (N).
-    D = 0.5 * rho * v² * S_ref * Cx
-    """
-    rho = densite(altitude_m)
-    return 0.5 * rho * (vitesse_m_s ** 2.0) * _S_REF * _CX_DRAG
-
-
-def portance(vitesse_m_s, incidence_rad, altitude_m):
-    """
-    Module de la force de portance (N).
-    L = 0.5 * rho * v² * S_ref * C_L_alpha * alpha
-    """
-    rho = densite(altitude_m)
-    c_l = _CL_ALPHA * incidence_rad
-    return 0.5 * rho * (vitesse_m_s ** 2.0) * _S_REF * c_l
-
+def get_drag_coeff(mach):
+    if mach < 0.8: return _CX_BASE
+    elif mach < 1.2: return _CX_BASE + (mach - 0.8) * (2.0 * _CX_BASE / 0.4)
+    else: return (2.5 * _CX_BASE) / math.sqrt(mach**2 - 1.0)
 
 # =============================================================================
-# ÉTAT INITIAL
+# MODÈLE DE POUSSÉE (BOOST-SUSTAIN)
+# =============================================================================
+def get_thrust(t_s):
+    if t_s <= _DUREE_BOOST:
+        return _POUSSEE_BOOST
+    elif t_s <= (_DUREE_BOOST + _DUREE_SUSTAIN):
+        return _POUSSEE_SUSTAIN
+    return 0.0
+
+def get_mass_flow(t_s):
+    thrust = get_thrust(t_s)
+    return thrust / (_ISP * _G0) if _ISP > 0 else 0.0
+
+# =============================================================================
+# DYNAMIQUE
 # =============================================================================
 def etat_initial(position_m, vitesse_m_s, cap_rad):
-    """
-    Construire un dictionnaire d'état pour l'intégrateur.
-
-    Paramètres
-    ----------
-    position_m : list[float, float, float]  [x, y, z] en m
-    vitesse_m_s  : float  module de la vitesse en m/s
-    cap_rad      : float  cap (azimut) en rad
-
-    Retourne
-    --------
-    dict — état complet du système
-    """
     vx = vitesse_m_s * math.cos(cap_rad)
     vy = vitesse_m_s * math.sin(cap_rad)
-    vz = 0.0  # vol planar (pas de pente initiale)
-
+    vz = 0.0
     return {
-        "position": list(position_m),    # [x, y, z]
-        "vitesse" : [vx, vy, vz],        # [vx, vy, vz]
-        "masse"   : _M_G,
+        "position": np.array(position_m, dtype=float),
+        "vitesse" : np.array([vx, vy, vz], dtype=float),
+        "masse"   : float(_M0),
+        "temps"   : 0.0
     }
 
-
-# =============================================================================
-# DÉRIVÉES (équations du mouvement)
-# =============================================================================
-def derivees(etat, alpha_rad, lat_accel_m_s2):
-    """
-    Calcul des dérivées de l'état (Euler explicite).
-
-    Paramètres
-    ----------
-    etat          : dict  — état actuel (position, vitesse, masse)
-    alpha_rad     : float — angle d'incidence en rad (portance)
-    lat_accel_m_s2 : float — accélération latérale commandée en m/s² (axe perpendiculaire au plan de vol)
-
-    Retourne
-    --------
-    list — [dx, dy, dz, dvx, dvy, dvz]
-    """
+def derivees(etat, commands):
     pos = etat["position"]
     vel = etat["vitesse"]
+    masse = etat["masse"]
+    t = etat["temps"]
 
-    vx, vy, vz = vel
-    v_sq = vx*vx + vy*vy + vz*vz
-    vitesse_module = math.sqrt(v_sq)
+    v_mod = np.linalg.norm(vel)
+    if v_mod < 0.1: return np.zeros(3), np.zeros(3), 0.0
 
-    # Sécurité : si vitesse quasi-nulle, on garde le cap
-    if vitesse_module < 0.1:
-        return [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+    ut = vel / v_mod
+    if abs(ut[2]) > 0.999: un = np.array([1.0, 0.0, 0.0])
+    else:
+        un = np.array([0.0, 0.0, 1.0]) - ut[2] * ut
+        un /= np.linalg.norm(un)
+    ub = np.cross(un, ut)
 
-    inv_v = 1.0 / vitesse_module
-    ux = vx * inv_v
-    uy = vy * inv_v
-    uz = vz * inv_v
+    T, P, rho, a_son = isa_atmosphere(pos[2])
+    mach = v_mod / a_son
+    cx = get_drag_coeff(mach)
 
-    # Repère local (T, N, B) — tangent, normal (vertical), binormal (lateral)
-    grav_z = -_G0
-    portance_z = portance(vitesse_module, alpha_rad, pos[2]) / _M_G
-    accel_verticale = grav_z + portance_z
+    thrust = get_thrust(t)
+    drag = 0.5 * rho * v_mod**2 * _S_REF * cx
 
-    norm_plan = math.sqrt(ux*ux + uy*uy + 0.0001)
-    nz = (1.0 if accel_verticale > 0.001 else -1.0) if abs(accel_verticale) > 0.001 else 0.0
+    a_lat, a_vert = commands
+    accel = ((thrust - drag) / masse) * ut + a_lat * ub + a_vert * un
+    accel[2] -= _G0
 
-    # Binormal (perpendiculaire au plan) = direction de la commande latérale
-    bx = -uy
-    by =  ux
-    bz = 0.0
-    norm_b = math.sqrt(bx*bx + by*by + bz*bz) + 1e-9
-    bx /= norm_b
-    by /= norm_b
-    bz /= norm_b
+    mdot = -get_mass_flow(t)
+    return vel, accel, mdot
 
-    # Traînée (opposée à la vitesse)
-    d_tr = trainee(vitesse_module, pos[2]) / _M_G
-
-    # Accélérations dans chaque direction
-    dvx = -d_tr * ux + lat_accel_m_s2 * bx
-    dvy = -d_tr * uy + lat_accel_m_s2 * by
-    dvz = -d_tr * uz + lat_accel_m_s2 * bz + accel_verticale * nz
-
-    return [vx, vy, vz, dvx, dvy, dvz]
-
-
-# =============================================================================
-# INTÉGRATION (Euler explicite)
-# =============================================================================
-def integrer(etat, alpha_rad, lat_accel_m_s2, dt):
-    """
-    Avance l'état d'un pas de temps dt (méthode d'Euler explicite).
-    """
-    dr = derivees(etat, alpha_rad, lat_accel_m_s2)
-    pos = etat["position"]
-    vel = etat["vitesse"]
-
-    pos[0] += dr[0] * dt
-    pos[1] += dr[1] * dt
-    pos[2] += dr[2] * dt
-
-    vel[0] += dr[3] * dt
-    vel[1] += dr[4] * dt
-    vel[2] += dr[5] * dt
-
+def integrer(etat, commands, dt):
+    v, a, mdot = derivees(etat, commands)
+    new_v = etat["vitesse"] + a * dt
+    etat["position"] += 0.5 * (etat["vitesse"] + new_v) * dt
+    etat["vitesse"] = new_v
+    etat["masse"] += mdot * dt
+    etat["temps"] += dt
     return etat
 
+# =============================================================================
+# MANOEUVRES CIBLES
+# =============================================================================
+def manoeuvre_rectiligne(etat_c, dt):
+    etat_c["position"] += np.array(etat_c["vitesse"]) * dt
+    return etat_c
+
+def manoeuvre_virage_constant(etat_c, dt, accel_g=5.0):
+    pos = etat_c["position"]
+    vel = etat_c["vitesse"]
+    v_h = math.sqrt(vel[0]**2 + vel[1]**2)
+    if v_h < 0.1:
+        pos += vel * dt
+        return etat_c
+    omega = (accel_g * _G0) / v_h
+    d_theta = omega * dt
+    c, s = math.cos(d_theta), math.sin(d_theta)
+    vx, vy = vel[0], vel[1]
+    vel[0] = vx * c - vy * s
+    vel[1] = vx * s + vy * c
+    pos += vel * dt
+    return etat_c
+
+def manoeuvre_weaving(etat_c, dt, accel_g=5.0, freq_hz=0.5):
+    t = etat_c.get("temps", 0.0)
+    pos = etat_c["position"]
+    vel = etat_c["vitesse"]
+    v_h = math.sqrt(vel[0]**2 + vel[1]**2)
+    if v_h < 0.1:
+        pos += vel * dt
+        etat_c["temps"] = t + dt
+        return etat_c
+    accel_lat = accel_g * _G0 * math.sin(2.0 * math.pi * freq_hz * t)
+    omega = accel_lat / v_h
+    d_theta = omega * dt
+    c, s = math.cos(d_theta), math.sin(d_theta)
+    vx, vy = vel[0], vel[1]
+    vel[0] = vx * c - vy * s
+    vel[1] = vx * s + vy * c
+    pos += vel * dt
+    etat_c["temps"] = t + dt
+    return etat_c
 
 # =============================================================================
-# SIMULATION D'UN ENGAGEMENT COMPLET
+# ENGAGEMENT
 # =============================================================================
 def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
                         pos_cible_m,   vel_cible_m_s, cap_cible_rad,
-                        guidage_fn=None, alpha_rad=0.0,
+                        guidage_sys=None,
+                        manoeuvre_c_fn=manoeuvre_rectiligne,
                         keep_traj=False):
-    """
-    Simule un engagement interceptor / cible.
-
-    L'interceptor démarre en pos_init_m et tente d'intercepter la cible
-    qui suit une trajectoire rectiligne à vitesse constante.
-
-    Paramètres
-    ----------
-    pos_init_m      : [float, float, float]  position initiale interceptor [x, y, z] en m
-    vel_init_m_s    : float                  vitesse module interceptor en m/s
-    cap_init_rad    : float                  cap initial interceptor en rad
-    pos_cible_m     : [float, float, float]  position initiale cible
-    vel_cible_m_s   : float                  vitesse module cible en m/s
-    cap_cible_rad   : float                  cap cible en rad
-    guidage_fn      : callable               fonction(etat_i, etat_c) -> lat_accel_m_s2
-                                             ou None (vol en ligne droite)
-    alpha_rad       : float                  angle d'incidence (portance), rad
-    keep_traj       : bool                   si True, construit la trajectoire sous-échantillonnée;
-                                             si False (défaut), renvoie [] pour perf.
-
-    Retourne
-    --------
-    dict {
-        "intercept"  : bool   — True si intercept atteint
-        "temps_s"    : float  — durée de l'engagement ou DUREE_MAX_S
-        "trajectoire": list   — liste de {t, x, y, z} (sous-échantillonné) ou []
-        "distance_min_m": float — distance minimale atteinte
-    }
-    """
     etat_i = etat_initial(pos_init_m, vel_init_m_s, cap_init_rad)
-
-    # État de la cible (rectiligne uniforme) — bound as locals
     vcx = vel_cible_m_s * math.cos(cap_cible_rad)
     vcy = vel_cible_m_s * math.sin(cap_cible_rad)
-    pos_cx = pos_cible_m[0]
-    pos_cy = pos_cible_m[1]
-    pos_cz = pos_cible_m[2]
-
+    etat_c = {
+        "position": np.array(pos_cible_m, dtype=float),
+        "vitesse": np.array([vcx, vcy, 0.0], dtype=float),
+        "temps": 0.0
+    }
     temps = 0.0
-    traj  = [] if keep_traj else None          # alloc only when needed
+    traj  = []
     dist_min_sq = float("inf")
     intercept = False
-
     while temps < _DUREE_MAX:
-
-        # Sous-échantillonnage pour la trajectoire (tous les 0.1 s)
-        if traj is not None:
-            if len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.1:
-                traj.append({
-                    "t": round(temps, 3),
-                    "x": round(etat_i["position"][0], 1),
-                    "y": round(etat_i["position"][1], 1),
-                    "z": round(etat_i["position"][2], 1),
-                })
-
-        # Distance interceptor / cible — compare squared to avoid sqrt
-        dx = etat_i["position"][0] - pos_cx
-        dy = etat_i["position"][1] - pos_cy
-        dz = etat_i["position"][2] - pos_cz
-        dist_sq = dx*dx + dy*dy + dz*dz
-
-        if dist_sq < dist_min_sq:
-            dist_min_sq = dist_sq
-
-        # Test d'interception via squared threshold
+        if keep_traj and (len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.05):
+            v_mod = np.linalg.norm(etat_i["vitesse"])
+            traj.append({
+                "t": round(temps, 3),
+                "x": round(etat_i["position"][0], 1),
+                "y": round(etat_i["position"][1], 1),
+                "z": round(etat_i["position"][2], 1),
+                "cx": round(etat_c["position"][0], 1),
+                "cy": round(etat_c["position"][1], 1),
+                "v": round(v_mod, 1),
+                "thrust": round(get_thrust(temps), 1)
+            })
+        rel_pos = etat_c["position"] - etat_i["position"]
+        dist_sq = np.sum(rel_pos**2)
+        if dist_sq < dist_min_sq: dist_min_sq = dist_sq
         if dist_sq < _SEUIL_SQ:
             intercept = True
             break
-
-        # Commande de guidage (ou zéro si pas de loi)
-        lat_accel = 0.0
-        if guidage_fn is not None:
-            lat_accel = guidage_fn(etat_i, {"position": [pos_cx, pos_cy, pos_cz],
-                                             "vitesse": [vcx, vcy, 0.0]})
-            # Saturation en accélération latérale
-            if lat_accel > _ACCEL_MAX:
-                lat_accel = _ACCEL_MAX
-            elif lat_accel < -_ACCEL_MAX:
-                lat_accel = -_ACCEL_MAX
-
-        # Intégration interceptor
-        integrer(etat_i, alpha_rad, lat_accel, _DT)
-
-        # Avance cible
-        pos_cx += vcx * _DT
-        pos_cy += vcy * _DT
-
+        commands = (0.0, 0.0)
+        if guidage_sys is not None:
+            commands = guidage_sys.compute_guidance(etat_i, etat_c)
+            cmd_norm = math.sqrt(commands[0]**2 + commands[1]**2)
+            if cmd_norm > _ACCEL_MAX:
+                factor = _ACCEL_MAX / cmd_norm
+                commands = (commands[0] * factor, commands[1] * factor)
+        integrer(etat_i, commands, _DT)
+        etat_c = manoeuvre_c_fn(etat_c, _DT)
         temps += _DT
-
+        if etat_i["position"][2] < -10.0: break
     return {
-        "intercept"     : intercept,
-        "temps_s"      : round(temps, 3),
-        "trajectoire"  : traj if traj is not None else [],
+        "intercept": intercept,
+        "temps_s": round(temps, 3),
+        "trajectoire": traj,
         "distance_min_m": round(math.sqrt(dist_min_sq), 2),
     }
 
-
-# =============================================================================
-# AUTO-TEST
-# =============================================================================
 if __name__ == "__main__":
-    res = simulate_engagement(
-        pos_init_m    = [0.0, 0.0, 500.0],
-        vel_init_m_s  = 300.0,
-        cap_init_rad  = 0.0,
-        pos_cible_m   = [3000.0, 0.0, 500.0],
-        vel_cible_m_s = 300.0,
-        cap_cible_rad = math.pi,
-        guidage_fn    = None,
-        alpha_rad     = 0.0,
-    )
-    print(f"[sim_6dof] Test sans guidage → intercept={res['intercept']}, "
-          f"dist_min={res['distance_min_m']} m, t={res['temps_s']} s")
-    print("[sim_6dof] OK — le module s'exécute sans erreur.")
+    print("Propulsion Verification:")
+    for t in [1.0, 2.0, 3.0, 10.0, 11.0]:
+        print(f"t={t:.1f}s -> Thrust: {get_thrust(t):.1f} N")
