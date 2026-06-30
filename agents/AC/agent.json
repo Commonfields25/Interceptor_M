@@ -1,0 +1,22 @@
+{
+  "agent_id": "AC",
+  "role": "Continuous Improvement",
+  "status": "active",
+  "current_mission": {
+    "id": "MISSION-AC-001",
+    "title": "Automated Quality Control (AC) Expansion",
+    "description": "Develop and deploy automated checks to enforce project standards, specifically targeting Markdown quality, JSON parameter validity, and branch naming conventions.",
+    "priority": "high",
+    "assigned_at": "2026-06-29T23:30:02Z",
+    "deadline": "2026-07-15T00:00:00Z",
+    "deliverable": "governance/ci_checks/quality_control_v1.py",
+    "dependencies": ["Agent Manager"]
+  },
+  "capabilities": [
+    "Process Audit",
+    "Python Scripting",
+    "Governance Enforcement",
+    "KPI Tracking"
+  ],
+  "last_updated": "2026-06-29T23:30:02Z"
+}

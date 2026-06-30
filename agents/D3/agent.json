@@ -1,0 +1,24 @@
+{
+  "agent_id": "D3",
+  "role": "Conception Structurelle",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-003",
+    "title": "Conception de la structure mécanique principale",
+    "description": "Concevoir la structure mécanique principale de l'Interceptor_M : fuselage, matériaux sélectionnés (fibres de carbone / aluminium), points de fixation moteur, répartition des charges. Définir les contraintes admissibles et produire un blueprint structurel传给 E1 (intégration propulsion).",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/D3/structure_blueprint.md",
+    "dependencies": [
+      "MISSION-001"
+    ]
+  },
+  "capabilities": [
+    "conception mécanique",
+    "CAE",
+    "simulation matériaux"
+  ],
+  "last_updated": "2026-06-24T14:37:00Z",
+  "description": ""
+}

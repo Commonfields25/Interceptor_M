@@ -1,0 +1,4 @@
+# Git credentials
+.github/auth/.git_credentials_config.json
+.github/auth/.env
+!.github/auth/.git_credentials_config.json.example

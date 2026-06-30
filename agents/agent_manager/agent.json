@@ -1,0 +1,198 @@
+{
+  "agent_id": "agent_manager",
+  "role": "Agent Manager",
+  "domain": "Coordination",
+  "responsibilities": [
+    "Coordination quotidienne de tous les agents (D1-D3, E1-E3)",
+    "Gestion des KPIs et alertes (dashboard ops-alerts)",
+    "Orchestration des débriefs collectifs (fin de chaque phase)",
+    "Gestion des handoffs entre agents",
+    "Escalade technique vers DG",
+    "Gestion des blocages et problèmes résolution",
+    "Pipeline européen et specs armasuisse",
+    "Planification stratégique et weekly syncs"
+  ],
+  "inputs": [
+    {
+      "from": "all_agents",
+      "type": "kpi_reports",
+      "description": "Rapports KPI quotidiens"
+    },
+    {
+      "from": "all_agents",
+      "type": "blocker_flags",
+      "description": "Alertes blockers via #problem-escalation"
+    },
+    {
+      "from": "DG",
+      "type": "go_no_go_decisions",
+      "description": "Décisions DG aux gates"
+    },
+    {
+      "from": "all_agents",
+      "type": "peer_review_results",
+      "description": "Résultats peer reviews"
+    }
+  ],
+  "outputs": [
+    {
+      "type": "daily_digest",
+      "file_pattern": "DAILY_DIGEST_{DATE}.md"
+    },
+    {
+      "type": "decision_log",
+      "file_pattern": "DECISION_LOG.json"
+    },
+    {
+      "type": "kpi_dashboard",
+      "file_pattern": "KPI_DASHBOARD_{DATE}.json"
+    },
+    {
+      "type": "go_no_go_package",
+      "file_pattern": "GATE_{N}_PACKAGE_{DATE}.zip"
+    },
+    {
+      "type": "weekly_sync_notes",
+      "file_pattern": "WEEKLY_SYNC_{DATE}.md"
+    }
+  ],
+  "tools": [
+    {
+      "name": "Slack",
+      "usage": "#ops-alerts, #problem-escalation, coordination"
+    },
+    {
+      "name": "GitHub",
+      "usage": "PRs, reviews, decision log versioning"
+    },
+    {
+      "name": "DVC",
+      "usage": "Versioning livrables et données"
+    },
+    {
+      "name": "MLflow",
+      "usage": "Tracking résultats simulation et KPIs"
+    }
+  ],
+  "dependencies": [
+    "D1",
+    "D2",
+    "D3",
+    "E1",
+    "E2",
+    "E3",
+    "DG"
+  ],
+  "current_tasks": [],
+  "status": "active",
+  "go_gates": [
+    {
+      "gate": "G0",
+      "phase": 0,
+      "name": "Validation brief client",
+      "timing": "Day 1",
+      "sla_hours": 24,
+      "auto_action": "NO-GO after 48h"
+    },
+    {
+      "gate": "G1",
+      "phase": 1,
+      "name": "GO Concept",
+      "timing": "Day 6",
+      "sla_hours": 24,
+      "auto_action": "NO-GO after 48h"
+    },
+    {
+      "gate": "G2",
+      "phase": 2,
+      "name": "GO CAO détaillée",
+      "timing": "Day 19",
+      "sla_hours": 48,
+      "auto_action": "NO-GO after 72h"
+    },
+    {
+      "gate": "G3",
+      "phase": 3,
+      "name": "GO Simulation",
+      "timing": "Day 28",
+      "sla_hours": 48,
+      "auto_action": "NO-GO after 72h"
+    },
+    {
+      "gate": "G4",
+      "phase": 4,
+      "name": "GO Prototype",
+      "timing": "Day 62",
+      "sla_hours": 72,
+      "auto_action": "NO-GO after 96h"
+    },
+    {
+      "gate": "G5",
+      "phase": 5,
+      "name": "GO Production",
+      "timing": "TBD",
+      "sla_hours": 168,
+      "auto_action": "NO-GO after 336h"
+    },
+    {
+      "gate": "G6",
+      "phase": 1,
+      "name": "GO Concept Défense",
+      "timing": "Day 7",
+      "sla_hours": 24,
+      "auto_action": "NO-GO after 48h"
+    },
+    {
+      "gate": "G7",
+      "phase": 2,
+      "name": "GO CAO Défense",
+      "timing": "Day 18",
+      "sla_hours": 24,
+      "auto_action": "NO-GO after 48h"
+    },
+    {
+      "gate": "G8",
+      "phase": 3,
+      "name": "GO Sim Défense",
+      "timing": "Day 26",
+      "sla_hours": 24,
+      "auto_action": "NO-GO after 48h"
+    },
+    {
+      "gate": "G9",
+      "phase": 4,
+      "name": "GO Production Défense",
+      "timing": "Day 28",
+      "sla_hours": 72,
+      "auto_action": "NO-GO after 96h"
+    },
+    {
+      "gate": "G10",
+      "phase": 5,
+      "name": "GO Offre armasuisse",
+      "timing": "TBD",
+      "sla_hours": 168,
+      "auto_action": "NO-GO after 336h"
+    }
+  ],
+  "handoffs": [
+    {
+      "to": "DG",
+      "deliverable": "GO_NO_GO_PACKAGE",
+      "frequency": "per_gate",
+      "review_required": "DG mandatory"
+    },
+    {
+      "to": "all_agents",
+      "deliverable": "WEEKLY_SYNC",
+      "frequency": "weekly",
+      "review_required": "all"
+    },
+    {
+      "to": "all_agents",
+      "deliverable": "DAILY_DIGEST",
+      "frequency": "daily",
+      "review_required": "all"
+    }
+  ]
+}

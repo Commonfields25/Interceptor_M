@@ -1,0 +1,7 @@
+# Minimal critical-rule-only config — catches real breakages, ignores legacy style noise
+[lint]
+select = ["E9", "F63", "F7", "F82"]
+ignore = []
+
+[lint.per-file-ignores]
+"__all__" = []
