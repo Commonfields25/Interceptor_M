@@ -78,6 +78,23 @@
       }
     }
   },
+  "manufacturing": {
+    "DMLS": {
+      "powder": "AlSi10Mg",
+      "process": "SLM/DMLS",
+      "post_heat_treatment": "T6"
+    },
+    "CNC": {
+      "tolerances": {
+        "IT7": "±0.015mm",
+        "IT10": "±0.05mm"
+      }
+    },
+    "FDM": {
+      "material": "ASA/ABS",
+      "use": "prototype only"
+    }
+  },
   "shared_geometry": {
     "tube_diameter_mm": 40.0,
     "fuselage_outer_diameter_mm": 35.0,
@@ -85,3 +102,4 @@
     "wing_chord_mm": 60.0
   }
 }
+

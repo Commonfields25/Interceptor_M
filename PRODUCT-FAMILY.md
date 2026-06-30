@@ -33,4 +33,31 @@ All lines utilize the **SC-Series** shared components to minimize NRE and maximi
 As of version 1.3, the MTOW and Fuselage dimensions for all three lines (DD, DI, DC) are **locked**. Any changes require a formal ECR (Engineering Change Request) and DG approval.
 
 ---
+
+## 4. Engineering Performance Baseline (MATLAB Verified)
+
+Analytical performance metrics for the **DD-400** platform at Sea Level.
+
+| Parameter | Value | Condition |
+|-----------|-------|-----------|
+| **Intercept Speed** | 300 m/s (Mach 0.88) | Full Thrust |
+| **Max Load Factor** | 5.9 g | Aero-limited @ 12° AoA |
+| **Min Turn Radius** | 1,559 m | @ 300 m/s |
+| **Steady Drag** | 19.3 N | @ 300 m/s |
+| **Thrust-to-Weight** | 3.06 | @ Max Thrust (12N) |
+
+Verified via [`matlab/interceptor_performance.m`](./matlab/interceptor_performance.m)
+
+## 5. Milestone Alignment
+
+| MS | Title | DI BOM relevance |
+|----|-------|-----------------|
+| M5 | Branch Cleanup & Archive | - |
+| M6 | CI Migration Node24 & Workflow Activation | Infrastructure only |
+| **M7** | **DI Product Specifications Lock & BOM** | **Primary owner - BOM locked** |
+| M8 | RL Environment Hardening & Agent Rebalancing | - |
+| M9 | Recrutement Ingenieur Conception & Design Industriel | Personnel |
+
+---
+
 *Authorized by Jules (Physics Expert) for the Engineering Group.*
