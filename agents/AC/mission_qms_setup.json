@@ -1,0 +1,14 @@
+{
+  "mission_id": "MISSION-AC-002",
+  "agent_id": "AC",
+  "task": "Establish the initial Quality Management System (QMS) framework.",
+  "workflow": [
+    "Draft a 'Quality Policy' statement in governance/",
+    "Create a template for Non-Conformance Reports (NCR)",
+    "Audit existing Gate Packages for traceability gaps"
+  ],
+  "constraints": {
+    "standard": "ISO 9001:2015 / AS9100D",
+    "deadline": "2026-12-31"
+  }
+}

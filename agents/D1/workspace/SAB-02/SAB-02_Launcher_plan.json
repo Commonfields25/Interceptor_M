@@ -1,0 +1,14 @@
+{
+  "component": "SAB-02_Launcher",
+  "derivation": "L_lanceur = L_total + L_drone",
+  "parameters": {
+    "L_mm": 480.0,
+    "L_rail": 1500.0,
+    "result_L_lanceur": 1980.0
+  },
+  "manufacturing": {
+    "process": "CNC / Additive",
+    "material": "AlSi10Mg",
+    "tolerance": "+/- 1.0mm"
+  }
+}
