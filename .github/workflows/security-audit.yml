@@ -10,7 +10,7 @@ jobs:
   secret-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Scan for secrets
         run: |
           grep -r "ghp_" . --exclude-dir=".github" || echo "No tokens found."
@@ -18,7 +18,7 @@ jobs:
   iso-compliance-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Verify ISO Framework
         run: |
           [ -f docs/governance/ISO_COMPLIANCE_FRAMEWORK.md ] && echo "Framework OK"
