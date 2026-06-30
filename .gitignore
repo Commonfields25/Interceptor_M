@@ -57,3 +57,7 @@ credentials.md
 simulation/output/
 engineering/FEA/results/
 engineering/CFD/results/
+secrets/
+*.ppk
+id_rsa
+id_dsa

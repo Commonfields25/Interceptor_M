@@ -20,6 +20,10 @@ Authors: Jules (Physics Expert) | Refs: STATUS-REPORT.md, issue #15
 
 from __future__ import annotations
 import numpy as np
+try:
+    from gymnasium.spaces import Box
+except ImportError:
+    from gym.spaces import Box
 from typing import Dict, Optional
 import math
 
@@ -52,13 +56,13 @@ CL_ALPHA: float = 2.0
 RHO_0: float = 1.225
 H_SCALE: float = 8500.0
 
-# Guidance / control
+# Guidance / control (hardened)
 BODY_RATE_MAX: float = 5.0    # rad/s — high maneuverability for 400g drone
 BODY_RATE_TC: float = 0.1     # s — fast response
 
 # Targets
 TARGET_SPEED: float = 300.0   # m/s
-D_INTERCEPT: float = 2.0      # m
+D_INTERCEPT: float = 1.5      # m — reduced from 2.0m (-25%) per M8 hardening decision
 
 # Reward
 R_INTERCEPT: float = 1000.0
@@ -176,6 +180,8 @@ class SwarmInterceptEnv:
     def __init__(self, n_agents: int = 2, max_steps: int = MAX_STEPS):
         self.n_agents = n_agents
         self.max_steps = max_steps
+        self.observation_space = Box(None, None, (13,))
+        self.action_space = Box(None, None, (3,))
 
     def reset(self, seed=None):
         self._rng = np.random.default_rng(seed)
@@ -189,15 +195,19 @@ class SwarmInterceptEnv:
         self._alive = np.ones(self.n_agents, dtype=np.float32)
         self._tgt_pos = np.array([0.0, 0.0, 500.0], dtype=np.float32)
         self._tgt_vel = np.array([0.0, 0.0, 0.0], dtype=np.float32)
-        return self._get_obs()
+        return self._get_obs(), {}
 
     def step(self, actions):
         self._step_count += 1
         self._sim_time += DT
         rewards = np.zeros(self.n_agents)
+        terminations = np.zeros(self.n_agents, dtype=bool)
+        truncations = np.zeros(self.n_agents, dtype=bool)
 
         for i in range(self.n_agents):
-            if self._alive[i] < 0.5: continue
+            if self._alive[i] < 0.5:
+                terminations[i] = True
+                continue
 
             act = actions.get(i, np.zeros(3))
             p, v, q, o = integrate_step(

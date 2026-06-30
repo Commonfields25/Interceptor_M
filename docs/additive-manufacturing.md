@@ -9,9 +9,9 @@ Additive manufacturing (AM) is evaluated for three production scenarios:
 | ACT-001 | **DMLS (AlSi10Mg)** | Thin pockets (8.5 mm depth), high density required, ESC/FC fit critical |
 | NCR-001 | **DMLS (316L SS)** | Superior surface finish for bore sealing; O-ring groove as-built acceptable |
 
-> **Note:** Prototype machining remains the preferred path for first articles (< 5 units) 
-> due to predictability, existing tooling, and CMM traceability. AM is recommended 
-> for **serial production ≥ 10 units** where geometry complexity or part count 
+> **Note:** Prototype machining remains the preferred path for first articles (< 5 units)
+> due to predictability, existing tooling, and CMM traceability. AM is recommended
+> for **serial production ≥ 10 units** where geometry complexity or part count
 > justifies the tooling investment.
 
 ---
@@ -86,7 +86,7 @@ Additive manufacturing (AM) is evaluated for three production scenarios:
 2. Post-AM turning on bore/OD (Op 30/40 equivalent)
 3. O-ring groove milled on 5-axis or turned on lathe
 
-> Hybrid approach is preferred for volumes 5–50 units where DMLS geometry 
+> Hybrid approach is preferred for volumes 5–50 units where DMLS geometry
 > complexity is exploited but surface finish is guaranteed.
 
 ---
