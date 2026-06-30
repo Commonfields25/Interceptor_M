@@ -15,7 +15,7 @@ jobs:
     name: ISO Baseline Document Present
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check engineering/ISO_UAS_BASELINE.md exists
         run: |
@@ -39,7 +39,7 @@ jobs:
     name: ISO Norm References Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Parse ISO references in ISO_UAS_BASELINE.md
         run: |
@@ -66,7 +66,7 @@ jobs:
     name: BOM Baseline Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Validate BOM exists
         run: |
@@ -86,7 +86,7 @@ jobs:
     name: DI Spec Lock Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check engineering/DI_SPEC_LOCK.md
         run: |
@@ -100,7 +100,7 @@ jobs:
     name: Engineering Docs Lint
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check for key engineering docs
         run: |
@@ -139,7 +139,7 @@ jobs:
     name: Octave/MATLAB Simulation
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Check Octave availability
         run: |
@@ -166,7 +166,7 @@ jobs:
     name: Node 24 Runtime
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
@@ -185,7 +185,7 @@ jobs:
     name: Dependency Security Audit
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Run npm audit (if package.json exists)
         run: |
