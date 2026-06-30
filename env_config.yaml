@@ -1,0 +1,48 @@
+# RL Environment Configuration — Interceptor_M
+# Issue: #56
+# Version: 1.0
+# Classification: Internal
+
+# ── Reward Shaping ──────────────────────────────────────────────────────────────
+reward:
+  # Success reward: episode completed without crash
+  success: 100.0
+  # Survival reward: per-timestep bonus to encourage endurance
+  survival: 0.1
+  # Crash penalty: negative reward on failure
+  crash: -50.0
+  # Intermediate goal bonus (optional waypoints)
+  waypoint: 5.0
+
+  # Thresholds
+  target_success_ratio: 0.80   # ≥ 80% success on 1000 test episodes
+  max_episode_steps: 1000      # max steps per episode before auto-reset
+
+# ── Reset Policy ────────────────────────────────────────────────────────────────
+reset:
+  # Auto-reset triggers
+  trigger_on_crash: true        # reset immediately after crash event
+  trigger_on_divergence: true   # reset if state deviates >10% from expected
+  divergence_threshold: 0.10   # relative deviation threshold
+
+  # Reset seed strategy (for reproducibility)
+  seed_strategy: "fixed"        # options: "fixed" | "sequential" | "random"
+  base_seed: 42
+
+# ── Environment Hyperparameters ─────────────────────────────────────────────────
+env:
+  name: "interceptor_m"
+  sim_dt_s: 0.01                # simulation timestep [s]
+  max_speed_m_s: 50.0           # physical speed cap
+  min_altitude_m: 0.0           # ground floor [m]
+  max_altitude_m: 500.0         # ceiling [m]
+  bounds_x_m: [-200, 200]       # operational area
+  bounds_y_m: [-200, 200]
+
+# ── Training Defaults ────────────────────────────────────────────────────────────
+training:
+  total_timesteps: 10_000_000
+  eval_freq: 50_000
+  eval_episodes: 1000
+  save_freq: 100_000
+  target_reward: 95.0           # mean reward for early stopping
