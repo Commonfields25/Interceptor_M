@@ -40,7 +40,7 @@ Detailed Specs: [`PARAMETERS.json`](./PARAMETERS.json) | [`PRODUCT-FAMILY.md`](.
 
 The interception logic is trained in a customized **Isaac Gym** environment using **MAPPO** (Multi-Agent Proximal Policy Optimization).
 
-- **Physics**: Real-world aerodynamic modeling ($C_x$, $C_{L\alpha}$) and atmospheric density.
+- **Physics**: Real-world aerodynamic modeling ($C_x$, $C_{Llpha}$) and atmospheric density.
 - **Training**: Centralized learning with decentralized execution for swarm coordination.
 - **Verification**: Cross-verified via MATLAB analytical models.
 
