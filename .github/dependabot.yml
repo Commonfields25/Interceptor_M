@@ -45,3 +45,5 @@ updates:
     labels:
       - "ci/cd"
       - "dependencies"
+
+# Security advisories integration
