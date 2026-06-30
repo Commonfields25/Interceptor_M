@@ -1,0 +1,23 @@
+{
+  "agent_id": "D1",
+  "role": "Industrial Design & Mechanical Engineering",
+  "status": "active",
+  "current_mission": {
+    "id": "MISSION-D1-002",
+    "title": "SABOT-001 / L_lanceur Resolution",
+    "description": "Finalize the L_lanceur dimensioning (1980 mm +/- 1 mm) and update all related CAD models and assembly documents. Ensure synchronization with DD-PARAMETERS.md.",
+    "priority": "critical",
+    "assigned_at": "2026-06-29T22:15:02Z",
+    "deadline": "2026-07-05T00:00:00Z",
+    "deliverable": "docs/D3/SAB-02_L_lanceur_v1.2_SYNC.md",
+    "dependencies": ["E1"]
+  },
+  "capabilities": [
+    "DfAM",
+    "SolidWorks",
+    "FEA",
+    "GD&T",
+    "Industrial Design"
+  ],
+  "last_updated": "2026-06-29T22:15:02Z"
+}
