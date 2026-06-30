@@ -1,0 +1,15 @@
+{
+  "mission_id": "MISSION-D1-003",
+  "agent_id": "D1",
+  "task": "High-Fidelity Redesign of BRK-001 (Structural Bracket)",
+  "workflow": [
+    "Read governance/CAD_QUALITY_STANDARDS.md",
+    "Refactor BRK-001 CAD in hardware/prototypes/model_parts.py to v2.0",
+    "Add R2.0 fillets and 0.5x45 chamfers to all non-mating edges",
+    "Optimize mass via light-weight pocketing (target < 45g)"
+  ],
+  "constraints": {
+    "material": "Al 7075-T6",
+    "tolerance": "ISO 2768-m"
+  }
+}
