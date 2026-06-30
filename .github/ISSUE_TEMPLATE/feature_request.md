@@ -25,4 +25,3 @@ body:
         - M2: Product Specs Locked (31/08/2026)
         - M3: Governance & CI (15/08/2026)
         - M4: First Training Runs (30/09/2026)
-

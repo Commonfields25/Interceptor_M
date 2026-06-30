@@ -29,4 +29,3 @@ Closes #
 
 ---
 *Generated from Interceptor_M CONTRIBUTING guidelines*
-
