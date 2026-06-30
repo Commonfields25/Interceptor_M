@@ -1,6 +1,6 @@
 # BOM Baseline — Interceptor_M
 
-> **Status:** Baseline Active | **Version:** 1.0 | **Date:** 2026-06-30
+> **Status:** Baseline Active | **Version:** 1.0 | **Date:** 2026-06-30  
 > **Owner:** Direction Générale | **Classification:** Interne
 
 ---

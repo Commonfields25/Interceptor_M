@@ -1,6 +1,6 @@
 # MTOW 300g — Spécification Provisoire
-**STATUS:** `PROVISIONAL — awaiting DG lock`
-**Version:** 1.0-draft
+**STATUS:** `PROVISIONAL — awaiting DG lock`  
+**Version:** 1.0-draft  
 **Dernière mise à jour:** 2026-06-30
 
 ---
@@ -50,7 +50,7 @@
 | PU-003 | Réserve charge utile | 1 | 22 g | 22 g |
 | **TOTAL** | | | | **~295 g** |
 
-> ⚠️ Marges de tolérance de fabrication : ±10 g sur airframe et propulsion.
+> ⚠️ Marges de tolérance de fabrication : ±10 g sur airframe et propulsion.  
 > ⚠️ La masse batterie dépend du lot fournisseur — vérifier avant assembly final.
 
 ---
