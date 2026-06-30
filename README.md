@@ -16,6 +16,15 @@
 
 ---
 
+## 🧱 Hardware & CAD
+
+Interceptor_M supports **procedural CAD generation**. STL files for the launcher and airframe can be generated directly from Python scripts using `numpy-stl`.
+
+- **Launcher Parts**: Chassis, Rails, and Locking Mechanisms.
+- **Airframe**: Parametric scaling based on product line specs.
+
+See [`docs/CAD_GENERATION.md`](./docs/CAD_GENERATION.md) for generation instructions.
+
 ## 🛠️ Product Family
 
 The platform follows a **common-core strategy** across three market lines:
@@ -31,27 +40,13 @@ Detailed Specs: [`PARAMETERS.json`](./PARAMETERS.json) | [`PRODUCT-FAMILY.md`](.
 
 The interception logic is trained in a customized **Isaac Gym** environment using **MAPPO** (Multi-Agent Proximal Policy Optimization).
 
-- **Physics**: Real-world aerodynamic modeling ($C_x$, $C_{L\alpha}$) and atmospheric density.
+- **Physics**: Real-world aerodynamic modeling ($C_x$, $C_{Llpha}$) and atmospheric density.
 - **Training**: Centralized learning with decentralized execution for swarm coordination.
 - **Verification**: Cross-verified via MATLAB analytical models.
 
 ---
 
-## Engineering Performance Baseline (MATLAB Verified)
-
-Analytical performance metrics for the **DD-400** platform at Sea Level.
-
-| Parameter | Value | Condition |
-|-----------|-------|-----------|
-| **Intercept Speed** | 300 m/s (Mach 0.88) | Full Thrust |
-| **Max Load Factor** | 5.9 g | Aero-limited @ 12° AoA |
-| **Min Turn Radius** | 1,559 m | @ 300 m/s |
-| **Steady Drag** | 19.3 N | @ 300 m/s |
-| **Thrust-to-Weight** | 3.06 | @ Max Thrust (12N) |
-
-Verified via [`matlab/interceptor_performance.m`](./matlab/interceptor_performance.m)
-
-## Repository Structure
+## ⚖️ Governance & Compliance
 
 Operated by a team of parallel AI agents (D1-D3, E1-E3) under a strict 11-gate approval process.
 - **Auto-Approval**: Minor gates (G1, G3, G5, G6, G8) are managed autonomously based on performance KPIs.
