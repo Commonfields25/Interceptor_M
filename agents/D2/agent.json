@@ -1,0 +1,17 @@
+{
+  "agent_id": "D2",
+  "role": "Simulation Aérodynamique",
+  "status": "in_progress",
+  "current_mission": {
+    "id": "MISSION-002",
+    "title": "Simulation CFD simplifiée — 3 configurations d'aile candidates",
+    "description": "Simuler le comportement aérodynamique (CFD simplifié) pour 3 configurations d'aile candidates. Évaluer la portance (Cl), la traînée (Cd), le ratio Cl/Cd, et la stabilité pour chaque configuration. Comparer les résultats et recommander la configuration optimale.",
+    "priority": "high",
+    "assigned_at": "2026-06-24T14:37:00Z",
+    "deadline": "2026-07-01T00:00:00Z",
+    "deliverable": "docs/D2/cfd_results.md",
+    "dependencies": ["MISSION-001"]
+  },
+  "capabilities": ["CFD", "simulation numérique", "analyse structurale"],
+  "last_updated": "2026-06-24T14:37:00Z"
+}
