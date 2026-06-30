@@ -1,0 +1,14 @@
+# Interceptor_M — Project Configuration
+# ISO 9001 / AS9100 Compliance
+
+[project]
+name = "Interceptor_M"
+version = "0.1.0"
+description = "Autonomous Swarm Counter-UAS — Drone Interceptor System"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.vercel]
+# Vercel Python runtime entrypoint (relative to project root)
+# api/index.py exports an `app` ASGI application.
+entrypoint = "api/index.py"
