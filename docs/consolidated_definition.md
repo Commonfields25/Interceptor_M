@@ -10,8 +10,8 @@
 
 ## 1. Mission & Rôle Système
 
-**Désignation** : Interceptor_M  
-**Classification NATO** : Surface-to-Air Guided Missile (SAGM)  
+**Désignation** : Interceptor_M
+**Classification NATO** : Surface-to-Air Guided Missile (SAGM)
 **Rôle** : Intercepteur short-to-medium range air defense (SHORAD/M-SHORAD) — anti-drone, anti-essaim, anti-missile de croisière subsonique
 
 ### 1.1 Enveloppe d'Engagement
@@ -273,7 +273,7 @@
 | TRL 8 | Système qualifié en vol réel | 🔲 Année 5+ |
 | TRL 9 | Système prouvé en mission réelle | 🔲 Année 6+ |
 
-**TRL actuel : 3** (étude de concept / analytique)  
+**TRL actuel : 3** (étude de concept / analytique)
 **TRL cible : 7** (prototype en environnement opérationnel)
 
 ### 6.2 Jalons de Développement

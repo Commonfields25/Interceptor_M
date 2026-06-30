@@ -86,13 +86,13 @@ def portance(vitesse_m_s, incidence_rad, altitude_m):
 def etat_initial(position_m, vitesse_m_s, cap_rad):
     """
     Construire un dictionnaire d'état pour l'intégrateur.
-    
+
     Paramètres
     ----------
     position_m : list[float, float, float]  [x, y, z] en m
     vitesse_m_s  : float  module de la vitesse en m/s
     cap_rad      : float  cap (azimut) en rad
-    
+
     Retourne
     --------
     dict — état complet du système

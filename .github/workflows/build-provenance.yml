@@ -1,0 +1,65 @@
+name: Build Provenance Attestation
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+# REQUIRED permissions for OIDC token + attestation creation
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
+jobs:
+  build-and-attest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Detect build system
+        id: buildsys
+        run: |
+          if [ -f pyproject.toml ]; then
+            echo "has_build=yes" >> $GITHUB_OUTPUT
+          else
+            echo "has_build=no" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build Python sdist/wheel
+        if: steps.buildsys.outputs.has_build == 'yes'
+        run: |
+          pip install build --quiet
+          python -m build --sdist --no-isolation .
+
+      - name: Package source as tarball
+        if: steps.buildsys.outputs.has_build == 'no'
+        run: |
+          mkdir -p dist
+          tar czf dist/simulation-source.tar.gz simulation/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: dist/
+
+      - name: Generate build provenance attestation
+        uses: actions/attest-build-provenance@v4.1.1
+        with:
+          subject-path: dist/simulation-source.tar.gz
+
+      - name: Upload attestation
+        uses: actions/upload-artifact@v4
+        with:
+          name: provenance-attestation
+          path: provenance.jsonl
+          retention-days: 90
