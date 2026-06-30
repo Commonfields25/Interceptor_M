@@ -1,146 +1,63 @@
-# Octave / MATLAB Simulation & Constraint Tests
+# Interceptor_M — Simulation Tests (E3 Namespace)
 
-> E3 — engineering/simulation/ | Version 1.0 | 2026-06-30
-> Compatible with GNU Octave 8.x+ and MATLAB R2023b+
+## Overview
+Dual-stack (GNU Octave / MATLAB) simulation and constraint verification suite
+for the Interceptor_M project. All scripts are syntax-compatible with
+**GNU Octave 8.x+** and **MATLAB R2023b+**.
 
----
+## File Inventory
 
-## 1. Overview
-
-This directory contains Octave/MATLAB-compatible `.m` scripts for thermal and aerodynamic simulation, plus an automated constraint test runner.
-
-**Files**
-
-| File | Description |
-|---|---|
-| `scripts/thermal_transient_pcb.m` | 60s transient PCB thermal (lumped RC ODE) |
-| `scripts/aeroload_proxy.m` | Lift / Drag / Moment proxy (DATCOM-style) |
-| `scripts/plot_results.m` | Generate 2D figures (PDF) |
-| `tests/constraint_test_runner.m` | Automated PASS/FAIL constraint checks |
-
----
-
-## 2. Requirements
-
-| Environment | Version | Notes |
-|---|---|---|
-| GNU Octave | ≥ 8.x | Preferred (free). Install via `apt install octave` |
-| MATLAB | ≥ R2023b | Use `--batch` mode or live editor |
-
-No proprietary toolboxes required — all scripts use core MATLAB/Octave functions only.
-
----
-
-## 3. Running in GNU Octave
-
-### Option A — Interactive REPL
-```bash
-cd engineering/simulation/
-octave --no-gui
-```
-
-Then inside Octave:
-```matlab
-addpath scripts tests
-
-% Run thermal simulation
-[t, T, s] = thermal_transient_pcb();
-
-% Run aeroload proxy
-[CL, CD, CM, sa] = aeroload_proxy(5, 0.8);
-
-% Run all constraint tests
-[results, ok] = constraint_test_runner('all');
-
-% Generate plots
-plot_results('all');
-```
-
-### Option B — Batch mode (no GUI)
-```bash
-octave --no-gui --eval "
-  addpath('scripts','tests');
-  [t,T,s] = thermal_transient_pcb();
-  [CL,CD,CM] = aeroload_proxy(0, 0.8);
-  [r,ok] = constraint_test_runner('all');
-  plot_results('all');
-  exit;
-"
-```
-
-PDF figures are saved to the current working directory.
-
----
-
-## 4. Running in MATLAB
-
-### Live Editor / Interactive
-```matlab
-addpath(genpath('engineering/simulation'));
-[t, T, s] = thermal_transient_pcb();
-[CL, CD, CM, sa] = aeroload_proxy(5, 0.8);
-[r, ok] = constraint_test_runner('all');
-plot_results('all');
-```
-
-### Batch mode
-```bash
-matlab -batch "addpath('scripts','tests'); [r,ok]=constraint_test_runner('all'); exit"
-```
-
-### Optional toolboxes (falls back gracefully if unavailable)
-- **Signal Processing Toolbox** → not required (no filters used)
-- **Optimization Toolbox** → not required
-- **Aerospace Toolbox** → not required
-
----
-
-## 5. Test Descriptions
-
-| Test ID | Category | Description | Threshold |
+| File | Purpose | ISO 9001 | ISO 15288 |
 |---|---|---|---|
-| THERM-001 | Thermal | Junction T < 100°C (60s) | < 100 °C |
-| THERM-002 | Thermal | T at 30s < 80°C (warning) | < 80 °C |
-| THERM-003 | Thermal | With heatsink: T < 85°C | < 85 °C |
-| AERO-05..14 | Aero | Positive lift across ±5° AoA | CL > 0 |
-| AERO-CLMAX | Aero | CL_max below stall realism | < 2.0 |
-| AERO-CD-M15 | Aero | Drag at M=1.5 | < 0.15 |
-| MASS-001 | Mass | Thermal penalty < 2% MTOW | < 8 g |
+| `run_all_tests.m` | Top-level orchestrator | §9.1 | §5.3.2.6 |
+| `scripts/thermal_transient_pcb.m` | Lumped-RC thermal transient, 60 s | §8.5.1 | §5.3.2.4 |
+| `scripts/aeroload_proxy.m` | DATCOM-style aero loads DD/DI/DC | §8.5.1 | §5.3.2.4 |
+| `scripts/plot_results.m` | Post-processing 2D plots | §8.5.1 | — |
+| `tests/constraint_test_runner.m` | Automated PASS/FAIL checks | §9.1 | §5.3.2.6 |
+| `compliance/ISO*.md` | ISO clause linkage matrix | All | All |
 
----
+## Running the Suite
 
-## 6. Output Interpretation
-
-```
-*** CONSTRAINT TEST RUNNER — E3 / engineering/simulation/ ***
-  Namespace : engineering/simulation/
-  OK       : All file operations restricted to E3 namespace
-
-============================================================
-               CONSTRAINT TEST RESULTS
-============================================================
-ID          Category     Result     Description
-------------------------------------------------------------
-THERM-001   Thermal      PASS       Junction temperature < 100°C
-THERM-002   Thermal      PASS       Warning threshold at 30s
-AERO-00005  Aerodynamic  PASS       CL at alpha=-5°
-...
-------------------------------------------------------------
-  Total : 8 PASS  /  0 FAIL  /  8 TOTAL
-============================================================
-  OVERALL  : **ALL CONSTRAINTS SATISFIED — PASS**
-============================================================
+### GNU Octave (8.x+)
+```bash
+cd engineering/simulation
+octave --quiet --no-gui --eval "addpath(pwd); run_all_tests"
+# Or individually:
+octave --quiet --no-gui --eval "addpath('scripts'); addpath('tests'); run_all_tests"
 ```
 
----
+### MATLAB (R2023b+)
+```matlab
+cd engineering/simulation
+addpath(pwd)
+addpath('scripts')
+addpath('tests')
+run_all_tests
+% Or in parallel (Parallel Computing Toolbox):
+parfor i = 1:3, run_all_tests; end
+```
 
-## 7. Governing Standards
+### CI (GitHub Actions — Ubuntu)
+The workflow `.github/workflows/octave-sim-ci.yml` runs automatically on every
+push to `main`, `develop`, `feat/E3/*`, and `fix/E3/*`.
 
-- `governance/rules.md` v1.2 — E3 delegated gates (G5 simulation GO)
-- `PARAMETERS.json` v1.0.2 — DD/DI/DC platform parameters
-- `engineering/simulation/E3-THERMAL-SIMULATION.md` — thermal baseline
-- `engineering/simulation/E3-AVIONICS-PLAN.md` — avionics/HIL protocol
+## Acceptance Criteria
 
----
+| Test | Metric | Threshold | ISO Clause |
+|---|---|---|---|
+| THERM-001 | T_junction peak | < 100 °C | ISO9001 §9.1 |
+| THERM-002 | T_junction @ 45s | < 80 °C | ISO9001 §9.1 |
+| THERM-003 | T_junction (heatsink 8 g) | < 85 °C | ISO9001 §9.1 |
+| AERO-CL | Lift coefficient | CL > 0 (non-stall) | ISO9001 §9.1 |
+| AERO-CLMAX | CL_max | < 2.0 | ISO9001 §9.1 |
+| AERO-CD | Drag coefficient | CD < 0.15 | ISO9001 §9.1 |
+| MASS-001 | Heatsink mass penalty | < 2% MTOW | ISO9001 §8.5.1 |
+| ISO-001 | Namespace isolation | No E1/E2 cross-refs | ISO15288 §5.3.2.6 |
 
-*E3 — All scripts restricted to engineering/simulation/ namespace*
+## ISO Linkage Summary
+- **ISO 9001:2015** — §7.5 (doc control), §8.5.1 (process control), §9.1 (monitoring)
+- **ISO/IEC 27001:2022** — Annex A §A.8.2, §A.8.25 (secure development)
+- **ISO/IEC/IEEE 15288:2023** — §5.3.2 (development stage), §6.4–§6.8
+
+## Namespace Constraint
+E3 operates strictly within `engineering/simulation/` (per `governance/NAMESPACE-ISOLATION.md`).
