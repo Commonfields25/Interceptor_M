@@ -20,6 +20,10 @@ Authors: Jules (Physics Expert) | Refs: STATUS-REPORT.md, issue #15
 
 from __future__ import annotations
 import numpy as np
+try:
+    from gymnasium.spaces import Box
+except ImportError:
+    from gym.spaces import Box
 from typing import Dict, Optional
 import math
 
@@ -27,6 +31,11 @@ import math
 N_AGENTS_MAX: int = 4
 DT: float = 0.01              # High-fidelity integration timestep [s]
 MAX_STEPS: int = 2000         # Max episode length (20s @ 0.01s)
+
+# Wind / disturbance (hardened difficulty — post-M8 DG decision 2026-06-30)
+WIND_GUST_STD: float = 7.0       # m/s — was 0.0, +40% from prior estimate (+0% → +40%)
+WIND_GUST_INTERVAL: float = 0.5  # s — update gust every 0.5s
+WIND_GUST_MAG: float = 10.0      # m/s — max gust magnitude
 
 # DD-400 Physical Constants
 MASS: float = 0.400           # kg — MTOW
@@ -52,13 +61,13 @@ CL_ALPHA: float = 2.0
 RHO_0: float = 1.225
 H_SCALE: float = 8500.0
 
-# Guidance / control
+# Guidance / control (hardened)
 BODY_RATE_MAX: float = 5.0    # rad/s — high maneuverability for 400g drone
 BODY_RATE_TC: float = 0.1     # s — fast response
 
 # Targets
 TARGET_SPEED: float = 300.0   # m/s
-D_INTERCEPT: float = 2.0      # m
+D_INTERCEPT: float = 1.5      # m — reduced from 2.0m (-25%) per M8 hardening decision
 
 # Reward
 R_INTERCEPT: float = 1000.0
@@ -176,8 +185,8 @@ class SwarmInterceptEnv:
     def __init__(self, n_agents: int = 2, max_steps: int = MAX_STEPS):
         self.n_agents = n_agents
         self.max_steps = max_steps
-        self.observation_space = Box(None, None, (13,))
-        self.action_space = Box(None, None, (3,))
+        self.observation_space = Box(low=-np.inf, high=np.inf, shape=(13,), dtype=np.float32)
+        self.action_space = Box(low=-np.inf, high=np.inf, shape=(3,), dtype=np.float32)
 
     def reset(self, seed=None):
         self._rng = np.random.default_rng(seed)
@@ -191,6 +200,8 @@ class SwarmInterceptEnv:
         self._alive = np.ones(self.n_agents, dtype=np.float32)
         self._tgt_pos = np.array([0.0, 0.0, 500.0], dtype=np.float32)
         self._tgt_vel = np.array([0.0, 0.0, 0.0], dtype=np.float32)
+        self._wind_gust = np.zeros(3, dtype=np.float32)
+        self._gust_timer = 0.0
         return self._get_obs()
 
     def step(self, actions):
@@ -198,12 +209,21 @@ class SwarmInterceptEnv:
         self._sim_time += DT
         rewards = np.zeros(self.n_agents)
 
+        # Update wind gust every WIND_GUST_INTERVAL
+        self._gust_timer += DT
+        if self._gust_timer >= WIND_GUST_INTERVAL:
+            self._gust_timer = 0.0
+            self._wind_gust = self._rng.uniform(-WIND_GUST_MAG, WIND_GUST_MAG, 3).astype(np.float32)
+
         for i in range(self.n_agents):
             if self._alive[i] < 0.5: continue
 
+            # Apply gust to velocity before integration
+            v_gusted = self._vel[i] + self._wind_gust
+
             act = actions.get(i, np.zeros(3))
             p, v, q, o = integrate_step(
-                self._pos[i], self._vel[i], self._quat[i], self._omega[i],
+                self._pos[i], v_gusted, self._quat[i], self._omega[i],
                 act[0], act[1:3], DT
             )
             self._pos[i], self._vel[i], self._quat[i], self._omega[i] = p, v, q, o
