@@ -68,6 +68,13 @@ R_SEPARATION: float = 1.0
 R_FRATRICIDE: float = -500.0
 R_GROUND: float = -100.0
 
+# ─── Space Class (Gym Mock) ───────────────────────────────────────────────────
+class Box:
+    def __init__(self, low, high, shape):
+        self.low = low
+        self.high = high
+        self.shape = shape
+
 # ─── Physics Helpers ──────────────────────────────────────────────────────────
 def get_density(alt: float) -> float:
     return RHO_0 * math.exp(-max(0, alt) / H_SCALE)
@@ -176,6 +183,8 @@ class SwarmInterceptEnv:
     def __init__(self, n_agents: int = 2, max_steps: int = MAX_STEPS):
         self.n_agents = n_agents
         self.max_steps = max_steps
+        self.observation_space = Box(None, None, (13,))
+        self.action_space = Box(None, None, (3,))
 
     def reset(self, seed=None):
         self._rng = np.random.default_rng(seed)
@@ -189,15 +198,19 @@ class SwarmInterceptEnv:
         self._alive = np.ones(self.n_agents, dtype=np.float32)
         self._tgt_pos = np.array([0.0, 0.0, 500.0], dtype=np.float32)
         self._tgt_vel = np.array([0.0, 0.0, 0.0], dtype=np.float32)
-        return self._get_obs()
+        return self._get_obs(), {}
 
     def step(self, actions):
         self._step_count += 1
         self._sim_time += DT
         rewards = np.zeros(self.n_agents)
+        terminations = np.zeros(self.n_agents, dtype=bool)
+        truncations = np.zeros(self.n_agents, dtype=bool)
 
         for i in range(self.n_agents):
-            if self._alive[i] < 0.5: continue
+            if self._alive[i] < 0.5:
+                terminations[i] = True
+                continue
 
             act = actions.get(i, np.zeros(3))
             p, v, q, o = integrate_step(
@@ -210,12 +223,16 @@ class SwarmInterceptEnv:
             if dist < D_INTERCEPT:
                 rewards[i] += R_INTERCEPT
                 self._alive[i] = 0.0
+                terminations[i] = True
             elif self._pos[i, 2] < 0:
                 rewards[i] += R_GROUND
                 self._alive[i] = 0.0
+                terminations[i] = True
 
-        done = np.all(self._alive < 0.5) or self._step_count >= self.max_steps
-        return self._get_obs(), rewards, done, {}
+        if self._step_count >= self.max_steps:
+            truncations[:] = True
+
+        return self._get_obs(), rewards, terminations, truncations, {}
 
     def _get_obs(self):
         obs = {}
@@ -225,9 +242,9 @@ class SwarmInterceptEnv:
 
 if __name__ == "__main__":
     env = SwarmInterceptEnv()
-    obs = env.reset()
+    obs, _ = env.reset()
     print("6-DOF Physics Engine Upgraded (DD-400 platform).")
     for _ in range(100):
-        obs, rewards, done, info = env.step({0: np.array([1.0, 0.1, 0.1]), 1: np.array([1.0, -0.1, -0.1])})
-        if done: break
+        obs, rewards, term, trunc, info = env.step({0: np.array([1.0, 0.1, 0.1]), 1: np.array([1.0, -0.1, -0.1])})
+        if term.any() or trunc.any(): break
     print(f"Simulation completed. Final Pos Agent 0: {obs[0][:3]}")
