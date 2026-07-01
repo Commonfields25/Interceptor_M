@@ -85,7 +85,7 @@ def generate_component_metadata(component_name, params_path, output_dir):
     json_out = os.path.join(output_dir, f"{component_name}_plan.json")
     with open(json_out, 'w') as f:
         json.dump(metadata, f, indent=2)
-        
+
     # Generate Python Geometry Script (Placeholder for actual CAD logic)
     py_out = os.path.join(output_dir, f"gen_{component_name}.py")
     with open(py_out, 'w') as f:
@@ -94,7 +94,7 @@ def generate_component_metadata(component_name, params_path, output_dir):
         f.write(f"with open('{component_name}_plan.json', 'r') as f: metadata = json.load(f)\n")
         f.write(f"print(f'Generating {component_name} with length {{metadata[\"parameters\"][\"result_L_lanceur\"]}}mm')\n")
         f.write(f"# CAD logic goes here...\n")
-        
+
     return json_out, py_out
 
 if __name__ == "__main__":
