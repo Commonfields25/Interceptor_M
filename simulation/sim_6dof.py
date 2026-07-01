@@ -1,8 +1,8 @@
 """
 simulation/sim_6dof.py
 ======================
-Simulateur 6-DOF simplifié pour l'intercepteur DD-400.
-Amélioration : Boost-Sustain propulsion profile, Seeker FOR monitoring.
+Simulateur 6-DOF pour l'intercepteur DD-400.
+Modèle : Lancement pneumatique + Dash électrique (Masse Constante).
 """
 
 import math
@@ -21,21 +21,15 @@ _DUREE_MAX   = C.DUREE_MAX_S
 _DT          = C.PAS_DE_TEMPS_S
 _SEUIL_SQ    = C.RL_INTERCEPT_RADIUS_M ** 2
 _ACCEL_MAX   = C.ACCELERATION_LATERALE_MAX_M_S2
-_FOR_LIMIT   = math.radians(60.0) # Field of Regard (±60 deg)
+_FOR_LIMIT   = math.radians(60.0)
 
 # ISA Constants
-_T0 = C.T0_ISA
-_P0 = C.P0_ISA
-_L  = C.L_ISA
-_R  = C.R_AIR
-_GAMMA = C.GAMMA_AIR
+_T0, _P0, _L, _R, _GAMMA = C.T0_ISA, C.P0_ISA, C.L_ISA, C.R_AIR, C.GAMMA_AIR
 
-# Propulsion Constants (Boost-Sustain)
-_DUREE_BOOST   = 2.0
-_POUSSEE_BOOST = 60.0
-_DUREE_SUSTAIN = 8.0
-_POUSSEE_SUSTAIN = 20.0
-_ISP           = C.ISP_S
+# Propulsion Constants (Electric)
+_POUSSEE_DASH = C.POUSSEE_DASH_N
+_BATT_J       = C.BATTERY_CAPACITY_J
+_EFF          = C.ENERGY_EFFICIENCY
 
 def isa_atmosphere(altitude_m):
     h = min(max(altitude_m, 0.0), 11000.0)
@@ -45,62 +39,62 @@ def isa_atmosphere(altitude_m):
     a = math.sqrt(_GAMMA * _R * T)
     return T, P, rho, a
 
-def densite(altitude_m):
-    _, _, rho, _ = isa_atmosphere(altitude_m)
-    return rho
-
 def get_drag_coeff(mach):
     if mach < 0.8: return _CX_BASE
     elif mach < 1.2: return _CX_BASE + (mach - 0.8) * (2.0 * _CX_BASE / 0.4)
     else: return (2.5 * _CX_BASE) / math.sqrt(mach**2 - 1.0)
 
-def get_thrust(t_s):
-    if t_s <= _DUREE_BOOST: return _POUSSEE_BOOST
-    elif t_s <= (_DUREE_BOOST + _DUREE_SUSTAIN): return _POUSSEE_SUSTAIN
+def get_thrust(t_s, energy_used_j):
+    """Dash électrique tant qu'il reste de la batterie."""
+    if energy_used_j < _BATT_J:
+        return _POUSSEE_DASH
     return 0.0
 
-def get_mass_flow(t_s):
-    thrust = get_thrust(t_s)
-    return thrust / (_ISP * _G0) if _ISP > 0 else 0.0
-
 def etat_initial(position_m, vitesse_m_s, cap_rad):
-    vx = vitesse_m_s * math.cos(cap_rad)
-    vy = vitesse_m_s * math.sin(cap_rad)
-    vz = 0.0
+    vx, vy = vitesse_m_s * math.cos(cap_rad), vitesse_m_s * math.sin(cap_rad)
     return {
         "position": np.array(position_m, dtype=float),
-        "vitesse" : np.array([vx, vy, vz], dtype=float),
+        "vitesse" : np.array([vx, vy, 0.0], dtype=float),
         "masse"   : float(_M0),
-        "temps"   : 0.0
+        "temps"   : 0.0,
+        "energy_used": 0.0
     }
 
 def derivees(etat, commands):
-    pos, vel, masse, t = etat["position"], etat["vitesse"], etat["masse"], etat["temps"]
+    pos, vel, t, energy = etat["position"], etat["vitesse"], etat["temps"], etat["energy_used"]
     v_mod = np.linalg.norm(vel)
     if v_mod < 0.1: return np.zeros(3), np.zeros(3), 0.0
+
     ut = vel / v_mod
     if abs(ut[2]) > 0.999: un = np.array([1.0, 0.0, 0.0])
     else:
         un = np.array([0.0, 0.0, 1.0]) - ut[2] * ut
         un /= np.linalg.norm(un)
     ub = np.cross(un, ut)
+
     T, P, rho, a_son = isa_atmosphere(pos[2])
     mach = v_mod / a_son
     cx = get_drag_coeff(mach)
-    thrust = get_thrust(t)
+
+    thrust = get_thrust(t, energy)
     drag = 0.5 * rho * v_mod**2 * _S_REF * cx
+
     a_lat, a_vert = commands
-    accel = ((thrust - drag) / masse) * ut + a_lat * ub + a_vert * un
+    # Masse constante _M0
+    accel = ((thrust - drag) / _M0) * ut + a_lat * ub + a_vert * un
     accel[2] -= _G0
-    mdot = -get_mass_flow(t)
-    return vel, accel, mdot
+
+    # Puissance électrique = Thrust * V / efficiency
+    power_w = (thrust * v_mod) / _EFF
+
+    return vel, accel, power_w
 
 def integrer(etat, commands, dt):
-    v, a, mdot = derivees(etat, commands)
+    v, a, p_w = derivees(etat, commands)
     new_v = etat["vitesse"] + a * dt
     etat["position"] += 0.5 * (etat["vitesse"] + new_v) * dt
     etat["vitesse"] = new_v
-    etat["masse"] += mdot * dt
+    etat["energy_used"] += p_w * dt
     etat["temps"] += dt
     return etat
 
@@ -124,8 +118,7 @@ def manoeuvre_virage_constant(etat_c, dt, accel_g=5.0):
     return etat_c
 
 def manoeuvre_weaving(etat_c, dt, accel_g=5.0, freq_hz=0.5):
-    t = etat_c.get("temps", 0.0)
-    pos, vel = etat_c["position"], etat_c["vitesse"]
+    t, pos, vel = etat_c.get("temps", 0.0), etat_c["position"], etat_c["vitesse"]
     v_h = math.sqrt(vel[0]**2 + vel[1]**2)
     if v_h < 0.1:
         pos += vel * dt
@@ -154,23 +147,20 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
     lost_seeker = False
 
     while temps < _DUREE_MAX:
-        v_i = etat_i["vitesse"]
-        v_mod = np.linalg.norm(v_i)
-        rel_pos = etat_c["position"] - etat_i["position"]
-        dist_sq = np.sum(rel_pos**2)
+        v_i, rel_pos = etat_i["vitesse"], etat_c["position"] - etat_i["position"]
+        v_mod, dist_sq = np.linalg.norm(v_i), np.sum(rel_pos**2)
         dist = math.sqrt(dist_sq)
 
         if keep_traj and (len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.05):
-            traj.append({"t": round(temps, 3), "x": round(etat_i["position"][0], 1), "y": round(etat_i["position"][1], 1), "z": round(etat_i["position"][2], 1), "cx": round(etat_c["position"][0], 1), "cy": round(etat_c["position"][1], 1), "v": round(v_mod, 1)})
+            traj.append({"t": round(temps, 3), "x": round(etat_i["position"][0], 1), "y": round(etat_i["position"][1], 1), "z": round(etat_i["position"][2], 1), "cx": round(etat_c["position"][0], 1), "cy": round(etat_c["position"][1], 1), "v": round(v_mod, 1), "energy": round(etat_i["energy_used"], 0)})
 
         if dist_sq < dist_min_sq: dist_min_sq = dist_sq
         if dist_sq < _SEUIL_SQ:
             intercept = True
             break
 
-        # Seeker check
         if v_mod > 0.1 and dist > 0.1:
-            look_angle = math.acos(np.dot(v_i, rel_pos) / (v_mod * dist))
+            look_angle = math.acos(np.clip(np.dot(v_i, rel_pos) / (v_mod * dist), -1.0, 1.0))
             if look_angle > _FOR_LIMIT:
                 lost_seeker = True
                 break
@@ -190,4 +180,7 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
     return {"intercept": intercept, "temps_s": round(temps, 3), "trajectoire": traj, "distance_min_m": round(math.sqrt(dist_min_sq), 2), "etat_final_i": etat_i, "lost_seeker": lost_seeker}
 
 if __name__ == "__main__":
-    pass
+    print("Electric Propulsion Verification:")
+    res = simulate_engagement([0,0,500], 70.0, 0.0, [1000,0,500], 0.0, 0.0, keep_traj=True)
+    for p in res['trajectoire'][:20:5]:
+        print(f"t={p['t']}s: V={p['v']}m/s, Energy={p['energy']}J")
