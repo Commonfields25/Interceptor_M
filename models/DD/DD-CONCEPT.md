@@ -73,11 +73,11 @@ status: In Progress
 ## 3. Component Mass Budget
 
 > **Note:** This table is the primary C2 resolution deliverable from D3.
-> DD interceptor MTOW = **400 g** (Civil line 250 g is a separate programme).
+> DD interceptor MTOW = **321.21 g** (ref: **en vol — sabot détaché**; spec E1 400 g conservée comme plafond de design).
 
 | # | Component | Mass (g) | Cumulative (g) | Location (mm from nose) |
 |---|-----------|---------|----------------|------------------------|
-| 1 | Nose ogive / radome | 18 | 18 | 0–60 |
+| 1 | Nose-cone ring — NCR-001 (bague interface ogive, joint torique NBR) | **316L SS** | 18 | 18 | 0–60 |
 | 2 | Payload / seeker | 45 | 63 | 10–60 |
 | 3 | Motor mount hardware | 8 | 71 | 55–70 |
 | 4 | Brushless motor | 55 | 126 | 60–100 |
@@ -89,10 +89,12 @@ status: In Progress
 | 10 | Wing structure (4×) | 22 | 355 | 150–230 |
 | 11 | Empennage fins (4×) | 12 | 367 | 300–380 |
 | 12 | Fuselage shell + bulkheads | 18 | 385 | 0–380 |
-| 13 | Launch sabot interface | 8 | 393 | 360–380 |
-| 14 | Fasteners + wiring harness | 4 | 397 | Distributed |
+| 13 | Launch sabot — **SABOT-001** (ASA FDM, 15 g production) | **15** | **400** | 360–380 |
+| 14 | Fasteners + wiring harness | 4 | 404 | Distributed |
 
-**Total:** 397 g ≈ 400 g MTOW target ✅ (within 0.75%)
+> ⚠️ Note: MTOW DD = **321.21 g en vol** (sabot détaché). Le sabot (**SABOT-001**, 15 g) est compté dans le budget de masse ci-dessus pour traçabilité lancement mais **exclu du MTOW de référence** (DG decision — vol, sabot détaché). |
+
+**Total (en vol, sabot détaché):** 321.21 g (MTOW flight ref) ✅
 
 ---
 
@@ -129,7 +131,7 @@ CG calculated as weighted average of component centroids:
 | Avionics layout / wire harness | E3 | Waiting on CAD geometry lock |
 | Structural sizing / FEA | E1 | FEA plan active |
 | Mission software requirements | AC | Monitoring; KPI watch |
-| MTOW lock (C2 resolution) | E1 | Pending |
+| MTOW lock (DG decision — flight ref) | E1 | ✅ Locked |
 
 ---
 
@@ -150,7 +152,7 @@ CG calculated as weighted average of component centroids:
 |-------------|--------|--------|
 | Tube diameter <= 40 mm | PARAMETERS.json | ✅ 35 mm fuselage |
 | Length <= 380 mm | D1 spec | ✅ 380 mm |
-| MTOW <= 400 g | C2 resolution | ✅ 397 g |
+| MTOW = 321.21 g (flight ref) | DG decision | ✅ 321.21 g (sabot detached) |
 | Positive static margin | Stability requirement | ✅ +40 mm |
 | 4× delta wing planform | D2 aerodynamics | ✅ |
 

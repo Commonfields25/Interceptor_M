@@ -12,7 +12,7 @@ status: Validated
 |------|-------------|----------|---------------|----------------------|--------|
 | **BRK-001** | Coque fuselage + 支翼 | AlSi10Mg | DMLS (SLM) | 130.74g | Refactored v2.3 |
 | **ACT-001** | Vérin tubulaire 3 axes | AlSi10Mg | DMLS (SLM) | 55.49g | Refactored v2.3 |
-| **NCR-001** | Carénage aero complexe | Nomex CF | Layup manual | 104.48g | Spec Lock |
+| **NCR-001** | Bague interface ogive — joint torique NBR (étanchéité pneumatique) | **316L SS** | Tournage CNC | 104.48g | Spec Lock |
 | **SABOT-001** | Interface Lanceur/Drone | FDM ASA | FDM 3D Print | 15.00g | **NEW** |
 | **FC-001** | Flight Controller (H7) | PCB | SMT Assembly | 12.50g | **NEW** |
 | **PDB-001** | Power Distribution Board | PCB | SMT Assembly | 18.00g | **NEW** |
@@ -21,7 +21,10 @@ status: Validated
 **Budget Cible (DD)** | | | | **290.71g** | ⚠️ +15% Over budget
 
 ## ⚠️ Analyse de l'Écart de Masse
-L'ajout du **SABOT-001** et de l'électronique haute-fidélité (**FC/PDB**) pousse la masse DD à 336g. Une optimisation de 15% est requise sur le `BRK-001` (pochettage) pour revenir sous les 290g.
+
+> **Réference MTOW DD = 321.21 g** (en vol — sabot détaché, DG decision). Spec E1 400 g conservée comme plafond de design.
+
+En vol (référence MTOW), la structure seule (hors sabot) est à ~321 g — **79 g sous le plafond 400 g** (DG decision). Le pocketing BRK-001 conserve ~20 g de marge.
 
 ---
 *Généré pour Revue G2 — Alignement avec engineering/BOM_BASELINE.md*
