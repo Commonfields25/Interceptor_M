@@ -6,7 +6,7 @@ Achieve a validated 3D model and simulation of the **Micro-Interceptor Swarm** a
 ## 📅 Roadmap (Next 4 Weeks)
 
 ### Week 1: Foundational Modeling (Parallel)
-- [ ] `TASK_DD_001`: @D3 - Model the primary airframe of the micro-interceptor (focus on aerodynamics and compact storage).
+- [x] `TASK_DD_001`: @D3 - Model the primary airframe of the micro-interceptor (focus on aerodynamics and compact storage).
 - [ ] `TASK_DD_002`: @E3 - Define battery/ESC/Motor volume constraints and provide as a "Keep-out zone" model to @D3.
 - [ ] `TASK_DD_003`: @E1 - Set up the Isaac Gym environment for swarm physics (gravity, drag, collisions).
 
