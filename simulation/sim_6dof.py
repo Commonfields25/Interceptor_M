@@ -22,6 +22,7 @@ _DUREE_MAX   = C.DUREE_MAX_S
 _DT          = C.PAS_DE_TEMPS_S
 _SEUIL_SQ    = C.RL_INTERCEPT_RADIUS_M ** 2
 _ACCEL_MAX   = C.ACCELERATION_LATERALE_MAX_M_S2
+_FOR_LIMIT   = math.radians(60.0)
 
 # ISA Constants
 _T0 = C.T0_ISA
@@ -196,6 +197,7 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
         integrer(etat_i, commands, _DT)
         etat_c = manoeuvre_c_fn(etat_c, _DT)
         temps += _DT
+        if etat_i["position"][2] < -10.0: break
 
         if etat_i["position"][2] < -10.0: break # Ground hit
 
