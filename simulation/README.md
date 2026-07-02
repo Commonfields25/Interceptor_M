@@ -1,26 +1,21 @@
 # Interceptor_M Physics & Simulation Package
 
-This package provides a high-fidelity 6-DOF simulation environment for the Interceptor_M drone (DD-400 baseline).
+This package provides a 6-DOF (simplified) simulation environment for the Interceptor_M drone (DD-400 baseline).
 
-## Current Architecture: Electric & Pneumatic
+## Improvements (Wave 7)
 
-The simulation implements the project's actual physical paradigm:
-1.  **Compressed Air Launch**: High initial exit velocity ($V_{launch} = 70 \text{m/s}$) representing the pneumatic tube launch.
-2.  **Electric Dash Propulsion**: A constant-mass model ($400\text{g}$) with an electric motor providing dash thrust ($8\text{N}$) and battery energy tracking ($50\text{kJ}$).
-3.  **Atmosphere**: Full **International Standard Atmosphere (ISA)** model for tropospheric density and speed of sound.
-4.  **Aerodynamics**: Mach-dependent drag ($C_x(M)$) including transonic rise.
-
-## Guidance & Filtering
-
-*   **3D Guidance**: Choice between standard Proportional Navigation (**PN**) and Augmented Proportional Navigation (**APN**).
-*   **3rd-Order Kalman Filter**: Estimates LOS rates from noisy, latent seeker measurements.
-*   **Seeker Simulation**: Includes a $\pm60^\circ$ Field-of-Regard (FOR) limit.
+1.  **Atmosphere Model**: Implemented the **International Standard Atmosphere (ISA)** model, replacing the simple isothermal density model. Density, pressure, and temperature now vary with altitude according to standard tropospheric lapse rates.
+2.  **Propulsion Model**: Added a time-varying **Motor Thrust** model with mass flow rate calculation. The interceptor's mass now decreases as propellant is consumed ($I_{sp} = 210s$), correctly affecting the Thrust-to-Weight Ratio and acceleration.
+3.  **Target Maneuvers**: The target is no longer restricted to a straight line. It can now perform **maneuvers** such as constant-G turns, allowing for more realistic engagement scenarios.
+4.  **Guidance & Filtering**:
+    *   Implemented a **Linear Kalman Filter** (`kalman_filter.py`) to estimate the Line-of-Sight (LOS) rates from noisy measurements.
+    *   Upgraded the Proportional Navigation (PN) guidance law to **3D PN** (`flight_control_poc.py`), using filtered LOS rates for both azimuth and elevation control.
 
 ## Running the Simulation
 
-*   **System Performance Analysis**: `python3 -m simulation.montecarlo_pintercept`
-    *   Generates a detailed `PHYSICS_PERFORMANCE_REPORT.md` in `docs/analysis/`.
-    *   Exports raw telemetry to `simulation/exports/`.
+*   **Monte Carlo Analysis**: `python3 -m simulation.montecarlo_pintercept` evaluates the probability of interception over the E1 engagement envelope.
+*   **Debug/Test Case**: `python3 -m simulation.debug_sim` runs a single engagement and prints the trajectory.
+*   **Constants**: All physical and system constants are centralized in `constants.py`.
 
 ## Requirements
 *   `numpy`
