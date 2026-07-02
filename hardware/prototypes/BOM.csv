@@ -5,3 +5,4 @@ NCR-001,Nose-Cone Ring,1,316L SS,Turning,104.48,D1,E1,Locked
 SABOT-001,Launcher Sabot,1,ASA,FDM,15.00,D3,G2,NEW
 FC-001,Flight Controller,1,PCB,SMT,12.50,E2,G2,NEW
 PDB-001,Integrated PDB,1,PCB,SMT,18.00,E2,G2,NEW
+PRO-001,Aero Propeller,4,Polymer,Molded,2.50,D2,G2,NEW
