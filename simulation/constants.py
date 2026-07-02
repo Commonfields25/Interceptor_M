@@ -2,6 +2,7 @@
 simulation/constants.py
 =======================
 Unified Physics & Engineering Constants — DD-400 Baseline
+Corrected for Electric Propulsion & Pneumatic Launch.
 """
 
 # 1. PHYSICAL CONSTANTS (ISA)
