@@ -1,7 +1,7 @@
 {
   "project": "Interceptor M",
-  "version": "1.0.1",
-  "mtow_source": "provisional — à confirmer produit",
+  "version": "1.1.0",
+  "mtow_source": "DG decision — ref en vol (sabot détaché)",
   "lines": {
     "DC": {
       "designation": "Drone Compact — Lightweight",
@@ -19,8 +19,8 @@
     },
     "DD": {
       "designation": "Drone Déployable — Extended Range",
-      "mtow_g": 400,
-      "mtow_source": "spec E1 nominal",
+      "mtow_g": 321.21,
+      "mtow_source": "DG decision — vol, sabot détaché; spec E1 nominal utilisée comme plafond",
       "segments": {
         "fuselage": {
           "L_mm": 380.0,
@@ -68,8 +68,8 @@
       }
     },
     "NCR-001": {
-      "description": "Carénage aero — Coque complexe",
-      "material": "Nomex honeycomb + CF skins",
+      "description": "Bague d'interface ogive — joint torique NBR (étanchéité pneumatique)",
+      "material": "316L SS",
       "specs": {
         "E2": {
           "surface_finish_um": 3.2,

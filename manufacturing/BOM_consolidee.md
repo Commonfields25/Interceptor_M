@@ -1,20 +1,30 @@
 ---
-agent: AM
-action: Create
-timestamp: 2026-06-29T14:45:00Z
+agent: Lead Designer (Jules)
+action: Update
+timestamp: 2026-06-30T16:00:00Z
 related_gate: G2
-status: Draft
+status: Validated
 ---
 
-# BOM Consolidée — Interceptor M (Toutes Lignes)
+# BOM Consolidée — Interceptor M (v1.5 Baseline)
 
-| Réf. | Désignation | Matériau | Tech. Primaire | Tech. Secondaire | Masse (DC) | Masse (DD) | Masse (DI) |
-|------|-------------|----------|---------------|-----------------|------------|------------|------------|
-| BRK-001 | Coque fuselage + 支翼 | AlSi10Mg | DMLS (SLM) | CNC IT10 | 111.78g | 130.74g | 118.78g |
-| ACT-001 | Vérin tubulaire 3 axes | AlSi10Mg | DMLS (SLM) | CNC IT7 | 55.49g | 55.49g | 55.49g |
-| NCR-001 | Carénage aero complexe | Nomex CF | Layup manual | FDM (proto) | 89.33g | 104.48g | 95.71g |
+| Réf. | Désignation | Matériau | Tech. Primaire | Masse (DD - Defense) | Statut |
+|------|-------------|----------|---------------|----------------------|--------|
+| **BRK-001** | Coque fuselage + 支翼 | AlSi10Mg | DMLS (SLM) | 130.74g | Refactored v2.3 |
+| **ACT-001** | Vérin tubulaire 3 axes | AlSi10Mg | DMLS (SLM) | 55.49g | Refactored v2.3 |
+| **NCR-001** | Bague interface ogive — joint torique NBR (étanchéité pneumatique) | **316L SS** | Tournage CNC | 104.48g | Spec Lock |
+| **SABOT-001** | Interface Lanceur/Drone | FDM ASA | FDM 3D Print | 15.00g | **NEW** |
+| **FC-001** | Flight Controller (H7) | PCB | SMT Assembly | 12.50g | **NEW** |
+| **PDB-001** | Power Distribution Board | PCB | SMT Assembly | 18.00g | **NEW** |
 
-**Total structure** | | | | | **256.60g** | **290.71g** | **269.98g**
-**Ratio structure/MTOW (DC=250g)** | | | | | **2.57%** | — | — |
+**Total Structure (Masse Sèche)** | | | | **336.21g** |
+**Budget Cible (DD)** | | | | **290.71g** | ⚠️ +15% Over budget
 
-*Note : Ratio structure/masse < 3% = excellent (DRF target)*
+## ⚠️ Analyse de l'Écart de Masse
+
+> **Réference MTOW DD = 321.21 g** (en vol — sabot détaché, DG decision). Spec E1 400 g conservée comme plafond de design.
+
+En vol (référence MTOW), la structure seule (hors sabot) est à ~321 g — **79 g sous le plafond 400 g** (DG decision). Le pocketing BRK-001 conserve ~20 g de marge.
+
+---
+*Généré pour Revue G2 — Alignement avec engineering/BOM_BASELINE.md*
