@@ -15,20 +15,20 @@
   },
   "parts": {
     "BRK-001": {
-      "description": "Structure primaire \u2014 Coque fuselage + \u652f\u7ffc",
+      "description": "Structure primaire — Coque fuselage + 支翼",
       "material": "AlSi10Mg (DMLS)",
       "mass_g": 178.85
     },
     "ACT-001": {
-      "description": "V\u00e9rin tubulaire 3 axes",
+      "description": "Vérin tubulaire 3 axes",
       "material": "AlSi10Mg (DMLS)",
       "mass_g": 55.49,
-      "note": "MTOW-insensitive \u2014 spec E3 drives geometry"
+      "note": "MTOW-insensitive — spec E3 drives geometry"
     },
     "NCR-001": {
-      "description": "Car\u00e9nage aero \u2014 Coque complexe",
-      "material": "Nomex honeycomb + CF skins",
-      "mass_g": 142.93
+      "description": "Bague d'interface ogive — joint torique NBR (étanchéité pneumatique)",
+      "material": "316L SS",
+      "mass_g": 104.48
     }
   }
 }
