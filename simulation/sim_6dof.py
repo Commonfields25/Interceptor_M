@@ -2,7 +2,8 @@
 simulation/sim_6dof.py
 ======================
 Simulateur 6-DOF pour l'intercepteur DD-400.
-Modèle : Lancement pneumatique + Dash électrique (Masse Constante).
+Modèle : Lancement pneumatique + Dash électrique.
+Amélioration : Calcul des charges structurelles et thermiques.
 """
 
 import math
@@ -45,9 +46,7 @@ def get_drag_coeff(mach):
     else: return (2.5 * _CX_BASE) / math.sqrt(mach**2 - 1.0)
 
 def get_thrust(t_s, energy_used_j):
-    """Dash électrique tant qu'il reste de la batterie."""
-    if energy_used_j < _BATT_J:
-        return _POUSSEE_DASH
+    if energy_used_j < _BATT_J: return _POUSSEE_DASH
     return 0.0
 
 def etat_initial(position_m, vitesse_m_s, cap_rad):
@@ -57,7 +56,8 @@ def etat_initial(position_m, vitesse_m_s, cap_rad):
         "vitesse" : np.array([vx, vy, 0.0], dtype=float),
         "masse"   : float(_M0),
         "temps"   : 0.0,
-        "energy_used": 0.0
+        "energy_used": 0.0,
+        "loads": {"max_g": 0.0, "max_q": 0.0, "max_temp": 0.0}
     }
 
 def derivees(etat, commands):
@@ -72,21 +72,33 @@ def derivees(etat, commands):
         un /= np.linalg.norm(un)
     ub = np.cross(un, ut)
 
-    T, P, rho, a_son = isa_atmosphere(pos[2])
+    T_amb, P, rho, a_son = isa_atmosphere(pos[2])
     mach = v_mod / a_son
     cx = get_drag_coeff(mach)
 
+    # Calcul des charges
+    q_dyn = 0.5 * rho * v_mod**2
+    # Température de stagnation (nez) : T_stag = T_amb * (1 + (gamma-1)/2 * M^2)
+    t_stag = T_amb * (1.0 + 0.2 * mach**2)
+
     thrust = get_thrust(t, energy)
-    drag = 0.5 * rho * v_mod**2 * _S_REF * cx
+    drag = q_dyn * _S_REF * cx
 
     a_lat, a_vert = commands
-    # Masse constante _M0
     accel = ((thrust - drag) / _M0) * ut + a_lat * ub + a_vert * un
     accel[2] -= _G0
 
-    # Puissance électrique = Thrust * V / efficiency
-    power_w = (thrust * v_mod) / _EFF
+    # G-load total (module de l'accélération propre)
+    # On soustrait la gravité pour avoir l'accélération subie par la structure
+    accel_propre = accel - np.array([0, 0, -_G0])
+    g_load = np.linalg.norm(accel_propre) / _G0
 
+    # Mise à jour des pics
+    etat["loads"]["max_g"] = max(etat["loads"]["max_g"], g_load)
+    etat["loads"]["max_q"] = max(etat["loads"]["max_q"], q_dyn)
+    etat["loads"]["max_temp"] = max(etat["loads"]["max_temp"], t_stag)
+
+    power_w = (thrust * v_mod) / _EFF
     return vel, accel, power_w
 
 def integrer(etat, commands, dt):
@@ -152,7 +164,7 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
         dist = math.sqrt(dist_sq)
 
         if keep_traj and (len(traj) == 0 or (temps - traj[-1]["t"]) >= 0.05):
-            traj.append({"t": round(temps, 3), "x": round(etat_i["position"][0], 1), "y": round(etat_i["position"][1], 1), "z": round(etat_i["position"][2], 1), "cx": round(etat_c["position"][0], 1), "cy": round(etat_c["position"][1], 1), "v": round(v_mod, 1), "energy": round(etat_i["energy_used"], 0)})
+            traj.append({"t": round(temps, 3), "x": round(etat_i["position"][0], 1), "y": round(etat_i["position"][1], 1), "z": round(etat_i["position"][2], 1), "cx": round(etat_c["position"][0], 1), "cy": round(etat_c["position"][1], 1), "v": round(v_mod, 1)})
 
         if dist_sq < dist_min_sq: dist_min_sq = dist_sq
         if dist_sq < _SEUIL_SQ:
@@ -180,7 +192,9 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
     return {"intercept": intercept, "temps_s": round(temps, 3), "trajectoire": traj, "distance_min_m": round(math.sqrt(dist_min_sq), 2), "etat_final_i": etat_i, "lost_seeker": lost_seeker}
 
 if __name__ == "__main__":
-    print("Electric Propulsion Verification:")
-    res = simulate_engagement([0,0,500], 70.0, 0.0, [1000,0,500], 0.0, 0.0, keep_traj=True)
-    for p in res['trajectoire'][:20:5]:
-        print(f"t={p['t']}s: V={p['v']}m/s, Energy={p['energy']}J")
+    # Smoke test loads
+    res = simulate_engagement([0,0,500], 70.0, 0.0, [1000,0,500], 0.0, 0.0)
+    loads = res["etat_final_i"]["loads"]
+    print(f"Max G: {loads['max_g']:.2f}")
+    print(f"Max Q: {loads['max_q']:.0f} Pa")
+    print(f"Max T_stag: {loads['max_temp']:.1f} K")
