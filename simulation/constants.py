@@ -14,23 +14,23 @@ L_ISA = 0.0065                # K/m
 R_AIR = 287.05                # J/(kg·K)
 V_SON_NIVEAU_MER = 340.294    # m/s
 
-# 2. PLATFORM: DD-400
-MASSE_INTERCEPTOR_KG = 0.400  # kg
-MASSE_PROPELLANT_KG = 0.200   # kg (Increased for 5km range)
+# 2. PLATFORM: DD-400 (Baseline v1.2.0)
+MASSE_INTERCEPTOR_KG = 0.400  # kg (MTOW)
+MASSE_PROPELLANT_KG = 0.000   # kg (Electric Dash = Constant Mass)
 LONGUEUR_INTERCEPTOR_MM = 380
 DIAMETRE_FUSELAGE_MM = 35
-SURFACE_REF_M2 = 0.001
+SURFACE_REF_M2 = 0.001        # pi * (0.035/2)^2 approx 0.001
 
 # 3. AERODYNAMICS
-COEFF_TRAITEE_Cx = 0.35
+COEFF_TRAITEE_Cx_BASE = 0.35
 COEFF_PORTANCE_CL_ALPHA = 2.0
-ACCELERATION_LATERALE_MAX_G = 30.0 # Increased for maneuverability
+ACCELERATION_LATERALE_MAX_G = 15.11 # P95 Envelope from Physics Report
 ACCELERATION_LATERALE_MAX_M_S2 = ACCELERATION_LATERALE_MAX_G * G0
 
-# 4. PROPULSION
-POUSSEE_MAX_N = 30.0          # Higher thrust for speed
-DUREE_COMBUSTION_S = 10.0     # Sustained thrust
-ISP_S = 210.0
+# 4. PROPULSION (Electric Dash)
+POUSSEE_MAX_N = 8.0           # 8N sustained electric thrust (ref SITUATION_REPORT)
+DUREE_COMBUSTION_S = 60.0     # 60s dash capacity (ref Consolidated Def)
+ISP_S = 0.0                   # Not applicable for Electric
 TWR_DD = POUSSEE_MAX_N / (MASSE_INTERCEPTOR_KG * G0)
 
 # 5. GUIDAGE
