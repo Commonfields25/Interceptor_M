@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # Cahier des Charges Technique — Prototype Interceptor M
 
 > **Version** : PRELIMINARY 0.1

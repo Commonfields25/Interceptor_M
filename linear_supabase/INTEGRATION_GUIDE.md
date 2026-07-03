@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # 📖 Guide d'Intégration Linear + Supabase pour Interceptor_M
 
 Ce guide explique comment configurer **Linear** et **Supabase** pour automatiser la gestion des tâches, des rapports et des alertes pour le projet **Interceptor_M**.

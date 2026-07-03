@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # OPERATIONS_WORKFLOW.md — Cadre Opérationnel AIML UAV Startup
 **Version :** 1.0 | **Date :** 22.06.2026 | **Classification :** INTERNE CONFIDENTIEL
 **Rédigé par :** Agent Manager | **Validé par :** DG

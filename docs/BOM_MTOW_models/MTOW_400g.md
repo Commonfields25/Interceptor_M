@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # MTOW 400g — Spécification Provisoire
 **STATUS:** `PROVISIONAL — awaiting DG lock`
 **Version:** 1.0-draft
