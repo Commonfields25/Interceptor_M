@@ -1,0 +1,41 @@
+graph TB
+    subgraph Core["🎯 Système Central Interceptor_M"]
+        C[("📋 Controlleur")]
+        SM[("📊 State Machine")]
+        SC[("⚙️ Scheduler")]
+    end
+    
+    subgraph Drone["🚁 Drones Intercepteurs"]
+        DRONE_A[("Drone Alpha")]
+        DRONE_B[("Drone Beta")]
+        DRONE_C[("Drone Gamma")]
+    end
+    
+    subgraph Periph["🔌 Périphériques"]
+        GPS[("📍 GPS")]
+        RADAR[("📡 Radar")]
+        COMMS[("📡 Comms")]
+    end
+    
+    subgraph Sim["🔬 Simulateur"]
+        PHYSICS[("⚡ Physique")]
+        ENV[("🌍 Environnement")]
+        COLLISION[("💥 Collision")]
+    end
+    
+    GPS --> C
+    RADAR --> C
+    COMMS --> C
+    C --> SM
+    SM --> SC
+    SC --> DRONE_A
+    SC --> DRONE_B
+    SC --> DRONE_C
+    PHYSICS --> Sim
+    ENV --> Sim
+    COLLISION --> Sim
+    
+    style Core fill:#2563eb,stroke:#1e40af,color:#fff
+    style Drone fill:#dc2626,stroke:#b91c1c,color:#fff
+    style Periph fill:#16a34a,stroke:#15803d,color:#fff
+    style Sim fill:#9333ea,stroke:#7e22ce,color:#fff

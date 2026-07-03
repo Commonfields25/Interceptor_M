@@ -1,11 +1,11 @@
 {
   "project": "Interceptor M",
-  "version": "1.0.1",
-  "mtow_source": "provisional — à confirmer produit",
+  "version": "1.2.0",
+  "mtow_source": "DG decision — Consolidated System Definition v2.0",
   "lines": {
     "DC": {
       "designation": "Drone Compact — Lightweight",
-      "mtow_g": 250,
+      "mtow_g": 250.0,
       "mtow_source": "spec E1 nominal",
       "segments": {
         "fuselage": {
@@ -19,8 +19,8 @@
     },
     "DD": {
       "designation": "Drone Déployable — Extended Range",
-      "mtow_g": 400,
-      "mtow_source": "spec E1 nominal",
+      "mtow_g": 400.0,
+      "mtow_source": "DG decision — Baseline M7 lock",
       "segments": {
         "fuselage": {
           "L_mm": 380.0,
@@ -33,8 +33,8 @@
     },
     "DI": {
       "designation": "Drone Industriel",
-      "mtow_g": 300,
-      "mtow_source": "provisional — midpoint DC/DD, à confirmer produit",
+      "mtow_g": 300.0,
+      "mtow_source": "BOM LOCKED — M7 baseline",
       "segments": {
         "fuselage": {
           "L_mm": 365.0,
@@ -68,8 +68,8 @@
       }
     },
     "NCR-001": {
-      "description": "Carénage aero — Coque complexe",
-      "material": "Nomex honeycomb + CF skins",
+      "description": "Bague d'interface ogive — joint torique NBR (étanchéité pneumatique)",
+      "material": "316L SS",
       "specs": {
         "E2": {
           "surface_finish_um": 3.2,
