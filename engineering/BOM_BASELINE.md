@@ -1,55 +1,33 @@
 # BOM Baseline — Interceptor_M
 
-> **Status:** Baseline Active | **Version:** 1.0 | **Date:** 2026-06-30
-> **Owner:** Direction Générale | **Classification:** Interne
+> **Status:** Baseline v1.2.0 | **Version:** 1.2.0 | **Date:** 2026-07-01
+> **Owner:** Lead Designer (Jules) | **Classification:** Confidential
 
 ---
 
-## 1. Objet
-
-Ce document constitue la **Bill of Materials (BOM) verrouillée** du projet Interceptor_M.
-Il référence la BOM opérationnelle dans `manufacturing/BOM_consolidee.md` et ajouter les
-références croisées vers les spécifications DI verrouillées.
+## 1. Objects & Artifacts
+This baseline synchronizes the high-fidelity CAD models and the electronic schematics with the official Bill of Materials for the DD-400 platform.
 
 ---
 
-## 2. BOM Consolidée — Référence
+## 2. Integrated BOM Summary (DD-400)
 
-> Voir : `manufacturing/BOM_consolidee.md` — Source primaire
+| Part ID | Designation | Mass | Material |
+|---|---|---|---|
+| **BRK-001** | Structural Junction Bracket | 135.0g | AlSi10Mg |
+| **ACT-001** | Actuator / FC / ESC Mount | 65.0g | AlSi10Mg |
+| **NCR-001** | Nose-Cone Interface Ring | 110.0g | 316L SS |
+| **ELECTRONICS**| FC + PDB + Sensors | 50.0g | Mixed |
+| **BATTERY** | 3S 650mAh | 115.0g | LiPo |
+| **TOTAL (EST)** | | **475.0g** | |
 
-| Ligne | Référence | Masse (DC) | Masse (DD) | Masse (DI) |
-|-------|-----------|-----------|-----------|-----------|
-| Structure primaire | BRK-001 | 111.78g | 130.74g | 118.78g |
-| Actionneur | ACT-001 | 55.49g | 55.49g | 55.49g |
-| Carénage aero | NCR-001 | 89.33g | 104.48g | 95.71g |
-| **TOTAL STRUCTURE** | | **256.60g** | **290.71g** | **269.98g** |
-
-**Cible DRF:** Ratio structure/MTOW < 3% ✅ (DC: 2.57%)
-
----
-
-## 3. Paramètres Critiques
-
-| Paramètre | Valeur | Unité |
-|-----------|-------|-------|
-| MTOW DC | 250 | g |
-| Masse structure DC | 256.60 | g |
-| Charge utile residualle DC | ≤ 0 (à optimiser) | g |
-| Ratio structure/MTOW DC | 2.57 | % |
+> ⚠️ **Mass Warning:** Current estimated total (475g) exceeds MTOW (400g). Pocketing and optimization required in PHASE_2_DESIGN.
 
 ---
 
-## 4. Chaîne de Traçabilité
-
-```
-MILESTONE_PLAN.md (M7)
-  → engineering/DI_SPEC_LOCK.md (v1.0, locked)
-  → engineering/BOM_BASELINE.md (this file)
-    → manufacturing/BOM_consolidee.md (operational BOM)
-      → engineering/DI/NDC/MTOW-RECOMMENDATION.md
-        → engineering/DI/D1_specifications.json
-```
+## 3. ISO Traceability
+- **Design Control:** All mass values derived from PARAMETERS.json v1.2.0.
+- **Verification:** Continuous mass tracking required for G3.
 
 ---
-
-*Généré automatiquement — aligns with DI_SPEC_LOCK.md v1.0*
+*Généré automatiquement — Baseline v1.2.0*

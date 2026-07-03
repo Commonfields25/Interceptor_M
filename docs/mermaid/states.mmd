@@ -1,0 +1,22 @@
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Scanning : trigger_scan
+    Scanning --> Tracking : target_detected
+    Tracking --> Engaging : in_range
+    Engaging --> Intercepting : lock_acquired
+    Intercepting --> Success : target_neutralized
+    Intercepting --> Evading : evasion_detected
+    Evading --> Engaging : clear_to_engage
+    Success --> Idle : mission_complete
+    Evading --> Returning : damage_critical
+    Returning --> Idle : base_reached
+    
+    note right of Scanning
+        Radar active
+        Pattern: spiral
+    end note
+    
+    note right of Engaging
+        PID control
+        Predictive tracking
+    end note
