@@ -14,22 +14,23 @@ R_AIR = 287.05                # J/(kg·K)
 V_SON_NIVEAU_MER = 340.294    # m/s
 
 # 2. PLATFORM: DD-400
-MASSE_INTERCEPTOR_KG = 0.400  # kg
-MASSE_PROPELLANT_KG = 0.200   # kg (Increased for 5km range)
-LONGUEUR_INTERCEPTOR_MM = 380
+MASSE_INTERCEPTOR_KG = 0.321  # Synced from PARAMETERS.json
+BATTERY_CAPACITY_WH = 7.2  # 3S 650mAh approx   # kg (Increased for 5km range)
+LONGUEUR_INTERCEPTOR_MM = 380.0  # Synced from PARAMETERS.json
 DIAMETRE_FUSELAGE_MM = 35
 SURFACE_REF_M2 = 0.001
 
 # 3. AERODYNAMICS
 COEFF_TRAITEE_Cx = 0.35
+COEFF_TRAITEE_Cx_BASE = 0.35  # Added for sim_6dof compatibility
 COEFF_PORTANCE_CL_ALPHA = 2.0
 ACCELERATION_LATERALE_MAX_G = 30.0 # Increased for maneuverability
 ACCELERATION_LATERALE_MAX_M_S2 = ACCELERATION_LATERALE_MAX_G * G0
 
 # 4. PROPULSION
-POUSSEE_MAX_N = 30.0          # Higher thrust for speed
+THRUST_MAX_N = 8.0  # DD-400 Electric Dash          # Higher thrust for speed
 DUREE_COMBUSTION_S = 10.0     # Sustained thrust
-ISP_S = 210.0
+MOTOR_EFFICIENCY = 0.85
 TWR_DD = POUSSEE_MAX_N / (MASSE_INTERCEPTOR_KG * G0)
 
 # 5. GUIDAGE

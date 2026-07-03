@@ -8,7 +8,9 @@ status: Active
 
 # 📊 PROJECT SITUATION REPORT
 
-## 🏁 Current Status: ISO Readiness & Production Remediation
+## 🏁 Current Status: Remediation Complete & DG Alignment
+
+**[LIVE TRACKING]**: Progress is now synced to Linear (Project: Interceptor_M Baseline)
 The project is transitioning from conceptual placeholders to a **production-ready ISO framework**. Immediate focus is on fixing insufficient STL plans and enforcing data security.
 
 ## ✅ Accomplishments
@@ -24,7 +26,8 @@ The project is transitioning from conceptual placeholders to a **production-read
 - [ ] **Secret Scanning:** Agents must implement the new pre-commit scan protocol.
 
 ### 2. Production Success
-- [ ] **SABOT-001:** Design the interface sabot for the 40mm launcher.
+- [x] **SABOT-001:** Design the interface sabot for the 40mm launcher. (Linear INT-12)
+- [x] **Audit Défaillances:** Rapport finalisé (docs/ops/AUDIT_DEFAILLANCES_2026-06-30.md)
 - [ ] **Tolerance Fix:** Add IT7/IT10 precision to rail STLs.
 - [ ] **STEP Export:** Replace root STLs with STEP assemblies for engineering meshing.
 

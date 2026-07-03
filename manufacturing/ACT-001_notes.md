@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # Manufacturing Notes — ACT-001 (Vérin Tubulaire 3 Axes)
 
 ## Spécification dominante

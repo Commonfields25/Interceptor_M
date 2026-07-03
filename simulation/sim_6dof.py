@@ -15,7 +15,8 @@ from . import constants as C
 _M0          = C.MASSE_INTERCEPTOR_KG
 _M_PROP      = C.MASSE_PROPELLANT_KG
 _S_REF       = C.SURFACE_REF_M2
-_CX_BASE     = C.COEFF_TRAITEE_Cx_BASE
+_CX_BASE     = getattr(C, "COEFF_TRAITEE_Cx_BASE", 0.35)
+_CX_DRAG     = getattr(C, "COEFF_TRAITEE_Cx", 0.35)
 _CL_ALPHA    = C.COEFF_PORTANCE_CL_ALPHA
 _G0          = C.G0
 _DUREE_MAX   = C.DUREE_MAX_S
@@ -31,7 +32,7 @@ _R  = C.R_AIR
 _RHO0 = C.RHO0_ISA
 
 # Propulsion Constants
-_POUSSEE_MAX = C.POUSSEE_MAX_N
+_POUSSEE_MAX = getattr(C, "THRUST_MAX_N", 8.0)
 _DUREE_COMB  = C.DUREE_COMBUSTION_S
 _ISP         = C.ISP_S
 _DEBIT_MASSE = _POUSSEE_MAX / (_ISP * _G0) if _ISP > 0 else 0.0
@@ -101,14 +102,24 @@ def derivees(etat, commands):
 
     thrust = get_thrust(t)
     rho = densite(pos[2])
-    drag = 0.5 * rho * v_mod**2 * _S_REF * _CX_DRAG
+
+    # Mach-dependent drag (Placeholder for future transonic rise)
+    T_air, P_air, rho_air = isa_atmosphere(pos[2])
+    a_son = math.sqrt(1.4 * _R * T_air)
+    mach = v_mod / a_son
+    cx_mach = _CX_DRAG
+    if mach > 0.8:
+        cx_mach += 0.5 * (mach - 0.8)**2 # Simplified transonic rise
+
+    drag = 0.5 * rho_air * v_mod**2 * _S_REF * cx_mach
+
 
     a_lat, a_vert = commands
 
     accel = ((thrust - drag) / masse) * ut + a_lat * ub + a_vert * un
     accel[2] -= _G0
 
-    mdot = -get_mass_flow(t)
+    mdot = 0.0  # Electric drone (constant mass)
     return vel, accel, mdot
 
 def integrer(etat, commands, dt):
@@ -117,7 +128,7 @@ def integrer(etat, commands, dt):
     new_v = etat["vitesse"] + a * dt
     etat["position"] += 0.5 * (etat["vitesse"] + new_v) * dt
     etat["vitesse"] = new_v
-    etat["masse"] += mdot * dt
+    pass # constant mass
     etat["temps"] += dt
     return etat
 
@@ -181,6 +192,14 @@ def simulate_engagement(pos_init_m, vel_init_m_s, cap_init_rad,
         rel_pos = etat_c["position"] - etat_i["position"]
         dist_sq = np.sum(rel_pos**2)
         if dist_sq < dist_min_sq: dist_min_sq = dist_sq
+        # Seeker FOR Limit check (±60 deg)
+        los_vector = rel_pos / math.sqrt(dist_sq)
+        vel_vector = etat_i["vitesse"] / np.linalg.norm(etat_i["vitesse"])
+        cos_angle = np.dot(los_vector, vel_vector)
+        if cos_angle < math.cos(math.radians(60)):
+            # Target lost due to FOR limit
+            break
+
         if dist_sq < _SEUIL_SQ:
             intercept = True
             break
