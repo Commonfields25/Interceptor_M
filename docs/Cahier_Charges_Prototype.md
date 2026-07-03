@@ -1,15 +1,18 @@
 ---
-agent: Jules
-action: Create / Update
-timestamp: 2026-07-03T21:15:00Z
+agent: Jules + agent_worker
+action: Merge conflict resolution
+timestamp: 2026-07-03T21:30:00Z
 related_gate: G4
 status: PRELIMINARY
-version: 0.3
+version: 0.4
+conflict_resolved: true
+base_main: 3298788cf807aa196a2b5e1daa8472b0c91c624c
+base_feat: 3e689f3ee7550e9492519893800ece42627077ff
 ---
 
 # Cahier des Charges Technique — Prototype Interceptor M (DD-400)
 
-> **Version** : PRELIMINARY 0.3
+> **Version** : PRELIMINARY 0.4
 > **Date** : 2026-07-03
 > **Statut** : 🟡 En cours — Basé sur Baseline v1.2.0 / DD-400
 > **Classification** : Interne confidentiel
@@ -186,37 +189,39 @@ Chaque énoncé fonctionnel est associé à un **critère d'acceptation** vérif
 | **EM03** | Zones axiales volume allocation | D3 §3.2, §5 | Gabarit / calibre | Modules dans zones définies | 🟡 À vérifier |
 | **EM04** | FS flexion ≥ 1,5 / pression ≥ 2,0 | D3 §3.5.2–3.5.3 | FEA | σ < 290 MPa (Al-7075) / FS > 2 | ✅ D3 §3.5 |
 | **CE01** | Interface tube bore 40 mm + SABOT | DDC-001, SC-06, PARAMETERS.json | Test insertion réel | Passage sans obstruction | 🟡 À vérifier |
-| **CE02** | Interface SC-01 (< 30×30×10 mm) | PRODUCT-FAMILY SC-01 | Contrôle dimensions |Conforme | 🟡 À vérifier |
+| **CE02** | Interface SC-01 (< 30×30×10 mm) | PRODUCT-FAMILY SC-01 | Contrôle dimensions | Conforme | 🟡 À vérifier |
 | **CE03** | Interface SC-02 (3× M3, 9/12 mm) | PRODUCT-FAMILY SC-02 | Test montage | Montage sans alésage | 🟡 À vérifier |
 | **CE04** | Interface seeker Ka-band | D3 §3.4.4 | [hors-repo — test RF] | Transparent RF | 🔴 À faire |
 | **CM01** | Tolérances IT7/IT10 conformes | PARAMETERS.json, D3 §3.7 | Métrologie QC | Conforme IT7/IT10 | 🟡 À vérifier |
 | **CM02** | Plan QA prototype | D3 §3.7 | NDT + pesée + FEA | Rapport QA signé | 🔴 À faire |
 | — | Marque "PRELIMINARY" + statut | Ce document | Révision DG | Validation ingénieur | 🟡 En attente |
 
+### Actions ouvertes (à répartir entre codeurs)
+
+> Issues GitHub : #203 (FF), #204 (EM), #205 (CE), #206 (CM), #207 (Matrice de conformité + validation)
+
+| Priority | Bloc | Actions ouvertes |
+|---|---|---|
+| 🔴 Haute | EM01 — Masse | Réduction 75 g : option allègement BRK-001, réduction batterie, optimisation NCR-001 |
+| 🔴 Haute | CM02 — Plan QA | Définir protocole NDT ; produire rapport QA signé |
+| 🔴 Haute | FF07 / CE04 | Définir protocole test RF Ka-band |
+| 🟡 Moyenne | FF01–FF05 | Tests d'assemblage, intégration SC-01 à SC-06, test insertion tube |
+| 🟡 Moyenne | CM01 | Vérification tolérances IT7/IT10 sur BRK-001, ACT-001, NCR-001 |
+| 🟡 Moyenne | EM02–EM04 | Métrologie prototype complet + FEA validation |
+| ✅ Faible | FF06, EM04 | Vérifiés par D3 §3.5 ; reste inspection post-vol |
+
 ---
 
-## 7. Synthèse Numérique — Paramètres Clés
+## 7. Références
 
-| Paramètre | Valeur | Unité | Source |
-|---|---|---|---|
-| MTOW DD-400 | 400,0 | g | PARAMETERS.json (DD.mtow_g) |
-| Masse totale BOM | 475,0 | g | BOM_consolidee.md |
-| Excès masse | −75,0 | g | Calculé |
-| Longueur fuselage | 900,0 | mm | D2 §2.2 |
-| Diamètre fuselage | 35,0 | mm | D2 §2.2, PARAMETERS.json |
-| Longueur ogive | 122,5 | mm | D2 §2.2 (L_n = 3,5 × 35) |
-| Diamètre tube lanceur | 40,0 | mm | DDC-001, PARAMETERS.json |
-| Envergure ailes | 110,0 | mm | D2 §2.2 |
-| Corde ailes | 60,0 | mm | D2 §2.2 |
-| Envergure dérives | 75,0 | mm | D2 §2.2 |
-| Charge limite | 25,0 | g | D2 §2.6.1 |
-| Vitesse exit (lanceur) | 70,0 | m/s | DDC-001 |
-| Facteur de sécurité flexion | 1,53 | — | D3 §3.5.2 |
-| Facteur de sécurité pression | 11,5 | — | D3 §3.5.3 |
-| Tolérance DMLS AlSi10Mg | IT10 | — | PARAMETERS.json |
-| Tolérance CNC AlSi10Mg (ACT) | IT7 | — | PARAMETERS.json |
-| Tolérance CNC 316L SS | IT10 | — | PARAMETERS.json |
-| Portée opérationelle | 1 – 12 | km | D2 §2.7.3 |
+- DDC-001 — `docs/consolidated_definition.md`
+- D2_aerodynamics.md — Baseline v1.2.0
+- D3_structure.md — Baseline v1.2.0
+- PRODUCT-FAMILY.md v1.1
+- PARAMETERS.json v1.2.0
+- PROTOTYPE_ROADMAP.md
+- BOM_consolidee.md
+- D1_specifications.json
 
 ---
 
