@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # BOM Préliminaire — Interceptor M (Vague 6)
 **Issue:** #68  
 **Parent:** #34  

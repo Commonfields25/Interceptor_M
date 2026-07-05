@@ -1,34 +1,14 @@
 {
   "project": "Interceptor M",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "line": "DD",
-  "mtow_g": 400,
-  "mtow_source": "spec E1 nominal",
+  "mtow_g": 400.0,
   "segments": {
     "fuselage": {
-      "L_mm": 444.45,
-      "W_mm": 210.53,
-      "H_mm": 111.11
+      "L_mm": 380.0,
+      "diameter_mm": 35.0
     },
-    "wing_span_m": 1.754,
-    "wall_mm": 2.53
-  },
-  "parts": {
-    "BRK-001": {
-      "description": "Structure primaire — Coque fuselage + 支翼",
-      "material": "AlSi10Mg (DMLS)",
-      "mass_g": 178.85
-    },
-    "ACT-001": {
-      "description": "Vérin tubulaire 3 axes",
-      "material": "AlSi10Mg (DMLS)",
-      "mass_g": 55.49,
-      "note": "MTOW-insensitive — spec E3 drives geometry"
-    },
-    "NCR-001": {
-      "description": "Bague d'interface ogive — joint torique NBR (étanchéité pneumatique)",
-      "material": "316L SS",
-      "mass_g": 104.48
-    }
+    "wing_span_deployed_mm": 150.0,
+    "wall_mm": 2.0
   }
 }

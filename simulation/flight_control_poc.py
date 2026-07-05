@@ -31,7 +31,7 @@ class GuidanceSystem:
 
         rel_pos = pos_c - pos_i
         dist_sq = np.sum(rel_pos**2)
-        if dist_sq < 0.01: return 0.0, 0.0 # Accel lat, Accel vert (simplifié)
+        if dist_sq < 0.01: return 0.0, 0.0
 
         dist = math.sqrt(dist_sq)
         rel_vel = vel_c - vel_i
@@ -47,7 +47,13 @@ class GuidanceSystem:
 
         self.kf_az.predict()
         self.kf_el.predict()
-        self.kf_az.update(az)
+
+        # Unwrap angles
+        z_az = az
+        while z_az - self.kf_az.x[0] > math.pi: z_az -= 2*math.pi
+        while z_az - self.kf_az.x[0] < -math.pi: z_az += 2*math.pi
+
+        self.kf_az.update(z_az)
         self.kf_el.update(el)
 
         omega_az = self.kf_az.get_rate()
@@ -56,20 +62,15 @@ class GuidanceSystem:
         # Vitesse de rapprochement (closing velocity)
         v_clos = -np.dot(rel_pos, rel_vel) / dist
 
-        # Commandes PN (accélérations normales à la LOS)
-        # n_az = N * V_clos * omega_az * cos(el)
-        # n_el = N * V_clos * omega_el
-        accel_az = _GAIN_PN * v_clos * omega_az * math.cos(el)
+        # PN 3D
+        accel_az = _GAIN_PN * v_clos * omega_az
         accel_el = _GAIN_PN * v_clos * omega_el
 
-        # Compensation gravité simple
+        # Compensation gravité
         accel_el += 9.81 * math.cos(el)
 
         return accel_az, accel_el
 
-# Wrapper compatible avec sim_6dof qui attend une seule valeur lat_accel
-# On va devoir adapter sim_6dof pour accepter une commande 3D ou projeter.
-# Pour l'instant, on va modifier sim_6dof pour appeler une fonction de guidage qui rend (lat, vert).
-
-def loi_guidage_3d(etat_i, etat_c, system):
-    return system.compute_guidance(etat_i, etat_c)
+if __name__ == "__main__":
+    gs = GuidanceSystem()
+    print("Guidance initialized.")

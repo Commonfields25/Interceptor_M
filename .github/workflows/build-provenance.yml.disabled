@@ -53,7 +53,7 @@ jobs:
           path: dist/
 
       - name: Generate build provenance attestation
-        uses: actions/attest-build-provenance@v4.1.1
+        uses: actions/attest-build-provenance@520d128f1d5917a808f0292c07522e8f520ca521
         with:
           subject-path: dist/simulation-source.tar.gz
 
