@@ -1,0 +1,33 @@
+---
+agent: D3
+action: Create
+timestamp: 2026-07-02T13:10:00Z
+related_gate: G3
+status: Initialized
+---
+
+# 📦 ROOT ASSEMBLY METADATA (v1.0)
+
+This file serves as the design control link for the 3D assembly of the DD-400 platform.
+
+## 1. GEOMETRIC BASELINE
+- **Overall Length**: 380.0 mm
+- **Outer Diameter**: 35.0 mm
+- **Launcher Bore**: 40.0 mm (sliding fit)
+
+## 2. ASSEMBLY HIERARCHY
+- **DD-400-MAIN** (Root)
+    ├── **FUS-001** (Main Tube)
+    ├── **BRK-001** (Structural Bracket)
+    ├── **WNG-001** (Delta Wings x4)
+    ├── **FIN-001** (Tail Fins x4)
+    ├── **ACT-001** (Avionics Tray)
+    ├── **BATT-01** (Battery Pack)
+    └── **MOT-01** (Electric Motor)
+
+## 3. CONSTRAINTS
+- **CG Target**: 145.0 mm from nose.
+- **Static Margin**: 10.5% L.
+
+---
+*Authorized by Defense CAD Agent (D3)*
