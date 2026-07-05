@@ -46,7 +46,7 @@ jobs:
               try
                 fid = fopen('$f'); code = fread(fid,'char=>char')'; fclose(fid);
                 eval(code); disp('OK');
-              catch err; fprintf(2,'FAIL: %s\n',err.message); exit(1); end
+              catch err; fprintf(stderr,'FAIL: %s\n',err.message); exit(1); end
             " || { echo "SYNTAX FAIL: $f"; exit 1; }
           done
           echo "All .m files pass syntax check"

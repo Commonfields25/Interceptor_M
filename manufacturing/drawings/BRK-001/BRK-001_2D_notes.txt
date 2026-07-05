@@ -1,0 +1,1 @@
+Assumptions & open items: STEP source pending from D1 (engineering/DC/BRK-001_v2.0.step not in repo); DXF/PDF not generated (no 3D source available); mass target 135g→90g requires DG/Engineering sign-off on BOM/params update before drawing is released; tolerance IT10 per plan, surface Ra1.6µm.
