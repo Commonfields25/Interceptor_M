@@ -69,7 +69,7 @@ def run_monte_carlo(nb_tirages=100, silencieux=False):
 
         res = simulate_engagement(
             pos_init_m    = cfg["pos_init_i"],
-            vel_init_m_s  = cfg["vel_init_i_m_s"],
+            vel_init_m_s  = cfg.get("vel_init_i_m_s", cfg.get("vel_init_i", 100.0)),
             cap_init_rad  = cfg["cap_init_rad"],
             pos_cible_m   = cfg["pos_cible"],
             vel_cible_m_s = cfg["vel_cible_m_s"],

@@ -3,7 +3,25 @@
 
 version: 2
 updates:
-  # Enable weekly dependency updates for Python
+  # 1. SECURITY UPDATES (High Priority)
+  # Check for security vulnerabilities daily and open PRs immediately
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "security"
+      - "dependencies"
+      - "high-priority"
+    # Only update when there's a security vulnerability
+    vulnerability-alerts:
+      enabled: true
+
+  # 2. VERSION UPDATES (Weekly Maintenance)
+  # Regular version bumps to stay current
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -11,24 +29,23 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Europe/Paris"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
     commit-message:
       prefix: "deps"
       include: "scope"
     labels:
       - "dependencies"
-      - "security"
     reviewers:
       - "Commonfields25"
-    # Group minor/patch updates
+    # Group minor/patch updates to reduce noise
     groups:
-      production-dependencies:
-        dependency-type: "production"
+      maintenance-updates:
+        patterns:
+          - "*"
         update-types:
           - "minor"
           - "patch"
-      development-dependencies:
-        dependency-type: "development"
 
   # GitHub Actions updates
   - package-ecosystem: "github-actions"
@@ -39,6 +56,7 @@ updates:
       time: "09:00"
       timezone: "Europe/Paris"
     open-pull-requests-limit: 5
+    rebase-strategy: "auto"
     commit-message:
       prefix: "ci"
       include: "scope"
