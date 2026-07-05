@@ -1,7 +1,7 @@
 {
   "project": "Interceptor M",
-  "version": "2.0.0",
-  "comment": "Unified SSoT baseline - Synchronized with Simulation",
+  "version": "2.1.0",
+  "comment": "Added detailed geometry parameters for realistic parts generation",
   "platform": {
     "DD": {
       "designation": "Defense Deployable",
@@ -11,14 +11,40 @@
       "launcher_bore_mm": 40.0
     }
   },
+  "geometry": {
+    "fuselage": {
+      "id": "FUS-001",
+      "od_mm": 35.0,
+      "wall_thickness_mm": 1.2,
+      "length_mm": 380.0
+    },
+    "wings": {
+      "id": "WNG-001",
+      "count": 4,
+      "span_mm": 150.0,
+      "root_chord_mm": 60.0,
+      "sweep_deg": 45.0,
+      "thickness_mm": 1.5
+    },
+    "fins": {
+      "id": "FIN-001",
+      "count": 4,
+      "span_mm": 75.0,
+      "root_chord_mm": 40.0,
+      "sweep_deg": 40.0,
+      "thickness_mm": 1.0
+    },
+    "sabot": {
+      "id": "SAB-001",
+      "tube_od_mm": 40.0,
+      "fuselage_id_mm": 35.2,
+      "length_mm": 20.0
+    }
+  },
   "physics": {
     "launch_v_m_s": 70.0,
     "dash_thrust_n": 8.0,
     "battery_j": 50000.0,
-    "max_g_limit": 15.0
-  },
-  "shared_geometry": {
-    "arm_length_mm": 75.0,
-    "wing_chord_mm": 60.0
+    "max_g_limit": 15.1
   }
 }

@@ -1,0 +1,67 @@
+{
+  "project": "Interceptor_M",
+  "baseline": "DD-400 Electric",
+  "parts": [
+    {
+      "id": "FUS-001",
+      "name": "Fuselage Tube",
+      "material": "Al-7075 T6",
+      "mass_g": 131.2
+    },
+    {
+      "id": "BRK-001",
+      "name": "Structural Bracket",
+      "material": "AlSi10Mg",
+      "mass_g": 20.1
+    },
+    {
+      "id": "ACT-001",
+      "name": "Actuator Mount",
+      "material": "AlSi10Mg",
+      "mass_g": 8.4
+    },
+    {
+      "id": "WNG-001",
+      "name": "Delta Wings (x4)",
+      "material": "CFRP",
+      "mass_g": 21.6
+    },
+    {
+      "id": "FIN-001",
+      "name": "Tail Fins (x4)",
+      "material": "Al-7075",
+      "mass_g": 8.1
+    },
+    {
+      "id": "SAB-001",
+      "name": "Launcher Sabot",
+      "material": "PETG",
+      "mass_g": 6.2
+    },
+    {
+      "id": "BATT-01",
+      "name": "50kJ Battery Pack",
+      "material": "LiPo",
+      "mass_g": 90.0
+    },
+    {
+      "id": "MOT-01",
+      "name": "8N Dash Motor",
+      "material": "BLDC",
+      "mass_g": 40.0
+    },
+    {
+      "id": "SEEK-01",
+      "name": "Ka-band Seeker",
+      "material": "Sub-system",
+      "mass_g": 35.0
+    },
+    {
+      "id": "WHD-01",
+      "name": "Kinetic Warhead",
+      "material": "Tungsten/Steel",
+      "mass_g": 30.0
+    }
+  ],
+  "mtow_actual_g": 390.6
+}
