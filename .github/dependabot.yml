@@ -1,10 +1,62 @@
 version: 2
 updates:
+  # 1. SECURITY UPDATES (High Priority)
+  # Check for security vulnerabilities daily and open PRs immediately
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    labels:
+      - "security"
+      - "dependencies"
+      - "high-priority"
+    # Only update when there's a security vulnerability
+    vulnerability-alerts:
+      enabled: true
+
+  # 2. VERSION UPDATES (Weekly Maintenance)
+  # Regular version bumps to stay current
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+    labels:
+      - "dependencies"
+    reviewers:
+      - "Commonfields25"
+    # Group minor/patch updates to reduce noise
+    groups:
+      maintenance-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # GitHub Actions updates
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    rebase-strategy: "auto"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    labels:
+      - "ci/cd"
+      - "dependencies"

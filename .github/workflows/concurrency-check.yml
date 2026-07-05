@@ -1,0 +1,13 @@
+name: Agent Concurrency Coordination
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-locks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Validate Locks
+        run: python3 scripts/lock_validator.py
