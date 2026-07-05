@@ -8,9 +8,9 @@ jobs:
   security-audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/checkout@v7
       - name: Set up Python
-        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
