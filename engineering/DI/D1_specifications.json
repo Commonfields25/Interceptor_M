@@ -2,24 +2,22 @@
   "project": "Interceptor M",
   "line": "DD",
   "version": "2.0.0",
-  "comment": "Purged Rocket Legacy - Aligned with Electric/Pneumatic baseline",
+  "architecture": "Electric/Pneumatic",
+  "comment": "Purged Rocket Legacy - Aligned with Wave 15 stabilization",
   "platform": {
-    "mtow_g": 400,
-    "length_mm": 380,
-    "diameter_mm": 35,
-    "airframe": "Al-7075 / CFRP Hybrid"
+    "mtow_g": 400.0,
+    "length_mm": 380.0,
+    "diameter_mm": 35.0
   },
-  "propulsion": {
-    "type": "Electric Dash / Pneumatic Cold-Launch",
-    "launch_velocity_m_s": 70,
-    "motor_type": "Brushless DC (Dash Optimized)",
-    "nominal_thrust_N": 8,
-    "energy_source": "LiPo 50kJ Battery Pack"
+  "performance": {
+    "v_launch_m_s": 70.0,
+    "dash_thrust_n": 8.0,
+    "max_velocity_mach": 0.35,
+    "g_limit": 15.1
   },
-  "guidance": {
-    "primary": "3D Augmented Proportional Navigation (APN)",
-    "seeker": "Active Ka-band MMW Radar",
-    "for_deg": 60
-  },
-  "manufacturing": "Additive Manufacturing (DMLS/SLM) for primary structure, Composite layup for wings."
+  "power_system": {
+    "battery_type": "LiPo",
+    "capacity_j": 50000.0,
+    "dash_duration_s": 60.0
+  }
 }

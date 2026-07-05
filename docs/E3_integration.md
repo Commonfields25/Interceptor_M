@@ -1,39 +1,26 @@
 ---
 agent: E3
 action: Update
-timestamp: 2026-07-01T21:05:00Z
+timestamp: 2026-07-02T10:10:00Z
 related_gate: G2
 status: Active
 ---
 
 # 🛰 E3 — SYSTEM INTEGRATION (ELECTRIC/PNEUMATIC)
 
-## 1. OPERATIONAL SEQUENCE (ELECTRIC PARADIGM)
+## 1. MISSION PHASES
 
-```
-1. PRE-LAUNCH
-    └── IMU alignment & Seeker BIT (Battery power)
-2. PNEUMATIC LAUNCH (t=0)
-    └── Cold-launch (70 m/s exit velocity)
-3. ELECTRIC DASH (t=0 – 60s)
-    └── Continuous 8N Dash Thrust (50kJ Battery Limit)
-4. TERMINAL HOMING
-    └── 3D APN Guidance (Filtered Ka-band Seeker)
-5. KINETIC INTERCEPT
-    └── Neutralization via structural impact (Ramming)
-```
+1. **Pre-Launch**: Seeker BIT + IMU alignment.
+2. **Tube Exit**: Pneumatic launch at 70 m/s.
+3. **Dash Engagement**: Continuous electric dash thrust (8N).
+4. **Terminal Homing**: 3rd-order Kalman filtered LOS tracking.
+5. **Neutralization**: Kinetic ramming intercept.
 
-## 2. INTEGRATION INTERFACES (ICD)
+## 2. INTERFACE CONTROL (ICD SUMMARY)
 
-| Interface | Type | Spec |
-| --- | --- | --- |
-| **Launch Tube** | Mechanical | 40mm Ø / Bore-fit |
-| **Datalink** | RF | S-band / 10Hz Update |
-| **Power** | Electrical | 50kJ LiPo Pack / 12V Rail |
-
-## 3. PURGED LEGACY
-- **SRM Ignition**: Removed. Replaced by Pneumatic release signal.
-- **Boost/Coast Phase**: Removed. Replaced by continuous Electric Dash.
+- **Mechanical**: 40mm launcher bore interface (Sabot).
+- **Electrical**: 12V DC internal rail.
+- **Datalink**: S-band C2 link.
 
 ---
-*Maintained by Engineering Integration (E3) — 2026-07-01*
+*Maintained by Engineering Integration Agent (E3)*
