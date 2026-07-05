@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # ARCHIVED — README Debt Section (2026-06-29)
 
 > Ce fichier conserve l'historique de la section "Éléments en attente de revue" supprimée du README le 2026-06-29.

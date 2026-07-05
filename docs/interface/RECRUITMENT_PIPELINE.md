@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # RH — Pipeline de Recrutement Ingénieur Conception M
 **Issue:** #59  
 **Version:** 1.0  
