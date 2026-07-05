@@ -13,7 +13,8 @@ from . import constants as C
 # Paramètres locaux
 _M0          = C.MASSE_INTERCEPTOR_KG
 _S_REF       = C.SURFACE_REF_M2
-_CX_BASE     = C.COEFF_TRAITEE_Cx_BASE
+_CX_BASE     = getattr(C, "COEFF_TRAITEE_Cx_BASE", 0.35)
+_CX_DRAG     = getattr(C, "COEFF_TRAITEE_Cx", 0.35)
 _CL_ALPHA    = C.COEFF_PORTANCE_CL_ALPHA
 _G0          = C.G0
 _DUREE_MAX   = C.DUREE_MAX_S
@@ -27,6 +28,7 @@ _POUSSEE_DASH = C.POUSSEE_DASH_N
 _BATT_J       = C.BATTERY_CAPACITY_J
 _EFF          = C.ENERGY_EFFICIENCY
 
+# Propulsion constants already defined above (Electric & Pneumatic from main)
 
 def isa_atmosphere(altitude_m):
     """ ISA atmospheric model (troposphere only, up to 11 km). """
@@ -90,10 +92,17 @@ def derivees(etat, commands):
     un /= np.linalg.norm(un)
     ub = np.cross(un, ut)
 
-    # Atmospheric conditions
+    # Atmospheric conditions + drag
     T_amb, P_atm, rho, a_son = isa_atmosphere(pos[2])
     mach = v_mod / a_son
+    # Mach-dependent drag enhancement (from audit branch):
+    # adds a conservative transonic rise above Mach 0.8
     cx = get_drag_coeff(mach)
+    if mach > 0.8:
+        cx += 0.5 * (mach - 0.8)**2  # Simplified transonic rise
+
+    # Propulsion
+    thrust = get_thrust(t, energy)
 
     # Aerodynamic forces
     q_dyn  = 0.5 * rho * v_mod ** 2
@@ -114,14 +123,11 @@ def derivees(etat, commands):
     power_w = (thrust * v_mod) / _EFF
     return vel, accel, power_w
 
+    mdot = 0.0  # Electric drone (constant mass)
+    return vel, accel, mdot
 
 def integrer_rk4(etat, commands, dt):
-    """
-    P2 upgrade: Runge-Kutta 4th order integrator.
-    Replaces the previous first-order Euler step.
-    """
     k1_pos, k1_vel, k1_pow = derivees(etat, commands)
-
     etat_k2 = {
         "position"   : etat["position"]   + k1_pos * (dt / 2.0),
         "vitesse"    : etat["vitesse"]    + k1_vel * (dt / 2.0),
@@ -130,7 +136,6 @@ def integrer_rk4(etat, commands, dt):
         "energy_used": etat["energy_used"] + k1_pow * (dt / 2.0),
     }
     k2_pos, k2_vel, k2_pow = derivees(etat_k2, commands)
-
     etat_k3 = {
         "position"   : etat["position"]   + k2_pos * (dt / 2.0),
         "vitesse"    : etat["vitesse"]    + k2_vel * (dt / 2.0),
@@ -139,7 +144,6 @@ def integrer_rk4(etat, commands, dt):
         "energy_used": etat["energy_used"] + k2_pow * (dt / 2.0),
     }
     k3_pos, k3_vel, k3_pow = derivees(etat_k3, commands)
-
     etat_k4 = {
         "position"   : etat["position"]   + k3_pos * dt,
         "vitesse"    : etat["vitesse"]    + k3_vel * dt,
@@ -148,8 +152,6 @@ def integrer_rk4(etat, commands, dt):
         "energy_used": etat["energy_used"] + k3_pow * dt,
     }
     k4_pos, k4_vel, k4_pow = derivees(etat_k4, commands)
-
-    # RK4 state update
     etat["position"]    = etat["position"]   + (k1_pos + 2.0*k2_pos + 2.0*k3_pos + k4_pos) * (dt / 6.0)
     etat["vitesse"]     = etat["vitesse"]    + (k1_vel + 2.0*k2_vel + 2.0*k3_vel + k4_vel) * (dt / 6.0)
     etat["energy_used"] += (k1_pow + 2.0*k2_pow + 2.0*k3_pow + k4_pow) * (dt / 6.0)
@@ -158,7 +160,6 @@ def integrer_rk4(etat, commands, dt):
 
 
 def integrer(etat, commands, dt):
-    """ Alias: routes to RK4 (backward-compat API). """
     return integrer_rk4(etat, commands, dt)
 
 

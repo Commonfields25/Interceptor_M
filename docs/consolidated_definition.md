@@ -1,5 +1,19 @@
 ---
 agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
+# INTERCEPTOR_M — Dossier de Définition Consolidé
+**Document** : DDC-001 — Système intercepteur short-to-medium range air defense
+**Version** : 1.0
+**Date** : 2026-06-24
+**Statut** : Étude conceptuelle — non soumis au contrôle export
+**Dérivé de** : E1 (étude de marché), D1 (specifications), D2 (aérodynamique), D3 (structure), E2 (électronique), E3 (intégration)
+**Disclaimer** : *étude conceptuelle, non soumise au contrôle export — ITAR 22 CFR 120-130 / EAR 15 CFR 730-774 non applicables*
+
+
 action: Update
 timestamp: 2026-07-01T20:00:00Z
 related_gate: G2

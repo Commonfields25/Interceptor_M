@@ -21,5 +21,5 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Verify ISO Framework
         run: |
-          [ -f docs/governance/ISO_COMPLIANCE_FRAMEWORK.md ] && echo "Framework OK"
-          [ -f docs/governance/ISO_QUALITY_MANUAL.md ] && echo "Manual OK"
+          [ -f governance/ISO_COMPLIANCE_FRAMEWORK.md ] && echo "Framework OK"
+          [ -f governance/ISO_QUALITY_MANUAL.md ] && echo "Manual OK"

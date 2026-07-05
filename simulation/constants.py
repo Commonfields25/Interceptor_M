@@ -1,6 +1,5 @@
 """
 simulation/constants.py
-=======================
 Unified Physics & Engineering Constants — DD-400 Baseline
 Corrected for Electric Propulsion & Pneumatic Launch.
 """
@@ -15,23 +14,29 @@ R_AIR = 287.05                # J/(kg·K)
 GAMMA_AIR = 1.4
 V_SON_NIVEAU_MER = 340.294
 
-# 2. PLATFORM: DD-400 (Electric)
+# 2. VEHICLE MASS (reinstated from main — required by TWR_DD)
 MASSE_INTERCEPTOR_KG = 0.400  # Constant mass (no propellant loss)
-LONGUEUR_INTERCEPTOR_MM = 380
+
 DIAMETRE_FUSELAGE_MM = 35
 SURFACE_REF_M2 = 0.001
 
 # 3. AERODYNAMICS
-COEFF_TRAITEE_Cx_BASE = 0.35
+# Aerodynamics
+COEFF_TRAITEE_Cx_BASE = 0.35   # base drag; retained from main (P2 stable)
+COEFF_TRAITEE_Cx = 0.35        # legacy alias; retained from audit branch
 COEFF_PORTANCE_CL_ALPHA = 2.0
 ACCELERATION_LATERALE_MAX_G = 15.0 # Realistic for electric airframe
 ACCELERATION_LATERALE_MAX_M_S2 = ACCELERATION_LATERALE_MAX_G * G0
 
-# 4. PROPULSION (Electric & Pneumatic)
+# 4. PROPULSION (Electric & Pneumatic — union merge)
 V_LAUNCH_M_S = 70.0           # Exit velocity from compressed air launcher
-POUSSEE_DASH_N = 8.0          # Electric motor max thrust (Dash mode)
+THRUST_MAX_N = 8.0            # Electric motor max thrust (dash mode)
+POUSSEE_DASH_N = 8.0          # Alias for THRUST_MAX_N; retained for compat
+DUREE_COMBUSTION_S = 10.0     # Sustained thrust duration
+MOTOR_EFFICIENCY = 0.85       # Electric motor efficiency
 BATTERY_CAPACITY_J = 50000.0  # Joules available for dash
-ENERGY_EFFICIENCY = 0.7       # Motor/Propeller efficiency
+ENERGY_EFFICIENCY = 0.7       # Motor/propeller efficiency
+TWR_DD = THRUST_MAX_N / (MASSE_INTERCEPTOR_KG * G0)  # Thrust-to-weight ratio
 
 # 5. GUIDAGE
 GAIN_PN = 3.0
