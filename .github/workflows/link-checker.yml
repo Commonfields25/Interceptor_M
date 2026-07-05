@@ -10,4 +10,4 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Run Link Validator
-        run: "python3 scripts/link_validator.py || echo 'Warning: Broken links found'"
+        run: python3 scripts/link_validator.py || echo "Warning: Broken links found"
