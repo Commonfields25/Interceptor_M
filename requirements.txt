@@ -32,3 +32,8 @@ mypy>=1.4.0
 types-requests>=2.28.0
 types-PyYAML>=6.0.12.20260518
 starlette>=0.50.0
+
+# Web framework & Supabase
+flask>=2.0.0
+supabase>=2.0.0
+python-dotenv>=1.0.0
