@@ -1,0 +1,13 @@
+name: ISO/AS9100 Traceability Audit
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  traceability:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run Traceability Audit
+        run: python3 scripts/traceability_check.py
