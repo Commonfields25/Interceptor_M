@@ -1,0 +1,1 @@
+Assumptions & open items: STEP source pending from E3 (engineering/E3/ACT-001_mount.step not in repo); DXF/PDF not generated (no 3D source available); tolerance IT7 for mounting faces, Ra0.8µm surface finish per plan.
