@@ -18,10 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
         with:
           python-version: '3.11'
 
@@ -47,18 +47,18 @@ jobs:
           tar czf dist/simulation-source.tar.gz simulation/
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
         with:
           name: build-artifacts
           path: dist/
 
       - name: Generate build provenance attestation
-        uses: actions/attest-build-provenance@v4.1.1
+        uses: actions/attest-build-provenance@520d128f1d5917a808f0292c07522e8f520ca521
         with:
           subject-path: dist/simulation-source.tar.gz
 
       - name: Upload attestation
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
         with:
           name: provenance-attestation
           path: provenance.jsonl
