@@ -62,7 +62,17 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 
 > ⚠️ **Alerte BOM** : La BOM_consolidee.md affiche 475 g > MTOW plafond 400 g. Réduction de masse de 75 g requise ou ECR pour relever le MTOW. Voir matrice §6.
 
-### EM02 — Dimensions (Ligne DD)
+| Sous-ensemble | Description | Masse Cible (g) | Matériau | Source |
+|---|---|---|---|---|
+| **BRK-001** | Coque fuselage +支翼 | 135,0 | AlSi10Mg (DMLS) | BOM_consolidee.md, PARAMETERS.json |
+| **ACT-001** | Vérin tubulaire 3 axes | 65,0 | AlSi10Mg (DMLS) | BOM_consolidee.md, PARAMETERS.json |
+| **NCR-001** | Bague interface ogive + joint torique | 110,0 | 316L SS | BOM_consolidee.md, PARAMETERS.json |
+| **Avionique** | SC-01 (autopilote) | 50,0 | — | BOM_consolidee.md |
+| **Batterie** | LiPo | 115,0 | — | BOM_consolidee.md |
+| **SABOT-001** | Sabot interface lanceur | 15,0 | ASA (FDM) | docs/Cahier_Charges_Prototype.md v0.2 |
+| **Total estimé** | — | **475,0** | — | BOM_consolidee.md |
+| **MTOW DD-400** | Masse maximale au décollage | **400,0** | — | PARAMETERS.json, DDC-001 |
+| **⚠️ Excès** | Total − MTOW | **−75,0 g** | — | Calculé |
 
 | Paramètre | Valeur | Tolérance | Source |
 |-----------|--------|-----------|--------|
@@ -82,7 +92,7 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 | Surface empennage (4 dérives) | 6,0 cm² | — | D2_aerodynamics.md (§2.2) |
 | Ratio S_f / S_w | 0,455 | — | D2_aerodynamics.md (§2.5) |
 
-### EM03 — Résistance & Environnement
+**Cible intermédiaire :** masse sèche ≤ 340 g (payload restant : 60 g pour batteries + mission).
 
 | ID | Exigence | Valeur | Note | Source |
 |---|---|---|---|---|
