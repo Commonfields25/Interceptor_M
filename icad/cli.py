@@ -6,11 +6,15 @@ from icad.engine import CADEngine
 from icad.parts.brk001 import build_brk001
 from icad.parts.act001 import build_act001
 from icad.parts.ncr001 import build_ncr001
+from icad.parts.sabot001 import build_sabot001
+from icad.parts.chs001 import build_chs001
 
 PART_MAP = {
     "BRK-001": build_brk001,
     "ACT-001": build_act001,
-    "NCR-001": build_ncr001
+    "NCR-001": build_ncr001,
+    "SABOT-001": build_sabot001,
+    "CHS-001": build_chs001
 }
 
 def main():
