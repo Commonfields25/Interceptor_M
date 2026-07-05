@@ -8,12 +8,12 @@ status: Validated
 # Interceptor_M — Product Family Overview
 
 **Strategy:** Common-platform modular product family
-**Version:** 1.2 — Parameters synchronized to DD-380 baseline
-**Date:** 2026-06-29
+**Version:** 1.2.0 — Parameters synchronized to DD-400 baseline
+**Date:** 2026-07-01
 
 ---
 
-## 1. Product Lines
+## 1. Product Strategy
 
 Shared platform strategy maximises reuse across three market segments
 (Defense, Industrial, Civil) while preserving line-specific differentiation
@@ -32,9 +32,9 @@ in airframe scale, payload, and certification envelope.
 
 | Line | Market         | Priority | MTOW (g) | Fuselage LxWxH (mm) | Wing Span (m) | Wall (mm) | Status |
 |------|----------------|----------|----------|---------------------|---------------|-----------|--------|
-| DD   | Defense        | High     | 400      | 380.0x200.0x100.0   | 0.150         | 2.0       | Active |
-| DI   | Industrial     | High     | 300      | 365.0x180.0x90.0    | 0.135         | 1.8       | **BOM locked** |
-| DC   | Civil          | Medium   | 250      | 350.0x160.0x80.0    | 0.120         | 1.5       | Active |
+| DD   | Defense        | High     | 400.0    | 380.0x200.0x100.0   | 0.150         | 2.0       | Active |
+| DI   | Industrial     | High     | 300.0    | 365.0x180.0x90.0    | 0.135         | 1.8       | **BOM locked** |
+| DC   | Civil          | Medium   | 250.0    | 350.0x160.0x80.0    | 0.120         | 1.5       | Active |
 
 > **DI BOM Status:** Final. No changes without formal ECR (Engineering Change Request) + DG approval.
 
@@ -107,58 +107,17 @@ in airframe scale, payload, and certification envelope.
 | **TRL** | 4 |
 | **Owner** | D3 |
 
-### 3.2 Line-Specific BOM Summaries
+---
 
-#### DD - Defense (MTOW 400 g)
-| Part ID | Description | Material | Mass (g) |
-|---------|-------------|----------|----------|
-| BRK-001 | Structure primaire - Coque fuselage +支弍 | AlSi10Mg (DMLS) | 178.85 |
-| ACT-001 | Verin tubulaire 3 axes | AlSi10Mg (DMLS) | 55.49 |
-| NCR-001 | Carenage aero - Coque complexe | Nomex honeycomb + CF skins | 142.93 |
-| **Total structural** | | | **377.27** |
-
-#### DI - Industrial (MTOW 300 g) **BOM LOCKED**
-| Part ID | Description | Material | Mass (g) |
-|---------|-------------|----------|----------|
-| BRK-001 | Structure primaire - Coque fuselage +支弍 | AlSi10Mg (DMLS) | 134.14 |
-| ACT-001 | Verin tubulaire 3 axes | AlSi10Mg (DMLS) | 55.49 |
-| NCR-001 | Carenage aero - Coque complexe | Nomex honeycomb + CF skins | 107.20 |
-| **Total structural** | | | **296.83** |
-
-#### DC - Civil (MTOW 250 g)
-| Part ID | Description | Material | Mass (g) |
-|---------|-------------|----------|----------|
-| BRK-001 | Structure primaire - Coque fuselage +支弍 | AlSi10Mg (DMLS) | 111.78 |
-| ACT-001 | Verin tubulaire 3 axes | AlSi10Mg (DMLS) | 55.49 |
-| NCR-001 | Carenage aero - Coque complexe | Nomex honeycomb + CF skins | 89.33 |
-| **Total structural** | | | | **256.60** |
+## 4. Governance Rule: SPEC LOCK
+As of version 1.2.0, the MTOW and Fuselage dimensions for all three lines (DD, DI, DC) are **locked**. Any changes require a formal ECR (Engineering Change Request) and DG approval.
 
 ---
 
-## 2. Shared Platform Modules (SC Registry)
-
-All lines utilize the **SC-Series** shared components to minimize NRE and maximize supply chain efficiency.
-
-- **SC-01**: Autopilot / FC Board
-- **SC-02**: Propulsion Brick (Motor + ESC)
-- **SC-03**: Datalink / RF Modem
-- **SC-04**: Mission Software Stack
-- **SC-05**: Ground Control Station
-- **SC-06**: Launcher Interface (DD/DI only)
-
----
-
-## 3. Governance Rule: SPEC LOCK
-As of version 1.3, the MTOW and Fuselage dimensions for all three lines (DD, DI, DC) are **locked**. Any changes require a formal ECR (Engineering Change Request) and DG approval.
-
----
-
-## 7. Milestone Alignment
+## 5. Milestone Alignment
 
 | MS | Title | DI BOM relevance |
 |----|-------|-----------------|
-| M5 | Branch Cleanup & Archive | - |
-| M6 | CI Migration Node24 & Workflow Activation | Infrastructure only |
-| **M7** | **DI Product Specifications Lock & BOM** | **Primary owner - BOM locked** |
+| M7 | **DI Product Specifications Lock & BOM** | **Primary owner - BOM locked** |
 | M8 | RL Environment Hardening & Agent Rebalancing | - |
 | M9 | Recrutement Ingenieur Conception & Design Industriel | Personnel |

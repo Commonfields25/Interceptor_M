@@ -17,7 +17,7 @@ status: Validated
 |---|---|---|
 | **Intercept Speed** | 300 m/s (Mach 0.88) | Full Thrust |
 | **MTOW** | 400 g | Defense (DD) Line |
-| **Max Load Factor** | 5.9 g | Aero-limited @ 12° AoA |
+| **Max Load Factor** | 15.1 g | P95 Maneuver Envelope |
 | **Turn Radius** | 1,559 m | @ 300 m/s |
 | **Unified Physics** | 6-DOF Rigid Body | Euler/RK4 Integration |
 
@@ -48,7 +48,7 @@ Detailed Specs: [`PARAMETERS.json`](./PARAMETERS.json) | [`PRODUCT-FAMILY.md`](.
 The interception logic is trained in a customized **Isaac Gym** environment using **MAPPO** (Multi-Agent Proximal Policy Optimization).
 
 - **Physics**: Real-world aerodynamic modeling ($C_x$, $C_{L\alpha}$) and atmospheric density.
-- **Training**: Centralized learning with decentralized execution for swarm coordination.
+- **Architecture**: Electric Dash propulsion with constant mass.
 - **Verification**: Cross-verified via MATLAB analytical models.
 
 ---
@@ -68,10 +68,10 @@ Operated by a team of parallel AI agents (D1-D3, E1-E3) under a strict 11-gate a
 git clone https://github.com/Commonfields25/Interceptor_M.git
 
 # Run Physics Smoke Test
-python3 engineering/ML/isaac_gym/swarm_env.py
+python3 -m simulation.sim_6dof
 
-# Run MAPPO Baseline Training (Burst)
-python3 engineering/ML/mappo_baseline/train_ppo.py --updates 10
+# Run Monte Carlo Performance Test
+python3 -m simulation.montecarlo_pintercept
 ```
 
 ---
