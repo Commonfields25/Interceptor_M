@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # SAB-02 — L_lanceur à fournir
 
 **Issue:** [#76](https://github.com/Commonfields25/Interceptor_M/issues/76) — sub-issue de [#70](https://github.com/Commonfields25/Interceptor_M/issues/70)

@@ -33,7 +33,7 @@ def main():
         for h in all_hits:
             print(h)
         print(f'\n{len(all_hits)} warning(s) found.')
-        sys.exit(0)  # warnings only, don't fail CI
+        sys.exit(1 if all_hits else 0), don't fail CI
     else:
         print('No secrets detected. Audit clean.')
         sys.exit(0)

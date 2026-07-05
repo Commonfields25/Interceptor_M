@@ -67,7 +67,7 @@ jobs:
     if: needs.lint.outputs.count != '0'
     steps:
       - name: Post doc digest comment
-        uses: actions/github-script@v9
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea
         with:
           script: |
             const docs = `${{ needs.lint.outputs.docs }}`.trim().split('\n').filter(Boolean);

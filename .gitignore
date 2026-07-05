@@ -43,6 +43,10 @@ yarn-error.log*
 *.temp
 .DS_Store
 Thumbs.db
+mc_output.txt
+check_*.py
+fix_*.py
+test_*.py
 
 # Secrets & Credentials
 secrets.json
