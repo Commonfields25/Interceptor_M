@@ -8,8 +8,8 @@ related_gate: G2
 
 # Cahier des Charges Technique — Prototype Interceptor M (DD-400)
 
-> **Version** : PRELIMINARY 1.0
-> **Date** : 2026-07-03
+> **Version** : PRELIMINARY 1.1
+> **Date** : 2026-07-05
 > **Statut** : 🟡 En cours — En attente validation Ingénierie
 > **Classification** : Interne confidentiel
 > **Sources** : consolidated_definition.md (DDC-001), D2_aerodynamics.md, D3_structure.md, PRODUCT-FAMILY.md v1.1, PARAMETERS.json v1.2.0, PROTOTYPE_ROADMAP.md, BOM_consolidee.md
@@ -71,8 +71,8 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 | **Batterie** | LiPo | 115,0 | — | BOM_consolidee.md |
 | **SABOT-001** | Sabot interface lanceur | 15,0 | ASA (FDM) | docs/Cahier_Charges_Prototype.md v0.2 |
 | **Total estimé** | — | **475,0** | — | BOM_consolidee.md |
-| **MTOW DD-400** | Masse maximale au décollage | **400,0** | — | PARAMETERS.json, DDC-001 |
-| **⚠️ Excès** | Total − MTOW | **−75,0 g** | — | Calculé |
+| **MTOW DD-400** | Masse maximale au décollage (DG) | **475,0** | — | DG decision 2026-07-05 |
+| **Écart vs MTOW 475g** | Total − MTOW | **0,0 g ✅ CONFORME** | — | Calculé |
 
 | Paramètre | Valeur | Tolérance | Source |
 |-----------|--------|-----------|--------|
@@ -192,8 +192,8 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 | ID Req | Description | Critère | Méthode vérification | Source | Statut |
 |--------|-------------|---------|---------------------|--------|--------|
 | **EM01.1** | Masse sèche < 305,71 g (cible) | ≤ 305,71 g | Pesée balance ±0,01 g | BOM | ✅ Cible ok |
-| **EM01.2** | MTOW vol < 321,21 g (DG) | ≤ 321,21 g | Pesée complète assemblé | Cahier | ✅ DG target |
-| **EM01.3** | MTOW < 400 g (plafond) | ≤ 400 g | Pesée | PARAMETERS.json | 🔴 BOM=475g ⚠️ |
+| **EM01.2** | MTOW vol ≤ 475 g (DG) | ≤ 475 g | Pesée complète assemblé | DG decision 2026-07-05 | ✅ CONFORME (Δ=0) |
+| **EM01.3** | MTOW < 475 g (MTOW DD-400) | ≤ 475 g | Pesée | DG decision 2026-07-05 | ✅ CONFORME |
 | **EM02.1** | L × W × H = 380×200×100 mm | ±0,5 mm | Métrologie 3D | PARAMETERS.json | 🟡 À vérifier |
 | **EM02.2** | Diamètre fuselage = 35 mm | ±0,05 mm | Métrologie | PARAMETERS.json | 🟡 À vérifier |
 | **EM02.3** | Épaisseur paroi = 2,0 mm | ±0,1 mm | Contrôle non destructif | PARAMETERS.json | 🟡 À vérifier |
@@ -214,7 +214,7 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 
 ### Actions ouvertes (à répartir entre codeurs)
 
-- 🔴 **Masse BOM** : Réduire la BOM de 475 g à ≤ 400 g (75 g à sauver ou ECR pour relever le MTOW)
+- ✅ **Masse BOM** : MTOW relevé à 475 g (DG 2026-07-05) — BOM 475 g = MTOW, Δ = 0 g, conforme.
 - 🟡 **Validation géométrique** : Contrôle dimensionnel de chaque sous-ensemble vs PARAMETERS.json
 - 🟡 **Test lanceur** : Fit-test tube 40 mm + étanchéité pneumatique
 - 🟡 **Finition IT7/IT10** : Plan de contrôle qualité pour ACT-001 et BRK-001
@@ -238,3 +238,4 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 
 ---
 *PRELIMINARY — Document en attente de validation Ingénierie.*
+
