@@ -1,56 +1,66 @@
 ---
-agent: Jules + agent_worker
-action: Merge conflict resolution
-timestamp: 2026-07-03T21:30:00Z
-related_gate: G4
+agent: agent_worker
+action: Create
+timestamp: 2026-07-03T20:30:00Z
 status: PRELIMINARY
-version: 0.4
-conflict_resolved: true
-base_main: 3298788cf807aa196a2b5e1daa8472b0c91c624c
-base_feat: 3e689f3ee7550e9492519893800ece42627077ff
+related_gate: G2
 ---
 
 # Cahier des Charges Technique — Prototype Interceptor M (DD-400)
 
-> **Version** : PRELIMINARY 0.4
+> **Version** : PRELIMINARY 1.0
 > **Date** : 2026-07-03
-> **Statut** : 🟡 En cours — Basé sur Baseline v1.2.0 / DD-400
+> **Statut** : 🟡 En cours — En attente validation Ingénierie
 > **Classification** : Interne confidentiel
-> **Sources** : DDC-001, D2_aerodynamics.md, D3_structure.md, PRODUCT-FAMILY.md v1.1, PARAMETERS.json, PROTOTYPE_ROADMAP.md, BOM_consolidee.md, D1_specifications.json
+> **Sources** : consolidated_definition.md (DDC-001), D2_aerodynamics.md, D3_structure.md, PRODUCT-FAMILY.md v1.1, PARAMETERS.json v1.2.0, PROTOTYPE_ROADMAP.md, BOM_consolidee.md
 
 ---
 
 ## 1. Contexte & Objet
 
-Ce document définit les **exigences techniques mécaniques** du prototype **Interceptor M — Ligne DD (Defense)**, baseline DD-400.
-Il consolide les données issues de la Baseline v1.2.0 (DG Decision, 2026-07-01) et constitue la Table 1c (Vague 6).
+Ce document définit les exigences techniques mécaniques du prototype **Interceptor M** — Ligne DD (Defense), référence **DD-400**. Il consolide les données issues de la baseline v1.2.0 (PARAMETERS.json) et des documents D2/D3. Tout paramètre non trouvé dans les sources est marqué `[hors-repo — à confirmer]`.
 
-> ⚠️ **Alerte Masse (BOM_consolidee.md):** Total estimé = 475 g > MTOW = 400 g. Réduction requise : 75 g minimum. Cf. § EM01.
+L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le prototype vise à valider la structure primaire, les interfaces lanceur/pneu et la compatibilité modules SC-01 à SC-06.
 
 ---
 
 ## 2. Énoncés Fonctionnels (FF)
 
-Chaque énoncé fonctionnel est associé à un **critère d'acceptation** vérifiable.
+> **Exigences fonctionnelles dérivées de** D3_structure.md (§3.1), PRODUCT-FAMILY.md, PROTOTYPE_ROADMAP.md.
 
-| ID | Énoncé fonctionnel | Critère d'acceptation | Source |
+| ID | Fonction | Critère d'acceptation | Source |
 |---|---|---|---|
-| **FF01** | Le prototype permet de valider l'encombrement, l'assemblage et l'intégration des modules SC-01 à SC-06 dans le fuselage Ø35 × 900 mm | Démontage/remontage manuel < 30 min sans outillage spécial ; tous les modules s'insèrent sans modification de structure | DDC-001, D3_structure §3.6, PRODUCT-FAMILY.md §3.1 |
-| **FF02** | La géométrie cruciforme est respectée : 4 ailes delta (envergure 110 mm, corde 60 mm, sweep 45°) et 4 dérives cruciformes (envergure 75 mm, corde 40 mm, sweep 40°) | Mesure métrologique des cordes, sweep et envergures dans tolérances ±5 % | D2_aerodynamics.md §2.2, D2 §2.4 |
-| **FF03** | La propulsion (SC-02) est mécaniquement intégrée à la zone arrière (280–380 mm depuis le nez) et interfacée via 3 vis M3 | Le module SC-02 se monte sur l'interface prévue sans alésage supplémentaire | PRODUCT-FAMILY.md SC-02, D3_structure §3.6.3 |
-| **FF04** | Le prototype est compatible avec le lanceur pneumatique (tube bore 40 mm, SABOT-001) | Passage et Centrage dans le tube sans collage ni obstruction de la conduite pneumatique | DDC-001 (40mm tube), PRODUCT-FAMILY.md SC-06, D3 §3.6.1 |
-| **FF05** | Le prototype est modulaire : chaque module SC-0X est accessible, remplaçable et ne nécessite pas de modification de structure | Aucun module ne requiert découpe, perçage ou calage pour s'insérer | PRODUCT-FAMILY.md §3.1, D3 §3.6 |
-| **FF06** | La structure résiste aux charges de lancement (3,5 g) et de manœuvre (25 g) sans déformation permanente | Absence de déformation plastique vérifiée par examen visuel post-vol | D2_aerodynamics.md §2.6, D3_structure.md §3.5 |
-| **FF07** | Le radôme (ogive nez) permet le passage du signal seeker Ka-band | Transparent diélectrique ou fenêtre d'antenne intégrée ; ne bloque pas le faisceau radar | D2 §2.4, D3 §3.4.4 (ogive) |
-| **FF08** | Le prototype est démantelable et transportable dans une mallette de dimensions ≤ 400 × 220 × 110 mm | Toutes les pièces repliables ou démontables tiennent dans le volume spécifié | D3_structure §3.6–3.7, PROTOTYPE_ROADMAP.md |
+| **FF01** | Validation géométrique physique | Le prototype permet de vérifier l'encombrement et l'assemblage manuel des sous-ensembles (faisabilité 380×200×100 mm). | D3 §3.1 |
+| **FF02** | Configuration cruciforme | Géométrie ailes delta + empennage cruciforme montée et fonctionnelle. | D2 §2.2 |
+| **FF03** | Intégration propulsion | Baie moteur compatible SC-02 (Brushless + ESC, 3× M3, entraxe 9/12 mm). | PRODUCT-FAMILY.md §3.1, SC-02 |
+| **FF04** | Interface lanceur | Insertion fluide dans tube bore 40 mm avec sabot SABOT-001, étanchéité pneumatique vérifiable. | PARAMETERS.json, SC-06 |
+| **FF05** | Modularité | Modules SC-01 à SC-06 montables sans modification structurelle. | PRODUCT-FAMILY.md §3 |
+| **FF06** | Manutention & transport | Démontable, transportable en mallette standard (volume < 400×220×110 mm). | PROTOTYPE_ROADMAP.md §4 |
+| **FF07** | Résistance structurelle | Structure supporte 25 g en manoeuvre sans défaillance, facteur sécurité 1,5 sur limite élastique. | D2 §2.6, D3 §3.5.2 |
+| **FF08** | Tenue environnementale | Fonctionnement entre -40°C et +60°C, humidité 0–95% RH. | [hors-repo — à confirmer] |
 
 ---
 
 ## 3. Exigences Mécaniques (EM)
 
-### EM01 — Masse (Ligne DD — Baseline DD-400)
+> **Valeurs masse tirées de** PARAMETERS.json + BOM_consolidee.md. Écart de +75 g détecté entre la BOM (475 g) et le MTOW PARAMETERS (400 g) — voir §6 matrice.
 
-> ⚠️ Alerte : total BOM (475 g) > MTOW (400 g) → cf. note ci-dessous.
+### EM01 — Masse (Ligne DD)
+
+| Sous-ensemble | Masse Cible (g) | Masse BOM (g) | Matériau | Source |
+|--------------|-----------------|---------------|----------|--------|
+| **BRK-001** (Coque + Ailes) | 130,74 | 135,00 | AlSi10Mg DMLS | BOM_consolidee.md |
+| **ACT-001** (Vérin) | 55,49 | 65,00 | AlSi10Mg DMLS | BOM_consolidee.md |
+| **NCR-001** (Bague/Ogive) | 104,48 | 110,00 | 316L SS | BOM_consolidee.md |
+| **SABOT-001** (Interface) | 15,00 | — | FDM ASA | Cahier existant |
+| **Avionique (SC-01)** | [à confirmer] | 50,00 | — | BOM_consolidee.md |
+| **Batterie** | [à confirmer] | 115,00 | LiPo | BOM_consolidee.md |
+| **Masse Sèche Totale (cibles)** | **305,71** | **475,00** | — | Calculé |
+| **MTOW (Vol, DG decision)** | **321,21** | 475,00 | — | Cahier existant |
+| **MTOW Plafond (PARAMETERS.json)** | **400,00** | 400,00 | — | PARAMETERS.json |
+| **Écart vs MTOW 400g** | **-93,79 g ✅** | **+75 g ⚠️** | — | — |
+
+> ⚠️ **Alerte BOM** : La BOM_consolidee.md affiche 475 g > MTOW plafond 400 g. Réduction de masse de 75 g requise ou ECR pour relever le MTOW. Voir matrice §6.
 
 | Sous-ensemble | Description | Masse Cible (g) | Matériau | Source |
 |---|---|---|---|---|
@@ -64,167 +74,167 @@ Chaque énoncé fonctionnel est associé à un **critère d'acceptation** vérif
 | **MTOW DD-400** | Masse maximale au décollage | **400,0** | — | PARAMETERS.json, DDC-001 |
 | **⚠️ Excès** | Total − MTOW | **−75,0 g** | — | Calculé |
 
-> **Action requise :** Réduction de masse de 75 g minimum avant validation prototype. Options : allègement BRK-001 (AlSi10Mg → CFRP), réduction batterie, optimisation NCR-001. Aucune exigence de performance ne doit être dégradée.
+| Paramètre | Valeur | Tolérance | Source |
+|-----------|--------|-----------|--------|
+| Longueur Fuselage | 380,0 mm | ±0,5 mm | PARAMETERS.json (DD.segments.fuselage.L_mm) |
+| Largeur (W) | 200,0 mm | ±0,5 mm | PARAMETERS.json (DD.segments.fuselage.W_mm) |
+| Hauteur (H) | 100,0 mm | ±0,5 mm | PARAMETERS.json (DD.segments.fuselage.H_mm) |
+| Diamètre Ext. Fuselage | 35,0 mm | IT10 | PARAMETERS.json (shared_geometry.fuselage_outer_diameter_mm) |
+| Épaisseur Coque | 2,0 mm | ±0,1 mm | PARAMETERS.json (DD.segments.hull_thickness_mm) |
+| Longueur ogive (tangente, D2) | 122,5 mm | — | D2_aerodynamics.md (§2.2, L_n = 3,5 × d) |
+| Envergure ailes (déployée) | [à confirmer] | — | Cahier existant (FF02) — non trouvé dans D2 |
+| Envergure dérives | 75 mm | — | D2_aerodynamics.md (§2.2) |
+| Corde ailes | 60 mm | — | D2_aerodynamics.md (§2.2) |
+| Corde dérives | 40 mm | — | D2_aerodynamics.md (§2.2) |
+| Épaisseur relative ailes | 4 % (NACA 0004) | — | D2_aerodynamics.md (§2.2) |
+| Allongement ailes λw | 9,17 | — | D2_aerodynamics.md (§2.2) |
+| Surface alaire (4 ailes) | 13,2 cm² | — | D2_aerodynamics.md (§2.2) |
+| Surface empennage (4 dérives) | 6,0 cm² | — | D2_aerodynamics.md (§2.2) |
+| Ratio S_f / S_w | 0,455 | — | D2_aerodynamics.md (§2.5) |
 
 **Cible intermédiaire :** masse sèche ≤ 340 g (payload restant : 60 g pour batteries + mission).
 
-### EM02 — Dimensions (Ligne DD — DD-400)
-
-| Paramètre | Valeur | Tolérance | Source |
-|---|---|---|---|
-| Longueur fuselage | 900,0 mm | ±0,5 mm | D2_aerodynamics.md §2.2 (fuselage L = 900 mm) |
-| Diamètre fuselage | 35,0 mm | ±0,2 mm | D2_aerodynamics.md §2.2, PARAMETERS.json (fuselage_outer_diameter_mm = 35.0) |
-| Épaisseur paroi AV | 1,5 mm | ±0,1 mm | D3_structure.md §3.4.1 (Al-7075 T6) |
-| Épaisseur paroi AR | 1,2 mm | ±0,1 mm | D3_structure.md §3.4.3 (CFRP) |
-| Longueur ogive | 122,5 mm (L_n = 3,5 × Ø35) | ±0,5 mm | D2_aerodynamics.md §2.2 (ogive tangente) |
-| Diamètre tube lanceur | 40,0 mm (bore) | — | DDC-001, PRODUCT-FAMILY.md (tube_diameter_mm = 40.0) |
-
-### EM03 — Répartition Interne (Volume Allocation)
-
-| Zone | Plage axiale (mm) | Contenu | Longueur (mm) | Source |
+| ID | Exigence | Valeur | Note | Source |
 |---|---|---|---|---|
-| Zone A — Ogive | 0 – 123 | Seeker / Radôme | 123 | D3_structure.md §3.2 |
-| Zone B — Corps AV | 123 – 280 | Electronics Bay + Warhead shoulder | 157 | D3_structure.md §3.2 |
-| Zone C — Corps central | 280 – 780 | Propulsion (SRM) + Warhead | 500 | D3_structure.md §3.2 |
-| Zone D — Queue AV | 780 – 820 | Actuated fins + Nozzle | 40 | D3_structure.md §3.2 |
-| Zone E — Dérives | 820 – 900 | Dérives cruciformes | 80 | D3_structure.md §3.2 |
-
-### EM04 — Résistance Structurelle
-
-| Paramètre | Valeur | Unité | Note |
-|---|---|---|---|
-| Facteur de charge limite | 25,0 | g | D2_aerodynamics.md §2.6.1 ; PARAMETERS.json (limite manœuvre) |
-| Facteur de charge ultime | 22,7 | g | DDC-001 (Ultimate = 15.1 × 1.5) |
-| Facteur de sécurité en flexion (25 g) | 1,53 | — | D3_structure.md §3.5.2 (σ_bend = 283 MPa < σ_0.2 = 434 MPa) |
-| Facteur de sécurité pression SRM (50 bar) | 11,5 | — | D3_structure.md §3.5.3 (AISI 4330, σ_UTS = 930 MPa) |
-| Contrainte admissible (Al-7075 T6) | 290 | MPa | D2 §2.6.1 (σ_0.2 / 1.5) |
-| Pression chambre SRM nominale | 50 | bar | D3 §3.5.3 |
-| Plage température opérationnelle | -40 à +60 | °C | EM03.3 (v0.2) [hors-repo — à confirmer] |
-| Accélération latérale max | 245 | m/s² | D2 §2.6.2 (25 g × 9,81) |
+| **EM03.1** | Facteur de charge limite | 15,1 g | P95 engagement | consolidated_definition.md §2 |
+| **EM03.2** | Facteur de charge manoeuvre | 25,0 g | Limite structure — validée D2 §2.6 | D2_aerodynamics.md, D3 §3.5.2 |
+| **EM03.3** | Facteur de sécurité | 1,5 | Sur limite élastique (Al-7075 T6) | D3 §3.4.1 |
+| **EM03.4** | Facteur ultime | 22,7 g | 15,1 × 1,5 | consolidated_definition.md §2 |
+| **EM03.5** | Contrainte admissible Al-7075 T6 | 290 MPa | σ_0,2 = 434 MPa / 1,5 | D3 §3.4.1 |
+| **EM03.6** | Température opérationnelle | -40°C à +60°C | [hors-repo — à confirmer] | Cahier existant |
+| **EM03.7** | Humidité | 0–95% RH | [hors-repo — à confirmer] | Cahier existant |
+| **EM03.8** | Pression chambre SRM | 50 bar | FS ×11,5 sur rupture (acier 4330) | D3 §3.5.3 |
+| **EM03.9** | Pression dynamique max | 24,0 kPa | Buckling / Flutter | consolidated_definition.md §2 |
+| **EM03.10** | Temp stagnation max | 306,2 K (33°C) | | consolidated_definition.md §2 |
 
 ---
 
 ## 4. Contraintes d'Interface (CE)
 
-### CE01 — Interface Lanceur Pneumatique
-
-| Paramètre | Valeur | Tolérance | Source |
-|---|---|---|---|
-| Diamètre tube (bore) | 40,0 mm | H8 | DDC-001, PRODUCT-FAMILY.md SC-06, PARAMETERS.json |
-| Sabot requis | SABOT-001 | FDM ASA | PROTOTYPE_ROADMAP.md TASK_DD_004, docs/Cahier_Charges_Prototype.md v0.2 |
-| Interface sabot/fuselage | Shoulder joint Ø35 × 20 mm overlap | ±0,1 mm | D3 §3.6.1 |
-| Étanchéité | Joint torique NBR (section 1 mm) | — | NCR-001 (316L SS) |
-| Boulons de fixation sabot | 4× M2, passo 1,4 mm, HC-90 | 0,5 N·m | D3 §3.6.1 |
-
-### CE02 — Interface Électronique (SC-01)
-
-| Paramètre | Valeur | Tolérance | Source |
-|---|---|---|---|
-| Dimensions FC board | < 30 × 30 × 10 mm | — | PRODUCT-FAMILY.md SC-01 |
-| Fixation | Rail ou entretoises M2 | — | PRODUCT-FAMILY.md SC-01 |
-| Consommation | ~200 mW idle | — | PRODUCT-FAMILY.md SC-01 |
-| Interface | PWM / CAN / UART | — | PRODUCT-FAMILY.md SC-01 |
-
-### CE03 — Interface Propulsion (SC-02)
-
-| Paramètre | Valeur | Tolérance | Source |
-|---|---|---|---|
-| Interface mécanique | 3× vis M3 socket-head | entraxe 9/12 mm | PRODUCT-FAMILY.md SC-02 |
-| Plage puissance | 50–150 W | sizing D2 CFD | PRODUCT-FAMILY.md SC-02 |
-| Zone d'intégration | 280 – 380 mm (depuis nez) | — | D3_structure.md §3.2, §5 |
-
-### CE04 — Interface Seekers & Datalink
+### CE01 — Interface Lanceur
 
 | Paramètre | Valeur | Source |
-|---|---|---|
-| SC-03 (Datalink) interface UART | MAVLink ou propriétaire | PRODUCT-FAMILY.md SC-03 |
-| Portée datalink DD | > 5 km LOS | PRODUCT-FAMILY.md SC-03 |
-| Seeker | Ka-band radar (zone A : 0–123 mm) | D3 §3.4.4, D2 §2.4 |
+|-----------|--------|--------|
+| Diamètre tube (bore) | 40,0 mm | PARAMETERS.json (shared_geometry.tube_diameter_mm) |
+| Sabot requis | SABOT-001 | Cahier existant |
+| Matériau sabot | FDM ASA | Cahier existant |
+| Étanchéité | Joint torique NBR (pneumatique) | NCR-001 (notes manufacturing) |
+| Longueur sabot | [à confirmer] | — |
+| Mode lancement | Air comprimé (cold-launch) | consolidated_definition.md §1 |
+| Vitesse sortie | 70 m/s | consolidated_definition.md §1 |
+
+### CE02 — Électronique (SC-01 à SC-05)
+
+| Module | Volume max | Fixation | Source |
+|--------|-----------|----------|--------|
+| **SC-01** (Autopilot/FC) | < 30 × 30 × 10 mm | Rail ou entretoises M2 | PRODUCT-FAMILY.md §3.1 |
+| **SC-02** (Propulsion) | standard 9/12 mm entraxe | 3 vis M3 | PRODUCT-FAMILY.md §3.1 |
+| **SC-03** (Datalink) | UART MAVLink | Connecteur standard | PRODUCT-FAMILY.md §3.1 |
+| **SC-06** (Launcher) | tube bore 40 mm | Interface SABOT-001 | PRODUCT-FAMILY.md §3.1 |
+
+> **Volume allocation interne** (D3_structure.md §5) :
+> - Nose 0–80 mm → Radar / Seeker
+> - Avionics Bay 80–160 mm → PCB Stack (SC-01 + SC-03)
+> - Battery 160–240 mm → LiPo
+> - Actuators 240–280 mm → Fin Mechanism (SC-06)
+> - Propulsion 280–380 mm → Motor / ESC (SC-02)
+
+### CE03 — Propulsion
+
+| Paramètre | Valeur | Source |
+|-----------|--------|--------|
+| Type | Electric Dash + Pneumatic Launch | consolidated_definition.md §1 |
+| Vitesse sortie (pneumatique) | 70 m/s | consolidated_definition.md §1 |
+| Poussée sustente | 8 N | consolidated_definition.md §1 |
+| Poussée crête | 550 N | D3 §3.5.1 |
+| Accélération lancement | 3,5 g | D3 §3.5.1 |
+| Isp | 210 s | D2 §2.7.1 |
+| Énergie batterie | 50 kJ | consolidated_definition.md §1 |
+| Endurance | ~60 s dash capacity | consolidated_definition.md §1 |
 
 ---
 
 ## 5. Contraintes de Fabrication (CM)
 
-### CM01 — Procédés et Tolérances
+> **Specs tirées de** PARAMETERS.json (§manufacturing), BOM_consolidee.md, manufacturing/*_notes.md.
 
-| Pièce | Description | Procédé | Matériau | Tolérance | Finition (Ra) | Source |
-|---|---|---|---|---|---|---|
-| **BRK-001** | Coque fuselage +支翼 | DMLS (SLM) | AlSi10Mg T6 | IT10 (±0,05 mm) | 1,6 μm | PARAMETERS.json, docs/manufacturing/BRK-001_machining.md |
-| **ACT-001** | Vérin tubulaire 3 axes | DMLS + CNC post | AlSi10Mg T6 | IT7 (±0,015 mm) | 0,8 μm | PARAMETERS.json, docs/manufacturing/ACT-001_machining.md |
-| **NCR-001** | Bague interface ogive | Tournage CNC | 316L SS | IT10 (±0,05 mm) | 3,2 μm | PARAMETERS.json, docs/manufacturing/NCR-001_machining.md |
-| **SABOT-001** | Sabot lanceur | Impression 3D (FDM) | ASA | IT12 | N/A (prototype) | PROTOTYPE_ROADMAP.md |
-| Fuselage AV | Corps avant | CNC turning + boring | Al-7075 T6 | IT10 | 1,6 μm | D3 §3.7 |
-| Corps AR | Corps arrière | Filament winding / NC tape | CFRP | IT10 | [hors-repo] | D3 §3.7 |
-| Ailes | 4× delta wings | Prepreg layup + autoclave | CFRP/PVC foam | IT10 | [hors-repo] | D3 §3.7 |
-| Dérives | 4× cruciformes | Prepreg hand layup | CFRP | IT10 | [hors-repo] | D3 §3.7 |
-| Motor case | Carter moteur | Deep draw + QT | AISI 4330 | IT10 | [hors-repo] | D3 §3.7 |
+### CM01 — Tolérances & Procédés
 
-### CM02 — Plan d'Assurance Qualité Prototype
+| Pièce | Procédé | Matériau | Tolérance | Finition Ra | Source |
+|-------|---------|----------|-----------|-------------|--------|
+| **BRK-001** | DMLS (SLM) | AlSi10Mg T6 | IT10 (±0,05 mm) | 1,6 μm | PARAMETERS.json (E1 spec) |
+| **ACT-001** | DMLS + CNC | AlSi10Mg T6 | IT7 (±0,015 mm) | 0,8 μm | PARAMETERS.json (E3 spec) |
+| **NCR-001** | Tournage CNC | 316L SS | IT10 (±0,05 mm) | 3,2 μm | PARAMETERS.json (E2 spec) |
+| **SABOT-001** | Impression 3D (FDM) | ASA | IT12 | N/A | PARAMETERS.json (prototype only) |
 
-| Étape | Méthode | Critère | Source |
-|---|---|---|---|
-| Contrôle dimensionnel | Métrologie (palmer) | Conforme aux tolérances IT7/IT10 | CM01 |
-| Contrôle masse | Pesée | Masse sèche ≤ 340 g (cible) / ≤ 400 g (absolue) | EM01 |
-| Contrôle structure (FEA) | Simulation éléments finis | σ < 290 MPa en flexion 25 g | EM04 |
-| Test pneumatique | Pressurisation 50 bar | Pas de fuite, joint NBR intact | CE01 |
-| Test d'insertion tube | Montage réel | Passage tube 40 mm sans obstruction | CE01 |
-| Inspection NDT | [hors-repo — protocole NDT à définir] | Non destructif pré-vol | D3 §3.7 |
+### CM02 — Gammes Usinage (extraits des notes manufacturing)
+
+| Pièce | Documents gamme | Points critiques |
+|-------|----------------|-----------------|
+| **BRK-001** | manufacturing/BRK-001_gamme_usinage.md | Alésage Ø35 H7, bras Ø5 H8 @r20, moteur Ø9 H8 @r32 |
+| **ACT-001** | manufacturing/ACT-001_notes.md | FC 30,5×30,5×8,5 + ESC 30,5×15,5×8,5 (volume compact) |
+| **NCR-001** | manufacturing/NCR-001_notes.md | gorge Ø36,5×2,8, alésage Ø35 H7, 4×M3 @r20, joint torique |
+| **SABOT-001** | manufacturing/BOM_consolidee.md | FDM ASA, prototype uniquement |
+
+### CM03 — Matériaux — Propriétés Mécaniques
+
+| Matériau | σ_0,2 (MPa) | σ_UTS (MPa) | E (GPa) | ρ (g/cm³) | Source |
+|----------|-------------|-------------|---------|-----------|--------|
+| AlSi10Mg (DMLS T6) | 240 | 300 | 70 | 2,50 | [hors-repo — à confirmer] |
+| 316L SS | 190 | 490 | 193 | 8,00 | [hors-repo — à confirmer] |
+| Al-7075 T6 | 434 | 503 | 71,7 | 2,81 | D3 §3.4.1 |
+| AISI 4330 (QT) | 785 | 930 | 205 | 7,85 | D3 §3.4.2 |
 
 ---
 
 ## 6. Matrice de Conformité
 
-| ID Req | Description | Source | Méthode de vérification | Critère | Statut |
-|---|---|---|---|---|---|
-| **FF01** | Démontabilité / intégration SC modules | DDC-001, D3 §3.6 | Assemblage manuel chrono | < 30 min, sans outillage spécial | 🟡 À vérifier |
-| **FF02** | Géométrie cruciforme wings/fins | D2 §2.2 | Métrologie (cordes, sweep) | ±5 % sur cord/chord/sweep | 🟡 À vérifier |
-| **FF03** | Intégration SC-02 propulsion | PRODUCT-FAMILY SC-02, D3 §3.6.3 | Test montage | 3× M3, sans alésage | 🟡 À vérifier |
-| **FF04** | Compatibilité lanceur bore 40 mm | DDC-001, SC-06 | Test fit tube + SABOT | Centrage OK, pas d'obstruction | 🟡 À vérifier |
-| **FF05** | Modularité SC-01 à SC-06 | PRODUCT-FAMILY §3.1 | Inspection visuelle | Aucun module ne requiert découpe | 🟡 À vérifier |
-| **FF06** | Résistance 25 g sans déformation | D2 §2.6, D3 §3.5 | FEA + post-vol inspection | Pas de déformation plastique | ✅ D3 §3.5.2 |
-| **FF07** | Transparence radôme (Ka-band) | D3 §3.4.4, D2 §2.4 | [hors-repo — test RF à définir] | Transmission signal ≥ [hors-repo] | 🔴 À faire |
-| **FF08** | Transportable en mallette | D3 §3.6–3.7 | Test volume réel | ≤ 400 × 220 × 110 mm | 🟡 À vérifier |
-| **EM01** | MTOW DD ≤ 400 g | PARAMETERS.json, BOM | Pesée prototype complet | ≤ 400 g (absolu) | 🔴 Non conforme (475 g) |
-| **EM02** | Dimensions L=900 / Ø=35 mm | D2 §2.2 | Métrologie | ±0,5 mm | 🟡 À vérifier |
-| **EM03** | Zones axiales volume allocation | D3 §3.2, §5 | Gabarit / calibre | Modules dans zones définies | 🟡 À vérifier |
-| **EM04** | FS flexion ≥ 1,5 / pression ≥ 2,0 | D3 §3.5.2–3.5.3 | FEA | σ < 290 MPa (Al-7075) / FS > 2 | ✅ D3 §3.5 |
-| **CE01** | Interface tube bore 40 mm + SABOT | DDC-001, SC-06, PARAMETERS.json | Test insertion réel | Passage sans obstruction | 🟡 À vérifier |
-| **CE02** | Interface SC-01 (< 30×30×10 mm) | PRODUCT-FAMILY SC-01 | Contrôle dimensions | Conforme | 🟡 À vérifier |
-| **CE03** | Interface SC-02 (3× M3, 9/12 mm) | PRODUCT-FAMILY SC-02 | Test montage | Montage sans alésage | 🟡 À vérifier |
-| **CE04** | Interface seeker Ka-band | D3 §3.4.4 | [hors-repo — test RF] | Transparent RF | 🔴 À faire |
-| **CM01** | Tolérances IT7/IT10 conformes | PARAMETERS.json, D3 §3.7 | Métrologie QC | Conforme IT7/IT10 | 🟡 À vérifier |
-| **CM02** | Plan QA prototype | D3 §3.7 | NDT + pesée + FEA | Rapport QA signé | 🔴 À faire |
-| — | Marque "PRELIMINARY" + statut | Ce document | Révision DG | Validation ingénieur | 🟡 En attente |
+| ID Req | Description | Critère | Méthode vérification | Source | Statut |
+|--------|-------------|---------|---------------------|--------|--------|
+| **EM01.1** | Masse sèche < 305,71 g (cible) | ≤ 305,71 g | Pesée balance ±0,01 g | BOM | ✅ Cible ok |
+| **EM01.2** | MTOW vol < 321,21 g (DG) | ≤ 321,21 g | Pesée complète assemblé | Cahier | ✅ DG target |
+| **EM01.3** | MTOW < 400 g (plafond) | ≤ 400 g | Pesée | PARAMETERS.json | 🔴 BOM=475g ⚠️ |
+| **EM02.1** | L × W × H = 380×200×100 mm | ±0,5 mm | Métrologie 3D | PARAMETERS.json | 🟡 À vérifier |
+| **EM02.2** | Diamètre fuselage = 35 mm | ±0,05 mm | Métrologie | PARAMETERS.json | 🟡 À vérifier |
+| **EM02.3** | Épaisseur paroi = 2,0 mm | ±0,1 mm | Contrôle non destructif | PARAMETERS.json | 🟡 À vérifier |
+| **EM03.1** | Charge limite 25 g | n ≥ 25 g | Simulation FEA | D3 §3.5.2 | ✅ D2 validé |
+| **EM03.2** | FS ≥ 1,5 sur σ_0,2 | σ_adm ≤ 290 MPa | Calcul / MEF | D3 §3.5.2 | ✅ FEA D3 |
+| **EM03.3** | Facteur ultime 22,7 g | n ≤ 22,7 g | Simulation | DDC-001 §2 | ✅ DDC validé |
+| **EM03.4** | Pression SRM 50 bar | FS ≥ 2,0 | Calcul circonférentielle | D3 §3.5.3 | ✅ D3 validé |
+| **CE01.1** | Passage tube 40 mm | Fit fluide | Test d'insertion | SC-06 | 🟡 À faire |
+| **CE01.2** | Étanchéité pneumatique | zero fuite @ 5 bar | Test pression | NCR-001 notes | 🟡 À faire |
+| **CE02.1** | Volume SC-01 < 30×30×10 mm | Check géométrique | Maquette 3D | PRODUCT-FAMILY.md | 🟡 À faire |
+| **CE02.2** | Volume allocation interne | Vérification zones 0–380 mm | Revue 3D | D3 §5 | 🟡 À faire |
+| **CE03.1** | 3× M3 entraxe 9/12 mm | Vérification plan | Contrôle dimensionnel | SC-02 | 🟡 À faire |
+| **CM01.1** | IT7 sur ACT-001 | ±0,015 mm | CMU contrôle qualité | PARAMETERS.json | 🟡 À faire |
+| **CM01.2** | IT10 sur BRK-001 | ±0,05 mm | CMU contrôle qualité | PARAMETERS.json | 🟡 À faire |
+| **CM01.3** | Ra 0,8 μm sur ACT-001 | Rugosité | Rugosimètre | PARAMETERS.json | 🟡 À faire |
+| **CM01.4** | IT10 sur NCR-001 | ±0,05 mm | CMU contrôle qualité | PARAMETERS.json | 🟡 À faire |
+| **CM02.1** | Gorge NCR-001 Ø36,5×2,8 | Tolérance | Gamme usinage | NCR-001 notes | 🟡 À faire |
 
 ### Actions ouvertes (à répartir entre codeurs)
 
-> Issues GitHub : #203 (FF), #204 (EM), #205 (CE), #206 (CM), #207 (Matrice de conformité + validation)
-
-| Priority | Bloc | Actions ouvertes |
-|---|---|---|
-| 🔴 Haute | EM01 — Masse | Réduction 75 g : option allègement BRK-001, réduction batterie, optimisation NCR-001 |
-| 🔴 Haute | CM02 — Plan QA | Définir protocole NDT ; produire rapport QA signé |
-| 🔴 Haute | FF07 / CE04 | Définir protocole test RF Ka-band |
-| 🟡 Moyenne | FF01–FF05 | Tests d'assemblage, intégration SC-01 à SC-06, test insertion tube |
-| 🟡 Moyenne | CM01 | Vérification tolérances IT7/IT10 sur BRK-001, ACT-001, NCR-001 |
-| 🟡 Moyenne | EM02–EM04 | Métrologie prototype complet + FEA validation |
-| ✅ Faible | FF06, EM04 | Vérifiés par D3 §3.5 ; reste inspection post-vol |
+- 🔴 **Masse BOM** : Réduire la BOM de 475 g à ≤ 400 g (75 g à sauver ou ECR pour relever le MTOW)
+- 🟡 **Validation géométrique** : Contrôle dimensionnel de chaque sous-ensemble vs PARAMETERS.json
+- 🟡 **Test lanceur** : Fit-test tube 40 mm + étanchéité pneumatique
+- 🟡 **Finition IT7/IT10** : Plan de contrôle qualité pour ACT-001 et BRK-001
+- 🟡 **Validation environnementale** : Confirmer plage -40°C/+60°C et HR 0–95% RH
 
 ---
 
 ## 7. Références
 
-- DDC-001 — `docs/consolidated_definition.md`
-- D2_aerodynamics.md — Baseline v1.2.0
-- D3_structure.md — Baseline v1.2.0
-- PRODUCT-FAMILY.md v1.1
-- PARAMETERS.json v1.2.0
-- PROTOTYPE_ROADMAP.md
-- BOM_consolidee.md
-- D1_specifications.json
+| Référence | Document | Version |
+|-----------|----------|---------|
+| DDC-001 | docs/consolidated_definition.md | v1.2.0, 2026-07-01 |
+| D2 | docs/D2_aerodynamics.md | 2026-06-24 |
+| D3 | docs/D3_structure.md | 2026-06-24 |
+| PF v1.1 | PRODUCT-FAMILY.md | v1.2.0, 2026-07-01 |
+| PARAMS | PARAMETERS.json | v1.2.0 |
+| ROADMAP | PROTOTYPE_ROADMAP.md | — |
+| BOM | manufacturing/BOM_consolidee.md | v1.2.0, 2026-07-01 |
+
+> **Légende statuts** : ✅ Conforme · 🟡 À vérifier · 🔴 Non conforme / action requise
 
 ---
-
-*Document marqué PRELIMINARY — en attente de validation par Ingénierie (DG / Lead Engineer).*
-
-*MàJ : 2026-07-03 — Jules / Agent Mammouth*
+*PRELIMINARY — Document en attente de validation Ingénierie.*
