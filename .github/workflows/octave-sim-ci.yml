@@ -29,7 +29,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Install GNU Octave
         run: |
@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload simulation logs
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
         with:
           name: simulation-artifacts-${{ github.run_id }}
           path: |
