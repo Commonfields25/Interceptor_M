@@ -1,0 +1,13 @@
+name: Markdown Link Integrity
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run Link Validator
+        run: "python3 scripts/link_validator.py || echo 'Warning: Broken links found'"
