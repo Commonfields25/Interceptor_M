@@ -20,6 +20,10 @@ The core physics and guidance suite is now **production-ready**. The simulation 
 
 ## 🚀 Priority To-Do List
 
+### 0. CAD Infrastructure (ICAD)
+- [x] **ICAD Engine Deployment**: Replaced FreeCAD scripts with Build123d-based L3 generator.
+- [x] **L3 Parts Validated**: BRK-001, ACT-001, NCR-001 generated with manufacturing fidelity.
+
 ### 1. Structural Engineering (E1)
 - [ ] **FEA Analysis:** Use 15.1G (Limit) / 22.7G (Ultimate) loads for airframe stress testing.
 - [ ] **Geometry Input:** Finalize wing/fuselage CAD based on 24kPa pressure reference.
