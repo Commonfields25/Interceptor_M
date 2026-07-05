@@ -1,6 +1,3 @@
-# Dependabot configuration for Interceptor_M
-# ISO 27001 / ISO 9001 compliance - Dependency vulnerability management
-
 version: 2
 updates:
   # 1. SECURITY UPDATES (High Priority)
