@@ -1,0 +1,19 @@
+parts:
+  - id: "SABOT-001"
+    parameters:
+      outer_diameter: 40.0
+      inner_diameter: 35.0
+      length: 60.0
+    metadata:
+      material: "ASA (High-Temp Polymer)"
+      density: 0.00107
+      revision: "v2.0-L3"
+  - id: "CHS-001"
+    parameters:
+      section_length: 500.0
+      width: 150.0
+      height: 60.0
+    metadata:
+      material: "Al 6061-T6"
+      density: 0.00270
+      revision: "v1.2-L3"
