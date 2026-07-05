@@ -29,7 +29,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        uses: actions/checkout@v4
 
       - name: Install GNU Octave
         run: |
@@ -46,7 +46,7 @@ jobs:
               try
                 fid = fopen('$f'); code = fread(fid,'char=>char')'; fclose(fid);
                 eval(code); disp('OK');
-              catch err; fprintf(2,'FAIL: %s\n',err.message); exit(1); end
+              catch err; fprintf(stderr,'FAIL: %s\n',err.message); exit(1); end
             " || { echo "SYNTAX FAIL: $f"; exit 1; }
           done
           echo "All .m files pass syntax check"
@@ -84,7 +84,7 @@ jobs:
 
       - name: Upload simulation logs
         if: always()
-        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
+        uses: actions/upload-artifact@v4
         with:
           name: simulation-artifacts-${{ github.run_id }}
           path: |

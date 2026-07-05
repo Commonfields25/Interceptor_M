@@ -1,6 +1,6 @@
 {
   "project": "Interceptor M",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "mtow_source": "DG decision — Consolidated System Definition v2.0",
   "lines": {
     "DC": {
@@ -10,10 +10,9 @@
       "segments": {
         "fuselage": {
           "L_mm": 350.0,
-          "W_mm": 160.0,
-          "H_mm": 80.0
+          "diameter_mm": 35.0
         },
-        "wing_span_m": 0.12,
+        "wing_span_deployed_mm": 120.0,
         "hull_thickness_mm": 1.5
       }
     },
@@ -24,10 +23,9 @@
       "segments": {
         "fuselage": {
           "L_mm": 380.0,
-          "W_mm": 200.0,
-          "H_mm": 100.0
+          "diameter_mm": 35.0
         },
-        "wing_span_m": 0.15,
+        "wing_span_deployed_mm": 150.0,
         "hull_thickness_mm": 2.0
       }
     },
@@ -38,17 +36,29 @@
       "segments": {
         "fuselage": {
           "L_mm": 365.0,
-          "W_mm": 180.0,
-          "H_mm": 90.0
+          "diameter_mm": 35.0
         },
-        "wing_span_m": 0.135,
+        "wing_span_deployed_mm": 135.0,
         "hull_thickness_mm": 1.8
+      }
+    },
+    "F1": {
+      "designation": "F1-Chaser — High Speed Quad",
+      "mtow_g": 450.0,
+      "mtow_source": "Conceptual",
+      "segments": {
+        "fuselage": {
+          "L_mm": 400.0,
+          "diameter_mm": 40.0
+        },
+        "propeller_diameter_in": 5.0,
+        "hull_thickness_mm": 2.0
       }
     }
   },
   "parts": {
     "BRK-001": {
-      "description": "Structure primaire — Coque fuselage +支翼",
+      "description": "Structure primaire — Coque fuselage",
       "material": "AlSi10Mg (DMLS)",
       "specs": {
         "E1": {
@@ -58,47 +68,18 @@
       }
     },
     "ACT-001": {
-      "description": "Vérin tubulaire 3 axes",
-      "material": "AlSi10Mg (DMLS)",
+      "description": "Mécanisme de déploiement des ailes",
+      "material": "AlSi10Mg (DMLS) + Spring Steel",
       "specs": {
         "E3": {
           "surface_finish_um": 0.8,
           "tolerance": "IT7"
         }
       }
-    },
-    "NCR-001": {
-      "description": "Bague d'interface ogive — joint torique NBR (étanchéité pneumatique)",
-      "material": "316L SS",
-      "specs": {
-        "E2": {
-          "surface_finish_um": 3.2,
-          "tolerance": "IT10"
-        }
-      }
-    }
-  },
-  "manufacturing": {
-    "DMLS": {
-      "powder": "AlSi10Mg",
-      "process": "SLM/DMLS",
-      "post_heat_treatment": "T6"
-    },
-    "CNC": {
-      "tolerances": {
-        "IT7": "±0.015mm",
-        "IT10": "±0.05mm"
-      }
-    },
-    "FDM": {
-      "material": "ASA/ABS",
-      "use": "prototype only"
     }
   },
   "shared_geometry": {
-    "tube_diameter_mm": 40.0,
-    "fuselage_outer_diameter_mm": 35.0,
-    "arm_length_mm": 75.0,
-    "wing_chord_mm": 60.0
+    "launcher_tube_bore_mm": 40.0,
+    "fuselage_outer_diameter_mm": 35.0
   }
 }
