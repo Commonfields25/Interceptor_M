@@ -31,37 +31,52 @@ class LOSKalmanFilter:
         self.R = np.array([[0.01]])
 
     def predict(self):
-        self.x = self.F @ self.x
-        self.P = self.F @ self.P @ self.F.T + self.Q
+        # Optimization: Manual matrix multiplication for 2x2 state transition
+        # self.x = self.F @ self.x
+        x0 = self.x[0] + self.dt * self.x[1]
+        x1 = self.x[1]
+        self.x[0] = x0
+        self.x[1] = x1
+
+        # self.P = self.F @ self.P @ self.F.T + self.Q
+        # F @ P = [[P00 + dt*P10, P01 + dt*P11], [P10, P11]]
+        # (F @ P) @ F.T = [[(P00 + dt*P10) + dt*(P01 + dt*P11), P01 + dt*P11], [P10 + dt*P11, P11]]
+        p00 = self.P[0,0] + self.dt * (self.P[1,0] + self.P[0,1]) + self.dt * self.dt * self.P[1,1] + self.Q[0,0]
+        p01 = self.P[0,1] + self.dt * self.P[1,1] + self.Q[0,1]
+        p10 = self.P[1,0] + self.dt * self.P[1,1] + self.Q[1,0]
+        p11 = self.P[1,1] + self.Q[1,1]
+
+        self.P[0,0] = p00
+        self.P[0,1] = p01
+        self.P[1,0] = p10
+        self.P[1,1] = p11
 
     def update(self, z_angle):
         # Innovation
-        y = z_angle - (self.H @ self.x)
+        y = z_angle - self.x[0]
 
-        # Covariance d'innovation
-        S = self.H @ self.P @ self.H.T + self.R
+        # Covariance d'innovation (S is 1x1)
+        s_val = self.P[0,0] + self.R[0,0]
 
-        # Gain de Kalman
-        K = self.P @ self.H.T @ np.linalg.inv(S)
+        # Gain de Kalman K = P @ H.T / S
+        k0 = self.P[0,0] / s_val
+        k1 = self.P[1,0] / s_val
 
         # Mise à jour de l'état
-        self.x = self.x + K @ y
+        self.x[0] += k0 * y
+        self.x[1] += k1 * y
 
-        # Mise à jour de la covariance
-        self.P = (np.eye(2) - K @ self.H) @ self.P
+        # Mise à jour de la covariance: P = (I - KH)P
+        # I - KH = [[1-k0, 0], [-k1, 1]]
+        p00 = (1.0 - k0) * self.P[0,0]
+        p01 = (1.0 - k0) * self.P[0,1]
+        p10 = -k1 * self.P[0,0] + self.P[1,0]
+        p11 = -k1 * self.P[0,1] + self.P[1,1]
+
+        self.P[0,0] = p00
+        self.P[0,1] = p01
+        self.P[1,0] = p10
+        self.P[1,1] = p11
 
     def get_rate(self):
         return self.x[1]
-
-if __name__ == "__main__":
-    # Simple test
-    kf = LOSKalmanFilter(dt=0.1)
-    true_rate = 0.5 # rad/s
-    angle = 0.0
-    print("Test Kalman Filter (True Rate = 0.5):")
-    for i in range(10):
-        angle += true_rate * 0.1
-        noisy_angle = angle + np.random.normal(0, 0.05)
-        kf.predict()
-        kf.update(noisy_angle)
-        print(f"t={i*0.1:.1f}: Noisy Angle={noisy_angle:.3f}, Estimated Rate={kf.get_rate():.3f}")

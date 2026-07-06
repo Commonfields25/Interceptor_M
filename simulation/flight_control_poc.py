@@ -24,25 +24,28 @@ class GuidanceSystem:
         self.initialized = False
 
     def compute_guidance(self, etat_i, etat_c):
-        pos_i = np.array(etat_i["position"])
-        pos_c = np.array(etat_c["position"])
-        vel_i = np.array(etat_i["vitesse"])
-        vel_c = np.array(etat_c["vitesse"])
+        pos_i = etat_i["position"]
+        pos_c = etat_c["position"]
+        vel_i = etat_i["vitesse"]
+        vel_c = etat_c["vitesse"]
 
-        rel_pos = pos_c - pos_i
-        dist_sq = np.sum(rel_pos**2)
+        # Optimized relative vector math
+        rx, ry, rz = pos_c[0] - pos_i[0], pos_c[1] - pos_i[1], pos_c[2] - pos_i[2]
+        dist_sq = rx*rx + ry*ry + rz*rz
         if dist_sq < 0.01: return 0.0, 0.0
 
         dist = math.sqrt(dist_sq)
-        rel_vel = vel_c - vel_i
+        vx, vy, vz = vel_c[0] - vel_i[0], vel_c[1] - vel_i[1], vel_c[2] - vel_i[2]
 
         # Angles LOS
-        az = math.atan2(rel_pos[1], rel_pos[0])
-        el = math.asin(rel_pos[2] / dist)
+        az = math.atan2(ry, rx)
+        el = math.asin(rz / dist)
 
         if not self.initialized:
-            self.kf_az.x = np.array([az, 0.0])
-            self.kf_el.x = np.array([el, 0.0])
+            self.kf_az.x[0] = az
+            self.kf_az.x[1] = 0.0
+            self.kf_el.x[0] = el
+            self.kf_el.x[1] = 0.0
             self.initialized = True
 
         self.kf_az.predict()
@@ -50,17 +53,18 @@ class GuidanceSystem:
 
         # Unwrap angles
         z_az = az
-        while z_az - self.kf_az.x[0] > math.pi: z_az -= 2*math.pi
-        while z_az - self.kf_az.x[0] < -math.pi: z_az += 2*math.pi
+        az_kf = self.kf_az.x[0]
+        while z_az - az_kf > math.pi: z_az -= 2.0*math.pi
+        while z_az - az_kf < -math.pi: z_az += 2.0*math.pi
 
         self.kf_az.update(z_az)
         self.kf_el.update(el)
 
-        omega_az = self.kf_az.get_rate()
-        omega_el = self.kf_el.get_rate()
+        omega_az = self.kf_az.x[1]
+        omega_el = self.kf_el.x[1]
 
         # Vitesse de rapprochement (closing velocity)
-        v_clos = -np.dot(rel_pos, rel_vel) / dist
+        v_clos = -(rx*vx + ry*vy + rz*vz) / dist
 
         # PN 3D
         accel_az = _GAIN_PN * v_clos * omega_az
