@@ -1,0 +1,31 @@
+name: Python CI
+
+on:
+  push:
+    branches: [main, feat/**]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        with:
+          python-version: '3.11'
+      - name: Install ruff
+        run: pip install ruff
+      - name: Run ruff
+        run: ruff check .
+
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        with:
+          python-version: '3.11'
+      - name: Syntax-check all tracked .py files
+        run: |
+          python -m py_compile $(git ls-files '*.py')

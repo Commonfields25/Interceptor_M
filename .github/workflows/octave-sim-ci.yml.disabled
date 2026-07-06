@@ -1,0 +1,108 @@
+name: Octave Simulation & Constraint Tests
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - fix/E3/**
+      - feat/E3/**
+    paths:
+      - 'engineering/simulation/**'
+      - '.github/workflows/octave-sim-ci.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'engineering/simulation/**'
+      - '.github/workflows/octave-sim-ci.yml'
+
+# Principle of least privilege
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  simulation-tests:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+
+      - name: Install GNU Octave
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y octave octave-common liboctave-dev
+          octave --version | head -3
+
+      - name: Syntax-check all .m files
+        run: |
+          set -e
+          for f in engineering/simulation/scripts/*.m engineering/simulation/tests/*.m; do
+            echo -n "Syntax $f ... "
+            octave --quiet --no-gui --eval "
+              try
+                fid = fopen('$f'); code = fread(fid,'char=>char')'; fclose(fid);
+                eval(code); disp('OK');
+              catch err; fprintf(stderr,'FAIL: %s\n',err.message); exit(1); end
+            " || { echo "SYNTAX FAIL: $f"; exit 1; }
+          done
+          echo "All .m files pass syntax check"
+
+      - name: Run thermal transient PCB simulation
+        run: |
+          mkdir -p engineering/simulation/logs
+          cd engineering/simulation/scripts
+          octave --no-gui --eval "addpath(pwd); thermal_transient_pcb(); exit(0);" \
+            2>&1 | tee ../../logs/thermal_transient.log
+          THERMAL_EXIT=$?
+          echo "THERMAL_EXIT=$THERMAL_EXIT" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Run aeroload proxy simulation
+        run: |
+          cd engineering/simulation/scripts
+          octave --no-gui --eval "addpath(pwd); aeroload_proxy(5, 0.2); exit(0);" \
+            2>&1 | tee ../../logs/aeroload.log
+          AEROLOAD_EXIT=$?
+          echo "AEROLOAD_EXIT=$AEROLOAD_EXIT" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Run constraint test suite
+        run: |
+          cd engineering/simulation
+          octave --no-gui --eval "\
+            addpath('tests'); addpath('scripts'); \
+            [results, all_passed] = constraint_test_runner(); \
+            exit(all_passed ? 0 : 1); \
+          " 2>&1 | tee logs/constraints.log
+          CONSTRAINT_EXIT=$?
+          echo "CONSTRAINT_EXIT=$CONSTRAINT_EXIT" >> $GITHUB_ENV
+        continue-on-error: true
+
+      - name: Upload simulation logs
+        if: always()
+        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
+        with:
+          name: simulation-artifacts-${{ github.run_id }}
+          path: |
+            engineering/simulation/logs/*.log
+            engineering/simulation/plots/*.png
+          retention-days: 30
+
+      - name: PASS / FAIL gate
+        run: |
+          echo "============================================"
+          echo "  Octave Simulation CI — PASS/FAIL Gate"
+          echo "============================================"
+          echo "  thermal_transient_pcb.m  exit=$THERMAL_EXIT"
+          echo "  aeroload_proxy.m          exit=$AEROLOAD_EXIT"
+          echo "  constraint_test_runner.m  exit=$CONSTRAINT_EXIT"
+          echo "============================================"
+          if [ "$THERMAL_EXIT" != "0" ] || [ "$AEROLOAD_EXIT" != "0" ] || [ "$CONSTRAINT_EXIT" != "0" ]; then
+            echo "::error::One or more simulation tests returned non-zero exit code"
+            exit 1
+          fi
+          echo "::notice::All simulation tests PASSED — CI gate passed"
