@@ -2,12 +2,14 @@
 simulation/montecarlo_pintercept.py
 ====================================
 Monte Carlo P(intercept) — Échantillonnage de l'enveloppe E1.
+Optimized: Added parallel execution support for large batches.
 """
 
 import math
 import random
 import statistics
 import numpy as np
+from concurrent.futures import ProcessPoolExecutor
 from . import constants as C
 from .sim_6dof import simulate_engagement, manoeuvre_rectiligne, manoeuvre_virage_constant
 from .flight_control_poc import GuidanceSystem
@@ -56,32 +58,49 @@ def tirer_config():
         "manoeuvre_fn"  : manoeuvre_fn
     }
 
-def run_monte_carlo(nb_tirages=100, silencieux=False):
+def run_single_sim(seed=None):
+    if seed is not None:
+        random.seed(seed)
+        np.random.seed(seed)
+
+    cfg = tirer_config()
+    gs = GuidanceSystem()
+
+    res = simulate_engagement(
+        pos_init_m    = cfg["pos_init_i"],
+        vel_init_m_s  = cfg.get("vel_init_i_m_s", cfg.get("vel_init_i", 100.0)),
+        cap_init_rad  = cfg["cap_init_rad"],
+        pos_cible_m   = cfg["pos_cible"],
+        vel_cible_m_s = cfg["vel_cible_m_s"],
+        cap_cible_rad = cfg["cap_cible_rad"],
+        guidage_sys    = gs,
+        manoeuvre_c_fn = cfg["manoeuvre_fn"],
+        keep_traj     = False,
+    )
+    return res["intercept"], res["distance_min_m"]
+
+def run_monte_carlo(nb_tirages=100, silencieux=False, parallel=True):
     if not silencieux:
-        print(f"[Monte Carlo] Lancement de {nb_tirages} tirages...")
+        print(f"[Monte Carlo] Lancement de {nb_tirages} tirages (parallel={parallel})...")
 
-    succes       = 0
-    dist_mins    = []
+    succes = 0
+    dist_mins = []
 
-    for i in range(nb_tirages):
-        cfg = tirer_config()
-        gs = GuidanceSystem()
+    if parallel and nb_tirages > 1:
+        seeds = [random.randint(0, 1000000) for _ in range(nb_tirages)]
+        with ProcessPoolExecutor() as executor:
+            results = list(executor.map(run_single_sim, seeds))
 
-        res = simulate_engagement(
-            pos_init_m    = cfg["pos_init_i"],
-            vel_init_m_s  = cfg.get("vel_init_i_m_s", cfg.get("vel_init_i", 100.0)),
-            cap_init_rad  = cfg["cap_init_rad"],
-            pos_cible_m   = cfg["pos_cible"],
-            vel_cible_m_s = cfg["vel_cible_m_s"],
-            cap_cible_rad = cfg["cap_cible_rad"],
-            guidage_sys    = gs,
-            manoeuvre_c_fn = cfg["manoeuvre_fn"],
-            keep_traj     = False,
-        )
-
-        if res["intercept"]:
-            succes += 1
-        dist_mins.append(res["distance_min_m"])
+        for intercepted, dist in results:
+            if intercepted:
+                succes += 1
+            dist_mins.append(dist)
+    else:
+        for i in range(nb_tirages):
+            intercepted, dist = run_single_sim()
+            if intercepted:
+                succes += 1
+            dist_mins.append(dist)
 
     p_estimee = succes / nb_tirages
 
