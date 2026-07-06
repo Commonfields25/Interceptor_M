@@ -3,14 +3,14 @@
 ## Part Metadata
 | Property | Value |
 | :--- | :--- |
-| **material** | Al 7075-T6 |
-| **density** | 0.00281 |
+| **material** | AlSi10Mg |
+| **density** | 0.00267 |
 | **revision** | v3.0-L3 |
 
 ## Physical Properties
-- **Volume**: 8961.88 mm³
+- **Volume**: 11334.15 mm³
 - **Bounding Box**: 65.00 x 42.00 x 5.50 mm
-- **Calculated Mass**: 25.18 g
+- **Calculated Mass**: 30.26 g
 
 ## Manufacturing Files
 - [STEP Model](./BRK-001.step)

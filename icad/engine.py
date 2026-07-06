@@ -26,17 +26,17 @@ class CADEngine:
 
         # Camera positions for projections
         views = {
-            "top": (0, 0, 1000),
-            "front": (0, -1000, 0),
-            "side": (1000, 0, 0)
+            "top": (0.01, 0.01, 1000), # Slight offset to avoid zero norm cross product
+            "front": (0.01, -1000, 0.01),
+            "side": (1000, 0.01, 0.01)
         }
 
         paths = {}
         for view_name, cam_pos in views.items():
             path = os.path.join(drawing_dir, f"{name}_{view_name}.svg")
-            visible, hidden = part.project_to_viewport(cam_pos)
-
             try:
+                visible, hidden = part.project_to_viewport(cam_pos)
+
                 exporter = ExportSVG()
                 exporter.add_layer("visible", line_color=Color("black"), line_weight=0.3)
                 exporter.add_layer("hidden", line_color=Color("gray"), line_weight=0.1)
@@ -49,7 +49,7 @@ class CADEngine:
                 exporter.write(path)
                 paths[view_name] = path
             except Exception as e:
-                print(f"Warning: Could not export SVG for {view_name}: {e}")
+                print(f"Warning: Could not export SVG for {view_name} of {name}: {e}")
 
         return paths
 

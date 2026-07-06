@@ -3,14 +3,14 @@
 ## Part Metadata
 | Property | Value |
 | :--- | :--- |
-| **material** | 316L Stainless Steel |
-| **density** | 0.008 |
+| **material** | Al-7075 |
+| **density** | 0.00281 |
 | **revision** | v1.5-L3 |
 
 ## Physical Properties
-- **Volume**: 9984.98 mm³
+- **Volume**: 12080.99 mm³
 - **Bounding Box**: 45.00 x 45.00 x 22.00 mm
-- **Calculated Mass**: 79.88 g
+- **Calculated Mass**: 33.95 g
 
 ## Manufacturing Files
 - [STEP Model](./NCR-001.step)
