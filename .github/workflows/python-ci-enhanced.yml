@@ -16,12 +16,12 @@ jobs:
     name: Lint & Format Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -36,7 +36,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload Bandit report
-        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
+        uses: actions/upload-artifact@v4
         with:
           name: bandit-report
           path: bandit-report.json
@@ -47,12 +47,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -64,7 +64,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload coverage report
-        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: coverage.xml
@@ -75,12 +75,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -92,7 +92,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload pip-audit report
-        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
+        uses: actions/upload-artifact@v4
         with:
           name: pip-audit-report
           path: pip-audit-report.json
