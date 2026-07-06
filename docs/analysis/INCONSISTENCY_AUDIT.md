@@ -6,4 +6,4 @@ related_gate: G2
 status: Active
 ---
 # 🔍 REPOSITORY INCONSISTENCY AUDIT (RESOLVED)
-Discrepancies between parameters and documentation have been resolved. The 400g/380mm Electric/Pneumatic baseline is now locked as the Single Source of Truth.
+Technical drift between legacy rocket specs and the 400g electric baseline has been resolved.

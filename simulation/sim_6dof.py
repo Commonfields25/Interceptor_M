@@ -22,7 +22,7 @@ def derivees(etat, cmds):
     return vel, accel, (thrust * v_mod) / _EFF
 def integrer(e, cmds, dt):
     v, a, p_w = derivees(e, cmds); e["position"] += v * dt; e["vitesse"] += a * dt; e["energy"] += p_w * dt; e["temps"] += dt; return e
-def simulate_engagement(p_i, v_i, c_i, pc_i, vc_m, c_c, gs=None, manoeuvre_c_fn=lambda e, dt: e):
+def simulate_engagement(p_i, v_i, c_i, pc_i, vc_m, c_c, gs=None):
     e_i = etat_init(p_i, v_i, c_i); vcx, vcy = vc_m * math.cos(c_c), vc_m * math.sin(c_c); e_c = {"position": np.array(pc_i, dtype=float), "vitesse": np.array([vcx, vcy, 0.0], dtype=float)}; temps, dist_min_sq, intercept, lost_seeker = 0.0, float("inf"), False, False
     while temps < _DUREE_MAX:
         v_i, rel_p = e_i["vitesse"], e_c["position"] - e_i["position"]; v_mod, d_sq = np.linalg.norm(v_i), np.sum(rel_p**2); dist = math.sqrt(d_sq)

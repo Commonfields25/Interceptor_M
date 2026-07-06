@@ -1,15 +1,8 @@
 {
   "project": "Interceptor M",
   "version": "2.1.0",
-  "comment": "Unified SSoT baseline - Synchronized with Simulation & CAD",
   "platform": {
-    "DD": {
-      "designation": "Defense Deployable",
-      "mtow_g": 400.0,
-      "length_mm": 380.0,
-      "diameter_mm": 35.0,
-      "launcher_bore_mm": 40.0
-    }
+    "DD": {"mtow_g": 400.0, "length_mm": 380.0, "diameter_mm": 35.0, "launcher_bore_mm": 40.0}
   },
   "geometry": {
     "fuselage": {"od_mm": 35.0, "wall_thickness_mm": 1.2, "length_mm": 380.0},
@@ -17,10 +10,5 @@
     "fins": {"span_mm": 75.0, "root_chord_mm": 40.0, "thickness_mm": 1.0},
     "sabot": {"tube_od_mm": 40.0, "fuselage_id_mm": 35.2, "length_mm": 20.0}
   },
-  "physics": {
-    "launch_v_m_s": 70.0,
-    "dash_thrust_n": 8.0,
-    "battery_j": 50000.0,
-    "max_g_limit": 15.1
-  }
+  "physics": {"launch_v_m_s": 70.0, "dash_thrust_n": 8.0, "battery_j": 50000.0, "max_g_limit": 15.1}
 }
