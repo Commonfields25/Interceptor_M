@@ -1,0 +1,28 @@
+name: Automated Physics Report Update
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'simulation/exports/*.csv'
+
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - name: Set up Python
+        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install pandas
+      - name: Update Report
+        run: python3 scripts/update_physics_report.py
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/analysis/PHYSICS_PERFORMANCE_REPORT.md
+          git commit -m "docs: auto-update physics performance report" || echo "No changes to commit"

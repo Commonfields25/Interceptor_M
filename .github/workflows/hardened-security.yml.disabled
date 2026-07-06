@@ -1,0 +1,30 @@
+name: Hardened Security Audit
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - name: Set up Python
+        uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
+        with:
+          python-version: '3.11'
+
+      - name: Install audit tools
+        run: pip install safety pip-audit bandit
+
+      - name: Run Safety
+        run: safety check
+
+      - name: Run pip-audit
+        run: pip-audit
+
+      - name: Run Bandit
+        run: bandit -r . -x ./tests
