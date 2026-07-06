@@ -1,49 +1,6 @@
-# Dependabot configuration for Interceptor_M
-# ISO 27001 / ISO 9001 compliance - Dependency vulnerability management
-
 version: 2
 updates:
-  # Enable weekly dependency updates for Python
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Europe/Paris"
-    open-pull-requests-limit: 10
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    labels:
-      - "dependencies"
-      - "security"
-    reviewers:
-      - "Commonfields25"
-    # Group minor/patch updates
-    groups:
-      production-dependencies:
-        dependency-type: "production"
-        update-types:
-          - "minor"
-          - "patch"
-      development-dependencies:
-        dependency-type: "development"
-
-  # GitHub Actions updates
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "Europe/Paris"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "ci"
-      include: "scope"
-    labels:
-      - "ci/cd"
-      - "dependencies"
-
-# Security advisories integration
+      interval: "daily"
