@@ -33,7 +33,7 @@ The repository currently hosts artifacts from three distinct (and incompatible) 
 1. **DD-400 (Active)**: 400g Electric/Pneumatic interceptor.
 2. **"Big-Rocket" (Legacy)**: 400g Electric (dominant in `docs/D2`, `docs/D3`, `docs/E3`).
 3. **VTOL-DC (Experimental)**: 10kg hybrid drone (`engineering/DC/DC-AIRFRAME-SIZING.md`).
-- **Finding**: Discipline-level documentation (D2 Aerodynamics, D3 Structure) is 90% aligned with the Legacy 400g Electric platform, rendering it technically invalid for the 400g platform.
+- **Finding**: Discipline-level documentation (D2 Aerodynamics, D3 Structure) is 90% aligned with the [RESOLVED] Legacy 2.5kg rocket, rendering it technically invalid for the 400g platform.
 
 ---
 
