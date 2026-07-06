@@ -8,9 +8,9 @@
 | **revision** | v2.0-L3 |
 
 ## Physical Properties
-- **Volume**: 16661.44 mm³
+- **Volume**: 17446.45 mm³
 - **Bounding Box**: 40.00 x 40.00 x 60.00 mm
-- **Calculated Mass**: 17.83 g
+- **Calculated Mass**: 18.67 g
 
 ## Manufacturing Files
 - [STEP Model](./SABOT-001.step)

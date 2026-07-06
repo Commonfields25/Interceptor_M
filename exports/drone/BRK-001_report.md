@@ -8,9 +8,9 @@
 | **revision** | v3.0-L3 |
 
 ## Physical Properties
-- **Volume**: 8961.88 mm³
+- **Volume**: 9268.70 mm³
 - **Bounding Box**: 65.00 x 42.00 x 5.50 mm
-- **Calculated Mass**: 25.18 g
+- **Calculated Mass**: 26.05 g
 
 ## Manufacturing Files
 - [STEP Model](./BRK-001.step)
