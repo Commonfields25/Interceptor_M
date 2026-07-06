@@ -11,6 +11,6 @@ jobs:
   check-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - name: Run Sync Check
         run: python3 scripts/param_sync_check.py
