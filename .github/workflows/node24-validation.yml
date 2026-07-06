@@ -10,8 +10,8 @@ jobs:
   node24-validation:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-node@1d11996622869ed6e68393b21c46a932bc0b2981
         with:
           node-version: 24
 
