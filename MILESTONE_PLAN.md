@@ -88,15 +88,18 @@ status: Validated
 
 Les actions suivantes sont **proposées** (non appliquées) — nécessitent confirmation :
 
-1. **Réassigner issues 52-59** des milestones fantômes (10-13) vers les bons milestones (6-9)
-2. **Fermer #43** comme doublon de #52
-3. **Mettre à jour les descriptions MS6-MS9** avec critères mesurables (métriques)
-4. **Fermer/supprimer les milestones fantômes 10-13** (doublons, pas d'issue assignée)
+| ID | Title | Objective | Target Date | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **M1** | Conceptual Baseline | Lock 400g Electric platform specs | 2026-07-01 | ✅ CLOSED |
+| **M2** | CAD Consolidation | Parametric L3 library for all components | 2026-07-06 | ✅ CLOSED |
+| **M3** | Preliminary Design (G3) | Assembly validation & FEA baseline | 2026-07-20 | 🔄 OPEN |
+| **M4** | Prototype Fabrication | 3D print and component sourcing | 2026-08-15 | 📅 PLANNED |
+| **M5** | Integration Testing | Static launch & deployment tests | 2026-09-10 | 📅 PLANNED |
 
 ---
 
-## Notes
+## Strategic Objectives (Q3 2026)
 
-- MS4 (MAPPO Training) est en retard — due 2026-09-28 sans issue ouverte, suggère que le travail est en cours dans des branches/PR non mergées
-- MS8 est le jalon le plus exigeant techniquement (RL hardening) — recommander un point DG avant J6
-| M14 | Audit à blanc ISO 9001 / AS9100 | 2027-04-15 | 1 | 0 | J7 |
+1. **Mass Reduction:** Iteratively optimize `ACT-001` and `F1-BODY-01` to regain mass margin.
+2. **Propulsion Validation:** Confirm 8N thrust profile with SC-02 motor.
+3. **IAMD Compliance:** Maintain 100% header validation for all engineering documents.

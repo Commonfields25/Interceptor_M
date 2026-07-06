@@ -112,7 +112,7 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 | **EM03.5** | Contrainte admissible Al-7075 T6 | 290 MPa | σ_0,2 = 434 MPa / 1,5 | D3 §3.4.1 |
 | **EM03.6** | Température opérationnelle | -40°C à +60°C | [hors-repo — à confirmer] | Cahier existant |
 | **EM03.7** | Humidité | 0–95% RH | [hors-repo — à confirmer] | Cahier existant |
-| **EM03.8** | Pression chambre SRM | 50 bar | FS ×11,5 sur rupture (acier 4330) | D3 §3.5.3 |
+| **EM03.8** | Pression pneumatique | 50 bar | FS ×11,5 sur rupture (acier 4330) | D3 §3.5.3 |
 | **EM03.9** | Pression dynamique max | 24,0 kPa | Buckling / Flutter | consolidated_definition.md §2 |
 | **EM03.10** | Temp stagnation max | 306,2 K (33°C) | | consolidated_definition.md §2 |
 
@@ -209,7 +209,7 @@ L'Interceptor M est un drone intercepteur modulaire Ø35 mm × 380 mm. Le protot
 | **EM03.1** | Charge limite 25 g | n ≥ 25 g | Simulation FEA | D3 §3.5.2 | ✅ D2 validé |
 | **EM03.2** | FS ≥ 1,5 sur σ_0,2 | σ_adm ≤ 290 MPa | Calcul / MEF | D3 §3.5.2 | ✅ FEA D3 |
 | **EM03.3** | Facteur ultime 22,7 g | n ≤ 22,7 g | Simulation | DDC-001 §2 | ✅ DDC validé |
-| **EM03.4** | Pression SRM 50 bar | FS ≥ 2,0 | Calcul circonférentielle | D3 §3.5.3 | ✅ D3 validé |
+| **EM03.4** | Pression tube 10 bar | FS ≥ 2,0 | Calcul circonférentielle | D3 §3.5.3 | ✅ D3 validé |
 | **CE01.1** | Passage tube 40 mm | Fit fluide | Test d'insertion | SC-06 | 🟡 À faire |
 | **CE01.2** | Étanchéité pneumatique | zero fuite @ 5 bar | Test pression | NCR-001 notes | 🟡 À faire |
 | **CE02.1** | Volume SC-01 < 30×30×10 mm | Check géométrique | Maquette 3D | PRODUCT-FAMILY.md | 🟡 À faire |
