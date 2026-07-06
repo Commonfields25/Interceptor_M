@@ -1,13 +1,13 @@
 ---
 agent: D3
 action: Update
-timestamp: 2026-06-29T10:00:00Z
+timestamp: 2026-07-06T21:00:00Z
 related_gate: G2
 status: Validated
 ---
 
 # DD — CAD Parameters & Specifications
-**Version:** 0.3 | **Owner:** D3 (Defense / CAD)
+**Version:** 1.2.0 | **Owner:** D3 (Defense / CAD)
 **Projet:** Interceptor_M — Defense Line (DD)
 **Gate:** G2 | **MTOW:** 400 g | **Length:** 380 mm
 
@@ -72,7 +72,8 @@ ROOT_ASSEMBLY
 - [x] ROOT_ASSEMBLY_v0.1.iam
 - [x] AIRFRAME_PART.F3D (or .SLDPRT)
 - [x] BOM (Bill of Materials)
-- [x] DD-PARAMETERS-v0.3.md (this document)
+- [x] DD-PARAMETERS-v1.2.0.md (this document)
 
 ---
 *Validated against Operation Stabilize baseline.*
+*Updated 2026-07-06: v0.3 → v1.2.0 — MTOW and length aligned per DD-400 program (400g Electric/Pneumatic).*

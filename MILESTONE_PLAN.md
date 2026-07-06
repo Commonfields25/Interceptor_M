@@ -6,8 +6,8 @@ status: Validated
 ---
 
 # Milestone Plan — Interceptor_M
-**Version :** 1.0
-**Date :** 2026-06-28
+**Version :** 1.1
+**Date :** 2026-07-06
 **Contexte :** audit autonome phase 1, repo restructuré (ruleset actif, README OK, workflows neutralisés)
 
 ---
@@ -15,6 +15,47 @@ status: Validated
 ## Objectif Global
 
 > Tous les milestones actifs (M5 à M9) doivent être **CLOSED** avant le **2026-07-29**.
+
+---
+
+## Gate Overview (G1–G11)
+
+| Gate | Titre | Phase | Statut |
+|------|-------|-------|--------|
+| G1 | Project Initiation & Requirements | Phase 0 | ✅ CLOSED |
+| G2 | Concept Selection & CAD Baseline | Phase 1 | ✅ CLOSED |
+| G3 | Preliminary Design Review | Phase 1 | 🔄 In Progress |
+| G4 | Detailed Design Lock | Phase 1 | 🔄 In Progress |
+| G5 | Prototype Build Readiness | Phase 2 | 📋 Planned |
+| G6 | Prototype Acceptance | Phase 2 | 📋 Planned |
+| G7 | Testing & Validation | Phase 2 | 📋 Planned |
+| G8 | Pre-Production Review | Phase 3 | 📋 Planned |
+| G9 | Production Go/No-Go | Phase 3 | 📋 Planned |
+| G10 | Operational Readiness | Phase 4 | 📋 Planned |
+| G11 | Final Delivery | Phase 4 | 📋 Planned |
+
+---
+
+## Phase Structure
+
+### Phase 0 — Project Initiation
+- Requirements capture, stakeholder alignment, program authorization
+
+### Phase 1 — Prototyping
+- Concept design, CAD/FEA/CFD, design verification
+- Gates: G1, G2, G3, G4
+
+### Phase 2 — CAD/FEA/CFD & Validation
+- Detailed modeling, simulation, prototype assembly
+- Gates: G5, G6, G7
+
+### Phase 3 — Pre-Production
+- Process validation, supplier qualification
+- Gates: G8, G9
+
+### Phase 4 — Production & Delivery
+- Serial production, deployment
+- Gates: G10, G11
 
 ---
 

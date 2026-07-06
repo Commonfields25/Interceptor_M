@@ -13,7 +13,9 @@ timestamp: 2026-07-06T20:47:00+00:00
 
 ## RÉSUMÉ EXÉCUTIF
 
-Le dépôt contient **8 catégories de dette documentaire** héritées principalement de la transition entre le programme "Big-Rocket" (2.5 kg SRM/HTPB) et le programme actif DD-400 (400 g Electric/Pneumatic). Certaines incohérences bloquent directement la génération CAD et la simulation physique.
+Le dépôt contenait **8 catégories de dette documentaire** héritées principalement de la transition entre le programme "Big-Rocket" (2.5 kg SRM/HTPB) et le programme actif DD-400 (400 g Electric/Pneumatic).
+
+> **Résolution (2026-07-06) :** Programme Big-Rocket nettoyé — DD-PARAMETERS.md aligné v1.2.0, MTOW 400g, longueur 380mm. Réferences obsolètes marquées `[RESOLVED]` ci-dessous. Certaines incohérences bloquent directement la génération CAD et la simulation physique.
 
 ---
 
@@ -52,7 +54,7 @@ Ces données sont en contradiction directe avec le pivot électrique/pneumatique
 
 ## CATÉGORIE 3 — Conflit de Ligne Technique (Priorité : 🔴 HAUTE)
 
-**Problème** : Les documents de discipline (D2, D3, E3) sont alignés à 90 % sur le "Big-Rocket" 2.5 kg, pas sur le DD-400 400 g actif.
+**Problème [RESOLVED]** : Les documents de discipline (D2, D3, E3) étaient alignés à 90 % sur le "Big-Rocket" 2.5 kg — mis à jour vers DD-400 400 g (v1.2.0).
 
 | Fichier | Ligne Technique Active | Référence actuelle |
 |---------|----------------------|-------------------|
