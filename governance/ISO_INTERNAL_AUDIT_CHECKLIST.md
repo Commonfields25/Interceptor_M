@@ -1,8 +1,9 @@
 ---
-agent: AC / Jules
 action: Create
-timestamp: 2026-06-30T01:20:00Z
+agent: AC / Jules
+related_gate: G2
 status: Validated
+timestamp: 2026-06-30 01:20:00+00:00
 ---
 
 # ISO Internal Audit Checklist

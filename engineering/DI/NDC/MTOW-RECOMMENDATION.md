@@ -1,10 +1,11 @@
 ---
-agent: E1
 action: Create
-timestamp: 2026-06-27T15:24:00Z
+agent: E1
 related_gate: G2 / C2
 status: Validated
+timestamp: 2026-06-27 15:24:00+00:00
 ---
+
 # MTOW Recommendation — Interceptor_M Defense Design Line (DD)
 **Owner:** E1 (Systems / NDC)
 **Gate:** G2 | **Condition:** C2

@@ -1,8 +1,9 @@
 ---
-agent: Agent Manager
 action: Create
-timestamp: 2026-06-29T22:58:39Z
+agent: Agent Manager
+related_gate: G2
 status: Template
+timestamp: 2026-06-29 22:58:39+00:00
 ---
 
 # 🚪 GATE PACKAGE: G4 — CAO VALIDATION

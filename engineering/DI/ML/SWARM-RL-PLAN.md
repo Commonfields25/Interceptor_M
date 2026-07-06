@@ -1,9 +1,9 @@
 ---
-agent: E2 / D3
 action: Create
-timestamp: 2026-06-27T16:00:00Z
+agent: E2 / D3
 related_gate: G2
 status: Draft
+timestamp: 2026-06-27 16:00:00+00:00
 ---
 
 # SWARM RL — Isaac Gym Simulation Plan

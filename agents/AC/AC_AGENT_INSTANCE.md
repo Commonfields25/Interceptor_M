@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Instantiate
-timestamp: 2026-06-29T23:31:29Z
+agent: AC
+related_gate: G2
 status: Active
+timestamp: 2026-06-29 23:31:29+00:00
 ---
 
 # 🤖 AGENT INSTANCE — AC (Continuous Improvement)

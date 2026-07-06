@@ -1,9 +1,9 @@
 ---
-agent: D1
 action: Verify
-timestamp: 2026-06-29T23:05:44Z
+agent: D1
 related_gate: G4
 status: Verified
+timestamp: 2026-06-29 23:05:44+00:00
 ---
 
 # ✅ VERIFICATION LOG: SAB-02

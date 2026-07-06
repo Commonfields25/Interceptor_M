@@ -1,9 +1,10 @@
 ---
-agent: D1
-role: Lead Mechanical Design — Drone Civil
 action: Create
-timestamp: 2026-06-24T10:45:00Z
+agent: D1
+related_gate: G2
+role: "Lead Mechanical Design \u2014 Drone Civil"
 status: Validated
+timestamp: 2026-06-24 10:45:00+00:00
 ---
 
 # 🎨 AGENT DESIGNER D1 — Lead Mechanical Design

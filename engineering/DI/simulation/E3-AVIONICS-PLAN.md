@@ -1,10 +1,11 @@
 ---
-agent: E3
 action: Create
-timestamp: 2026-06-27T15:24:00Z
+agent: E3
 related_gate: G2
 status: Draft
+timestamp: 2026-06-27 15:24:00+00:00
 ---
+
 # E3 — Avionics Simulation Plan
 
 ## Scope

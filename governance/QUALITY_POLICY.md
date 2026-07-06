@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Create
-timestamp: 2026-06-30T11:44:53Z
+agent: AC
+related_gate: G2
 status: Validated
+timestamp: 2026-06-30 11:44:53+00:00
 ---
 
 # 📜 PROJECT QUALITY POLICY (ISO 9001:2015)

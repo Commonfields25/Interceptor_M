@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Create
-timestamp: 2026-06-29T23:47:34Z
+agent: AC
+related_gate: G2
 status: Review
+timestamp: 2026-06-29 23:47:34+00:00
 ---
 
 # 🛡️ SECURITY AUDIT REPORT — Interceptor_M

@@ -1,9 +1,9 @@
 ---
-agent: D1
 action: Create
-timestamp: 2026-06-29T22:57:55Z
+agent: D1
 related_gate: G4
 status: Draft
+timestamp: 2026-06-29 22:57:55+00:00
 ---
 
 # 📐 TECHNICAL PLAN: SAB-02 — Launcher Assembly

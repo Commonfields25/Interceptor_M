@@ -1,8 +1,9 @@
 ---
-agent: AC / Jules
 action: Create
-timestamp: 2026-06-30T00:00:00Z
+agent: AC / Jules
+related_gate: G2
 status: Validated
+timestamp: 2026-06-30 00:00:00+00:00
 ---
 
 # ISO Compliance Framework — Interceptor_M

@@ -1,9 +1,9 @@
 ---
-agent: Agent Manager
 action: Create
-timestamp: 2026-06-24T10:45:00Z
+agent: Agent Manager
 related_gate: N/A
 status: Validated
+timestamp: 2026-06-24 10:45:00+00:00
 ---
 
 # 🎯 AGENT MANAGER — RULES & STANDARD OPERATING PROCEDURES
