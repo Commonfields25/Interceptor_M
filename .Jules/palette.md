@@ -4,6 +4,3 @@
 ## 2026-07-06 - [Starlette Middleware Import Pattern]
 **Learning:** In the current environment's version of Starlette, `ExceptionMiddleware` must be imported from `starlette.middleware.exceptions` rather than `starlette.exceptions`.
 **Action:** Use the specific middleware path for exception handling in Starlette-based projects to avoid AttributeErrors during runtime.
-## 2026-07-06 - [Technical UI Design for Aerospace]
-**Learning:** For engineering-focused projects, a 'High-Tech' theme using dark backgrounds, slate/blue palettes, and high-contrast emerald/cyan accents for status indicators creates a professional and immersive experience that aligns with aerospace industry aesthetics.
-**Action:** Prioritize system dark mode and technical grid layouts for metrics to enhance information density and professional feel.
