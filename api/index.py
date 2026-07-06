@@ -7,6 +7,7 @@ can locate an entrypoint (`app` object) and complete a build.
 
 from http import HTTPStatus
 from typing import Callable
+import os
 
 import starlette.exceptions
 from starlette.applications import Starlette
@@ -262,6 +263,7 @@ routes = [
     Route("/", root_handler),
     Route("/health", health_handler),
     Route("/dashboard", dashboard_handler),
+    Mount("/static", app=StaticFiles(directory="static"), name="static"),
 ]
 
 app = Starlette(
