@@ -6,7 +6,10 @@ name = "Interceptor_M"
 version = "0.1.0"
 description = "Autonomous Swarm Counter-UAS — Drone Interceptor System"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "python-dotenv>=1.1.0",
+    "tinybird-sdk>=0.4.0",
+]
 
 [tool.vercel]
 # Vercel Python runtime entrypoint (relative to project root)
