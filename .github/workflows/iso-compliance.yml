@@ -15,7 +15,7 @@ jobs:
     name: ISO Baseline Document Present
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Check engineering/ISO_UAS_BASELINE.md exists
         run: |
@@ -37,7 +37,7 @@ jobs:
     name: ISO Norm References Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Parse ISO references in ISO_UAS_BASELINE.md
         run: |
@@ -62,7 +62,7 @@ jobs:
     name: BOM Baseline Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Validate BOM exists
         run: |
@@ -81,7 +81,7 @@ jobs:
     name: DI Spec Lock Check
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Check engineering/DI_SPEC_LOCK.md
         run: |
@@ -95,7 +95,7 @@ jobs:
     name: Engineering Docs Lint
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Check for key engineering docs
         run: |
@@ -134,7 +134,7 @@ jobs:
     name: Octave/MATLAB Simulation
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Check Octave availability
         run: |
@@ -160,9 +160,9 @@ jobs:
     name: Node 24 Runtime
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@1d11996622869ed6e68393b21c46a932bc0b2981
         with:
           node-version: '24'
 
@@ -179,12 +179,12 @@ jobs:
     name: Dependency Security Audit
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
 
       - name: Run npm audit (if package.json exists)
         run: |
           if [ -f package.json ]; then
-            npm audit --audit-level=moderate || echo "Audit completed"
+            npm audit --audit-level=moderate
           else
             echo "SKIP: No package.json  --  no npm audit required"
           fi
@@ -193,7 +193,7 @@ jobs:
         run: |
           echo "Scanning Python scripts for hardcoded credentials..."
           if [ -f scripts/audit_secrets.py ]; then
-            python3 scripts/audit_secrets.py || echo "Audit done"
+            python3 scripts/audit_secrets.py
           else
             echo "SKIP: scripts/audit_secrets.py not found"
           fi

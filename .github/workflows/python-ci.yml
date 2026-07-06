@@ -10,8 +10,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
         with:
           python-version: '3.11'
       - name: Install ruff
@@ -22,8 +22,8 @@ jobs:
   syntax-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/setup-python@f677139bee7f93243e0b99e2f95b4e1b3c527f31
         with:
           python-version: '3.11'
       - name: Syntax-check all tracked .py files
