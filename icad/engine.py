@@ -16,7 +16,7 @@ class CADEngine:
             results["step"] = path
         if "stl" in formats:
             path = os.path.join(self.output_dir, f"{name}.stl")
-            export_stl(part, path)
+            export_stl(part, path, tolerance=1e-4, angular_tolerance=0.01)
             results["stl"] = path
         return results
 
