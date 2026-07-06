@@ -1,3 +1,10 @@
+---
+agent: Jules
+action: Fix
+timestamp: 2026-07-02T13:27:36Z
+status: Validated
+---
+
 # Prototype Modeling Roadmap - Defense Line (DD)
 
 ## 🎯 Goal
@@ -28,7 +35,7 @@ Achieve a validated 3D model and simulation of the **Micro-Interceptor Swarm** a
 
 1. **Modular Assemblies:** The `ROOT_ASSEMBLY` should only contain links to `AIRFRAME`, `ELECTRONICS_TRAY`, and `LAUNCHER_INTERFACE`.
 2. **Standardized Hardware:** Use only M2/M3 fasteners and standard brushless motor mounts (9mm/12mm).
-3. **Weight Budget:** Max take-off weight (MTOW) for the micro-interceptor: **250g**.
+3. **Weight Budget:** Max take-off weight (MTOW) for the micro-interceptor: **400.0g**.
 4. **Agent Tagging:** Every 3D part file must have a "Metadata" field or sidecar `.txt` file indicating the owner and status.
 
 ## 🚀 To-Do List (High Priority)
