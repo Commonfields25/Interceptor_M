@@ -35,5 +35,5 @@ starlette>=0.50.0
 
 # Web framework & Supabase
 flask>=2.0.0
-supabase>=2.0.0
+supabase>=2.31.0
 python-dotenv>=1.0.0
