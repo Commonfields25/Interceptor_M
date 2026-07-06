@@ -65,3 +65,6 @@ secrets/
 *.ppk
 id_rsa
 id_dsa
+test_exports/
+test_exports_launcher/
+exports/

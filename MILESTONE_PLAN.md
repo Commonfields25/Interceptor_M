@@ -1,61 +1,23 @@
----
-agent: Jules
-action: Fix
-timestamp: 2026-07-02T13:27:36Z
-status: Validated
----
-
-# Milestone Plan — Interceptor_M
-**Version :** 1.0
-**Date :** 2026-06-28
-**Contexte :** audit autonome phase 1, repo restructuré (ruleset actif, README OK, workflows neutralisés)
+# Milestone Plan — Interceptor_M (Baseline 2.1.0)
+**Version:** 1.1 | **Date:** 2026-07-06
+**Status:** Transitioning G2 -> G3
 
 ---
 
-## Objectif Global
+## Technical Milestones
 
-> Tous les milestones actifs (M5 à M9) doivent être **CLOSED** avant le **2026-07-29**.
-
----
-
-## État des Milestones Actifs
-
-| MS | Titre | Due Date | Open | Closed | Jalon Cible |
-|----|-------|----------|------|--------|-------------|
-| M5 | Branch Cleanup & Archive | 2026-07-09 | 1 | 0 | J2 |
-| M6 | CI Migration Node24 & Workflow Activation | 2026-07-16 | 1 | 1 | J3 |
-| M7 | DI Product Specs Lock & BOM | 2026-07-23 | 1 | 0 | J4 |
-| M8 | RL Environment Hardening & Agent Rebalancing | 2026-08-13 | 1 | 0 | J6 |
-| M9 | Agent Activation (D1) & Mission Dispatch | 2026-07-29 | 1 | 1 | J5 |
-
-## Jalons Intermédiaires (SMART)
-
-> **Vague 3/4 — Mise à jour 2026-06-29** : J1 ✅, J2 ✅, J3 ✅, J4 ✅ (via PR #63/#64)
-
-| Jalon | Date | Critère Mesurable |
-|-------|------|-------------------|
-| J1 | 2026-07-02 | ✅ 0 issue orpheline, #43 traitée (doublon) | ✅ Done — Vague 3/4 audit |
-| J2 | 2026-07-09 | ✅ MS5 CLOSED — 0 branche archived avec ahead=0 | ✅ Done — Vague 3/4 audit |
-| J3 | 2026-07-16 | ✅ MS6 CLOSED — python-ci.yml + node24-validation.yml GREEN | ✅ Done — PR #64 merged, CI GREEN |
-| J4 | 2026-07-23 | ✅ MS7 CLOSED — BOM.json locked, PRODUCT-FAMILY.md updated | ✅ Done — PR #63 merged |
-| J5 | 2026-07-29 | 🔄 In Progress — Sourcing lancé (J5 cible 2026-07-29) |
-| J6 | 2026-08-13 | MS8 CLOSED — P(intercept) random < 15%, MAPPO > 60% |
+| ID | Title | Objective | Target Date | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **M1** | Conceptual Baseline | Lock 400g Electric platform specs | 2026-07-01 | ✅ CLOSED |
+| **M2** | CAD Consolidation | Parametric L3 library for all components | 2026-07-06 | ✅ CLOSED |
+| **M3** | Preliminary Design (G3) | Assembly validation & FEA baseline | 2026-07-20 | 🔄 OPEN |
+| **M4** | Prototype Fabrication | 3D print and component sourcing | 2026-08-15 | 📅 PLANNED |
+| **M5** | Integration Testing | Static launch & deployment tests | 2026-09-10 | 📅 PLANNED |
 
 ---
 
-## Actions en Attente de Validation DG
+## Strategic Objectives (Q3 2026)
 
-Les actions suivantes sont **proposées** (non appliquées) — nécessitent confirmation :
-
-1. **Réassigner issues 52-59** des milestones fantômes (10-13) vers les bons milestones (6-9)
-2. **Fermer #43** comme doublon de #52
-3. **Mettre à jour les descriptions MS6-MS9** avec critères mesurables (métriques)
-4. **Fermer/supprimer les milestones fantômes 10-13** (doublons, pas d'issue assignée)
-
----
-
-## Notes
-
-- MS4 (MAPPO Training) est en retard — due 2026-09-28 sans issue ouverte, suggère que le travail est en cours dans des branches/PR non mergées
-- MS8 est le jalon le plus exigeant techniquement (RL hardening) — recommander un point DG avant J6
-| M14 | Audit à blanc ISO 9001 / AS9100 | 2027-04-15 | 1 | 0 | J7 |
+1. **Mass Reduction:** Iteratively optimize `ACT-001` and `F1-BODY-01` to regain mass margin.
+2. **Propulsion Validation:** Confirm 8N thrust profile with SC-02 motor.
+3. **IAMD Compliance:** Maintain 100% header validation for all engineering documents.

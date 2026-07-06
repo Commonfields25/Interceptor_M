@@ -3,14 +3,14 @@
 ## Part Metadata
 | Property | Value |
 | :--- | :--- |
-| **material** | Al 6061-T6 |
-| **density** | 0.0027 |
+| **material** | AlSi10Mg |
+| **density** | 0.00267 |
 | **revision** | v2.1-L3 |
 
 ## Physical Properties
-- **Volume**: 12127.96 mm³
-- **Bounding Box**: 85.00 x 55.00 x 3.00 mm
-- **Calculated Mass**: 32.75 g
+- **Volume**: 50125.00 mm³
+- **Bounding Box**: 85.00 x 330.00 x 61.00 mm
+- **Calculated Mass**: 133.83 g
 
 ## Manufacturing Files
 - [STEP Model](./ACT-001.step)
