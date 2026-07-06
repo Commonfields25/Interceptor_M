@@ -20,13 +20,13 @@ jobs:
     
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@1d11996622869ed6e68393b21c46a932bc0b2981
         with:
           node-version: '20'
 
@@ -84,7 +84,7 @@ jobs:
           fi
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@0b2256b8c012f0828bd1d899d584e2667d165322
         if: always()
         with:
           name: mermaid-diagrams
@@ -94,7 +94,7 @@ jobs:
   lint-mermaid:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       
       - name: Validate Mermaid syntax
         run: |
