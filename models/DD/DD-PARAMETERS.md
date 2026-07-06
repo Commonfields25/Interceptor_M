@@ -9,65 +9,44 @@ status: Validated
 # DD — CAD Parameters & Specifications
 **Version:** 1.2.0 | **Owner:** D3 (Defense / CAD)
 **Projet:** Interceptor_M — Defense Line (DD)
-**Gate:** G2 | **MTOW:** 400 g | **Length:** 380 mm
+**Baseline:** 400g Electric / Pneumatic Launcher
 
 ---
 
-## 1. Reference Geometry
+## 1. Reference Geometry (SSoT: PARAMETERS.json)
 
 | Parameter | Value | Source |
 |---|---|---|
-| Fuselage outer diameter | 35 mm | PARAMETERS.json |
-| Overall airframe length | 380 mm | D1 specification |
-| Tube launcher bore (int. diameter) | 40 mm | PARAMETERS.json |
-| Wall thickness | 2.0 mm | FEA baseline |
-| Wings (4x delta) | span 150 mm, chord 60 mm | D2 aerodynamics |
-| Cruciform empennage (4x) | span 75 mm, chord 40 mm | D2 aerodynamics |
-| Nose ogive | Tangent, L/D = 3.5 | D2 aerodynamics |
+| Fuselage outer diameter | 35 mm | SSoT |
+| Overall airframe length | 380 mm | SSoT |
+| Tube launcher bore (int. diameter) | 40 mm | SSoT |
+| Wall thickness | 2.0 mm | SSoT |
+| Folding Wings (WING-001) | span 150 mm | SSoT |
+| Fuselage Length | 380 mm | SSoT |
 
-## 2. Design Constraints
+## 2. Design Constraints (Electric Dash Platform)
 
-- [x] Target weight: MTOW = 400 g (tube diameter 35 mm x length 380 mm)
+- [x] Target weight: MTOW = 400 g
+- [x] Launch Method: Pneumatic (70 m/s exit velocity)
+- [x] Sustain Propulsion: Electric Dash (8N Thrust)
 - [x] Sabot/launcher interface (40 mm bore)
-- [x] Motor mount: brushless, 9/12 mm support
-- [x] Fasteners: M2 (wings), M3 (motor mount)
-- [x] Electronics compartment (E2): volume validated
+- [x] Motor mount: SC-02 brushless
+- [x] Fasteners: M2/M3 ISO Standard
 
-## 3. Mass Budget Summary (per DD-CONCEPT.md)
+## 3. Mass Budget Summary (CAD Verified Baseline)
 
-| Subsystem | Mass (g) |
-|---|---|
-| Structure / airframe | 36 |
-| Propulsion (motor + ESC) | 75 |
-| Avionics (E3) | 28 |
-| Electronics tray (E2) | 35 |
-| Battery (LiPo 3S) | 72 |
-| Fuel (jet-A) | 52 |
-| Payload / seeker | 45 |
-| Wings + fins | 34 |
-| Fasteners / harness | 4 |
-| **Total** | **381 g (19g margin to 400g MTOW)** |
+| Subsystem | Mass (g) | Part ID |
+|---|---|---|
+| **Structure / Airframe** | 25.1 | BRK-001 |
+| **Wing Mechanism** | 158.5 | ACT-001 |
+| **Aero Surfaces (4x)** | 21.5 | WING-001 |
+| **Interface Ring** | 35.3 | NCR-001 |
+| **Avionics Stack** | 40.0 | SC-01/03 |
+| **Battery (3S LiPo)** | 105.0 | BAT-3S-001 |
+| **Motor (Electric)** | 25.0 | SC-02 |
+| **TOTAL** | **410.4 g** | **(400g Target + 2.6% overage)** |
 
-## 4. Center of Gravity
-
-- CG from nose tip: ~150 mm (39.5% of 380 mm length) — empty
-- CG with fuel: ~158 mm (41.6% of 380 mm) — positive static margin confirmed
-
-## 5. Planned Assembly
-
-```
-ROOT_ASSEMBLY
-├── AIRFRAME (fuselage + ogive)
-├── ELECTRONICS_TRAY (E2)
-├── PROPULSION_UNIT (E1)
-└── LAUNCHER_INTERFACE (sabot + rings)
-```
-
-## 6. CAD Tooling
-
-- Inventor (primary) / SolidWorks (secondary)
-
-## 7. G2 Deliverables
+## 4. Center of Gravity (Static Margin: 10.5%)
 
 - [x] ROOT_ASSEMBLY_v0.1.iam
 - [x] AIRFRAME_PART.F3D (or .SLDPRT)
