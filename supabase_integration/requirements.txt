@@ -21,7 +21,7 @@ bandit>=1.7.5
 safety>=2.3.5
 
 # Security scanning
-pip-audit>=1.0.0
+pip-audit>=2.10.1
 
 # Documentation
 sphinx>=9.0.4
