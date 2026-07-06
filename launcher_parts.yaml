@@ -1,19 +1,22 @@
 parts:
   - id: "SABOT-001"
-    parameters:
-      outer_diameter: 40.0
-      inner_diameter: 35.0
-      length: 60.0
-    metadata:
-      material: "ASA (High-Temp Polymer)"
-      density: 0.00107
-      revision: "v2.0-L3"
-  - id: "CHS-001"
-    parameters:
-      section_length: 500.0
-      width: 150.0
-      height: 60.0
-    metadata:
-      material: "Al 6061-T6"
-      density: 0.00270
-      revision: "v1.2-L3"
+    parameters: { outer_diameter: 40.0, inner_diameter: 35.0, length: 60.0 }
+    metadata: { material: "ASA", density: 0.00107, revision: "v2.0-L3" }
+  - id: "LNCH-001"
+    parameters: {}
+    metadata: { material: "Al 6061-T6", density: 0.0027, revision: "v1.0-L3" }
+  - id: "LNCH-002"
+    parameters: {}
+    metadata: { material: "Al 6061-T6", density: 0.0027, revision: "v1.0-L3" }
+  - id: "LNCH-003"
+    parameters: {}
+    metadata: { material: "Al 6061-T6", density: 0.0027, revision: "v1.0-L3" }
+  - id: "LNCH-004"
+    parameters: {}
+    metadata: { material: "Steel", density: 0.0078, revision: "v1.0-L3" }
+  - id: "LNCH-005"
+    parameters: {}
+    metadata: { material: "Rubber/Steel", density: 0.005, revision: "v1.0-L3" }
+  - id: "LNCH-006"
+    parameters: {}
+    metadata: { material: "Al 5052", density: 0.00268, revision: "v1.0-L3" }

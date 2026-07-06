@@ -3,18 +3,32 @@ import yaml
 import sys
 import os
 from icad.engine import CADEngine
-from icad.parts.brk001 import build_brk001
-from icad.parts.act001 import build_act001
-from icad.parts.ncr001 import build_ncr001
-from icad.parts.sabot001 import build_sabot001
-from icad.parts.chs001 import build_chs001
+import icad.parts as parts
 
 PART_MAP = {
-    "BRK-001": build_brk001,
-    "ACT-001": build_act001,
-    "NCR-001": build_ncr001,
-    "SABOT-001": build_sabot001,
-    "CHS-001": build_chs001
+    "BRK-001": parts.build_brk001,
+    "ACT-001": parts.build_act001,
+    "NCR-001": parts.build_ncr001,
+    "SABOT-001": parts.build_sabot001,
+    "CHS-001": parts.build_chs001,
+    "WING-001": parts.build_wing001,
+    "AV-MNT-01": parts.build_avmnt01,
+    "BAT-CASE-01": parts.build_batcase01,
+    "MOT-MNT-01": parts.build_motmnt01,
+    "F1-BODY-01": parts.build_f1body01,
+    "F1-MOT-01": parts.build_f1mot01,
+    "F1-PROP-01": parts.build_f1prop01,
+    "F1-AV-01": parts.build_f1av01,
+    "F1-BAT-01": parts.build_f1bat01,
+    "LNCH-001": parts.build_lnch001,
+    "LNCH-002": parts.build_lnch002,
+    "LNCH-003": parts.build_lnch003,
+    "LNCH-004": parts.build_lnch004,
+    "LNCH-005": parts.build_lnch005,
+    "LNCH-006": parts.build_lnch006,
+    "SEEKER-01": parts.build_seeker01,
+    "PAYLOAD-01": parts.build_payload01,
+    "F1-SEEK-01": parts.build_f1seek01,
 }
 
 def main():
@@ -53,6 +67,12 @@ def main():
 
             # Export Drawings
             engine.generate_drawings(shape, part_id)
+
+            # Export PDF Drawing
+            try:
+                engine.generate_pdf_drawing(part_id)
+            except Exception as e:
+                print(f"  [WARN] PDF drawing failed for {part_id}: {e}")
 
             # Report
             engine.generate_report(shape, part_id, metadata)

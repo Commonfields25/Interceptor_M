@@ -3,7 +3,7 @@
 ## Part Metadata
 | Property | Value |
 | :--- | :--- |
-| **material** | ASA (High-Temp Polymer) |
+| **material** | ASA |
 | **density** | 0.00107 |
 | **revision** | v2.0-L3 |
 
