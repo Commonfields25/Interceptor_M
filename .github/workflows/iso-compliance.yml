@@ -193,7 +193,7 @@ jobs:
         run: |
           echo "Scanning Python scripts for hardcoded credentials..."
           if [ -f scripts/audit_secrets.py ]; then
-            python3 scripts/audit_secrets.py || echo "Audit done"
+            python3 scripts/audit_secrets.py
           else
             echo "SKIP: scripts/audit_secrets.py not found"
           fi
