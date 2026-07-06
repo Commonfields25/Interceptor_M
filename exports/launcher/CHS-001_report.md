@@ -8,9 +8,9 @@
 | **revision** | v1.2-L3 |
 
 ## Physical Properties
-- **Volume**: 713000.00 mm³
+- **Volume**: 4029000.00 mm³
 - **Bounding Box**: 500.00 x 150.00 x 60.00 mm
-- **Calculated Mass**: 1925.10 g
+- **Calculated Mass**: 10878.30 g
 
 ## Manufacturing Files
 - [STEP Model](./CHS-001.step)
