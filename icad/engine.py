@@ -84,3 +84,36 @@ class CADEngine:
             f.write(f"### Side View\n![Side View](./drawings/{name}_side.svg)\n\n")
 
         return report_path
+
+    def generate_pdf_drawing(self, name):
+        from svglib.svglib import svg2rlg
+        from reportlab.graphics import renderPDF
+        from reportlab.pdfgen import canvas
+
+        drawing_dir = os.path.join(self.output_dir, "drawings")
+        pdf_path = os.path.join(drawing_dir, f"{name}_technical_drawing.pdf")
+
+        c = canvas.Canvas(pdf_path)
+        c.setFont("Helvetica-Bold", 16)
+        c.drawString(50, 800, f"Technical Drawing: {name}")
+        c.setFont("Helvetica", 10)
+        c.drawString(50, 785, "Part of Interceptor_M Project - L3 Manufacturing Grade")
+
+        y_pos = 500
+        views = ["top", "front", "side"]
+        for view in views:
+            svg_file = os.path.join(drawing_dir, f"{name}_{view}.svg")
+            if os.path.exists(svg_file):
+                drawing = svg2rlg(svg_file)
+                # Scale drawing to fit
+                scale = 400.0 / drawing.width if drawing.width > 400 else 1.0
+                drawing.width *= scale
+                drawing.height *= scale
+                drawing.scale(scale, scale)
+
+                c.drawString(50, y_pos + drawing.height + 10, f"View: {view.capitalize()}")
+                renderPDF.draw(drawing, c, 50, y_pos)
+                y_pos -= (drawing.height + 60)
+
+        c.save()
+        return pdf_path

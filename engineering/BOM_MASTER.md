@@ -1,0 +1,47 @@
+# Master Bill of Materials — Interceptor_M Project
+
+**Project:** Interceptor_M
+**Revision:** v2.0.0 (L3 Manufacturing Grade)
+**Date:** 2026-07-06
+**Status:** RELEASED
+
+## 1. Interceptor-M (DD-400) Baseline
+
+| Part ID | Description | Material | Mass (g) | Revision |
+| :--- | :--- | :--- | :--- | :--- |
+| **BRK-001** | Structural Junction | Al 7075-T6 | 26.1 | v3.0-L3 |
+| **ACT-001** | Actuator Mount | Al 6061-T6 | 49.4 | v2.1-L3 |
+| **NCR-001** | Nose-Cone Ring | 316L SS | 96.9 | v1.5-L3 |
+| **WING-001** | Folding Wing | CFRP | 10.0 | v1.0-L3 |
+| **AV-MNT-01** | Avionics Mount | AlSi10Mg | 24.1 | v1.0-L3 |
+| **BAT-CASE-01** | Battery Case | PLA/ASA | 5.5 | v1.0-L3 |
+| **MOT-MNT-01** | Motor Mount | AlSi10Mg | 13.2 | v1.0-L3 |
+| **SEEKER-01** | Seeker Unit | Optical/Plastic | 31.8 | v1.0-L3 |
+| **PAYLOAD-01** | Kinetic Payload | Tungsten/Al | 135.0 | v1.0-L3 |
+| **TOTAL** | | | **392.0** | **✅ CONFORME** |
+
+## 2. F1-Chaser (450g) Variant
+
+| Part ID | Description | Material | Mass (g) | Revision |
+| :--- | :--- | :--- | :--- | :--- |
+| **F1-BODY-01** | Monocoque Body | AlSi10Mg | 120.0 | v1.0-L3 |
+| **F1-MOT-01** | Motor Mount | AlSi10Mg | 18.8 | v1.0-L3 |
+| **F1-PROP-01** | Propeller (5in) | Carbon Fiber | 5.2 | v1.0-L3 |
+| **F1-AV-01** | Avionics Mount | AlSi10Mg | 24.1 | v1.0-L3 |
+| **F1-BAT-01** | Battery Case | PLA/ASA | 8.5 | v1.0-L3 |
+| **F1-SEEK-01** | Seeker Unit | Optical/Plastic | 45.0 | v1.0-L3 |
+| **F1-ELECTRONICS**| High-Speed Stack | Mixed | 50.0 | - |
+| **F1-BATTERY** | 4S LiPo | LiPo | 130.0 | - |
+| **TOTAL** | | | **401.6** | **✅ CONFORME (Margin: 48.4g)** |
+
+## 3. Launcher System (LNCH)
+
+| Part ID | Description | Material | Mass (g) | Revision |
+| :--- | :--- | :--- | :--- | :--- |
+| **SABOT-001** | Interceptor Sabot | ASA | 18.5 | v2.0-L3 |
+| **LNCH-001** | Main Chassis | Al 6061-T6 | 21000.0 | v1.0-L3 |
+| **LNCH-002** | Launch Rails | Al 6061-T6 | 4500.0 | v1.0-L3 |
+| **LNCH-003** | Mounting Bracket | Al 6061-T6 | 65.0 | v1.0-L3 |
+| **LNCH-004** | Locking Mech | Steel | 390.0 | v1.0-L3 |
+| **LNCH-005** | Support Feet | Rubber/Steel | 500.0 | v1.0-L3 |
+| **LNCH-006** | Protection Panel | Al 5052 | 5360.0 | v1.0-L3 |
