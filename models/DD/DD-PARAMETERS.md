@@ -1,12 +1,12 @@
 ---
 agent: D3
 action: Update
-timestamp: 2026-07-06T12:00:00Z
-related_gate: G3
+timestamp: 2026-07-06T21:00:00Z
+related_gate: G2
 status: Validated
 ---
 
-# DD — CAD Parameters & Specifications (v1.2.0 Baseline)
+# DD — CAD Parameters & Specifications
 **Version:** 1.2.0 | **Owner:** D3 (Defense / CAD)
 **Projet:** Interceptor_M — Defense Line (DD)
 **Baseline:** 400g Electric / Pneumatic Launcher
@@ -48,8 +48,11 @@ status: Validated
 
 ## 4. Center of Gravity (Static Margin: 10.5%)
 
-- CG from nose tip: ~150 mm (Nominal)
-- Static Stability confirmed for Mach 0.35 Dash.
+- [x] ROOT_ASSEMBLY_v0.1.iam
+- [x] AIRFRAME_PART.F3D (or .SLDPRT)
+- [x] BOM (Bill of Materials)
+- [x] DD-PARAMETERS-v1.2.0.md (this document)
 
 ---
-*Validated against Technical Baseline 2.1.0 and PARAMETERS.json v1.2.0.*
+*Validated against Operation Stabilize baseline.*
+*Updated 2026-07-06: v0.3 → v1.2.0 — MTOW and length aligned per DD-400 program (400g Electric/Pneumatic).*
