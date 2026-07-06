@@ -8,6 +8,6 @@ jobs:
   check-links:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+      - uses: actions/checkout@v4
       - name: Run Link Validator
         run: python3 scripts/link_validator.py || echo "Warning: Broken links found"
