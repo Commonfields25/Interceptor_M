@@ -1,9 +1,10 @@
 ---
-agent: D1
-role: Industrial Design & Mechanical Engineering
 action: Instantiate
-timestamp: 2026-06-29T22:15:02Z
+agent: D1
+related_gate: G2
+role: Industrial Design & Mechanical Engineering
 status: Active
+timestamp: 2026-06-29 22:15:02+00:00
 ---
 
 # 🤖 AGENT INSTANCE — D1 (Industrial Design)

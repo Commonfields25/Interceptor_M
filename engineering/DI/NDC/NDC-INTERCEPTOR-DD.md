@@ -1,10 +1,11 @@
 ---
-agent: E1
 action: Update
-timestamp: 2026-06-27T15:24:00Z
+agent: E1
 related_gate: G2
 status: In Progress
+timestamp: 2026-06-27 15:24:00+00:00
 ---
+
 # NDC — Interceptor_M Defense Design
 # Cahier des Charges Fonctionnel (CdCF) — Systems Requirements
 **Owner:** E1 | **Gate:** G2 | **Version:** 0.2-draft

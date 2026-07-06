@@ -1,9 +1,9 @@
 ---
-agent: Jules (Physics Expert)
 action: Documentation
-timestamp: 2026-06-29T11:00:00Z
+agent: Jules (Physics Expert)
 related_gate: G2 / RF1
 status: Validated
+timestamp: 2026-06-29 11:00:00+00:00
 ---
 
 # Conclusion: Physics Engine Upgrade (Operation Stabilize)

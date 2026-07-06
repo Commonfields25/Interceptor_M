@@ -1,9 +1,9 @@
 ---
-agent: E3
 action: Update
-timestamp: 2026-06-29T15:30:00Z
+agent: E3
 related_gate: G2
 status: Validated
+timestamp: 2026-06-29 15:30:00+00:00
 ---
 
 # E3 — Avionics Verification & Integration Protocol

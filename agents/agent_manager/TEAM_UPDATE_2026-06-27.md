@@ -1,9 +1,9 @@
 ---
-agent: Agent Manager
 action: Create
-timestamp: 2026-06-27T15:22:00Z
+agent: Agent Manager
 related_gate: G1->G2
 status: Review
+timestamp: 2026-06-27 15:22:00+00:00
 ---
 
 # 🛡️ TEAM UPDATE — Interceptor_M

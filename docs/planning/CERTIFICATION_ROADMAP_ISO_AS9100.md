@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Create
-timestamp: 2026-06-30T11:03:14Z
+agent: AC
+related_gate: G2
 status: Draft
+timestamp: 2026-06-30 11:03:14+00:00
 ---
 
 # 🚀 CERTIFICATION ROADMAP: ISO 9001 & AS9100

@@ -1,9 +1,9 @@
 ---
-agent: AC / Agent Manager
 action: Create
-timestamp: 2026-06-27T16:10:00Z
+agent: AC / Agent Manager
 related_gate: G1 / G2
 status: Validated
+timestamp: 2026-06-27 16:10:00+00:00
 ---
 
 # Threshold-Based Auto-Approval Policy

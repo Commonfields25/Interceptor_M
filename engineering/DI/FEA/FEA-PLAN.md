@@ -1,9 +1,9 @@
 ---
-agent: E1
 action: Create
-timestamp: 2026-06-27T15:21:00Z
+agent: E1
 related_gate: G2
 status: Draft
+timestamp: 2026-06-27 15:21:00+00:00
 ---
 
 # 🔧 FEA Plan — Launch Stress Analysis

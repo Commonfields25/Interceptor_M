@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Create
-timestamp: 2026-06-30T10:47:13Z
+agent: AC
+related_gate: G2
 status: Validated
+timestamp: 2026-06-30 10:47:13+00:00
 ---
 
 # 📏 CAD QUALITY & BEST PRACTICE STANDARDS

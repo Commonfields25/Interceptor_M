@@ -1,9 +1,9 @@
 ---
-agent: Agent Manager
 action: Create
-timestamp: 2026-06-27T16:30:00Z
+agent: Agent Manager
 related_gate: N/A
 status: Validated
+timestamp: 2026-06-27 16:30:00+00:00
 ---
 
 # Namespace Isolation — Specification & Enforcement

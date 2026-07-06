@@ -1,9 +1,9 @@
 ---
-agent: E3
 action: Create
-timestamp: 2026-06-30T13:30:00Z
+agent: E3
 related_gate: G5
-status: Baseline — Pending Full CFD
+status: "Baseline \u2014 Pending Full CFD"
+timestamp: 2026-06-30 13:30:00+00:00
 ---
 
 # E3 — PCB Thermal Simulation Baseline
