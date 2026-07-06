@@ -1,8 +1,9 @@
 ---
-agent: AC
 action: Create
-timestamp: 2026-06-30T11:47:32Z
+agent: AC
+related_gate: G2
 status: Validated
+timestamp: 2026-06-30 11:47:32+00:00
 ---
 
 # 🛸 NORMES ISO POUR LES SYSTÈMES D'UAV (UAS)

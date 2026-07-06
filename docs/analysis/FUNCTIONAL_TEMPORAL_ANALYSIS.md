@@ -1,9 +1,9 @@
 ---
-agent: E3
 action: Analysis
-timestamp: 2026-07-01T19:45:00Z
+agent: E3
 related_gate: G2
 status: Active
+timestamp: 2026-07-01 19:45:00+00:00
 ---
 
 # 🛰 FUNCTIONAL & TEMPORAL ANALYSIS: INTERCEPTOR_M

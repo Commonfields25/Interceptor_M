@@ -1,8 +1,9 @@
 ---
-agent: E3 (Electronics / Integration)
 action: Create
-timestamp: 2026-06-29T15:00:00Z
+agent: E3 (Electronics / Integration)
+related_gate: G2
 status: Validated
+timestamp: 2026-06-29 15:00:00+00:00
 ---
 
 # Interceptor_M — Avionics & Electronics Standards

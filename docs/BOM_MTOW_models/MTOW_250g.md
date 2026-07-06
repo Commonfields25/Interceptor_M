@@ -1,3 +1,11 @@
+---
+action: Audit/Fix
+agent: E3
+related_gate: G2
+status: Validated
+timestamp: '2026-07-05T19:43:39Z'
+---
+
 # MTOW 250g — Spécification DC (Civil)
 **STATUS:** `LOCKED — Baseline 1.2.0`
 **Version:** 1.2.0

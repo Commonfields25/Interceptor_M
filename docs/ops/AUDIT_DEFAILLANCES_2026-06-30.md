@@ -1,8 +1,9 @@
 ---
-agent: Jules
 action: Create
-timestamp: 2026-06-30T10:00:00Z
+agent: Jules
+related_gate: G2
 status: Final
+timestamp: 2026-06-30 10:00:00+00:00
 ---
 
 # 🕵️ Rapport d'Audit : Raisonnement Profond & Analyse des Défaillances
