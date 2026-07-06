@@ -1,8 +1,9 @@
 ---
-agent: Jules (Physics Expert)
 action: Documentation
-timestamp: 2026-06-29T23:35:00Z
+agent: Jules (Physics Expert)
+related_gate: G2
 status: Validated
+timestamp: 2026-06-29 23:35:00+00:00
 ---
 
 # Procedural CAD & STL Generation

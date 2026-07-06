@@ -1,8 +1,9 @@
 ---
-agent: Jules (Physics Expert)
 action: Create
-timestamp: 2026-06-29T15:40:00Z
+agent: Jules (Physics Expert)
+related_gate: G2
 status: Validated
+timestamp: 2026-06-29 15:40:00+00:00
 ---
 
 # Integrated Physical Test Protocol

@@ -1,9 +1,9 @@
 ---
-agent: E3
 action: Planning
-timestamp: 2026-07-01T20:10:00Z
+agent: E3
 related_gate: G2
 status: Active
+timestamp: 2026-07-01 20:10:00+00:00
 ---
 
 # 📋 CORRECTIVE BACKLOG: REPOSITORY STABILIZATION

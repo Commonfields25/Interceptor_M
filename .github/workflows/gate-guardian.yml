@@ -10,6 +10,14 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Run Gate Guardian
+        id: guardian
         env:
           PR_GATE_LABEL: ${{ contains(github.event.pull_request.labels.*.name, 'gate:G2') && 'gate:G2' || contains(github.event.pull_request.labels.*.name, 'gate:G3') && 'gate:G3' || contains(github.event.pull_request.labels.*.name, 'gate:G4') && 'gate:G4' || '' }}
-        run: python3 scripts/gate_guardian.py
+        run: |
+          python3 scripts/gate_guardian.py
+          echo "gate_id=$(echo $PR_GATE_LABEL | sed 's/gate://')" >> $GITHUB_OUTPUT
+
+      - name: Asynchronous State Transition
+        if: success() && steps.guardian.outputs.gate_id != ''
+        run: |
+          python3 scripts/state_transitions.py --gate ${{ steps.guardian.outputs.gate_id }} --event passed

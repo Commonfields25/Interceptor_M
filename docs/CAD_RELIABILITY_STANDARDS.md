@@ -1,8 +1,9 @@
 ---
-agent: Jules (Physics Expert)
 action: Documentation
-timestamp: 2026-06-29T23:45:00Z
+agent: Jules (Physics Expert)
+related_gate: G2
 status: Validated
+timestamp: 2026-06-29 23:45:00+00:00
 ---
 
 # CAD Reliability & Engineering Liability

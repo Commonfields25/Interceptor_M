@@ -1,9 +1,14 @@
 ---
-title: Bot Interaction Guidelines (IAMD)
-version: 1.1
-target_audience: AI Agents (LLMs, Autonomous Agents)
+action: Audit/Fix
+agent: E3
 last_updated: 2026-06-24
 original_location: /BOT_GUIDELINES.md
+related_gate: G2
+status: Validated
+target_audience: AI Agents (LLMs, Autonomous Agents)
+timestamp: '2026-07-05T19:43:39Z'
+title: Bot Interaction Guidelines (IAMD)
+version: 1.1
 ---
 
 # 🤖 BOT INTERACTION GUIDELINES

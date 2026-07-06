@@ -1,9 +1,9 @@
 ---
-agent: agent_worker
 action: Create
-timestamp: 2026-07-05T13:54:00Z
-status: PRELIMINARY
+agent: agent_worker
 related_gate: G2
+status: PRELIMINARY
+timestamp: 2026-07-05 13:54:00+00:00
 ---
 
 # Plan Qualité — Prototype Interceptor M (DD-400)

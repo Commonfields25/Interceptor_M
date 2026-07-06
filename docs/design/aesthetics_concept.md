@@ -1,9 +1,10 @@
 ---
-agent: D3 (Lead Designer)
 action: Create
-timestamp: 2026-07-01T09:22:00Z
-related_issue: "#71"
-status: Draft v1.0 — for CAD team review
+agent: D3 (Lead Designer)
+related_gate: G2
+related_issue: '#71'
+status: "Draft v1.0 \u2014 for CAD team review"
+timestamp: 2026-07-01 09:22:00+00:00
 ---
 
 # Design Esthétique & Ergonomique — Interceptor M (Issue #71)

@@ -1,9 +1,9 @@
 ---
-agent: E3
 action: Audit
-timestamp: 2026-07-01T20:00:00Z
+agent: E3
 related_gate: G2
 status: Active
+timestamp: 2026-07-01 20:00:00+00:00
 ---
 
 # 🔍 REPOSITORY INCONSISTENCY AUDIT (WAVE 13)

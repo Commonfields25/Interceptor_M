@@ -1,10 +1,15 @@
 ---
-title: GUIDELINES.MD — UAV VENTURE
-version: 1.1
+action: Audit/Fix
+agent: E3
 date: 22.06.2026
-maintainer: Agent Amélioration Continue
-validator: Directeur Général
+maintainer: "Agent Am\xE9lioration Continue"
 original_location: /guidelines.md
+related_gate: G2
+status: Validated
+timestamp: '2026-07-05T19:43:39Z'
+title: "GUIDELINES.MD \u2014 UAV VENTURE"
+validator: "Directeur G\xE9n\xE9ral"
+version: 1.1
 ---
 
 # GUIDELINES.MD — UAV VENTURE
