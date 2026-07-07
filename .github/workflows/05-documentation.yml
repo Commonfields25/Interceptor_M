@@ -9,7 +9,7 @@ on:
       - '.github/workflows/05-documentation.yml'
   pull_request:
   schedule:
-    - cron: '0 6 * * *'  # Daily at 6 AM
+     cron: '0 6 * * *'  # Daily at 6 AM
   workflow_dispatch:
 
 jobs:
