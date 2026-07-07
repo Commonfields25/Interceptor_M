@@ -6,114 +6,124 @@ from build123d import *
 class CADEngine:
     def __init__(self, output_dir="exports"):
         self.output_dir = output_dir
+        self.drawing_dir = os.path.join(output_dir, "drawings")
+        self.report_dir = os.path.join(output_dir, "reports")
         os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(self.drawing_dir, exist_ok=True)
+        os.makedirs(self.report_dir, exist_ok=True)
 
-    def export_part(self, part, name, formats=["step", "stl"]):
+    def export(self, part, name, formats=None):
+        if formats is None:
+            formats = ["step", "stl"]
         results = {}
-        if "step" in formats:
-            path = os.path.join(self.output_dir, f"{name}.step")
-            export_step(part, path)
-            results["step"] = path
-        if "stl" in formats:
-            path = os.path.join(self.output_dir, f"{name}.stl")
-            export_stl(part, path, tolerance=1e-4, angular_tolerance=0.01)
-            results["stl"] = path
+        for fmt in formats:
+            path = os.path.join(self.output_dir, f"{name}.{fmt}")
+            try:
+                if fmt == "step":
+                    export_step(part, path)
+                elif fmt == "stl":
+                    export_stl(part, path)
+                results[fmt] = path
+            except Exception as e:
+                print(f"[CADEngine] Failed to export {fmt}: {e}")
         return results
 
     def generate_drawings(self, part, name):
-        drawing_dir = os.path.join(self.output_dir, "drawings")
-        os.makedirs(drawing_dir, exist_ok=True)
+        svg_dir = os.path.join(self.drawing_dir, name)
+        os.makedirs(svg_dir, exist_ok=True)
+        paths = {}
 
-        # Camera positions for projections
+        # Camera positions for orthographic projections
         views = {
-            "top": (0.01, 0.01, 1000), # Slight offset to avoid zero norm cross product
-            "front": (0.01, -1000, 0.01),
-            "side": (1000, 0.01, 0.01)
+            "front": (0.0, -1000.0, 0.0),
+            "back":  (0.0,  1000.0, 0.0),
+            "top":   (0.0,    0.0, 1000.0),
+            "bottom":(0.0,    0.0, -1000.0),
+            "right": (1000.0, 0.0, 0.0),
+            "left":  (-1000.0,0.0, 0.0),
         }
 
-        paths = {}
         for view_name, cam_pos in views.items():
-            path = os.path.join(drawing_dir, f"{name}_{view_name}.svg")
+            svg_path = os.path.join(svg_dir, f"{name}_{view_name}.svg")
             try:
-                visible, hidden = part.project_to_viewport(cam_pos)
-
                 exporter = ExportSVG()
-                exporter.add_layer("visible", line_color=Color("black"), line_weight=0.3)
-                exporter.add_layer("hidden", line_color=Color("gray"), line_weight=0.1)
-
-                for edge in visible:
-                    exporter.add_shape(edge, layer="visible")
-                for edge in hidden:
-                    exporter.add_shape(edge, layer="hidden")
-
-                exporter.write(path)
-                paths[view_name] = path
+                exporter.add_builder(
+                    Sketcher().add(
+                        ShapeIterator(part, topology_type=TopologyType.FACE)
+                    )
+                )
+                exporter.write(svg_path)
+                paths[view_name] = svg_path
             except Exception as e:
-                print(f"Warning: Could not export SVG for {view_name} of {name}: {e}")
+                print(f"[CADEngine] Failed to generate {view_name} view: {e}")
 
         return paths
 
-    def generate_report(self, part, name, metadata):
-        report_path = os.path.join(self.output_dir, f"{name}_report.md")
-        with open(report_path, "w") as f:
-            f.write(f"# Technical Data Sheet: {name}\n\n")
+    def generate_report(self, part, name, metadata=None):
+        if metadata is None:
+            metadata = {}
+        report_path = os.path.join(self.report_dir, f"{name}_report.md")
 
-            f.write(f"## Part Metadata\n")
-            f.write(f"| Property | Value |\n")
-            f.write(f"| :--- | :--- |\n")
+        with open(report_path, "w") as f:
+            f.write(f"# CAD Report — {name}\n\n")
+
+            f.write("## Part Metadata\n")
+            f.write("| Property | Value |\n")
+            f.write("| :--- | :--- |\n")
             for k, v in metadata.items():
                 f.write(f"| **{k}** | {v} |\n")
 
-            f.write(f"\n## Physical Properties\n")
-            volume = part.volume
-            bbox = part.bounding_box()
-            f.write(f"- **Volume**: {volume:.2f} mm³\n")
-            f.write(f"- **Bounding Box**: {bbox.size.X:.2f} x {bbox.size.Y:.2f} x {bbox.size.Z:.2f} mm\n")
+            f.write("\n## Physical Properties\n")
+            try:
+                volume = part.volume
+                bbox = part.bounding_box()
+                f.write(f"| Property | Value |\n")
+                f.write(f"| :--- | :--- |\n")
+                f.write(f"| Volume | {volume:.4f} mm³ |\n")
+                f.write(f"| Bounding Box | {bbox.XLen:.2f} × {bbox.YLen:.2f} × {bbox.ZLen:.2f} mm |\n")
+                if "density" in metadata:
+                    mass = volume * metadata["density"] / 1e3
+                    f.write(f"| Mass (est.) | {mass:.4f} g |\n")
+            except Exception as e:
+                f.write(f"| Error | {e} |\n")
 
-            if "density" in metadata:
-                mass = volume * float(metadata["density"]) # g
-                f.write(f"- **Calculated Mass**: {mass:.2f} g\n")
-
-            f.write(f"\n## Manufacturing Files\n")
+            f.write("\n## Manufacturing Files\n")
             f.write(f"- [STEP Model](./{name}.step)\n")
             f.write(f"- [STL Model](./{name}.stl)\n")
 
-            f.write(f"\n## Technical Drawings (Projections)\n")
-            f.write(f"### Top View\n![Top View](./drawings/{name}_top.svg)\n\n")
-            f.write(f"### Front View\n![Front View](./drawings/{name}_front.svg)\n\n")
-            f.write(f"### Side View\n![Side View](./drawings/{name}_side.svg)\n\n")
-
         return report_path
 
-    def generate_pdf_drawing(self, name):
-        from svglib.svglib import svg2rlg
-        from reportlab.graphics import renderPDF
-        from reportlab.pdfgen import canvas
+    def generate_pdf_drawing(self, part, name, scale=1.0):
+        try:
+            from svglib.svglib import svg2rlg
+            from reportlab.graphics import renderPDF
+            from reportlab.pdfgen import canvas
+        except ImportError:
+            print("[CADEngine] svglib/reportlab not installed, skipping PDF drawing.")
+            return None
 
-        drawing_dir = os.path.join(self.output_dir, "drawings")
-        pdf_path = os.path.join(drawing_dir, f"{name}_technical_drawing.pdf")
+        svg_dir = os.path.join(self.drawing_dir, name)
+        pdf_path = os.path.join(self.drawing_dir, f"{name}_drawing.pdf")
 
         c = canvas.Canvas(pdf_path)
         c.setFont("Helvetica-Bold", 16)
-        c.drawString(50, 800, f"Technical Drawing: {name}")
-        c.setFont("Helvetica", 10)
-        c.drawString(50, 785, "Part of Interceptor_M Project - L3 Manufacturing Grade")
+        c.drawString(50, 800, f"Drawing — {name}")
 
-        y_pos = 500
-        views = ["top", "front", "side"]
+        views = ["top", "front", "right"]
+        y_pos = 720
         for view in views:
-            svg_file = os.path.join(drawing_dir, f"{name}_{view}.svg")
+            svg_file = os.path.join(svg_dir, f"{name}_{view}.svg")
             if os.path.exists(svg_file):
-                drawing = svg2rlg(svg_file)
-                # Scale drawing to fit
-                scale = 400.0 / drawing.width if drawing.width > 400 else 1.0
-                drawing.width *= scale
-                drawing.height *= scale
-                drawing.scale(scale, scale)
-
-                c.drawString(50, y_pos + drawing.height + 10, f"View: {view.capitalize()}")
-                renderPDF.draw(drawing, c, 50, y_pos)
-                y_pos -= (drawing.height + 60)
+                try:
+                    drawing = svg2rlg(svg_file)
+                    if drawing:
+                        drawing.width *= scale
+                        drawing.height *= scale
+                        drawing.scale(scale, scale)
+                        renderPDF.draw(drawing, c, 50, y_pos)
+                        y_pos -= (drawing.height + 60)
+                except Exception as e:
+                    print(f"[CADEngine] Failed to render {view} SVG to PDF: {e}")
 
         c.save()
         return pdf_path
