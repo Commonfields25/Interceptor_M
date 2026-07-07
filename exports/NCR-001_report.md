@@ -8,9 +8,9 @@
 | **revision** | v1.5-L3 |
 
 ## Physical Properties
-- **Volume**: 12080.99 mm³
-- **Bounding Box**: 45.00 x 45.00 x 22.00 mm
-- **Calculated Mass**: 33.95 g
+- **Volume**: 23244.72 mm³
+- **Bounding Box**: 45.00 x 45.00 x 23.00 mm
+- **Calculated Mass**: 65.32 g
 
 ## Manufacturing Files
 - [STEP Model](./NCR-001.step)

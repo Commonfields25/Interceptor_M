@@ -45,3 +45,10 @@ The core physics and guidance suite is now **production-ready**. The simulation 
 
 ### 3. Workflow
 - [ ] G2 Ratification: Review Consolidated Definition v2.0 with DG.
+
+## Update 2026-07-07: Industrial CAD Standardization (Wave 14)
+- **Fastener Standardization**: Integrated `icad/standards.py` based on ISO metric standards.
+- **L3 Refinement**: Refactored 15+ parts (BRK, ACT, NCR, SABOT, CHS, WING, F1-line, LNCH-line) with improved geometry and manufacturing-ready interfaces.
+- **Library Integration**: Successfully integrated `bd_warehouse` and `bd_vslot` for digital sourcing.
+- **Verification**: Implemented `scripts/verify_assembly_fit.py` ensuring 0.2mm tolerance gaps for sabot/launcher.
+- **Documentation**: Created `docs/manufacturing/SOURCING_GUIDE.md` and updated Role documentation.
