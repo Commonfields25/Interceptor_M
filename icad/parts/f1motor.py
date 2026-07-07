@@ -1,7 +1,7 @@
 """
-F1-MOTOR — F1 Motor Mount (Refined L3 - FPV Performance)
-Material : 7075-T6 Aluminium
-Revision : v3.0-L3 (Wire Protection & Turtle Fin)
+F1-MOTOR — F1 Motor Mount (PyCad Hi-Fi)
+Material : 7075-T6 Aluminium | Process : CNC Milling
+Revision : v3.1-L3 (PyCad Calibration)
 """
 from build123d import *
 import math
@@ -15,26 +15,32 @@ def build_f1motor(params: dict = None):
     m4 = Fasteners.METRIC["M4"]
 
     with BuildPart() as p:
-        # 1. Main Mount Body
-        Cylinder(D / 2, H)
+        # 1. Bell-Profile Hub
+        with BuildSketch() as sk:
+            with BuildLine() as l:
+                l1 = Line((0, 0), (D/2, 0))
+                l2 = Line((D/2, 0), (D/2, H*0.4))
+                l3 = Bezier((D/2, H*0.4), (D/2 * 0.9, H*0.7), (D/2 * 0.6, H))
+                l4 = Line((D/2 * 0.6, H), (0, H))
+                l5 = Line((0, H), (0, 0))
+            make_face()
+        revolve(axis=Axis.Z)
 
-        # 2. Integrated Wire Protection Guard
-        with Locations((D/2 - 2.0, 0, H/2)):
-            Box(6.0, 10.0, H) # Guard block
-            # Wire channel
-            Box(4.0, 6.0, H + 2, mode=Mode.SUBTRACT)
+        # 2. Cooling Vents (Internal)
+        with Locations(PolarLocations(D/2 - 4.0, 8).locations):
+            Cylinder(1.5, H + 2, mode=Mode.SUBTRACT)
 
-        # 3. "Turtle-Mode" Structural Fin (Top crash protection)
-        with Locations((0, 0, H)):
-            Box(1.5, D, 8.0, align=(Align.CENTER, Align.CENTER, Align.MIN))
+        # 3. Standard Mounting Patterns (M4)
+        # Using a standard 19mm square pattern
+        with Locations(GridLocations(19.0, 19.0, 2, 2).locations):
+            Cylinder(m4["clearance"] / 2, H + 2, mode=Mode.SUBTRACT)
+            with Locations((0, 0, H/2)):
+                Cylinder(m4["counterbore_dia"] / 2, 5.0, mode=Mode.SUBTRACT)
 
-        # 4. Standard Motor Mounting (M4 Clearance + Counterbore)
-        pitch = 19.0
-        for sx in [-1, 1]:
-            for sy in [-1, 1]:
-                with Locations((sx * pitch / 2, sy * pitch / 2, 0)):
-                    Cylinder(m4["clearance"] / 2, H + 2, mode=Mode.SUBTRACT)
-                    with Locations((0, 0, 3.0)): # Recess depth
-                        Cylinder(m4["counterbore_dia"] / 2, 10.0, mode=Mode.SUBTRACT)
+        # 4. Aerospace Finishing
+        try:
+            fillet(p.edges().filter_by(Axis.Z), radius=0.5)
+        except:
+            pass
 
     return p.part

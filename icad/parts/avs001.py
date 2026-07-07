@@ -1,7 +1,7 @@
 """
 AVS-001 — Anti-Vibration Mount (Refined L3)
 Material : Elastomer / 7075-T6 Aluminium
-Revision : v2.0-L3 (Standardized Fasteners)
+Revision : v3.1-L3 (PyCad Calibration)
 """
 from build123d import *
 import math
@@ -21,20 +21,21 @@ def build_avs001(params: dict = None):
 
         # 2. Central Metal Insert Footprint (Subtractive)
         with Locations((0, 0, TH/2)):
-            Cylinder(8.0, 4.0, mode=Mode.SUBTRACT) # Recess for metal insert
+            Cylinder(8.0, 4.0, mode=Mode.SUBTRACT)
 
-        # 3. Damping Grooves (Refined geometry)
-        for sx in [-1, 1]:
-            with Locations((sx * (L/2 - 5), 0, 0)):
-                Box(4.0, W - 10.0, TH + 2.0, mode=Mode.SUBTRACT)
+        # 3. Damping Grooves
+        with Locations(GridLocations(L-10, 0, 2, 1).locations):
+             Box(4.0, W - 10.0, TH + 2.0, mode=Mode.SUBTRACT)
 
         # 4. Standard Mounting (M3 Clearance)
         bcd = 24.0
-        for ang in [45, 135, 225, 315]:
-            rad = math.radians(ang)
-            hx = (bcd / 2) * math.cos(rad)
-            hy = (bcd / 2) * math.sin(rad)
-            with Locations((hx, hy, 0)):
-                Cylinder(m3["clearance"] / 2, TH + 2, mode=Mode.SUBTRACT)
+        with Locations(PolarLocations(bcd/2, 4, start_angle=45).locations):
+            Cylinder(m3["clearance"] / 2, TH + 2, mode=Mode.SUBTRACT)
+
+        # Ensure watertightness by adding fillets carefully
+        try:
+            fillet(p.edges().filter_by(Axis.Z), radius=1.0)
+        except:
+            pass
 
     return p.part

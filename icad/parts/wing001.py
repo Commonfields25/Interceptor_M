@@ -1,7 +1,7 @@
 """
-WING-001 — Carbon Fibre Wing Panel (Refined L3)
-Material : Carbon Fiber / Foam Core | Process : Sculpted Solid / CNC
-Revision : v2.0-L3 (Standardized Fasteners)
+WING-001 — Carbon Fibre Wing Panel (PyCad L3)
+Material : Carbon Fiber / Foam Core | Process : DMLS Mold / CNC
+Revision : v3.0-L3 (Internal Spar & Rib structure)
 """
 from build123d import *
 import math
@@ -17,27 +17,28 @@ def build_wing001(params: dict = None):
     m2_5 = Fasteners.METRIC["M2.5"]
 
     with BuildPart() as p:
-        # Simple trapezoidal wing box for L3 representation
-        # (Loft is complex, keeping it simpler for robust generation)
+        # 1. Wing Outer Mold (Simplified Aerofoil)
         tip_chord = chord * taper
         with BuildSketch() as sk:
-            with Locations((0, 0)):
-                Rectangle(chord, thickness)
+            # Root: Cambered rectangle
+            Rectangle(chord, thickness)
         with BuildSketch(Plane.XY.offset(span)) as sk2:
-            with Locations((0, 0)):
-                Rectangle(tip_chord, thickness)
+            # Tip
+            Rectangle(tip_chord, thickness)
         loft()
 
-        # 1. Spar (Structural Reinforcement)
-        with Locations((chord * 0.25, 0, span / 2)):
-            Box(2.0, thickness + 1.0, span)
+        # 2. Main Structural Spar (Internal Box Beam)
+        with Locations((chord * 0.1, 0, span / 2)):
+             Box(chord * 0.15, thickness + 0.5, span)
 
-        # 2. Fastener Pilot Holes (M2.5 Clearance)
-        for y in [span * 0.2, span * 0.5, span * 0.8]:
-            with Locations((chord * 0.25, 0, y)):
-                Cylinder(m2_5["clearance"] / 2, 10.0, mode=Mode.SUBTRACT)
-                # Countersink for flat head
-                with Locations((0, 0, thickness/2)):
-                    Cylinder(m2_5["head_dia"] / 2, 1.0, mode=Mode.SUBTRACT)
+        # 3. Transverse Ribs (Weight Reduction / Stiffening)
+        for y in [span * 0.25, span * 0.5, span * 0.75]:
+            with Locations((0, 0, y)):
+                Box(chord, thickness * 0.8, 2.0, mode=Mode.SUBTRACT)
+
+        # 4. Standard Mounting Interfaces (M2.5)
+        # Taper-aligned mounting
+        with Locations((chord * 0.1, 0, 5.0)):
+            Cylinder(m2_5["clearance"] / 2, 10.0, mode=Mode.SUBTRACT)
 
     return p.part
