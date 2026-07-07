@@ -30,10 +30,10 @@ def build_f1avs(params=None):
         Box(L, W, T, mode=Mode.PRIVATE)
         top_edges = [e for e in p.edges()
                      if abs(e.center.z - T) < 0.1 and e.geom_type() == "LINE"]
-        chamfer(list(top_edges)[:4], chamfer_size=0.3)
+        chamfer(list(top_edges)[:4], length=0.3)
         bot_edges = [e for e in p.edges()
                      if abs(e.center.z) < 0.1 and e.geom_type() == "LINE"]
-        chamfer(list(bot_edges)[:4], chamfer_size=0.3)
+        chamfer(list(bot_edges)[:4], length=0.3)
     body = p.part
 
     # ── 2. Elastomer recess pocket (shallow cavity for silicone pad) ────────
