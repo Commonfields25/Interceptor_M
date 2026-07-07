@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    { "pattern": "^http://localhost" },
+    { "pattern": "^\\.\\./" },
+    { "pattern": "^https://pip\\.pypa\\.io" },
+    { "pattern": "^https://pypi\\.org" },
+    { "pattern": "^https://docs\\.github\\.com" }
+  ],
+  "timeout": 30,
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackFiles": ["README.md", "docs/index.md"]
+}

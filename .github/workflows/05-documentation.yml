@@ -22,10 +22,19 @@ jobs:
           python-version: '3.11'
       - run: pip install markdownlint-cli2
       - run: |
-          for f in $(find . -name "*.md" | head -20); do
+          EXCLUDE="--exclude=.git --exclude=node_modules --exclude=_site --exclude=.venv --exclude=vendor"
+          MD_FILES=$(find . $EXCLUDE -name "*.md" -type f | sort | head -30)
+          if [ -z "$MD_FILES" ]; then
+            echo "No markdown files to lint"
+            exit 0
+          fi
+          FAILED=0
+          for f in $MD_FILES; do
             echo "Linting: $f"
-            markdownlint "$f" 2>/dev/null || true
+            markdownlint "$f" || FAILED=$((FAILED + 1))
           done
+          echo "$FAILED file(s) with issues"
+          exit 0
 
   mermaid:
     runs-on: ubuntu-latest
