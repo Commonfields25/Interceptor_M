@@ -29,6 +29,7 @@ try:
     import Sketcher
     import Mesh
     from FreeCAD import Console
+
     FC_AVAILABLE = True
 except ImportError:
     FC_AVAILABLE = False
@@ -36,17 +37,17 @@ except ImportError:
     Part = None
 
 __version__ = "0.1.0"
-__author__  = "D1/D2/D3 agents"
+__author__ = "D1/D2/D3 agents"
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  SECTION 1  -  PATHS
 # ═══════════════════════════════════════════════════════════════════════════════
 
-BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR  = os.path.join(BASE_DIR, "models")
-STEP_DIR   = os.path.join(MODEL_DIR, "step")
-JSON_DIR   = os.path.join(BASE_DIR)          # params_*.json are next to this script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+STEP_DIR = os.path.join(MODEL_DIR, "step")
+JSON_DIR = os.path.join(BASE_DIR)  # params_*.json are next to this script
 
 for _d in (MODEL_DIR, STEP_DIR):
     os.makedirs(_d, exist_ok=True)
@@ -55,6 +56,7 @@ for _d in (MODEL_DIR, STEP_DIR):
 # ═══════════════════════════════════════════════════════════════════════════════
 #  SECTION 2  -  JSON PARAMETER LOADING
 # ═══════════════════════════════════════════════════════════════════════════════
+
 
 def load_params(line_code: str) -> dict:
     """Charge params_<LINE>.json et renvoie le dict."""
@@ -71,6 +73,7 @@ def load_params(line_code: str) -> dict:
 #  SECTION 3  -  SKETCH HELPERS  (Sketcher API)
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 def new_sketch(body, name: str) -> Sketcher.Sketch:
     """Cree une Sketch sur le plan XY du Body."""
     sk = body.newObject("Sketcher::SketchObject", name)
@@ -80,8 +83,9 @@ def new_sketch(body, name: str) -> Sketcher.Sketch:
 
 def add_rectangle(sk, x: float, y: float, w: float, h: float, label: str = ""):
     """Rectangle centre en (x,y) de dimensions w×h."""
-    g = sk.addGeometry(Part.Rectangle(x - w/2, y - h/2,
-                                      x + w/2, y + h/2), False)
+    g = sk.addGeometry(
+        Part.Rectangle(x - w / 2, y - h / 2, x + w / 2, y + h / 2), False
+    )
     sk.addConstraint(Sketcher.Constraint("Coincident", -1, 1, g, 3))
     if label:
         sk.setAlias(label)
@@ -107,6 +111,7 @@ def add_slot(sk, x: float, y: float, w: float, h: float, label: str = ""):
 #  SECTION 4  -  PART BUILDERS
 # ═══════════════════════════════════════════════════════════════════════════════
 
+
 def build_BRK001(params: dict) -> Part.Solid:
     """
     BRK-001  -  Structural Bracket
@@ -121,20 +126,22 @@ def build_BRK001(params: dict) -> Part.Solid:
         8× M2 tapped holes   (Ø2.0 mm, depth 4 mm)
         4× M3 tapped holes   (Ø2.5 mm, depth 6 mm)
     """
-    L    = 75.0   # mm  (overall length from spec)
-    W    = 55.0   # mm  (overall width  from spec)
-    T    = 10.0   # mm  (thickness       from spec)
-    bore = 35.0   # mm  (central bore Ø  spec)
+    L = 75.0  # mm  (overall length from spec)
+    W = 55.0  # mm  (overall width  from spec)
+    T = 10.0  # mm  (thickness       from spec)
+    bore = 35.0  # mm  (central bore Ø  spec)
     bore_d = 8.0  # mm  (bore depth       spec)
-    arm_r  = 20.0 # mm  (arm hole radius  spec)
+    arm_r = 20.0  # mm  (arm hole radius  spec)
     arm_hole = 5.0
     motor_hole = 9.0
     arm_angle_list = [0, 90, 180, 270]  # degrees
 
     # ── Base plate (main rectangular body) ─────────────────────────
-    main_solid = Part.makeCylinder(L/2, T, FreeCAD.Vector(0, 0, 0), FreeCAD.Vector(0, 0, 1))
+    main_solid = Part.makeCylinder(
+        L / 2, T, FreeCAD.Vector(0, 0, 0), FreeCAD.Vector(0, 0, 1)
+    )
     # Extend to rectangular footprint by adding bounding box approach
-    main_solid = Part.makeBox(L, W, T, FreeCAD.Vector(-L/2, -W/2, 0))
+    main_solid = Part.makeBox(L, W, T, FreeCAD.Vector(-L / 2, -W / 2, 0))
 
     # ── Base plate via Pad ──────────────────────────────────────────
     sk_plate = Sketcher.Sketch()
@@ -143,7 +150,7 @@ def build_BRK001(params: dict) -> Part.Solid:
     pad_pl = PartDesign.Body("BRK001_Body")
     pad_sk = pad_pl.newObject("Sketcher::SketchObject", "Sketch_Plate")
     pad_sk.MapMode = "FlatFace"
-    r = sk_plate.addGeometry(Part.Rectangle(-L/2, -W/2, L/2, W/2), False)
+    r = sk_plate.addGeometry(Part.Rectangle(-L / 2, -W / 2, L / 2, W / 2), False)
     pad_sk.addGeometry(r)
     pad_sk.solve()
     pad_pl.newObject("PartDesign::Pad", "Pad_Plate").Profile = pad_sk
@@ -153,15 +160,19 @@ def build_BRK001(params: dict) -> Part.Solid:
     main_solid = pad_pl.Shape
 
     # ── Central bore (cylindrical hole) ───────────────────────────────
-    cyl_35 = Part.makeCylinder(bore/2, bore_d, FreeCAD.Vector(0, 0, T), FreeCAD.Vector(0, 0, 1))
+    cyl_35 = Part.makeCylinder(
+        bore / 2, bore_d, FreeCAD.Vector(0, 0, T), FreeCAD.Vector(0, 0, 1)
+    )
     main_solid = main_solid.cut(cyl_35)
 
     # ── 4× Arm holes Ø5 mm ───────────────────────────────────────────
     for ang in arm_angle_list:
         rad = math.radians(ang)
-        hx  = arm_r * math.cos(rad)
-        hy  = arm_r * math.sin(rad)
-        cyl = Part.makeCylinder(arm_hole/2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1))
+        hx = arm_r * math.cos(rad)
+        hy = arm_r * math.sin(rad)
+        cyl = Part.makeCylinder(
+            arm_hole / 2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1)
+        )
         main_solid = main_solid.cut(cyl)
 
     # ── 4× Motor-mount holes Ø9 mm (cross pattern inside) ─────────────
@@ -169,28 +180,43 @@ def build_BRK001(params: dict) -> Part.Solid:
     motor_angles = [45, 135, 225, 315]
     for ang in motor_angles:
         rad = math.radians(ang)
-        hx  = motor_r * math.cos(rad)
-        hy  = motor_r * math.sin(rad)
-        cyl = Part.makeCylinder(motor_hole/2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1))
+        hx = motor_r * math.cos(rad)
+        hy = motor_r * math.sin(rad)
+        cyl = Part.makeCylinder(
+            motor_hole / 2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1)
+        )
         main_solid = main_solid.cut(cyl)
 
     # ── 8× M2 tapped holes (Ø2.0 mm, depth 4 mm)  -  arranged around perimeter ─
-    m2_d = 2.0; m2_depth = 4.0
-    m2_y_positions = [-W/4, W/4]
+    m2_d = 2.0
+    m2_depth = 4.0
+    m2_y_positions = [-W / 4, W / 4]
     for row_y in m2_y_positions:
         for ang in [0, 90, 180, 270]:
             rad = math.radians(ang)
-            hx  = arm_r * math.cos(rad) * 0.6
-            hy  = row_y
-            cyl = Part.makeCylinder(m2_d/2, m2_depth + T, FreeCAD.Vector(hx, hy, T - m2_depth), FreeCAD.Vector(0, 0, 1))
+            hx = arm_r * math.cos(rad) * 0.6
+            hy = row_y
+            cyl = Part.makeCylinder(
+                m2_d / 2,
+                m2_depth + T,
+                FreeCAD.Vector(hx, hy, T - m2_depth),
+                FreeCAD.Vector(0, 0, 1),
+            )
             main_solid = main_solid.cut(cyl)
 
     # ── 4× M3 tapped holes (Ø2.5 mm, depth 6 mm) ──────────────────────
-    m3_d = 2.5; m3_depth = 6.0
-    m3_x = L/2 - 8; m3_y = W/2 - 8
+    m3_d = 2.5
+    m3_depth = 6.0
+    m3_x = L / 2 - 8
+    m3_y = W / 2 - 8
     for sx in [-1, 1]:
         for sy in [-1, 1]:
-            cyl = Part.makeCylinder(m3_d/2, m3_depth + T, FreeCAD.Vector(sx*m3_x, sy*m3_y, T - m3_depth), FreeCAD.Vector(0, 0, 1))
+            cyl = Part.makeCylinder(
+                m3_d / 2,
+                m3_depth + T,
+                FreeCAD.Vector(sx * m3_x, sy * m3_y, T - m3_depth),
+                FreeCAD.Vector(0, 0, 1),
+            )
             main_solid = main_solid.cut(cyl)
 
     return main_solid
@@ -212,68 +238,88 @@ def build_ACT001(params: dict) -> Part.Solid:
         4× M3 clearance holes  : Ø3.3 mm
         6× M2 clearance holes  : Ø2.2 mm
     """
-    L   = 65.0;  W   = 45.0;  T   = 7.0
-    esc_w = 30.5; esc_h = 15.5
-    fc_w  = 30.5; fc_h  = 30.5
-    bat_w = 20.5; bat_d  = 6.0
-    therm_w = 32.0; therm_h = 17.0
-    channel_w = 3.0; channel_d = 2.0
+    L = 65.0
+    W = 45.0
+    T = 7.0
+    esc_w = 30.5
+    esc_h = 15.5
+    fc_w = 30.5
+    fc_h = 30.5
+    bat_w = 20.5
+    bat_d = 6.0
+    therm_w = 32.0
+    therm_h = 17.0
+    channel_w = 3.0
+    channel_d = 2.0
 
     # ── Base plate ──────────────────────────────────────────────────
-    base = Part.makeBox(L, W, T, FreeCAD.Vector(-L/2, -W/2, 0))
+    base = Part.makeBox(L, W, T, FreeCAD.Vector(-L / 2, -W / 2, 0))
 
     # ── ESC pocket (rectangular cutout, centered-left) ─────────────
-    esc_x = -L/2 + esc_w/2 + 3
-    esc_y =  W/2 - esc_h/2 - 2
-    esc_cut = Part.makeBox(esc_w, esc_h, T + 2,
-                           FreeCAD.Vector(esc_x - esc_w/2, esc_y - esc_h/2, -1))
+    esc_x = -L / 2 + esc_w / 2 + 3
+    esc_y = W / 2 - esc_h / 2 - 2
+    esc_cut = Part.makeBox(
+        esc_w, esc_h, T + 2, FreeCAD.Vector(esc_x - esc_w / 2, esc_y - esc_h / 2, -1)
+    )
     base = base.cut(esc_cut)
 
     # ── FC pocket (right side) ───────────────────────────────────────
-    fc_x = L/2 - fc_w/2 - 3
+    fc_x = L / 2 - fc_w / 2 - 3
     fc_y = 0
-    fc_cut = Part.makeBox(fc_w, fc_h, T + 2,
-                          FreeCAD.Vector(fc_x - fc_w/2, fc_y - fc_h/2, -1))
+    fc_cut = Part.makeBox(
+        fc_w, fc_h, T + 2, FreeCAD.Vector(fc_x - fc_w / 2, fc_y - fc_h / 2, -1)
+    )
     base = base.cut(fc_cut)
 
     # ── Battery slot (central channel across W, full width) ──────────
-    bat_cut = Part.makeBox(L, bat_w, bat_d + T,
-                           FreeCAD.Vector(-L/2, -bat_w/2, -T))
+    bat_cut = Part.makeBox(L, bat_w, bat_d + T, FreeCAD.Vector(-L / 2, -bat_w / 2, -T))
     base = base.cut(bat_cut)
 
     # ── Thermal slot (shallow recess for ESC thermal pad) ──────────
     therm_x = esc_x
     therm_y = esc_y
-    therm_cut = Part.makeBox(therm_w, therm_h, 0.5 + T,
-                              FreeCAD.Vector(therm_x - therm_w/2, therm_y - therm_h/2, -0.5))
+    therm_cut = Part.makeBox(
+        therm_w,
+        therm_h,
+        0.5 + T,
+        FreeCAD.Vector(therm_x - therm_w / 2, therm_y - therm_h / 2, -0.5),
+    )
     base = base.cut(therm_cut)
 
     # ── 2× Wire routing channels ─────────────────────────────────────
-    ch_y_positions = [-W/2 + 4, W/2 - 4]
+    ch_y_positions = [-W / 2 + 4, W / 2 - 4]
     for cy in ch_y_positions:
-        ch = Part.makeBox(L + 2, channel_w, channel_d,
-                           FreeCAD.Vector(-L/2 - 1, cy - channel_w/2, T - channel_d))
+        ch = Part.makeBox(
+            L + 2,
+            channel_w,
+            channel_d,
+            FreeCAD.Vector(-L / 2 - 1, cy - channel_w / 2, T - channel_d),
+        )
         base = base.cut(ch)
 
     # ── 4× M3 clearance holes (interface to BRK-001) ────────────────
     m3_d = 3.3
-    m3_positions = [(-L/4, -W/4), (-L/4, W/4), (L/4, -W/4), (L/4, W/4)]
-    for (hx, hy) in m3_positions:
-        cyl = Part.makeCylinder(m3_d/2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1))
+    m3_positions = [(-L / 4, -W / 4), (-L / 4, W / 4), (L / 4, -W / 4), (L / 4, W / 4)]
+    for hx, hy in m3_positions:
+        cyl = Part.makeCylinder(
+            m3_d / 2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1)
+        )
         base = base.cut(cyl)
 
     # ── 6× M2 clearance holes (ESC/FC mounts) ───────────────────────
     m2_d = 2.2
     m2_positions = [
-        (esc_x - esc_w/2 + 3, esc_y - esc_h/2 + 3),
-        (esc_x + esc_w/2 - 3, esc_y - esc_h/2 + 3),
-        (esc_x - esc_w/2 + 3, esc_y + esc_h/2 - 3),
-        (esc_x + esc_w/2 - 3, esc_y + esc_h/2 - 3),
-        (fc_x - fc_w/2 + 3,  fc_y - fc_h/2 + 3),
-        (fc_x + fc_w/2 - 3,  fc_y + fc_h/2 - 3),
+        (esc_x - esc_w / 2 + 3, esc_y - esc_h / 2 + 3),
+        (esc_x + esc_w / 2 - 3, esc_y - esc_h / 2 + 3),
+        (esc_x - esc_w / 2 + 3, esc_y + esc_h / 2 - 3),
+        (esc_x + esc_w / 2 - 3, esc_y + esc_h / 2 - 3),
+        (fc_x - fc_w / 2 + 3, fc_y - fc_h / 2 + 3),
+        (fc_x + fc_w / 2 - 3, fc_y + fc_h / 2 - 3),
     ]
-    for (hx, hy) in m2_positions:
-        cyl = Part.makeCylinder(m2_d/2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1))
+    for hx, hy in m2_positions:
+        cyl = Part.makeCylinder(
+            m2_d / 2, T * 2, FreeCAD.Vector(hx, hy, -T), FreeCAD.Vector(0, 0, 1)
+        )
         base = base.cut(cyl)
 
     return base
@@ -294,14 +340,14 @@ def build_NCR001(params: dict) -> Part.Solid:
         4× M3 threaded holes (interface to fuselage clamp)
         Through-bore Ø4 mm (wiring)
     """
-    OD        = 44.0   # mm  outer diameter
-    L_body    = 20.0   # mm  overall length
-    bore_35   = 35.0   # mm  fuselage interface
-    bore_15   = 15.0   # mm  nose-cone pilot
-    groove_OD = 36.5   # mm  O-ring groove diameter
-    groove_w  = 2.80   # mm  O-ring groove width
-    through_d = 4.0    # mm  wiring through-bore
-    flat_w     = 6.0    # mm  anti-rotation flat width
+    OD = 44.0  # mm  outer diameter
+    L_body = 20.0  # mm  overall length
+    bore_35 = 35.0  # mm  fuselage interface
+    bore_15 = 15.0  # mm  nose-cone pilot
+    groove_OD = 36.5  # mm  O-ring groove diameter
+    groove_w = 2.80  # mm  O-ring groove width
+    through_d = 4.0  # mm  wiring through-bore
+    flat_w = 6.0  # mm  anti-rotation flat width
 
     # ── Lathe profile (cross-section, rotated around Z) ──────────────
     #
@@ -318,18 +364,18 @@ def build_NCR001(params: dict) -> Part.Solid:
     #   R=18.25  → O-ring groove mean radius
 
     profile_points = [
-        FreeCAD.Vector(0,      0,    0),    # Z=0   -  reference face edge
-        FreeCAD.Vector(0,      OD/2, 0),    # Z=0   -  OD outer
-        FreeCAD.Vector(0,      OD/2, L_body),   # Z=L   -  OD tip
-        FreeCAD.Vector(0,      0,    L_body),   # Z=L   -  bore axis
+        FreeCAD.Vector(0, 0, 0),  # Z=0   -  reference face edge
+        FreeCAD.Vector(0, OD / 2, 0),  # Z=0   -  OD outer
+        FreeCAD.Vector(0, OD / 2, L_body),  # Z=L   -  OD tip
+        FreeCAD.Vector(0, 0, L_body),  # Z=L   -  bore axis
     ]
 
     # ── Build the main turning body via revolution ────────────────────
     # Create a face/closed profile for lathe
-    outer_r  = OD / 2
-    bore_z1  = 2.0    # bore starts 2 mm from face
-    bore_z2  = 12.0   # bore Ø35 ends
-    bore_z3  = L_body # bore Ø15 extends to tip
+    outer_r = OD / 2
+    bore_z1 = 2.0  # bore starts 2 mm from face
+    bore_z2 = 12.0  # bore Ø35 ends
+    bore_z3 = L_body  # bore Ø15 extends to tip
 
     # Lathe revolution: build a compound of cylinders
     solid = Part.Solid([])
@@ -338,59 +384,73 @@ def build_NCR001(params: dict) -> Part.Solid:
     cyl_main = Part.makeCylinder(outer_r, L_body)
 
     # Subtract fuselage bore Ø35 (full length, centred)
-    bore35 = Part.makeCylinder(bore_35/2, L_body + 2,
-                                FreeCAD.Vector(0, 0, -1),
-                                FreeCAD.Vector(0, 0, 1))
-    solid  = cyl_main.cut(bore35)
+    bore35 = Part.makeCylinder(
+        bore_35 / 2, L_body + 2, FreeCAD.Vector(0, 0, -1), FreeCAD.Vector(0, 0, 1)
+    )
+    solid = cyl_main.cut(bore35)
 
     # Subtract pilot bore Ø15 (from Z=bore_z2 to tip)
-    bore15 = Part.makeCylinder(bore_15/2, L_body - bore_z2 + 1,
-                                FreeCAD.Vector(0, 0, bore_z2 - 1),
-                                FreeCAD.Vector(0, 0, 1))
-    solid  = solid.cut(bore15)
+    bore15 = Part.makeCylinder(
+        bore_15 / 2,
+        L_body - bore_z2 + 1,
+        FreeCAD.Vector(0, 0, bore_z2 - 1),
+        FreeCAD.Vector(0, 0, 1),
+    )
+    solid = solid.cut(bore15)
 
     # ── O-ring groove (toroidal / cylindrical ring subtracted) ───────
-    groove_r   = groove_OD / 2
-    groove_z   = 4.5           # axial position from face (spec: 0.05 mm tolerance)
-    groove_cyl = Part.makeCylinder(groove_r + groove_w/2, groove_w,
-                                    FreeCAD.Vector(0, 0, groove_z - groove_w/2),
-                                    FreeCAD.Vector(0, 0, 1))
-    groove_sub = Part.makeCylinder(groove_r - groove_w/2, groove_w + 0.5,
-                                    FreeCAD.Vector(0, 0, groove_z - groove_w/2 - 0.25),
-                                    FreeCAD.Vector(0, 0, 1))
+    groove_r = groove_OD / 2
+    groove_z = 4.5  # axial position from face (spec: 0.05 mm tolerance)
+    groove_cyl = Part.makeCylinder(
+        groove_r + groove_w / 2,
+        groove_w,
+        FreeCAD.Vector(0, 0, groove_z - groove_w / 2),
+        FreeCAD.Vector(0, 0, 1),
+    )
+    groove_sub = Part.makeCylinder(
+        groove_r - groove_w / 2,
+        groove_w + 0.5,
+        FreeCAD.Vector(0, 0, groove_z - groove_w / 2 - 0.25),
+        FreeCAD.Vector(0, 0, 1),
+    )
     groove_ring = groove_cyl.cut(groove_sub)
     solid = solid.cut(groove_ring)
 
     # ── Anti-rotation flats (×2, 180deg apart) ─────────────────────────
     # Mill flat surfaces on the OD
-    flat_d = 1.5   # depth of flat from OD surface
+    flat_d = 1.5  # depth of flat from OD surface
     flat_y = outer_r - flat_d
 
     for sign in [-1, 1]:
-        flat_cut = Part.makeBox(flat_w + 2, flat_d + 1, L_body + 2,
-                                 FreeCAD.Vector(-flat_w/2 - 1,
-                                                sign * flat_y,
-                                                -1))
+        flat_cut = Part.makeBox(
+            flat_w + 2,
+            flat_d + 1,
+            L_body + 2,
+            FreeCAD.Vector(-flat_w / 2 - 1, sign * flat_y, -1),
+        )
         solid = solid.cut(flat_cut)
 
     # ── 4× M3 threaded holes (90deg apart, on OD circle) ────────────────
-    m3_d     = 2.5    # drill Ø before tapping
+    m3_d = 2.5  # drill Ø before tapping
     m3_depth = 6.0
-    hole_r   = outer_r + 0.5   # holes slightly beyond OD
+    hole_r = outer_r + 0.5  # holes slightly beyond OD
     m3_angles = [0, 90, 180, 270]
     for ang in m3_angles:
         rad = math.radians(ang)
-        hx  = hole_r * math.cos(rad)
-        hy  = hole_r * math.sin(rad)
-        cyl = Part.makeCylinder(m3_d/2, m3_depth + 2,
-                                 FreeCAD.Vector(hx, hy, L_body - m3_depth - 2),
-                                 FreeCAD.Vector(0, 0, 1))
+        hx = hole_r * math.cos(rad)
+        hy = hole_r * math.sin(rad)
+        cyl = Part.makeCylinder(
+            m3_d / 2,
+            m3_depth + 2,
+            FreeCAD.Vector(hx, hy, L_body - m3_depth - 2),
+            FreeCAD.Vector(0, 0, 1),
+        )
         solid = solid.cut(cyl)
 
     # ── Through-bore Ø4 mm (wiring) ───────────────────────────────────
-    through = Part.makeCylinder(through_d/2, L_body + 2,
-                                 FreeCAD.Vector(0, 0, -1),
-                                 FreeCAD.Vector(0, 0, 1))
+    through = Part.makeCylinder(
+        through_d / 2, L_body + 2, FreeCAD.Vector(0, 0, -1), FreeCAD.Vector(0, 0, 1)
+    )
     solid = solid.cut(through)
 
     return solid
@@ -399,6 +459,7 @@ def build_NCR001(params: dict) -> Part.Solid:
 # ═══════════════════════════════════════════════════════════════════════════════
 #  SECTION 5  -  FREECAD DOCUMENT ASSEMBLY
 # ═══════════════════════════════════════════════════════════════════════════════
+
 
 def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
     """Cree / met a jour un document FreeCAD avec les 3 pieces BRK/ACT/NCR."""
@@ -413,7 +474,7 @@ def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
             FreeCAD.closeDocument(doc_name)
         doc = FreeCAD.newDocument(doc_name)
     else:
-        doc = None   # headless placeholder
+        doc = None  # headless placeholder
 
     parts = {
         "BRK-001": build_BRK001(params),
@@ -429,11 +490,11 @@ def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
             obj.Label = label
             # Colour by material
             if part_id == "BRK-001":
-                obj.ViewObject.ShapeColor = (0.75, 0.73, 0.70, 1.0)   # aluminium
+                obj.ViewObject.ShapeColor = (0.75, 0.73, 0.70, 1.0)  # aluminium
             elif part_id == "ACT-001":
                 obj.ViewObject.ShapeColor = (0.80, 0.75, 0.60, 1.0)
             else:
-                obj.ViewObject.ShapeColor = (0.85, 0.85, 0.90, 1.0)   # steel
+                obj.ViewObject.ShapeColor = (0.85, 0.85, 0.90, 1.0)  # steel
             obj.ViewObject.update()
         else:
             obj = shape
@@ -444,6 +505,7 @@ def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
             Part.export([obj], step_file)
         else:
             import StepWrite
+
             StepWrite.export([shape], step_file)
         Console.PrintMessage(f"  → STEP saved: {step_file}\n")
 
@@ -463,6 +525,7 @@ def assemble_doc(line_code: str, params: dict) -> FreeCAD.Document:
 
 LINES = ["DC", "DD", "DI"]
 
+
 def main():
     print("=" * 70)
     print("  model_parts.py  -  Interceptor_M FreeCAD Model Generator  v" + __version__)
@@ -475,6 +538,7 @@ def main():
         # Still write STEP files using pythonocc-core if available, else skip
         try:
             import OCC
+
             print("[OK] pythonocc-core detected  -  STEP export possible headlessly.")
         except ImportError:
             print("[SKIP] STEP export requires FreeCAD or pythonocc-core.")
@@ -491,6 +555,7 @@ def main():
         except Exception as e:
             print(f"[ERROR] Line {line}  -  {e}")
             import traceback
+
             traceback.print_exc()
             continue
 

@@ -28,25 +28,25 @@ from typing import Any
 # ─── Thresholds (from governance/AUTO-APPROVAL-POLICY.md §3) ─────────────────
 
 THRESHOLDS: dict[str, float] = {
-    "on_time_rate":         90.0,   # >= 90%
-    "peer_review_rate":     80.0,   # >= 80%
-    "blocker_resolution_h": 24.0,   # <= 24h (lower is better)
-    "agent_utilization":    70.0,   # >= 70%
+    "on_time_rate": 90.0,  # >= 90%
+    "peer_review_rate": 80.0,  # >= 80%
+    "blocker_resolution_h": 24.0,  # <= 24h (lower is better)
+    "agent_utilization": 70.0,  # >= 70%
 }
 
 # Alert thresholds — if ANY KPI is below this, auto-approval is SUSPENDED entirely
 ALERT_THRESHOLDS: dict[str, float] = {
-    "on_time_rate":         75.0,
-    "peer_review_rate":     60.0,
-    "blocker_resolution_h": 96.0,   # >96h = alert (worse than auto-approval threshold)
-    "agent_utilization":    50.0,
+    "on_time_rate": 75.0,
+    "peer_review_rate": 60.0,
+    "blocker_resolution_h": 96.0,  # >96h = alert (worse than auto-approval threshold)
+    "agent_utilization": 50.0,
 }
 
 REPORTED_KPI_NAMES = {
-    "on_time_rate":         "On-time Delivery Rate",
-    "peer_review_rate":     "Peer Review Coverage",
+    "on_time_rate": "On-time Delivery Rate",
+    "peer_review_rate": "Peer Review Coverage",
     "blocker_resolution_h": "Blocker Resolution Time",
-    "agent_utilization":    "Agent Utilization",
+    "agent_utilization": "Agent Utilization",
 }
 
 
@@ -82,8 +82,12 @@ def evaluate_kpis(kpis: dict[str, float]) -> dict[str, Any]:
     for field, threshold in THRESHOLDS.items():
         value = kpis.get(field)
         if value is None:
-            results[field] = {"value": None, "threshold": threshold,
-                               "status": "MISSING", "approved": False}
+            results[field] = {
+                "value": None,
+                "threshold": threshold,
+                "status": "MISSING",
+                "approved": False,
+            }
             denied_fields.append(field)
             continue
 
@@ -91,11 +95,11 @@ def evaluate_kpis(kpis: dict[str, float]) -> dict[str, Any]:
 
         # Lower-is-better fields (blocker_resolution_h)
         if field == "blocker_resolution_h":
-            approved = (value <= threshold)
-            is_alert = (value > alert_threshold)
+            approved = value <= threshold
+            is_alert = value > alert_threshold
         else:
-            approved = (value >= threshold)
-            is_alert = (value < alert_threshold)
+            approved = value >= threshold
+            is_alert = value < alert_threshold
 
         if is_alert:
             alert = True
@@ -142,29 +146,43 @@ def evaluate_kpis(kpis: dict[str, float]) -> dict[str, Any]:
 def print_report(evaluation: dict[str, Any]):
     """Print a formatted human-readable report."""
     d = evaluation
-    print(f"\n{'='*65}")
-    print(f"  AUTO-APPROVAL KPI CHECK — {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
-    print(f"{'='*65}")
+    print(f"\n{'=' * 65}")
+    print(
+        f"  AUTO-APPROVAL KPI CHECK — {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}"
+    )
+    print(f"{'=' * 65}")
 
     status_icon = {
-        "GRANTED":            "✅",
-        "DENIED":             "❌",
-        "DENIED_SUSPENDED":   "🚫",
+        "GRANTED": "✅",
+        "DENIED": "❌",
+        "DENIED_SUSPENDED": "🚫",
     }.get(d["decision"], "❓")
 
     print(f"\n  Decision : {status_icon} {d['decision']}")
     print(f"  Reason   : {d['reason']}")
     print(f"\n  KPI Results:")
     print(f"  {'KPI':<28} {'Value':>7}  {'Threshold':>10}  {'Alert':>6}  Status")
-    print(f"  {'-'*28} {'-'*7}  {'-'*10}  {'-'*6}  ------")
+    print(f"  {'-' * 28} {'-' * 7}  {'-' * 10}  {'-' * 6}  ------")
 
     for field, r in d["kpi_results"].items():
         val = f"{r['value']:.1f}%" if r["value"] is not None else "N/A"
-        thr = f"{THRESHOLDS.get(field, 0):.0f}%" if field != "blocker_resolution_h" else f"≤{THRESHOLDS.get(field, 0):.0f}h"
-        alert_str = f"{r.get('alert_threshold', '?'):.0f}" if r.get('alert_threshold') is not None else "?"
+        thr = (
+            f"{THRESHOLDS.get(field, 0):.0f}%"
+            if field != "blocker_resolution_h"
+            else f"≤{THRESHOLDS.get(field, 0):.0f}h"
+        )
+        alert_str = (
+            f"{r.get('alert_threshold', '?'):.0f}"
+            if r.get("alert_threshold") is not None
+            else "?"
+        )
         status = r["status"]
-        icon = {"PASS": "✅", "FAIL": "❌", "ALERT": "🚨", "MISSING": "⚠️"}.get(status, "❓")
-        print(f"  {REPORTED_KPI_NAMES.get(field, field):<28} {val:>7}  {thr:>10}  ≤{alert_str:>5}  {icon} {status}")
+        icon = {"PASS": "✅", "FAIL": "❌", "ALERT": "🚨", "MISSING": "⚠️"}.get(
+            status, "❓"
+        )
+        print(
+            f"  {REPORTED_KPI_NAMES.get(field, field):<28} {val:>7}  {thr:>10}  ≤{alert_str:>5}  {icon} {status}"
+        )
 
     if d["alert_zone"]:
         print(f"\n  ⚠️  ALERT: One or more KPIs below alert threshold.")
@@ -174,7 +192,9 @@ def print_report(evaluation: dict[str, Any]):
         print(f"     Auto-approval DENIED — DG review required.")
     else:
         print(f"\n  ✅ All KPIs above auto-approval threshold.")
-        print(f"     Agent Manager MAY exercise auto-approval authority for MINOR gates.")
+        print(
+            f"     Agent Manager MAY exercise auto-approval authority for MINOR gates."
+        )
 
     print(f"\n  Audit entry written to DECISION_LOG.md:")
     ae = d["audit_entry"]
@@ -182,24 +202,26 @@ def print_report(evaluation: dict[str, Any]):
     print(f"     Decision  : {ae['decision']}")
     print(f"     KPIs      : {json.dumps(ae['kpi_snapshot'], indent=False)}")
 
-    print(f"\n{'='*65}\n")
+    print(f"\n{'=' * 65}\n")
 
 
-def write_audit_log(evaluation: dict[str, Any], output_path: str = "AUTOAPPROVAL_AUDIT_LOG.md"):
+def write_audit_log(
+    evaluation: dict[str, Any], output_path: str = "AUTOAPPROVAL_AUDIT_LOG.md"
+):
     """Append audit entry to a local markdown audit log file."""
     ae = evaluation["audit_entry"]
     entry = f"""
-## Auto-Approval Audit Entry — {ae['timestamp']}
+## Auto-Approval Audit Entry — {ae["timestamp"]}
 
 | Field | Value |
 |---|---|
-| **Decision** | `{ae['decision']}` |
-| **Reason** | {ae['reason']} |
-| **On-time Rate** | {ae['kpi_snapshot'].get('on_time_rate', 'N/A')}% |
-| **Peer Review Rate** | {ae['kpi_snapshot'].get('peer_review_rate', 'N/A')}% |
-| **Blocker Resolution** | {ae['kpi_snapshot'].get('blocker_resolution_h', 'N/A')}h |
-| **Agent Utilization** | {ae['kpi_snapshot'].get('agent_utilization', 'N/A')}% |
-| **Alert Zone** | {"YES — SUSPENDED" if ae['alert_zone'] else "NO"} |
+| **Decision** | `{ae["decision"]}` |
+| **Reason** | {ae["reason"]} |
+| **On-time Rate** | {ae["kpi_snapshot"].get("on_time_rate", "N/A")}% |
+| **Peer Review Rate** | {ae["kpi_snapshot"].get("peer_review_rate", "N/A")}% |
+| **Blocker Resolution** | {ae["kpi_snapshot"].get("blocker_resolution_h", "N/A")}h |
+| **Agent Utilization** | {ae["kpi_snapshot"].get("agent_utilization", "N/A")}% |
+| **Alert Zone** | {"YES — SUSPENDED" if ae["alert_zone"] else "NO"} |
 """
     try:
         with open(output_path, "a") as f:
@@ -211,10 +233,14 @@ def write_audit_log(evaluation: dict[str, Any], output_path: str = "AUTOAPPROVAL
 
 def main():
     parser = argparse.ArgumentParser(description="Auto-Approval KPI Checker")
-    parser.add_argument("--kpi-json", required=True,
-                        help="Path to KPI JSON file, or inline JSON string")
-    parser.add_argument("--output-log", default="AUTOAPPROVAL_AUDIT_LOG.md",
-                        help="Path to append audit log entry")
+    parser.add_argument(
+        "--kpi-json", required=True, help="Path to KPI JSON file, or inline JSON string"
+    )
+    parser.add_argument(
+        "--output-log",
+        default="AUTOAPPROVAL_AUDIT_LOG.md",
+        help="Path to append audit log entry",
+    )
     parser.add_argument("--quiet", action="store_true", help="Suppress stdout report")
     args = parser.parse_args()
 

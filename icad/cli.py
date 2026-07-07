@@ -44,12 +44,15 @@ PART_MAP = {
     "LNCH-003": build_lnch003,
     "LNCH-004": build_lnch004,
     "LNCH-005": build_lnch005,
-    "LNCH-006": build_lnch006
+    "LNCH-006": build_lnch006,
 }
+
 
 def main():
     parser = argparse.ArgumentParser(description="Interceptor CAD (ICAD) CLI Engine")
-    parser.add_argument("configs", nargs="+", help="Path to YAML/JSON configuration files")
+    parser.add_argument(
+        "configs", nargs="+", help="Path to YAML/JSON configuration files"
+    )
     parser.add_argument("--output", "-o", default="exports", help="Output directory")
     args = parser.parse_args()
 
@@ -62,7 +65,7 @@ def main():
             continue
 
         try:
-            with open(config_path, 'r') as f:
+            with open(config_path, "r") as f:
                 config = yaml.safe_load(f)
         except Exception as e:
             print(f"Error loading config {config_path}: {e}")
@@ -90,6 +93,7 @@ def main():
                 print(f"  [OK] {part_id} complete.")
             else:
                 print(f"Unknown part ID: {part_id}")
+
 
 if __name__ == "__main__":
     main()

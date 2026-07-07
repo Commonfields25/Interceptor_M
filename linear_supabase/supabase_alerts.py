@@ -25,11 +25,13 @@ def check_long_blockages():
         # Récupérer les blocages ouverts depuis plus de 2h
         two_hours_ago = (datetime.now() - timedelta(hours=2)).isoformat()
 
-        response = supabase.table("blockages")\
-            .select("*, agents(name)")\
-            .eq("status", "OPEN")\
-            .lt("start_time", two_hours_ago)\
+        response = (
+            supabase.table("blockages")
+            .select("*, agents(name)")
+            .eq("status", "OPEN")
+            .lt("start_time", two_hours_ago)
             .execute()
+        )
 
         if not response.data:
             print("✅ Aucun blocage > 2h détecté.")
@@ -61,7 +63,7 @@ def check_long_blockages():
                 "agent_id": agent_id,
                 "message": alert_message,
                 "type": "BLOCKAGE",
-                "created_at": datetime.now().isoformat()
+                "created_at": datetime.now().isoformat(),
             }
 
             supabase.table("alerts").insert(alert_data).execute()
@@ -71,11 +73,13 @@ def check_long_blockages():
                 slack_payload = {
                     "text": alert_message,
                     "username": "Interceptor_M Alert Bot",
-                    "icon_emoji": ":rotating_light:"
+                    "icon_emoji": ":rotating_light:",
                 }
                 requests.post(SLACK_WEBHOOK_URL, json=slack_payload)
 
-            print(f"⚠️ Alerte envoyée pour {agent_id} : {issue_title} (durée: {duration_hours:.1f}h)")
+            print(
+                f"⚠️ Alerte envoyée pour {agent_id} : {issue_title} (durée: {duration_hours:.1f}h)"
+            )
     except Exception as e:
         print(f"❌ Erreur lors de la vérification des blocages : {e}")
 
@@ -88,10 +92,12 @@ def monitor_agent_reports():
         # Récupérer les rapports des dernières 24h
         yesterday = (datetime.now() - timedelta(days=1)).date().isoformat()
 
-        response = supabase.table("agent_reports")\
-            .select("*, agents(name)")\
-            .gte("date", yesterday)\
+        response = (
+            supabase.table("agent_reports")
+            .select("*, agents(name)")
+            .gte("date", yesterday)
             .execute()
+        )
 
         if not response.data:
             print("⚠️ Aucun rapport récent trouvé.")
@@ -118,7 +124,7 @@ def monitor_agent_reports():
                     "agent_id": agent["id"],
                     "message": alert_message,
                     "type": "MISSING_REPORT",
-                    "created_at": datetime.now().isoformat()
+                    "created_at": datetime.now().isoformat(),
                 }
 
                 supabase.table("alerts").insert(alert_data).execute()
@@ -127,7 +133,7 @@ def monitor_agent_reports():
                     slack_payload = {
                         "text": alert_message,
                         "username": "Interceptor_M Alert Bot",
-                        "icon_emoji": ":warning:"
+                        "icon_emoji": ":warning:",
                     }
                     requests.post(SLACK_WEBHOOK_URL, json=slack_payload)
 

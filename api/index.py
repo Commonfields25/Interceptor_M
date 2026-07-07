@@ -17,6 +17,7 @@ from starlette.routing import Route, Mount
 from starlette.middleware.exceptions import ExceptionMiddleware
 from starlette.staticfiles import StaticFiles
 
+
 async def root_handler(request: Request) -> Union[HTMLResponse, JSONResponse]:
     accept_header = request.headers.get("accept", "")
     if "application/json" in accept_header and "text/html" not in accept_header:
@@ -96,8 +97,12 @@ async def root_handler(request: Request) -> Union[HTMLResponse, JSONResponse]:
 </html>"""
     return HTMLResponse(content=html, status_code=HTTPStatus.OK)
 
+
 async def health_handler(request: Request) -> JSONResponse:
-    return JSONResponse({"status": "healthy", "subsystems": "nominal"}, status_code=HTTPStatus.OK)
+    return JSONResponse(
+        {"status": "healthy", "subsystems": "nominal"}, status_code=HTTPStatus.OK
+    )
+
 
 async def dashboard_handler(request: Request) -> HTMLResponse:
     html = f"""<!DOCTYPE html>
@@ -160,6 +165,7 @@ async def dashboard_handler(request: Request) -> HTMLResponse:
 </body>
 </html>"""
     return HTMLResponse(content=html, status_code=HTTPStatus.OK)
+
 
 routes = [
     Route("/", root_handler),

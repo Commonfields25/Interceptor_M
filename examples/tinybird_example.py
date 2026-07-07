@@ -73,13 +73,13 @@ def query_event_totals(
     limit: int = 100,
 ) -> list[dict[str, Any]]:
     """Query the event totals endpoint.
-    
+
     Args:
         start_date: Start of the time range (default: 30 days ago)
         end_date: End of the time range (default: now)
         event_type: Optional filter by event type
         limit: Maximum number of results (default: 100)
-    
+
     Returns:
         List of event aggregation results.
     """
@@ -120,7 +120,9 @@ def display_results(results: list[dict[str, Any]]):
         print(f"   Type: {row.get('event_type', 'N/A')}")
         print(f"   Total Events: {row.get('total_events', 0):,}")
         print(f"   Unique Users: {row.get('unique_users', 0):,}")
-        print(f"   Period: {row.get('first_event', 'N/A')} → {row.get('last_event', 'N/A')}")
+        print(
+            f"   Period: {row.get('first_event', 'N/A')} → {row.get('last_event', 'N/A')}"
+        )
 
 
 def main():

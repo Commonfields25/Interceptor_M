@@ -12,9 +12,10 @@ from .kalman_filter import LOSKalmanFilter
 # ------------------------------------------------------------------
 # Paramètres locaux
 # ------------------------------------------------------------------
-_GAIN_PN      = C.GAIN_PN
-_ACCEL_MAX    = C.ACCELERATION_LATERALE_MAX_M_S2
-_DT           = C.PAS_DE_TEMPS_S
+_GAIN_PN = C.GAIN_PN
+_ACCEL_MAX = C.ACCELERATION_LATERALE_MAX_M_S2
+_DT = C.PAS_DE_TEMPS_S
+
 
 class GuidanceSystem:
     def __init__(self):
@@ -31,8 +32,9 @@ class GuidanceSystem:
 
         # Optimized relative vector math
         rx, ry, rz = pos_c[0] - pos_i[0], pos_c[1] - pos_i[1], pos_c[2] - pos_i[2]
-        dist_sq = rx*rx + ry*ry + rz*rz
-        if dist_sq < 0.01: return 0.0, 0.0
+        dist_sq = rx * rx + ry * ry + rz * rz
+        if dist_sq < 0.01:
+            return 0.0, 0.0
 
         dist = math.sqrt(dist_sq)
         vx, vy, vz = vel_c[0] - vel_i[0], vel_c[1] - vel_i[1], vel_c[2] - vel_i[2]
@@ -54,8 +56,10 @@ class GuidanceSystem:
         # Unwrap angles
         z_az = az
         az_kf = self.kf_az.x[0]
-        while z_az - az_kf > math.pi: z_az -= 2.0*math.pi
-        while z_az - az_kf < -math.pi: z_az += 2.0*math.pi
+        while z_az - az_kf > math.pi:
+            z_az -= 2.0 * math.pi
+        while z_az - az_kf < -math.pi:
+            z_az += 2.0 * math.pi
 
         self.kf_az.update(z_az)
         self.kf_el.update(el)
@@ -64,7 +68,7 @@ class GuidanceSystem:
         omega_el = self.kf_el.x[1]
 
         # Vitesse de rapprochement (closing velocity)
-        v_clos = -(rx*vx + ry*vy + rz*vz) / dist
+        v_clos = -(rx * vx + ry * vy + rz * vz) / dist
 
         # PN 3D
         accel_az = _GAIN_PN * v_clos * omega_az
@@ -74,6 +78,7 @@ class GuidanceSystem:
         accel_el += 9.81 * math.cos(el)
 
         return accel_az, accel_el
+
 
 if __name__ == "__main__":
     gs = GuidanceSystem()

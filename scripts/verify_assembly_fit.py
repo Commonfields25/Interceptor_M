@@ -3,8 +3,10 @@ Assembly Verification Script
 Checks tolerances and interference between DD-400 fuselage and launcher.
 Baseline: DD-400 (35mm Fuselage, 40mm Launcher Bore)
 """
+
 import json
 import os
+
 
 def check_fit():
     try:
@@ -53,6 +55,7 @@ def check_fit():
         print("  [PASS] Margin within aerospace standards for counter-UAS.")
     else:
         print("  [WARNING] Margin out of nominal range (Expected 0.2-1.0mm).")
+
 
 if __name__ == "__main__":
     check_fit()

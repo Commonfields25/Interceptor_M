@@ -3,21 +3,22 @@ import yaml
 import re
 import os
 
-REQUIRED_FIELDS = ['agent', 'action', 'timestamp', 'related_gate', 'status']
+REQUIRED_FIELDS = ["agent", "action", "timestamp", "related_gate", "status"]
+
 
 def validate_iamd_header(file_path):
-    if not file_path.endswith('.md'):
+    if not file_path.endswith(".md"):
         return True, None
 
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
     except Exception as e:
         return False, f"Could not read file: {e}"
 
     # Search for YAML frontmatter
     # Format: --- \n (yaml) \n ---
-    match = re.search(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
+    match = re.search(r"^---\s*\n(.*?)\n---\s*\n", content, re.DOTALL)
     if not match:
         return False, "Missing IAMD YAML header (must start with --- and end with ---)"
 
@@ -35,6 +36,7 @@ def validate_iamd_header(file_path):
         return False, f"Missing required IAMD fields: {', '.join(missing)}"
 
     return True, None
+
 
 def main():
     files_to_check = sys.argv[1:]
@@ -56,7 +58,9 @@ def main():
         print("🔴 IAMD Protocol Violation found in the following files:")
         for file_path, error in failed_files:
             print(f"  - {file_path}: {error}")
-        print("\nPlease ensure all Markdown files start with a valid YAML header as per BOT_GUIDELINES.md:")
+        print(
+            "\nPlease ensure all Markdown files start with a valid YAML header as per BOT_GUIDELINES.md:"
+        )
         print("---")
         print("agent: [AgentID]")
         print("action: [Update/Create/Refactor]")
@@ -68,6 +72,7 @@ def main():
     else:
         print("✅ All Markdown files follow the IAMD protocol.")
         sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

@@ -12,9 +12,11 @@ try:
     import FreeCAD
     import Part
     import Console
+
     FC_AVAILABLE = True
 except ImportError:
     FC_AVAILABLE = False
+
 
 def build_BRK001_v2(params: dict):
     """
@@ -29,12 +31,12 @@ def build_BRK001_v2(params: dict):
         return f"BRK-001 CAD Logic for L={L}, W={W}, T={T}"
 
     # 1. Base Geometry
-    base = Part.makeBox(L, W, T, FreeCAD.Vector(-L/2, -W/2, 0))
+    base = Part.makeBox(L, W, T, FreeCAD.Vector(-L / 2, -W / 2, 0))
 
     # 2. Precision Bores (H7)
     m3_d = 3.3  # clearance
-    for x, y in [(-L/4, -W/4), (-L/4, W/4), (L/4, -W/4), (L/4, W/4)]:
-        cyl = Part.makeCylinder(m3_d/2, T+2, FreeCAD.Vector(x, y, -1))
+    for x, y in [(-L / 4, -W / 4), (-L / 4, W / 4), (L / 4, -W / 4), (L / 4, W / 4)]:
+        cyl = Part.makeCylinder(m3_d / 2, T + 2, FreeCAD.Vector(x, y, -1))
         base = base.cut(cyl)
 
     # 3. High-Fidelity Edge Treatment (Fillets)
@@ -43,12 +45,14 @@ def build_BRK001_v2(params: dict):
 
     return base
 
+
 def export_with_metadata(shape, part_id, line_code):
     """Exports STEP with standard metadata."""
     filename = f"{part_id}_{line_code}_HiFi.step"
     # Placeholder for metadata tagging logic
     print(f"Exporting {filename} with Aviation Metadata...")
     # Part.export([shape], filename)
+
 
 if __name__ == "__main__":
     test_params = {"L": 120, "W": 30, "T": 8}

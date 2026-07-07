@@ -5,6 +5,7 @@ import trimesh
 import numpy as np
 from build123d import *
 
+
 class CADEngine:
     def __init__(self, output_dir="exports"):
         self.output_dir = output_dir
@@ -53,7 +54,7 @@ class CADEngine:
             "mass_kg": mass_kg,
             "cog_mm": tuple(cog),
             "inertia_tensor_si": inertia_tensor_kg_m2.tolist(),
-            "density_kg_m3": density_kg_m3
+            "density_kg_m3": density_kg_m3,
         }
 
     def export_part(self, part, name, formats=["step", "stl"]):
@@ -75,7 +76,7 @@ class CADEngine:
         views = {
             "top": (0.01, 0.01, 1000),
             "front": (0.01, -1000, 0.01),
-            "side": (1000, 0.01, 0.01)
+            "side": (1000, 0.01, 0.01),
         }
 
         paths = {}
@@ -84,10 +85,14 @@ class CADEngine:
             try:
                 visible, hidden = part.project_to_viewport(cam_pos)
                 exporter = ExportSVG()
-                exporter.add_layer("visible", line_color=Color("black"), line_weight=0.3)
+                exporter.add_layer(
+                    "visible", line_color=Color("black"), line_weight=0.3
+                )
                 exporter.add_layer("hidden", line_color=Color("gray"), line_weight=0.1)
-                for edge in visible: exporter.add_shape(edge, layer="visible")
-                for edge in hidden: exporter.add_shape(edge, layer="hidden")
+                for edge in visible:
+                    exporter.add_shape(edge, layer="visible")
+                for edge in hidden:
+                    exporter.add_shape(edge, layer="hidden")
                 exporter.write(path)
                 paths[view_name] = path
             except Exception as e:
@@ -106,15 +111,23 @@ class CADEngine:
             f.write(f"| :--- | :--- |\n")
             for k, v in metadata.items():
                 f.write(f"| **{k}** | {v} |\n")
-            f.write(f"| **Watertight Integrity** | {'PASSED' if analysis['watertight'] else 'FAILED'} |\n")
+            f.write(
+                f"| **Watertight Integrity** | {'PASSED' if analysis['watertight'] else 'FAILED'} |\n"
+            )
 
             f.write(f"\n## Physical Properties (SI Units)\n")
-            f.write(f"- **Mass**: {analysis['mass_kg']:.4f} kg ({analysis['mass_kg']*1000:.2f} g)\n")
+            f.write(
+                f"- **Mass**: {analysis['mass_kg']:.4f} kg ({analysis['mass_kg'] * 1000:.2f} g)\n"
+            )
             f.write(f"- **Volume**: {analysis['volume_mm3']:.2f} mm³\n")
-            f.write(f"- **Center of Gravity (mm)**: X={analysis['cog_mm'][0]:.2f}, Y={analysis['cog_mm'][1]:.2f}, Z={analysis['cog_mm'][2]:.2f}\n")
+            f.write(
+                f"- **Center of Gravity (mm)**: X={analysis['cog_mm'][0]:.2f}, Y={analysis['cog_mm'][1]:.2f}, Z={analysis['cog_mm'][2]:.2f}\n"
+            )
 
             f.write(f"\n## Inertia Tensor (kg.m²)\n")
-            f.write(f"```json\n{json.dumps(analysis['inertia_tensor_si'], indent=2)}\n```\n")
+            f.write(
+                f"```json\n{json.dumps(analysis['inertia_tensor_si'], indent=2)}\n```\n"
+            )
 
             f.write(f"\n## Manufacturing Files\n")
             f.write(f"- [STEP Model](./{name}.step)\n")
@@ -122,6 +135,8 @@ class CADEngine:
 
             f.write(f"\n## Technical Drawings\n")
             f.write(f"### Projections\n")
-            f.write(f"![Top](./drawings/{name}_top.svg) ![Front](./drawings/{name}_front.svg) ![Side](./drawings/{name}_side.svg)\n")
+            f.write(
+                f"![Top](./drawings/{name}_top.svg) ![Front](./drawings/{name}_front.svg) ![Side](./drawings/{name}_side.svg)\n"
+            )
 
         return report_path

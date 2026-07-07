@@ -21,7 +21,7 @@ if _env_path.exists():
 
 def get_tinybird_client() -> Tinybird:
     """Get or create a Tinybird client instance.
-    
+
     Returns:
         Tinybird: Configured Tinybird client instance.
     """
