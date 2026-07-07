@@ -22,7 +22,7 @@ jobs:
           python-version: '3.11'
       - run: pip install markdownlint-cli2
       - run: |
-          find . -name "*.md" ! -path "./.git/*" ! -path "./node_modules/*" | head -20 | while read f; do
+          for f in $(find . -name "*.md" | head -20); do
             echo "Linting: $f"
             markdownlint "$f" 2>/dev/null || true
           done
@@ -34,14 +34,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
-      - run: npm install -g @mermaid-js/mermaid-cli 2>/dev/null || true
       - name: Generate Mermaid Diagrams
         run: |
-          echo "## Mermaid Diagram Validation" >> $GITHUB_STEP_SUMMARY
-          find . -name "*.mmd" -o -name "mermaid-*.md" 2>/dev/null | head -5 | while read f; do
-            echo "✓ Validating: $f" >> $GITHUB_STEP_SUMMARY
+          for f in $(find . -name "*.mmd" -o -name "*.mermaid"); do
+            echo "Diagram: $f"
           done
-          echo "✅ Mermaid validation completed" >> $GITHUB_STEP_SUMMARY
 
   jekyll-pages:
     runs-on: ubuntu-latest
@@ -52,7 +49,6 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -63,21 +59,21 @@ jobs:
           ruby-version: '3.1'
       - name: Setup Pages
         run: |
-          # Install Jekyll if Gemfile exists
           if [ -f Gemfile ]; then
             bundle install
-            bundle exec jekyll --version || echo "Jekyll not configured"
-          else
-            echo "No Gemfile found, skipping Jekyll build"
           fi
       - name: Build Pages
         run: |
           if [ -f Gemfile ]; then
-            bundle exec jekyll build --destination ./_site 2>&1 || echo "Build skipped"
+            bundle exec jekyll build --destination ./_site
+          else
+            # Fallback: copy markdown files if no Jekyll setup
+            mkdir -p _site
+            cp -r docs/ _site/ 2>/dev/null || true
           fi
-      - uses: actions/upload-pages-artifact@v3
-        if: -f './_site/index.html'
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './_site'
       - name: Deploy to GitHub Pages
-        if: -f './_site/index.html'
-        id: deployment
         uses: actions/deploy-pages@v4
