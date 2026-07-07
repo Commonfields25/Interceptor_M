@@ -8,9 +8,9 @@
 | **revision** | v2.1-L3 |
 
 ## Physical Properties
-- **Volume**: 50125.00 mm³
-- **Bounding Box**: 85.00 x 330.00 x 61.00 mm
-- **Calculated Mass**: 133.83 g
+- **Volume**: 16272.18 mm³
+- **Bounding Box**: 85.00 x 55.00 x 10.00 mm
+- **Calculated Mass**: 43.45 g
 
 ## Manufacturing Files
 - [STEP Model](./ACT-001.step)
