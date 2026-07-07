@@ -29,15 +29,15 @@ def build_f1bat(params=None):
         # Outer edge-break chamfers
         top_edges = [e for e in p.edges()
                      if abs(e.center.z - H) < 0.1 and e.geom_type() == "LINE"]
-        chamfer(list(top_edges)[:4], chamfer_size=0.4)
+        chamfer(list(top_edges)[:4], length=0.4)
         bot_edges = [e for e in p.edges()
                      if abs(e.center.z) < 0.1 and e.geom_type() == "LINE"]
-        chamfer(list(bot_edges)[:4], chamfer_size=0.4)
+        chamfer(list(bot_edges)[:4], length=0.4)
         # Side chamfers (break sharp side edges)
         side_edges = [e for e in p.edges()
                       if e.geom_type() == "LINE"
                       and abs(e.center.x) > L / 2 - 0.5]
-        chamfer(list(side_edges)[:4], chamfer_size=0.3)
+        chamfer(list(side_edges)[:4], length=0.3)
     body = p.part
 
     # ── 2. Inner cavity (lattice frame construction) ────────────────────────

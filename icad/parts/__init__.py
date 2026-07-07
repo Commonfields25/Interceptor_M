@@ -2,7 +2,7 @@
 ICAD Parts — Build123d mechanical part definitions (L3 Manufacturing Grade)
 All parts are parametric and export to STEP + STL via the CADEngine.
 """
-from ocp_vscode import show
+# from ocp_vscode import show
 
 __all__ = [
     "build_brk001",
