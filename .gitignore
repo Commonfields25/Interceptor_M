@@ -68,3 +68,4 @@ test_exports/
 test_exports_launcher/
 exports/
 .tinyb
+.github/auth/
