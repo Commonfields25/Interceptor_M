@@ -15,6 +15,7 @@ jobs:
       - name: Sync BOM
         run: |
           # Check for requirements files
+          for f in requirements*.txt; do
             if [ -f "$f" ]; then
               echo "✅ $f" >> $GITHUB_STEP_SUMMARY
             fi
@@ -35,4 +36,6 @@ jobs:
       - name: Agent Lock Check
         run: |
           # Check for lock files older than 24h
+          find . -name "*.lock" -mtime +1 | while read f; do
+            echo "⚠️ Stale lock: $f" >> $GITHUB_STEP_SUMMARY
           done

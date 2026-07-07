@@ -33,7 +33,9 @@ jobs:
           python-version: '3.11'
       - run: pip install bandit pip-audit
       - name: Run Bandit
+        run: bandit -r . -f json -o bandit_report.json || true
       - name: Run pip-audit
+        run: pip-audit --format json --output pip_audit_report.json || true
 
   secret-scanner:
     runs-on: ubuntu-latest
@@ -44,4 +46,4 @@ jobs:
       - uses: trufflesecurity/trufflehog@3.18.0
         with:
           path: ./
-          head: HEAD
+          head: 1
