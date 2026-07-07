@@ -3,46 +3,6 @@ parts:
     parameters:
       length: 120.0
       width: 80.0
-<<<<<<< HEAD
-      height: 30.0
-    metadata:
-      material: "CFRP"
-      density: 0.0016
-      revision: "v2.0-L3"
-  - id: "F1-MOTOR"
-    parameters:
-      diameter: 28.0
-      height: 12.0
-    metadata:
-      material: "Al-7075"
-      density: 0.00281
-      revision: "v2.0-L3"
-  - id: "F1-PROP"
-    parameters:
-      hub_diameter: 16.0
-      hub_height: 8.0
-    metadata:
-      material: "Nylon/Carbon"
-      density: 0.0012
-      revision: "v2.0-L3"
-  - id: "F1-AVS"
-    parameters:
-      length: 25.0
-      width: 20.0
-    metadata:
-      material: "Elastomer"
-      density: 0.0011
-      revision: "v2.0-L3"
-  - id: "F1-BAT"
-    parameters:
-      length: 60.0
-      width: 30.0
-      height: 15.0
-    metadata:
-      material: "AlSi10Mg"
-      density: 0.00267
-      revision: "v2.0-L3"
-=======
       height: 35.0
     metadata:
       material: "CFRP"
@@ -64,4 +24,3 @@ parts:
       material: "Al-7075"
       density: 0.00281
       revision: "v4.2-L3"
->>>>>>> feat-l3
