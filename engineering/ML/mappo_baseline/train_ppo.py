@@ -25,29 +25,29 @@ if _ISAAC_GYM_ROOT not in sys.path:
 from swarm_env import SwarmInterceptEnv
 
 # ── Hyperparameters ────────────────────────────────────────────────────────────
-ROLLOUT_STEPS   = 128     # steps per batch before PPO update
+ROLLOUT_STEPS = 128  # steps per batch before PPO update
 MINI_BATCH_SIZE = 32
-PPO_CLIP        = 0.2
-PPO_EPOCHS      = 4
-GAE_LAMBDA      = 0.95
-GAMMA           = 0.99
-VALUE_COEF      = 0.5
-ENTROPY_COEF    = 0.01
+PPO_CLIP = 0.2
+PPO_EPOCHS = 4
+GAE_LAMBDA = 0.95
+GAMMA = 0.99
+VALUE_COEF = 0.5
+ENTROPY_COEF = 0.01
 CLIP_VALUE_LOSS = True
-LEARNING_RATE   = 3e-4
-WEIGHT_DECAY    = 1e-5
+LEARNING_RATE = 3e-4
+WEIGHT_DECAY = 1e-5
 
-HIDDEN_DIM      = 64
-MAX_GRAD_NORM   = 0.5
+HIDDEN_DIM = 64
+MAX_GRAD_NORM = 0.5
 
 DEVICE = torch.device("cpu")
-OBS_DIM  = 13
-ACT_DIM  = 3
+OBS_DIM = 13
+ACT_DIM = 3
 
-LOG_DIR    = os.path.join(_SCRIPT_DIR, "logs")
-CKPT_DIR   = os.path.join(_SCRIPT_DIR, "checkpoints")
-os.makedirs(LOG_DIR,    exist_ok=True)
-os.makedirs(CKPT_DIR,   exist_ok=True)
+LOG_DIR = os.path.join(_SCRIPT_DIR, "logs")
+CKPT_DIR = os.path.join(_SCRIPT_DIR, "checkpoints")
+os.makedirs(LOG_DIR, exist_ok=True)
+os.makedirs(CKPT_DIR, exist_ok=True)
 
 
 # ── Environment wrapper (dict → flat arrays for single-agent) ──────────────────
@@ -55,7 +55,7 @@ class SingleAgentEnv:
     def __init__(self, seed: int | None = None):
         self._env = SwarmInterceptEnv(n_agents=1, max_steps=200)
         self.observation_space = self._env.observation_space
-        self.action_space      = self._env.action_space
+        self.action_space = self._env.action_space
         self._flat_obs: np.ndarray | None = None
 
     def reset(self, seed: int | None = None):
@@ -67,7 +67,13 @@ class SingleAgentEnv:
         action_dict = {0: action.astype(np.float32)}
         obs_dict, rewards, terminated, truncated, info = self._env.step(action_dict)
         self._flat_obs = obs_dict[0].astype(np.float32)
-        return self._flat_obs, float(rewards[0]), bool(terminated[0]), bool(truncated[0]), info
+        return (
+            self._flat_obs,
+            float(rewards[0]),
+            bool(terminated[0]),
+            bool(truncated[0]),
+            info,
+        )
 
     @property
     def sim_time(self):
@@ -79,11 +85,13 @@ class ActorCritic(nn.Module):
     def __init__(self, obs_dim: int, act_dim: int, hidden: int = 64):
         super().__init__()
         self.shared = nn.Sequential(
-            nn.Linear(obs_dim, hidden), nn.Tanh(),
-            nn.Linear(hidden,         hidden), nn.Tanh(),
+            nn.Linear(obs_dim, hidden),
+            nn.Tanh(),
+            nn.Linear(hidden, hidden),
+            nn.Tanh(),
         )
-        self.actor  = nn.Linear(hidden, act_dim)
-        self.value  = nn.Linear(hidden, 1)
+        self.actor = nn.Linear(hidden, act_dim)
+        self.value = nn.Linear(hidden, 1)
         self.log_std = nn.Parameter(torch.zeros(act_dim))
 
     def forward(self, x):
@@ -97,6 +105,7 @@ class ActorCritic(nn.Module):
         mu, std, _ = self.forward(x)
         dist = torch.distributions.Normal(mu, std)
         return dist.sample()
+
 
 class RolloutStorage:
     def __init__(self, capacity, obs_dim, act_dim):
@@ -120,14 +129,19 @@ class RolloutStorage:
         self.logp_buf[self._pos] = logp
         self.value_buf[self._pos] = value
         self._pos = (self._pos + 1) % self.capacity
-        if self._pos == 0: self.full = True
+        if self._pos == 0:
+            self.full = True
 
     def compute_returns(self, last_value, gamma, gae_lambda):
         adv = 0.0
         T = self.capacity if self.full else self._pos
         for t in reversed(range(T)):
             mask = 0.0 if self.done_buf[t] else 1.0
-            delta = self.reward_buf[t] + gamma * (self.value_buf[t + 1] if t + 1 < T else last_value) * mask - self.value_buf[t]
+            delta = (
+                self.reward_buf[t]
+                + gamma * (self.value_buf[t + 1] if t + 1 < T else last_value) * mask
+                - self.value_buf[t]
+            )
             adv = delta + gamma * gae_lambda * mask * adv
             self.adv_buf[t] = adv
             self.returns_buf[t] = adv + self.value_buf[t]
@@ -136,19 +150,44 @@ class RolloutStorage:
         size = self.capacity if self.full else self._pos
         indices = torch.randperm(size)
         for start in range(0, size, mini_batch_size):
-            idx = indices[start:start+mini_batch_size]
-            yield (self.obs_buf[idx], self.act_buf[idx], self.logp_buf[idx], self.adv_buf[idx], self.returns_buf[idx], self.value_buf[idx])
+            idx = indices[start : start + mini_batch_size]
+            yield (
+                self.obs_buf[idx],
+                self.act_buf[idx],
+                self.logp_buf[idx],
+                self.adv_buf[idx],
+                self.returns_buf[idx],
+                self.value_buf[idx],
+            )
 
-def ppo_update(storage, policy, optimizer, ppo_epochs, ppo_clip, value_coef, entropy_coef, max_grad_norm, mini_batch_size):
+
+def ppo_update(
+    storage,
+    policy,
+    optimizer,
+    ppo_epochs,
+    ppo_clip,
+    value_coef,
+    entropy_coef,
+    max_grad_norm,
+    mini_batch_size,
+):
     policy.train()
     for _ in range(ppo_epochs):
-        for obs_b, act_b, logp_old_b, adv_b, ret_b, val_b in storage.feed_forward_generator(mini_batch_size):
+        for (
+            obs_b,
+            act_b,
+            logp_old_b,
+            adv_b,
+            ret_b,
+            val_b,
+        ) in storage.feed_forward_generator(mini_batch_size):
             mu, std, val_pred = policy(obs_b)
             dist = torch.distributions.Normal(mu, std)
             logp_new = dist.log_prob(act_b).sum(dim=-1)
             ratio = torch.exp(logp_new - logp_old_b)
             surr1 = ratio * adv_b
-            surr2 = ratio.clamp(1-ppo_clip, 1+ppo_clip) * adv_b
+            surr2 = ratio.clamp(1 - ppo_clip, 1 + ppo_clip) * adv_b
             policy_loss = -torch.min(surr1, surr2).mean()
             value_loss = torch.nn.functional.mse_loss(val_pred, ret_b)
             entropy = dist.entropy().sum(dim=-1).mean()
@@ -158,6 +197,7 @@ def ppo_update(storage, policy, optimizer, ppo_epochs, ppo_clip, value_coef, ent
             torch.nn.utils.clip_grad_norm_(policy.parameters(), max_grad_norm)
             optimizer.step()
     return {"policy_loss": 0, "value_loss": 0, "entropy": 0}
+
 
 def train(env, policy, args):
     optimizer = optim.Adam(policy.parameters(), lr=LEARNING_RATE)
@@ -172,14 +212,28 @@ def train(env, policy, args):
                 action = dist.sample()
                 logp = dist.log_prob(action).sum(dim=-1)
             obs_next, reward, term, trunc, info = env.step(action.squeeze(0).numpy())
-            storage.add(obs_t, action.squeeze(0), reward, term or trunc, logp.item(), val.item())
+            storage.add(
+                obs_t, action.squeeze(0), reward, term or trunc, logp.item(), val.item()
+            )
             obs = obs_next
-            if term or trunc: obs, _ = env.reset()
+            if term or trunc:
+                obs, _ = env.reset()
         with torch.no_grad():
             _, _, last_val = policy(torch.from_numpy(obs).float().unsqueeze(0))
         storage.compute_returns(last_val.item(), GAMMA, GAE_LAMBDA)
-        ppo_update(storage, policy, optimizer, PPO_EPOCHS, PPO_CLIP, VALUE_COEF, ENTROPY_COEF, MAX_GRAD_NORM, MINI_BATCH_SIZE)
+        ppo_update(
+            storage,
+            policy,
+            optimizer,
+            PPO_EPOCHS,
+            PPO_CLIP,
+            VALUE_COEF,
+            ENTROPY_COEF,
+            MAX_GRAD_NORM,
+            MINI_BATCH_SIZE,
+        )
         print(f"Update {update} complete")
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()

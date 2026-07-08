@@ -15,7 +15,9 @@ SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_SERVICE_KEY)
 
 
-def send_agent_report(agent_id: str, actions: str, blockages: str = None, needs: str = None) -> bool:
+def send_agent_report(
+    agent_id: str, actions: str, blockages: str = None, needs: str = None
+) -> bool:
     """
     Envoyer un rapport quotidien d'agent à Supabase.
     Format attendu : [AGENT]|[DATE]|[ACTIONS]|[BLOCAGES]|[BESOINS]
@@ -28,7 +30,7 @@ def send_agent_report(agent_id: str, actions: str, blockages: str = None, needs:
             "actions": actions,
             "blockages": blockages if blockages else "Aucun",
             "needs": needs if needs else "Aucun",
-            "created_at": datetime.now().isoformat()
+            "created_at": datetime.now().isoformat(),
         }
 
         # Insérer dans la table agent_reports
@@ -45,7 +47,9 @@ def send_agent_report(agent_id: str, actions: str, blockages: str = None, needs:
         return False
 
 
-def check_blockages(agent_id: str, issue_title: str, issue_description: str = None) -> bool:
+def check_blockages(
+    agent_id: str, issue_title: str, issue_description: str = None
+) -> bool:
     """
     Vérifier et enregistrer un blocage pour un agent.
     """
@@ -56,7 +60,7 @@ def check_blockages(agent_id: str, issue_title: str, issue_description: str = No
             "issue_description": issue_description if issue_description else "",
             "start_time": datetime.now().isoformat(),
             "status": "OPEN",
-            "severity": "MEDIUM"
+            "severity": "MEDIUM",
         }
 
         response = supabase.table("blockages").insert(blockage_data).execute()
@@ -65,7 +69,9 @@ def check_blockages(agent_id: str, issue_title: str, issue_description: str = No
             print(f"⚠️ Blocage enregistré pour {agent_id} : {issue_title}")
             return True
         else:
-            print(f"❌ Échec de l'enregistrement du blocage pour {agent_id} : {response.error}")
+            print(
+                f"❌ Échec de l'enregistrement du blocage pour {agent_id} : {response.error}"
+            )
             return False
     except Exception as e:
         print(f"❌ Erreur lors de l'enregistrement du blocage : {e}")
@@ -78,12 +84,14 @@ def resolve_blockage(agent_id: str, issue_title: str) -> bool:
     """
     try:
         # Trouver le blocage ouvert
-        response = supabase.table("blockages")\
-            .select("*")\
-            .eq("agent_id", agent_id)\
-            .eq("issue_title", issue_title)\
-            .eq("status", "OPEN")\
+        response = (
+            supabase.table("blockages")
+            .select("*")
+            .eq("agent_id", agent_id)
+            .eq("issue_title", issue_title)
+            .eq("status", "OPEN")
             .execute()
+        )
 
         if not response.data:
             print(f"❌ Aucun blocage ouvert trouvé pour {agent_id} : {issue_title}")
@@ -91,16 +99,20 @@ def resolve_blockage(agent_id: str, issue_title: str) -> bool:
 
         # Mettre à jour le blocage
         blockage_id = response.data[0]["id"]
-        update_response = supabase.table("blockages")\
-            .update({"status": "RESOLVED", "end_time": datetime.now().isoformat()})\
-            .eq("id", blockage_id)\
+        update_response = (
+            supabase.table("blockages")
+            .update({"status": "RESOLVED", "end_time": datetime.now().isoformat()})
+            .eq("id", blockage_id)
             .execute()
+        )
 
         if update_response.status_code == 200:
             print(f"✅ Blocage résolu pour {agent_id} : {issue_title}")
             return True
         else:
-            print(f"❌ Échec de la résolution du blocage pour {agent_id} : {update_response.error}")
+            print(
+                f"❌ Échec de la résolution du blocage pour {agent_id} : {update_response.error}"
+            )
             return False
     except Exception as e:
         print(f"❌ Erreur lors de la résolution du blocage : {e}")
@@ -108,13 +120,26 @@ def resolve_blockage(agent_id: str, issue_title: str) -> bool:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Envoyer un rapport d'agent à Supabase")
-    parser.add_argument("--agent", type=str, required=True, help="ID de l'agent (ex: E3)")
-    parser.add_argument("--actions", type=str, required=True, help="Actions effectuées par l'agent")
+    parser = argparse.ArgumentParser(
+        description="Envoyer un rapport d'agent à Supabase"
+    )
+    parser.add_argument(
+        "--agent", type=str, required=True, help="ID de l'agent (ex: E3)"
+    )
+    parser.add_argument(
+        "--actions", type=str, required=True, help="Actions effectuées par l'agent"
+    )
     parser.add_argument("--blockages", type=str, default=None, help="Blocages en cours")
     parser.add_argument("--needs", type=str, default=None, help="Besoins pour avancer")
-    parser.add_argument("--check-blockage", type=str, default=None, help="Titre du blocage à enregistrer")
-    parser.add_argument("--resolve-blockage", type=str, default=None, help="Titre du blocage à résoudre")
+    parser.add_argument(
+        "--check-blockage",
+        type=str,
+        default=None,
+        help="Titre du blocage à enregistrer",
+    )
+    parser.add_argument(
+        "--resolve-blockage", type=str, default=None, help="Titre du blocage à résoudre"
+    )
 
     args = parser.parse_args()
 

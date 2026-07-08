@@ -8,15 +8,17 @@ import os
 import re
 import sys
 
+
 def check_iamd_header(file_path):
     """Checks if a markdown file starts with the required YAML header."""
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read(500) # Read first 500 chars
-        if content.strip().startswith('---'):
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read(500)  # Read first 500 chars
+        if content.strip().startswith("---"):
             # Check for mandatory fields
-            if 'agent:' in content and 'action:' in content and 'timestamp:' in content:
+            if "agent:" in content and "action:" in content and "timestamp:" in content:
                 return True
     return False
+
 
 def scan_project(root_dir="."):
     print(f"--- 🔍 AC Quality Scan: {root_dir} ---")
@@ -24,13 +26,13 @@ def scan_project(root_dir="."):
     scanned = 0
 
     # Files to exclude from IAMD check
-    exclude_dirs = {'.git', 'node_modules', 'venv', '__pycache__'}
+    exclude_dirs = {".git", "node_modules", "venv", "__pycache__"}
 
     for root, dirs, files in os.walk(root_dir):
         dirs[:] = [d for d in dirs if d not in exclude_dirs]
 
         for file in files:
-            if file.endswith('.md'):
+            if file.endswith(".md"):
                 scanned += 1
                 path = os.path.join(root, file)
                 if not check_iamd_header(path):
@@ -42,6 +44,7 @@ def scan_project(root_dir="."):
     print(f"  IAMD Violations: {violations}")
 
     return violations == 0
+
 
 if __name__ == "__main__":
     success = scan_project()

@@ -54,8 +54,7 @@ secrets.json
 *.pem
 credentials_local.md
 credentials.md
-.github/auth/.git_credentials_config.json
-.github/auth/.env
+.github/auth/
 
 # Artifacts
 simulation/output/
@@ -68,3 +67,5 @@ id_dsa
 test_exports/
 test_exports_launcher/
 exports/
+.tinyb
+.github/auth/

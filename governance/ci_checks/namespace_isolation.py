@@ -40,23 +40,23 @@ NAMESPACE_MAP: dict[str, list[str]] = {
         "engineering/NDC/",
         "engineering/FEA/",
         "engineering/simulation/",
-        "params/", # Systems owns the master params
+        "params/",  # Systems owns the master params
     ],
     "E2": [
         "agents/E2/",
         "engineering/ML/",
         "engineering/CFD/",
-        "simulation/", # E2 owns flight dynamics simulation
+        "simulation/",  # E2 owns flight dynamics simulation
     ],
     "E3": [
         "agents/E3/",
         "engineering/simulation/",
-        "hardware/", # E3 owns hardware integration
+        "hardware/",  # E3 owns hardware integration
     ],
     "AC": [
         "agents/AC/",
         "governance/",
-        "manufacturing/", # AC audits manufacturing gammes
+        "manufacturing/",  # AC audits manufacturing gammes
     ],
     "commercial": [
         "agents/commercial/",
@@ -83,12 +83,14 @@ SHARED_ALLOWED: list[str] = [
     ".gitignore",
 ]
 
+
 def is_in_namespace(file_path: str, allowed_prefixes: list[str]) -> bool:
     fp = file_path.strip().lstrip("/")
     for prefix in allowed_prefixes:
         if fp.startswith(prefix.rstrip("/")):
             return True
     return False
+
 
 def validate_pr_files(files: list[str], author_agent: str) -> tuple[bool, list[str]]:
     if author_agent not in NAMESPACE_MAP:
@@ -99,20 +101,26 @@ def validate_pr_files(files: list[str], author_agent: str) -> tuple[bool, list[s
 
     for f in files:
         fp = f.strip()
-        if not fp: continue
+        if not fp:
+            continue
 
         # Check if it's a critical root file
         if fp in CRITICAL_ROOT_FILES and author_agent != "agent_manager":
-            violations.append(f"  ✗ {fp} — Critical root file. Requires Agent Manager approval.")
+            violations.append(
+                f"  ✗ {fp} — Critical root file. Requires Agent Manager approval."
+            )
             continue
 
         in_ns = is_in_namespace(fp, allowed)
-        is_shared = any(fp.startswith(s) for s in SHARED_ALLOWED) or fp in SHARED_ALLOWED
+        is_shared = (
+            any(fp.startswith(s) for s in SHARED_ALLOWED) or fp in SHARED_ALLOWED
+        )
 
         if not in_ns and not is_shared:
             violations.append(f"  ✗ {fp} — Outside namespace of agent '{author_agent}'")
 
     return len(violations) == 0, violations
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -128,11 +136,13 @@ def main():
     compliant, violations = validate_pr_files(files, args.author_agent)
 
     if not compliant:
-        for v in violations: print(v)
+        for v in violations:
+            print(v)
         sys.exit(1)
 
     print("✅ Namespace Protection: ACTIVE and COMPLIANT.")
     sys.exit(0)
+
 
 if __name__ == "__main__":
     main()

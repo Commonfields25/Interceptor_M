@@ -126,7 +126,9 @@ def validate_pr_files(files: list[str], author_agent: str) -> tuple[bool, list[s
     Returns (is_compliant, list_of_violations).
     """
     if author_agent not in NAMESPACE_MAP:
-        return False, [f"Unknown agent '{author_agent}'. Valid agents: {list(NAMESPACE_MAP.keys())}"]
+        return False, [
+            f"Unknown agent '{author_agent}'. Valid agents: {list(NAMESPACE_MAP.keys())}"
+        ]
 
     allowed = NAMESPACE_MAP[author_agent]
     violations = []
@@ -140,8 +142,10 @@ def validate_pr_files(files: list[str], author_agent: str) -> tuple[bool, list[s
         is_am_extra = is_am_extra_shared(fp, author_agent)
 
         if not in_ns and not is_shared and not is_am_extra:
-            violations.append(f"  ✗ {fp} — outside namespace of agent '{author_agent}' "
-                              f"(allowed: {', '.join(allowed)})")
+            violations.append(
+                f"  ✗ {fp} — outside namespace of agent '{author_agent}' "
+                f"(allowed: {', '.join(allowed)})"
+            )
 
     return len(violations) == 0, violations
 
@@ -160,9 +164,15 @@ def extract_agent_from_branch(branch_name: str) -> Optional[str]:
 def main():
     parser = argparse.ArgumentParser(description="Namespace Isolation CI Check")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("--changed-files", help="Space-separated list of changed file paths")
-    group.add_argument("--json-input", help='JSON array of changed files (for GitHub Actions)')
-    group.add_argument("--branch-name", help="Branch name to auto-derive agent from --changed-files")
+    group.add_argument(
+        "--changed-files", help="Space-separated list of changed file paths"
+    )
+    group.add_argument(
+        "--json-input", help="JSON array of changed files (for GitHub Actions)"
+    )
+    group.add_argument(
+        "--branch-name", help="Branch name to auto-derive agent from --changed-files"
+    )
     parser.add_argument("--author-agent", help="Override agent ID (e.g. D1, E2)")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
@@ -186,8 +196,11 @@ def main():
     elif args.branch_name:
         author = extract_agent_from_branch(args.branch_name)
         if author is None:
-            print(f"WARNING: Could not extract agent from branch '{args.branch_name}'. "
-                  "Assuming 'agent_manager' as fallback.", file=sys.stderr)
+            print(
+                f"WARNING: Could not extract agent from branch '{args.branch_name}'. "
+                "Assuming 'agent_manager' as fallback.",
+                file=sys.stderr,
+            )
             author = "agent_manager"
     else:
         print("ERROR: Must provide --author-agent or --branch-name", file=sys.stderr)
@@ -199,11 +212,13 @@ def main():
 
     compliant, violations = validate_pr_files(files, author)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"Namespace Isolation Check — Agent: {author}")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"Changed files  : {len(files)}")
-    print(f"Status        : {'✅ COMPLIANT — no violations' if compliant else '❌ VIOLATION(S) DETECTED'}")
+    print(
+        f"Status        : {'✅ COMPLIANT — no violations' if compliant else '❌ VIOLATION(S) DETECTED'}"
+    )
 
     if violations:
         for v in violations:
@@ -213,7 +228,7 @@ def main():
     else:
         print("All changed files are within the allowed namespace(s).")
 
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
     sys.exit(0 if compliant else 1)
 
 

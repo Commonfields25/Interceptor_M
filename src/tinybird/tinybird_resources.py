@@ -9,41 +9,49 @@ from tinybird_sdk import define_datasource, define_endpoint, engine, node, p, t
 
 app_token = ""  # Set via environment variable TINYBIRD_TOKEN
 
-sample_events = define_datasource("sample_events", {
-    "description": "Application events for analytics tracking",
-    "schema": {
-        "event_id": t.string(),
-        "event_type": t.string(),
-        "event_name": t.string(),
-        "timestamp": t.date_time(),
-        "user_id": t.string().nullable(),
-        "session_id": t.string(),
-        "page_url": t.string().nullable(),
-        "country": t.string().low_cardinality().nullable(),
-        "device": t.string().low_cardinality().nullable(),
-        "properties": t.json().nullable(),
+sample_events = define_datasource(
+    "sample_events",
+    {
+        "description": "Application events for analytics tracking",
+        "schema": {
+            "event_id": t.string(),
+            "event_type": t.string(),
+            "event_name": t.string(),
+            "timestamp": t.date_time(),
+            "user_id": t.string().nullable(),
+            "session_id": t.string(),
+            "page_url": t.string().nullable(),
+            "country": t.string().low_cardinality().nullable(),
+            "device": t.string().low_cardinality().nullable(),
+            "properties": t.json().nullable(),
+        },
+        "engine": engine.merge_tree(
+            {
+                "sorting_key": ["event_type", "timestamp"],
+                "partition_key": ["toYYYYMM(timestamp)"],
+            }
+        ),
     },
-    "engine": engine.merge_tree({
-        "sorting_key": ["event_type", "timestamp"],
-        "partition_key": ["toYYYYMM(timestamp)"],
-    }),
-})
+)
 
 
 # --- Endpoints ---
 
-sample_event_totals = define_endpoint("sample_event_totals", {
-    "description": "Aggregate event counts by type and time period",
-    "params": {
-        "start_date": p.date_time(),
-        "end_date": p.date_time(),
-        "event_type": p.string().optional(),
-        "limit": p.int32().optional(100),
-    },
-    "nodes": [
-        node({
-            "name": "filtered_events",
-            "sql": """
+sample_event_totals = define_endpoint(
+    "sample_event_totals",
+    {
+        "description": "Aggregate event counts by type and time period",
+        "params": {
+            "start_date": p.date_time(),
+            "end_date": p.date_time(),
+            "event_type": p.string().optional(),
+            "limit": p.int32().optional(100),
+        },
+        "nodes": [
+            node(
+                {
+                    "name": "filtered_events",
+                    "sql": """
                 SELECT 
                     event_type,
                     event_name,
@@ -61,14 +69,16 @@ sample_event_totals = define_endpoint("sample_event_totals", {
                 ORDER BY total_events DESC
                 LIMIT {{Int32(limit, 100)}}
             """,
-        }),
-    ],
-    "output": {
-        "event_type": t.string(),
-        "event_name": t.string(),
-        "total_events": t.uint64(),
-        "unique_users": t.uint64(),
-        "first_event": t.date_time(),
-        "last_event": t.date_time(),
+                }
+            ),
+        ],
+        "output": {
+            "event_type": t.string(),
+            "event_name": t.string(),
+            "total_events": t.uint64(),
+            "unique_users": t.uint64(),
+            "first_event": t.date_time(),
+            "last_event": t.date_time(),
+        },
     },
-})
+)
