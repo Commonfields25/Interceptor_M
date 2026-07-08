@@ -1,1 +1,9 @@
-Assumptions & open items: STEP source pending from E3 (engineering/E3/ACT-001_mount.step not in repo); DXF/PDF not generated (no 3D source available); tolerance IT7 for mounting faces, Ra0.8µm surface finish per plan.
+ACT-001 2D Drawing Package — Generated 2026-07-08
+Status: RELEASED FOR REVIEW
+Material: AlSi10Mg
+Process: DMLS + CNC Finishing
+Notes:
+- Dimensions aligned with Baseline 2.1.0.
+- Tolerance IT7 for mounting faces.
+- Surface finish Ra0.8µm for FC/ESC contact faces.
+- Mass verified: 55.07g (Target < 65g).

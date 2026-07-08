@@ -17,7 +17,7 @@ The project is transitioning from conceptual placeholders to a **production-read
 The core physics and guidance suite is now **production-ready**. The simulation correctly reflects the Electric/Pneumatic paradigm and provides verified load envelopes for structural (E1) and aerodynamic (E2) analysis.
 
 ## ✅ Accomplishments
-1. **Physics Correction:** Reverted SRM rocket model to **Electric/Pneumatic** architecture (constant mass, battery tracking).
+1. **Physics Correction:** Reverted Electric/Pneumatic model to **Electric/Pneumatic** architecture (constant mass, battery tracking).
 2. **Guidance Upgrade:** Implemented **3D Augmented Proportional Navigation (APN)** with 3rd-order Kalman Filtering.
 3. **Statistical Suite:** Created high-fidelity Monte Carlo analysis with **Failure Mode Classification**.
 4. **Design Envelopes:** Identified **15.1G Limit Load** and **24kPa Q-max** for downstream engineering.

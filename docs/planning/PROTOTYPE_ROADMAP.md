@@ -1,45 +1,37 @@
----
-action: Fix
-agent: Jules
-related_gate: G2
-status: Validated
-timestamp: 2026-07-02 13:27:36+00:00
----
-
 # Prototype Modeling Roadmap - Defense Line (DD)
+**Baseline:** Technical Baseline 2.1.0 (400g Electric)
+
+---
 
 ## 🎯 Goal
-Achieve a validated 3D model and simulation of the **Micro-Interceptor Swarm** and its **Compressed Air Launcher** by Phase 4.
+Achieve a flight-ready prototype (TRL 5) of the DD-400 platform by end of Q4 2026.
 
-## 📅 Roadmap (Next 4 Weeks)
+## 📅 Roadmap (G3 Phase - July 2026)
 
-### Week 1: Foundational Modeling (Parallel)
-- [ ] `TASK_DD_001`: @D3 - Model the primary airframe of the micro-interceptor (focus on aerodynamics and compact storage).
-- [ ] `TASK_DD_002`: @E3 - Define battery/ESC/Motor volume constraints and provide as a "Keep-out zone" model to @D3.
-- [ ] `TASK_DD_003`: @E1 - Set up the Isaac Gym environment for swarm physics (gravity, drag, collisions).
+### Week 1: Component Locking (Complete)
+- [x] Establish L3 CAD library for all components.
+- [x] Unified Master BOM in `engineering/BOM_MASTER.md`.
+- [x] Finalize motor mounting geometry for SC-02.
 
-### Week 2: Launcher Interface (Coordination)
-- [ ] `TASK_DD_004`: @D3 - Design the "Sabot" or interface between the drone and the launcher tube.
-- [ ] `TASK_DD_005`: @E3 - Model the compressed air valve and reservoir pressure constraints.
-- [ ] `TASK_DD_006`: @E1 - Initial NDC (Notes de Calcul) for launch exit velocity vs. air pressure.
+### Week 2: Structural Verification (ACTIVE)
+- [ ] Run FEA on `BRK-001` and `ACT-001` (15.1G limit load).
+- [ ] Optimize wall thickness in `DD-PARAMETERS.md` based on simulation.
+- [ ] Audit for Printability (DMLS focus).
 
-### Week 3: Iteration & Simulation
-- [ ] `TASK_DD_007`: @D3 - Update CAD based on Week 2 NDC results.
-- [ ] `TASK_DD_008`: @E1 - Run FEA on the airframe for launch-stress (G-force resistance).
-- [ ] `TASK_DD_009`: @E2 - Aerodynamic CFD on the deployed wing configuration.
+### Week 3: Subsystem Integration
+- [ ] Avionics stack fitment check in 3D assembly.
+- [ ] Battery box (BAT-3S-001) tolerance validation.
+- [ ] Sabot-to-Tube clearance verification (0.2mm target).
 
-### Week 4: Validation & Gate G4/G6
-- [ ] `TASK_DD_010`: @AgentManager - Assemble the "Gate G4 Package" for DG approval.
-- [ ] `TASK_DD_011`: @AC - Audit all models for "Printability/Manufacturability."
+### Week 4: Release for Prototyping
+- [ ] Final drawing package approval.
+- [ ] Procurement list generation (BOM extract).
+- [ ] Preparation for G4 Gate Review.
 
-## 📐 Modeling Guidelines (Success Criteria)
+## 📐 Success Criteria
+- **Weight Accuracy:** Measured prototype weight within ±5% of CAD calculation.
+- **Interchangeability:** Shared parts compatible between DD, DI, and DC lines.
+- **AS9100 Traceability:** 100% requirements coverage in technical designs.
 
-1. **Modular Assemblies:** The `ROOT_ASSEMBLY` should only contain links to `AIRFRAME`, `ELECTRONICS_TRAY`, and `LAUNCHER_INTERFACE`.
-2. **Standardized Hardware:** Use only M2/M3 fasteners and standard brushless motor mounts (9mm/12mm).
-3. **Weight Budget:** Max take-off weight (MTOW) for the micro-interceptor: **400g**.
-4. **Agent Tagging:** Every 3D part file must have a "Metadata" field or sidecar `.txt` file indicating the owner and status.
-
-## 🚀 To-Do List (High Priority)
-- [ ] Create folder structure: `/models/DD/airframe/`, `/models/DD/launcher/`.
-- [ ] Define shared `PARAMETERS.json` for global variables (e.g., tube diameter).
-- [ ] Set up "Shadow Workspaces" for agents to experiment without breaking the root CAD.
+---
+*Source: docs/planning/STRATEGIC_OUTLOOK.md*

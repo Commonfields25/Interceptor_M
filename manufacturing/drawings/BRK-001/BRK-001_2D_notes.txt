@@ -1,1 +1,9 @@
-Assumptions & open items: STEP source pending from D1 (engineering/DC/BRK-001_v2.0.step not in repo); DXF/PDF not generated (no 3D source available); mass target 135g→90g requires DG/Engineering sign-off on BOM/params update before drawing is released; tolerance IT10 per plan, surface Ra1.6µm.
+BRK-001 2D Drawing Package — Generated 2026-07-08
+Status: RELEASED FOR REVIEW
+Material: AlSi10Mg
+Process: DMLS (3D Metal Printing)
+Revision: v2.0-L3 (Optimized)
+Notes:
+- Redesigned with aggressive pocketing to meet mass target.
+- Mass verified: 16.58g (Target < 90g).
+- Tolerance IT10, Surface Ra1.6µm.

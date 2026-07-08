@@ -13,11 +13,11 @@ def generate_component_metadata(component_name, params_path, output_dir):
     Génère une pièce FreeCAD à partir d'un fichier JSON contenant les paramètres.
 
     Args:
-        json_path (str): Chemin vers le fichier JSON de paramètres.
+        params_path (str): Chemin vers le fichier JSON de paramètres.
     """
     try:
         # Charge les paramètres depuis le JSON
-        with open(json_path, "r", encoding="utf-8") as f:
+        with open(params_path, "r", encoding="utf-8") as f:
             params = json.load(f)
 
         # Crée un nouveau document FreeCAD
@@ -78,13 +78,13 @@ def generate_component_metadata(component_name, params_path, output_dir):
             doc.recompute()
 
         # Exporte en STEP
-        output_dir = os.path.dirname(json_path)
-        step_path = os.path.join(output_dir, f"{params['name']}.step")
+        output_dir_local = os.path.dirname(params_path)
+        step_path = os.path.join(output_dir_local, f"{params['name']}.step")
         Part.export([body], step_path)
         print(f"✅ Pièce exportée en STEP : {step_path}")
 
         # Sauvegarde le fichier FreeCAD
-        fcstd_path = os.path.join(output_dir, f"{params['name']}.FCStd")
+        fcstd_path = os.path.join(output_dir_local, f"{params['name']}.FCStd")
         doc.saveAs(fcstd_path)
         print(f"✅ Pièce sauvegardée en FCStd : {fcstd_path}")
 
