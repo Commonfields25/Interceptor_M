@@ -1,0 +1,40 @@
+parts:
+  - id: "F1-BODY-01"
+    parameters:
+      length: 120.0
+      width: 80.0
+      height: 35.0
+    metadata:
+      material: "CFRP"
+      density: 0.0016
+      revision: "v3.1-L3"
+  - id: "F1-MOTOR"
+    parameters: {}
+    metadata:
+      material: "Al-7075"
+      density: 0.00281
+      revision: "v3.3-L3"
+  - id: "F1-PROP"
+    parameters: {}
+    metadata:
+      material: "Al-7075"
+      density: 0.00281
+      revision: "v5.0-L3"
+  - id: "F1-BAT-01"
+    parameters: {}
+    metadata:
+      material: "AlSi10Mg"
+      density: 0.00267
+      revision: "v3.0-L3"
+  - id: "F1-AV-01"
+    parameters: {}
+    metadata:
+      material: "Elastomer"
+      density: 0.0011
+      revision: "v3.0-L3"
+  - id: "PDB-001"
+    parameters: {}
+    metadata:
+      material: "FR4"
+      density: 0.00185
+      revision: "v1.0-L3"

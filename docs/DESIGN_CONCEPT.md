@@ -63,7 +63,7 @@ timestamp: 2026-07-02 13:27:36+00:00
 ### Take-Up / Handing
 | Concern | Solution |
 |---|---|
-| **Weight** | `< 2.5 kg AUW` — single-hand carry with caged payload bay |
+| **Weight** | `< 400 g AUW` — single-hand carry with caged payload bay |
 | **Centre of gravity** | 30% from nose — carry handle at 28% chord |
 | **Grip surface** | Shot-peened texture on carry handle bar; no sharp edges (r>2mm) |
 | **Dust/water** | IP54 minimum on electronic bays; silicone gasket on payload bay door |

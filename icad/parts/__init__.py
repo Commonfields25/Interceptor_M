@@ -2,12 +2,13 @@
 ICAD Parts — Build123d mechanical part definitions (L3 Manufacturing Grade)
 All parts are parametric and export to STEP + STL via the CADEngine.
 """
-from ocp_vscode import show
 
 __all__ = [
     "build_brk001",
     "build_act001",
     "build_ncr001",
+    "build_nc001",
+    "build_fin001",
     "build_sabot001",
     "build_chs001",
     "build_wing001",
@@ -19,6 +20,9 @@ __all__ = [
     "build_f1prop",
     "build_f1avs",
     "build_f1bat",
+    "build_seeker01",
+    "build_payload01",
+    "build_pdb001",
     "build_lnch001",
     "build_lnch002",
     "build_lnch003",
@@ -27,12 +31,14 @@ __all__ = [
     "build_lnch006",
 ]
 
-# ── Lazy import so `icad.engine` works without build123d at import time ──────
+# ── Lazy import so icad.engine works without build123d at import time ──────
 def __getattr__(name):
     mapping = {
         "build_brk001": "brk001",
         "build_act001": "act001",
         "build_ncr001": "ncr001",
+        "build_nc001": "nc001",
+        "build_fin001": "fin001",
         "build_sabot001": "sabot001",
         "build_chs001": "chs001",
         "build_wing001": "wing001",
@@ -44,6 +50,9 @@ def __getattr__(name):
         "build_f1prop": "f1prop",
         "build_f1avs": "f1avs",
         "build_f1bat": "f1bat",
+        "build_seeker01": "seeker01",
+        "build_payload01": "payload01",
+        "build_pdb001": "pdb001",
         "build_lnch001": "lnch001",
         "build_lnch002": "lnch002",
         "build_lnch003": "lnch003",

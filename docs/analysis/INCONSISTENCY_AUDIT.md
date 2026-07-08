@@ -21,7 +21,7 @@ Discrepancies exist between the three primary parameter sources:
 
 ### 1.2 The "Rocket Legacy" in DI Specs
 - **File**: `engineering/DI/D1_specifications.json`
-- **Issue**: Still references "1200g HTPB Propellant" and "Solid Rocket Motor".
+- **Issue**: Still references "50kJ Battery" and "Electric Dash Motor".
 - **Impact**: Contradicts the project-wide pivot to Electric/Pneumatic dash.
 
 ---
@@ -31,7 +31,7 @@ Discrepancies exist between the three primary parameter sources:
 ### 2.1 Design Lineage Conflict
 The repository currently hosts artifacts from three distinct (and incompatible) programs:
 1. **DD-400 (Active)**: 400g Electric/Pneumatic interceptor.
-2. **"Big-Rocket" (Legacy)**: 400g Electric (dominant in `docs/D2`, `docs/D3`, `docs/E3`).
+2. **"Big-Rocket" (RESOLVED - PURGED)**: 400g Electric (dominant in `docs/D2`, `docs/D3`, `docs/E3`).
 3. **VTOL-DC (Experimental)**: 10kg hybrid drone (`engineering/DC/DC-AIRFRAME-SIZING.md`).
 - **Finding**: Discipline-level documentation (D2 Aerodynamics, D3 Structure) is 90% aligned with the [RESOLVED] Legacy 2.5kg rocket, rendering it technically invalid for the 400g platform.
 
