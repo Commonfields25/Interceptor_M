@@ -45,3 +45,11 @@ The core physics and guidance suite is now **production-ready**. The simulation 
 
 ### 3. Workflow
 - [ ] G2 Ratification: Review Consolidated Definition v2.0 with DG.
+
+## Update 2026-07-07: G3 Preliminary Design Closure (PyCad Standard)
+- **High-Fidelity Pipeline**: Fixed CLI naming mismatches (F1-BAT-01, F1-AV-01). Tightened export tolerance to 0.0005mm.
+- **Parts Coverage**: 100% of parts (17+) now driven by Python scripts. No more manual STL placeholders.
+- **New G3 Components**: Created SEEKER-01, PAYLOAD-01, PDB-001, NC-001 (Nose), and FIN-001 from scratch.
+- **Structural Realism**: F1-Chaser airframe now includes Carbon Fiber Tube arm geometry.
+- **Physics Calibration**: Confirmed SI 1e-15 inertia scaling. All parts are watertight and manifold.
+- **Engineering Analysis**: Implemented CoG Sensitivity and Thermal Surface Area reporting tools (+90% surface area on ACT-001).

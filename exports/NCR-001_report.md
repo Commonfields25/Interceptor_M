@@ -5,7 +5,7 @@
 | :--- | :--- |
 | **material** | Al-7075 |
 | **density** | 0.00281 |
-| **revision** | v1.5-L3 |
+| **revision** | v3.0-L3 |
 | **Watertight Integrity** | PASSED |
 
 ## Physical Properties (SI Units)
@@ -39,5 +39,4 @@
 - [STL Model](./NCR-001.stl)
 
 ## Technical Drawings
-### Projections
 ![Top](./drawings/NCR-001_top.svg) ![Front](./drawings/NCR-001_front.svg) ![Side](./drawings/NCR-001_side.svg)
