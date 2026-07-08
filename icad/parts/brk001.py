@@ -1,7 +1,7 @@
 """
-BRK-001 — Structural Mounting Bracket (Aviation L3)
-Material : AlSi10Mg | Process : DMLS (3D Metal Printing)
-Revision : v2.0-L3 (Aggressive Weight Optimization - Pocketing)
+BRK-001 — Structural Mounting Bracket (Refined L3)
+Material : 7075-T6 Aluminium | Process : CNC 3-axis Milling
+Revision : v3.3-L3 (Watertight Boolean Pass)
 """
 from build123d import *
 import math
@@ -17,32 +17,28 @@ def build_brk001(params: dict = None):
     m4 = Fasteners.METRIC["M4"]
 
     with BuildPart() as p:
-        # 1. Main Body
+        # 1. Main Base
         Box(L, W, T)
 
         # 2. Central Bore (H7 interface)
-        Cylinder(bore / 2, T + 2, mode=Mode.SUBTRACT)
+        Cylinder(bore / 2, T + 2.0, mode=Mode.SUBTRACT)
 
-        # 3. Structural Isogrid v2.0 (Aggressive Lightening)
-        # 8 pockets instead of 6, larger radius
-        pocket_r = 7.0
-        with Locations(PolarLocations(bore/2 + pocket_r + 1.5, 8).locations):
-             Cylinder(pocket_r, T - 2.0, mode=Mode.SUBTRACT)
+        # 3. Structural Weight Reduction (Honeycomb Pattern)
+        # Using larger pattern to avoid thin-wall boolean failures
+        with Locations(GridLocations(L/2, W/2, 2, 2).locations):
+             Cylinder(6.0, T - 4.0, mode=Mode.SUBTRACT)
 
-        # Additional corner pockets
+        # 4. Standard Mounting (M4)
         with Locations(GridLocations(L-15.0, W-15.0, 2, 2).locations):
-             # Don't subtract where mounting holes are
-             pass
+            # Combined clearance and counterbore in one location pass
+            Cylinder(m4["clearance"] / 2, T + 2.0, mode=Mode.SUBTRACT)
+            with Locations((0, 0, T/2 - 1.0)):
+                Cylinder(m4["counterbore_dia"] / 2, 5.0, mode=Mode.SUBTRACT)
 
-        # 4. Standard Mounting Pattern (M4)
-        with Locations(GridLocations(L-15.0, W-15.0, 2, 2).locations):
-            Cylinder(m4["clearance"] / 2, T + 2, mode=Mode.SUBTRACT)
-            with Locations((0, 0, T/2 - m4["counterbore_depth"]/2)):
-                Cylinder(m4["counterbore_dia"] / 2, m4["counterbore_depth"], mode=Mode.SUBTRACT)
-
-        # 5. Aerospace Finishing
+        # 5. Aerospace Fillets (Conservative 0.5mm for watertightness)
         try:
-            fillet(p.edges().filter_by(Axis.Z), radius=2.0)
+            # Only fillet major vertical edges
+            fillet(p.edges().filter_by(Axis.Z), radius=0.5)
         except:
             pass
 

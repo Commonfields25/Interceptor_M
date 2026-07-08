@@ -5,7 +5,7 @@
 | :--- | :--- |
 | **material** | AlSi10Mg |
 | **density** | 0.00267 |
-| **revision** | v2.1-L3 |
+| **revision** | v3.0-L3 |
 | **Watertight Integrity** | PASSED |
 
 ## Physical Properties (SI Units)
@@ -39,5 +39,4 @@
 - [STL Model](./ACT-001.stl)
 
 ## Technical Drawings
-### Projections
 ![Top](./drawings/ACT-001_top.svg) ![Front](./drawings/ACT-001_front.svg) ![Side](./drawings/ACT-001_side.svg)

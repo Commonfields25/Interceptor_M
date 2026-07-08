@@ -3,10 +3,8 @@ Assembly Verification Script
 Checks tolerances and interference between DD-400 fuselage and launcher.
 Baseline: DD-400 (35mm Fuselage, 40mm Launcher Bore)
 """
-
 import json
 import os
-
 
 def check_fit():
     try:
@@ -22,11 +20,6 @@ def check_fit():
     print(f"--- Assembly Verification Report ---")
     print(f"Fuselage Outer Diameter: {fuselage_dia} mm")
     print(f"Launcher Tube Bore: {launcher_bore} mm")
-
-    # 1. Radial Clearance (Sabot Gap)
-    # Sabot fits between fuselage and launcher.
-    # We modeled sabot ID=35.2 and OD=39.8 in sabot001.py
-    # Let's verify if that matches the parameters.
 
     sabot_id = 35.2
     sabot_od = 39.8
@@ -47,7 +40,6 @@ def check_fit():
     else:
         print("  [FAIL] Outer clearance too tight!")
 
-    # 2. Design Margin check
     total_margin = fit_inner + fit_outer
     print(f"\nTotal Design Margin: {total_margin:.2f} mm")
 
@@ -55,7 +47,6 @@ def check_fit():
         print("  [PASS] Margin within aerospace standards for counter-UAS.")
     else:
         print("  [WARNING] Margin out of nominal range (Expected 0.2-1.0mm).")
-
 
 if __name__ == "__main__":
     check_fit()

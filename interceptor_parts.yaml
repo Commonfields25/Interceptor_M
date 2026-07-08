@@ -1,14 +1,13 @@
 parts:
   - id: "BRK-001"
     parameters:
-      length: 65.0
-      width: 42.0
-      thickness: 5.5
-      fillet_radius: 3.0
+      length: 75.0
+      width: 55.0
+      thickness: 10.0
     metadata:
       material: "AlSi10Mg"
       density: 0.00267
-      revision: "v3.0-L3"
+      revision: "v3.3-L3"
   - id: "ACT-001"
     parameters:
       length: 85.0
@@ -16,46 +15,63 @@ parts:
     metadata:
       material: "AlSi10Mg"
       density: 0.00267
-      revision: "v2.1-L3"
+      revision: "v3.0-L3"
   - id: "NCR-001"
     parameters:
       outer_diameter: 45.0
       length: 22.0
-      bore_diameter: 36.0
     metadata:
       material: "Al-7075"
       density: 0.00281
-      revision: "v1.5-L3"
-  - id: "WING-001"
+      revision: "v3.0-L3"
+  - id: "NC-001"
     parameters:
-      span: 150.0
-      root_chord: 40.0
-      thickness: 2.0
+      diameter: 45.0
     metadata:
       material: "CFRP"
       density: 0.0016
       revision: "v1.0-L3"
+  - id: "FIN-001"
+    parameters:
+      chord: 40.0
+    metadata:
+      material: "CFRP"
+      density: 0.0016
+      revision: "v1.0-L3"
+  - id: "WING-001"
+    parameters:
+      span: 150.0
+    metadata:
+      material: "CFRP"
+      density: 0.0016
+      revision: "v3.0-L3"
   - id: "AVS-001"
-    parameters:
-      length: 40.0
-      width: 30.0
+    parameters: {}
     metadata:
-      material: "PETG"
-      density: 0.00127
-      revision: "v1.0-L3"
+      material: "Elastomer"
+      density: 0.0011
+      revision: "v3.0-L3"
   - id: "BAT-3S-001"
-    parameters:
-      length: 70.0
-      width: 35.0
-      height: 25.0
-    metadata:
-      material: "TPU"
-      density: 0.0012
-      revision: "v1.0-L3"
-  - id: "MMT-001"
-    parameters:
-      diameter: 35.0
+    parameters: {}
     metadata:
       material: "AlSi10Mg"
       density: 0.00267
+      revision: "v3.0-L3"
+  - id: "MMT-001"
+    parameters: {}
+    metadata:
+      material: "AlSi10Mg"
+      density: 0.00267
+      revision: "v3.0-L3"
+  - id: "F1-SEEK-01"
+    parameters: {}
+    metadata:
+      material: "AlSi10Mg"
+      density: 0.00267
+      revision: "v1.0-L3"
+  - id: "PAYLOAD-01"
+    parameters: {}
+    metadata:
+      material: "Tungsten/Al"
+      density: 0.005
       revision: "v1.0-L3"
