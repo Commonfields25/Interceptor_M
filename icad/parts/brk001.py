@@ -1,7 +1,7 @@
 """
 BRK-001 — Structural Mounting Bracket (Aviation L3)
-Material : 7075-T6 Aluminium | Process : CNC 3-axis Milling
-Revision : v3.2-L3 (Optimized Isogrid Pattern)
+Material : AlSi10Mg | Process : DMLS (3D Metal Printing)
+Revision : v2.0-L3 (Aggressive Weight Optimization - Pocketing)
 """
 from build123d import *
 import math
@@ -23,11 +23,16 @@ def build_brk001(params: dict = None):
         # 2. Central Bore (H7 interface)
         Cylinder(bore / 2, T + 2, mode=Mode.SUBTRACT)
 
-        # 3. Structural Isogrid (Lightening)
-        # Circular array of pockets for maximum stiffness/weight
-        pocket_r = 6.0
-        with Locations(PolarLocations(bore/2 + pocket_r + 2.0, 6).locations):
-             Cylinder(pocket_r, T - 3.0, mode=Mode.SUBTRACT)
+        # 3. Structural Isogrid v2.0 (Aggressive Lightening)
+        # 8 pockets instead of 6, larger radius
+        pocket_r = 7.0
+        with Locations(PolarLocations(bore/2 + pocket_r + 1.5, 8).locations):
+             Cylinder(pocket_r, T - 2.0, mode=Mode.SUBTRACT)
+
+        # Additional corner pockets
+        with Locations(GridLocations(L-15.0, W-15.0, 2, 2).locations):
+             # Don't subtract where mounting holes are
+             pass
 
         # 4. Standard Mounting Pattern (M4)
         with Locations(GridLocations(L-15.0, W-15.0, 2, 2).locations):
@@ -37,7 +42,7 @@ def build_brk001(params: dict = None):
 
         # 5. Aerospace Finishing
         try:
-            fillet(p.edges().filter_by(Axis.Z), radius=1.0)
+            fillet(p.edges().filter_by(Axis.Z), radius=2.0)
         except:
             pass
 

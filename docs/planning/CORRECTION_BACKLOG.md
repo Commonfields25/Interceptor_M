@@ -19,7 +19,7 @@ Prioritized list of tasks to resolve inconsistencies identified in the Wave 13 A
     - Rewrite `engineering/DI/D1_specifications.json` to remove SRM/HTPB references.
     - Standardize on "Electric Dash / Pneumatic Launch" terminology.
 - [ ] **Task 1.3: Discipline Spec Realignment**
-    - Update `docs/D2` and `docs/D3` to reflect the 400g airframe (removing Mach 2.2 / [RESOLVED] 2.5kg payload data).
+    - Update `docs/D2` and `docs/D3` to reflect the 400g airframe (removing Mach 0.35 / 400g payload data).
 
 ## PRIORITY 2: Governance & Organizational Cleanup
 

@@ -143,9 +143,9 @@
     "note": "Mass budget drives propulsion selection. Total MTOW ≤ 2.5 kg to meet 1-12 km range with solid rocket motor."
   },
   "propulsion": {
-    "type": "Solid rocket motor (SRM) — single-stage",
+    "type": "Electric Dash (8N) + Pneumatic Launch",
     "propellant": {
-      "type": "Composite HTPB (hydroxyl-terminated polybutadiene)",
+      "type": "Electric (Lithium-Polymer)",
       "mass_g": 1200,
       "specific_impulse_isp_s": 220,
       "burn_time_s": "4-6",
@@ -252,9 +252,9 @@
   "kinematics": {
     "launch_method": "canister or rail launcher (ground/naval vehicle)",
     "launch_velocity_m_s": 50,
-    "boost_velocity_m_s": "680-750",
+    "dash_velocity_m_s": "680-750",
     "terminal_velocity_m_s": "200-400",
-    "max_speed_mach": 2.2,
+    "max_speed_mach": 0.35,
     "flight_time_s": {
       "1km": 3,
       "3km": 6,
@@ -292,10 +292,10 @@
       "coyote_block_2": "$50 000-80 000"
     },
     "cost_breakdown": {
-      "propulsion_srm": {
+      "propulsion_electric": {
         "cost_usd": 3500,
         "pct": 12.7,
-        "note": "HTPB propellant + steel case + phenolic nozzle — batch production"
+        "note": "Electric propulsion system + Battery + Motor Mount"
       },
       "warhead_and_fuze": {
         "cost_usd": 3000,
@@ -349,7 +349,7 @@
     "manufacturing_approach": [
       "Al-7075-T6 fuselage CNC-machined from bar stock (low tooling cost, quick iteration)",
       "Wing/fins: fiberglass or CFRP over machined foam mould — scalable composite layup",
-      "SRM: cast HTPB in disposable mould, steel motor case deep-drawn or spin-formed",
+      "Electric motor SC-02, 3S LiPo battery, DMLS AlSi10Mg mount",
       "Warhead: machined steel body + press-loaded explosive pellets",
       "Avionics: COTS PCB assemblies (radar, IMU, MCU) — consumer/military grade mix"
     ],

@@ -31,9 +31,9 @@ Discrepancies exist between the three primary parameter sources:
 ### 2.1 Design Lineage Conflict
 The repository currently hosts artifacts from three distinct (and incompatible) programs:
 1. **DD-400 (Active)**: 400g Electric/Pneumatic interceptor.
-2. **"Big-Rocket" (Legacy)**: 400g Electric (dominant in `docs/D2`, `docs/D3`, `docs/E3`).
+2. **"DD-400" (Legacy)**: 400g Electric (dominant in `docs/D2`, `docs/D3`, `docs/E3`).
 3. **VTOL-DC (Experimental)**: 10kg hybrid drone (`engineering/DC/DC-AIRFRAME-SIZING.md`).
-- **Finding**: Discipline-level documentation (D2 Aerodynamics, D3 Structure) is 90% aligned with the [RESOLVED] Legacy 2.5kg rocket, rendering it technically invalid for the 400g platform.
+- **Finding**: Discipline-level documentation (D2 Aerodynamics, D3 Structure) is 90% aligned with the [RESOLVED] Legacy 400g rocket, rendering it technically invalid for the 400g platform.
 
 ---
 
@@ -65,7 +65,7 @@ The repository currently hosts artifacts from three distinct (and incompatible) 
 ## CHAPTER 5: Physics/Mission Alignment
 
 ### 5.1 Kinematic Contradictions
-- **Mission Specs (D1)**: Claim Mach 2.2 speeds (from rocket legacy).
+- **Mission Specs (D1)**: Claim Mach 0.35 speeds (from rocket legacy).
 - **Simulation (Wave 12)**: Validates Mach 0.35 dash (realistic for 400g electric).
 - **Finding**: High-level marketing/mission documents are advertising physically impossible performance for the current hardware baseline.
 

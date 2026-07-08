@@ -8,12 +8,6 @@
 | **revision** | v1.5-L3 |
 | **Watertight Integrity** | PASSED |
 
-<<<<<<< HEAD
-## Physical Properties
-- **Volume**: 23244.72 mm³
-- **Bounding Box**: 45.00 x 45.00 x 23.00 mm
-- **Calculated Mass**: 65.32 g
-=======
 ## Physical Properties (SI Units)
 - **Mass**: 0.0324 kg (32.36 g)
 - **Volume**: 11515.31 mm³
@@ -39,7 +33,6 @@
   ]
 ]
 ```
->>>>>>> feat-l3
 
 ## Manufacturing Files
 - [STEP Model](./NCR-001.step)

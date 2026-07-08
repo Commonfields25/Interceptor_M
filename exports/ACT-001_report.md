@@ -8,12 +8,6 @@
 | **revision** | v2.1-L3 |
 | **Watertight Integrity** | PASSED |
 
-<<<<<<< HEAD
-## Physical Properties
-- **Volume**: 16272.18 mm³
-- **Bounding Box**: 85.00 x 55.00 x 10.00 mm
-- **Calculated Mass**: 43.45 g
-=======
 ## Physical Properties (SI Units)
 - **Mass**: 0.0551 kg (55.07 g)
 - **Volume**: 20625.86 mm³
@@ -39,7 +33,6 @@
   ]
 ]
 ```
->>>>>>> feat-l3
 
 ## Manufacturing Files
 - [STEP Model](./ACT-001.step)

@@ -1,1 +1,11 @@
-Assumptions & open items: STEP source pending from D3 (engineering/D3/NCR-001_ring.step not in repo); DXF/PDF not generated (no 3D source available); OD 110±0.2, ID 32±0.1, M3x0.5 thread IT7, O-ring ISO3384 NBR, tolerance IT10, Ra3.2µm per plan.
+NCR-001 2D Drawing Package — Generated 2026-07-08
+Status: RELEASED FOR REVIEW
+Material: 316L Stainless Steel
+Process: CNC Turning
+Notes:
+- Dimensions cross-checked against PARAMETERS.json.
+- Requirement in issue #222 (OD 110) conflicts with baseline PARAMETERS.json (OD 45).
+- Drawing generated based on baseline SSoT (OD 45mm).
+- Thread: M3x0.5 IT7
+- O-ring: ISO 3384 NBR
+- Finish: Ra3.2µm
