@@ -42,6 +42,7 @@ class CADEngine:
         density_kg_m3 = density_g_mm3 * 1e6
 
         volume_mm3 = mesh.volume
+        surface_area_mm2 = mesh.area
         volume_m3 = volume_mm3 * 1e-9
         mass_kg = volume_m3 * density_kg_m3
         cog = mesh.centroid
@@ -50,6 +51,7 @@ class CADEngine:
         return {
             "watertight": is_water,
             "volume_mm3": volume_mm3,
+            "surface_area_mm2": surface_area_mm2,
             "mass_kg": mass_kg,
             "cog_mm": tuple(cog),
             "inertia_tensor_si": inertia_tensor_kg_m2.tolist(),
@@ -101,6 +103,7 @@ class CADEngine:
             f.write(f"\n## Physical Properties (SI Units)\n")
             f.write(f"- **Mass**: {analysis['mass_kg']:.4f} kg ({analysis['mass_kg']*1000:.2f} g)\n")
             f.write(f"- **Volume**: {analysis['volume_mm3']:.2f} mm³\n")
+            f.write(f"- **Surface Area**: {analysis['surface_area_mm2']:.2f} mm²\n")
             f.write(f"- **Center of Gravity (mm)**: X={analysis['cog_mm'][0]:.2f}, Y={analysis['cog_mm'][1]:.2f}, Z={analysis['cog_mm'][2]:.2f}\n")
             f.write(f"\n## Inertia Tensor (kg.m²)\n```json\n{json.dumps(analysis['inertia_tensor_si'], indent=2)}\n```\n")
             f.write(f"\n## Manufacturing Files\n- [STEP Model](./{name}.step)\n- [STL Model](./{name}.stl)\n")

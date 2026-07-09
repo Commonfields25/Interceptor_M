@@ -9,6 +9,11 @@ requires-python = ">=3.11"
 dependencies = [
     "python-dotenv>=1.2.0",
     "tinybird-sdk>=0.4.0",
+    "trimesh>=4.12.2",
+    "build123d>=0.11.1",
+    "numpy>=1.26.0",
+    "pyyaml>=6.0.1",
+    "pytest>=9.1.1",
 ]
 
 [tool.vercel]
@@ -21,6 +26,7 @@ override-dependencies = [
     "urllib3>=2.0.0",
     "cryptography>=44.0.0",
     "PyJWT>=2.10.0",
-    "wheel>=0.45.0",
+    "wheel>=0.46.2",
     "python-dotenv>=1.2.0",
+    "packaging>=24.0.0",
 ]
