@@ -15,7 +15,7 @@ timestamp: 2026-07-06T20:47:00+00:00
 
 Le dépôt contenait **8 catégories de dette documentaire** héritées principalement de la transition entre le programme "Big-Rocket" (2.5 kg SRM/HTPB) et le programme actif DD-400 (400 g Electric/Pneumatic).
 
-> **Résolution (2026-07-06) :** Programme Big-Rocket nettoyé — DD-PARAMETERS.md aligné v1.2.0, MTOW 400g, longueur 380mm. Réferences obsolètes marquées `[RESOLVED]` ci-dessous. Certaines incohérences bloquent directement la génération CAD et la simulation physique.
+> **Résolution (2026-07-06) :** Programme Big-Rocket nettoyé — v1.2.0 DD-PARAMETERS aligné | [RESOLVED 2026-07-09 by bot] — DD-PARAMETERS.md aligné v1.2.0, MTOW 400g, longueur 380mm. Réferences obsolètes marquées `[RESOLVED]` ci-dessous. Certaines incohérences bloquent directement la génération CAD et la simulation physique.
 
 ---
 
