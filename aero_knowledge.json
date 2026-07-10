@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "project": "Interceptor_M",
+    "version": "1.0.0",
+    "created": "2026-07-10",
+    "description": "Aero knowledge base for VTOL drone wing design"
+  },
+  "airfoils": [
+    {
+      "name": "Clark Y",
+      "lift_coefficient": 1.3,
+      "drag_coefficient": 0.012,
+      "camber": 0.042,
+      "reynolds_number": 300000,
+      "use_case": "general_fixed_wing"
+    },
+    {
+      "name": "MH32",
+      "lift_coefficient": 1.5,
+      "drag_coefficient": 0.01,
+      "camber": 0.038,
+      "reynolds_number": 300000,
+      "use_case": "high_lift_low_speed"
+    },
+    {
+      "name": "NACA 2412",
+      "lift_coefficient": 1.1,
+      "drag_coefficient": 0.009,
+      "camber": 0.024,
+      "reynolds_number": 500000,
+      "use_case": "efficient_cruise"
+    }
+  ],
+  "wing_parameters": {
+    "span_mm": 460,
+    "root_chord_mm": 90,
+    "tip_chord_mm": 50,
+    "sweep_deg": 5.0,
+    "dihedral_deg": 3.0,
+    "thickness_ratio": 0.12,
+    "aspect_ratio": 5.1,
+    "taper_ratio": 0.556,
+    "MAC_mm": 73.5,
+    "wing_area_cm2": 322.0
+  },
+  "formulas": {
+    "MAC": "2/3 * root_chord * (1 - taper + taper^2) / (1 + taper)",
+    "AR": "span^2 / S",
+    "CL": "0.5 * rho * v^2 * Cl_alpha * alpha",
+    "CD_induced": "CL^2 / (pi * e * AR)",
+    "taper": "tip_chord / root_chord"
+  },
+  "materials": {
+    "foam_core": {
+      "density_g_cm3": 0.033,
+      "name": "EPS30"
+    },
+    "fiberglass": {
+      "thickness_mm": 0.2,
+      "layers": 2
+    },
+    "balsa": {
+      "density_g_cm3": 0.15
+    }
+  }
+}

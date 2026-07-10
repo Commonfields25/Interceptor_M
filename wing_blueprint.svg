@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="1020" style="background:#fafafa;font-family:monospace">
+  <desc>Wing Blueprint | Span=460mm | Root=90mm | Tip=50mm | Sweep=5.0° | MAC=71.9mm | AR=6.57</desc>
+  <line x1="50" y1="50" x2="50" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="100" y1="50" x2="100" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="150" y1="50" x2="150" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="200" y1="50" x2="200" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="250" y1="50" x2="250" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="300" y1="50" x2="300" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="350" y1="50" x2="350" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="400" y1="50" x2="400" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="450" y1="50" x2="450" y2="970" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="50" x2="410" y2="50" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="100" x2="410" y2="100" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="150" x2="410" y2="150" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="200" x2="410" y2="200" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="250" x2="410" y2="250" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="300" x2="410" y2="300" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="350" x2="410" y2="350" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="400" x2="410" y2="400" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="450" x2="410" y2="450" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="500" x2="410" y2="500" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="550" x2="410" y2="550" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="600" x2="410" y2="600" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="650" x2="410" y2="650" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="700" x2="410" y2="700" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="750" x2="410" y2="750" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="800" x2="410" y2="800" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="850" x2="410" y2="850" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="900" x2="410" y2="900" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="950" x2="410" y2="950" stroke="#ddd" stroke-width="0.5"/>
+<line x1="50" y1="1000" x2="410" y2="1000" stroke="#ddd" stroke-width="0.5"/>
+<line x1="54" y1="142" x2="226" y2="142" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="58" y1="234" x2="222" y2="234" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="62" y1="326" x2="218" y2="326" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="66" y1="418" x2="214" y2="418" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="70" y1="510" x2="210" y2="510" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="74" y1="602" x2="206" y2="602" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="78" y1="694" x2="202" y2="694" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<line x1="82" y1="786" x2="197" y2="786" stroke="#aaa" stroke-width="0.5" stroke-dasharray="4,2"/>
+<polygon points="230,50 50,50 -10,970 90,970" fill="#e8f4ff" stroke="#2c3e50" stroke-width="2"/>
+<path d="M70,510 Q105,506 140,507 Q175,508 210,510" fill="none" stroke="#5d9cec" stroke-width="1.5"/>
+<rect x="258" y="64" width="143" height="8" fill="#e74c3c" opacity="0.8" rx="2"/>
+<line x1="285" y1="64" x2="285" y2="72" stroke="#27ae60" stroke-width="2"/>
+<line x1="230" y1="30" x2="50" y2="30" stroke="#555" stroke-width="1"/>
+<line x1="230" y1="33" x2="230" y2="27" stroke="#555" stroke-width="1"/>
+<line x1="50" y1="33" x2="50" y2="27" stroke="#555" stroke-width="1"/>
+<line x1="90" y1="990" x2="-10" y2="990" stroke="#555" stroke-width="1"/>
+<line x1="90" y1="987" x2="90" y2="993" stroke="#555" stroke-width="1"/>
+<line x1="-10" y1="987" x2="-10" y2="993" stroke="#555" stroke-width="1"/>
+<line x1="40" y1="50" x2="40" y2="970" stroke="#555" stroke-width="1"/>
+<line x1="37" y1="50" x2="43" y2="50" stroke="#555" stroke-width="1"/>
+<line x1="37" y1="970" x2="43" y2="970" stroke="#555" stroke-width="1"/>
+<line x1="176" y1="326" x2="173" y2="366" stroke="#8e44ad" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="230" y="146" font-family="monospace" font-size="9" fill="#95a5a6">y=46</text>
+<text x="226" y="238" font-family="monospace" font-size="9" fill="#95a5a6">y=92</text>
+<text x="222" y="330" font-family="monospace" font-size="9" fill="#95a5a6">y=138</text>
+<text x="218" y="422" font-family="monospace" font-size="9" fill="#95a5a6">y=184</text>
+<text x="214" y="514" font-family="monospace" font-size="9" fill="#95a5a6">y=230</text>
+<text x="210" y="606" font-family="monospace" font-size="9" fill="#95a5a6">y=276</text>
+<text x="206" y="698" font-family="monospace" font-size="9" fill="#95a5a6">y=322</text>
+<text x="201" y="790" font-family="monospace" font-size="9" fill="#95a5a6">y=368</text>
+<text x="329" y="56" text-anchor="middle" font-family="monospace" font-size="11" fill="#e74c3c" font-weight="bold">MAC = 71.9 mm</text>
+<text x="285" y="54" text-anchor="middle" font-family="monospace" font-size="9" fill="#27ae60">AC</text>
+<text x="140" y="26" text-anchor="middle" font-family="monospace" font-size="12" fill="#2c3e50" font-weight="bold">c_r = 90 mm</text>
+<text x="40" y="1002" text-anchor="middle" font-family="monospace" font-size="12" fill="#2c3e50" font-weight="bold">c_t = 50 mm</text>
+<text x="35" y="510" text-anchor="middle" font-family="monospace" font-size="12" fill="#2c3e50" font-weight="bold" transform="rotate(-90,35,510)">b = 460 mm</text>
+<text x="151" y="341" font-family="monospace" font-size="10" fill="#8e44ad">sweep 5.0°</text>
+<text x="50" y="1010" font-family="monospace" font-size="10" fill="#7f8c8d">Interceptor_M v1.0  |  Span=460mm  |  λ=0.556  |  AR=6.57  |  S=322cm²  |  MAC=71.9mm  |  sweep=5.0°  |  AC@25%MAC</text>
+<text x="230" y="28" text-anchor="middle" font-family="monospace" font-size="16" fill="#1a252f" font-weight="bold">WING PLANFORM BLUEPRINT — INTERCEPTOR_M</text>
+</svg>
