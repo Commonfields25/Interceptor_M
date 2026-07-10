@@ -41,10 +41,4 @@ The following tools are part of our CI/CD pipeline (some in development):
 - **Namespace Checker:** Custom isolation enforcement.
 
 ---
-*Maintained by the Continuous Improvement (AC) Agent*
-
-## ⚠️ Credential Exposure in Chat
-If a developer or user provides a credential (like a GitHub PAT) in the project's chat or issues:
-1. **REVOKE** the credential immediately at the source.
-2. **CLEAN** any logs or temporary files that may have captured the text.
-3. **NOTIFY** the AC agent to perform a repo-wide secret scan.
+*Maintained by the Continuous Improvement (AC)

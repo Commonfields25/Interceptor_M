@@ -29,6 +29,11 @@ __all__ = [
     "build_lnch004",
     "build_lnch005",
     "build_lnch006",
+    "build_prop022",
+    "build_prop023",
+    "build_prop024",
+    "build_prop025",
+    "build_prop026",
 ]
 
 # ── Lazy import so icad.engine works without build123d at import time ──────
@@ -59,6 +64,11 @@ def __getattr__(name):
         "build_lnch004": "lnch004",
         "build_lnch005": "lnch005",
         "build_lnch006": "lnch006",
+        "build_prop022": "prop022",
+        "build_prop023": "prop023",
+        "build_prop024": "prop024",
+        "build_prop025": "prop025",
+        "build_prop026": "prop026",
     }
     mod_name = mapping.get(name)
     if mod_name:

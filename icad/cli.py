@@ -32,6 +32,11 @@ PART_MAP = {
     "LNCH-004": parts.build_lnch004,
     "LNCH-005": parts.build_lnch005,
     "LNCH-006": parts.build_lnch006,
+    "PROP-022": parts.build_prop022,
+    "PROP-023": parts.build_prop023,
+    "PROP-024": parts.build_prop024,
+    "PROP-025": parts.build_prop025,
+    "PROP-026": parts.build_prop026,
 }
 
 # Aliases for TICKET-05 and legacy support

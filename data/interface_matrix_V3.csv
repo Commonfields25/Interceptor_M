@@ -1,0 +1,142 @@
+# ===== INTERCEPTOR V3 — MATRICES CONSOLIDÉES =====
+# Fichier: V3_matrices.csv — 3 onglets logiques séparés par ========
+# Utilisation: importer dans Excel/Calc ou traiter comme CSV multi-section
+
+# ===== SECTION A : PIÈCE → SOUS-SYSTÈME → EMPLACEMENT =====
+Part_ID,Part_Name,Subassembly,Sub_System,Emplacement,Origin,Critical
+FUS-001,Main fuselage hull,Fuselage,Body,Fuselage principal — épine dorsale,V2,oui
+FUS-002,Nose cone / radome shell,Fuselage,Nose,Pointe avant — radome,V2,oui
+FUS-003,Wing root spar adapter,Fuselage,Junction,Root fuselage/ailes,V2,oui
+FUS-004,Avionics mounting tray,Fuselage,Tray,Interior baie avionique,V2,oui
+FUS-005,Payload bay inserts (x4),Fuselage,Bay,Parois baie charge utile,V2,non
+FUS-006,Battery tray / retention cage,Fuselage,Tray,Baie batterie,V2,oui
+FUS-007,VTOL pylon mount front (x2),Fuselage,Pylon,Points montage moteur avant (×2),V2,oui
+FUS-008,VTOL pylon mount rear (x2),Fuselage,Pylon,Points montage nacelle tilt (×2),V2,oui
+FUS-009,Landing gear strut front (x2),Fuselage,Gear,Train avant sous fuselage,V2,non
+FUS-010,Landing gear strut rear (x2),Fuselage,Gear,Train arrière sous fuselage,V2,non
+FUS-011,Wheel / tyre assembly (x4),Fuselage,Wheel,4 roues,V2,non
+FUS-012,Pushrod connectors (x8),Fuselage,Linkage,Lignes de chape sur toutes les surfaces,V2,non
+TAIL-001,Tail boom tube L,Tail Boom,Boom,Longeron gauche — de FUS-003 au X-tail,V2,oui
+TAIL-002,Tail boom tube R,Tail Boom,Boom,Longeron droit — de FUS-003 au X-tail,V2,oui
+TAIL-003,Boom cross-brace (x2),Tail Boom,Brace,Entretoise entre les 2 longerons,V2,non
+TAIL-004,X-tail hinge bracket (x4),Tail Boom,Bracket,Extrémité boom — pivot X-tail,V2,oui
+TAIL-005,X-tail surface root rib (x4),Tail Boom,Rib,Embase de chaque surface X-tail,V2,oui
+WNG-001,Wing panel L,Wing,Wing Left,Panneau aile gauche — 800mm,V2,oui
+WNG-002,Wing panel R,Wing,Wing Right,Panneau aile droit — 800mm,V2,oui
+WNG-003,Main spar tube (x2),Wing,Spar,Traverse les 2 panneaux aile,V2,oui
+WNG-004,Aileron panel L,Wing,Aileron Left,Trailing edge panneau gauche,WNG-004,oui
+WNG-005,Aileron panel R,Wing,Aileron Right,Trailing edge panneau droit,WNG-005,oui
+WNG-006,Aileron servo L,Wing,Servo,Racine aile gauche — actionne WNG-004,WNG-004,oui
+WNG-007,Aileron servo R,Wing,Servo,Racine aile droite — actionne WNG-005,WNG-005,oui
+WNG-008,Wing-tip endcap L,Wing,Endcap,Extrémité aile gauche,WNG-001,non
+WNG-009,Wing-tip endcap R,Wing,Endcap,Extrémité aile droite,WNG-002,non
+WNG-010,Wing root fairing (x2),Wing,Fairing,Junction racine fuselage/aile,WNG-001,non
+XTAL-001,X-tail surface UR,X-Tail,XTail UR,Boom droit — +60° au-dessus du plan,V2,oui
+XTAL-002,X-tail surface UL,X-Tail,XTail UL,Boom gauche — +60° au-dessus du plan,V2,oui
+XTAL-003,X-tail surface LR,X-Tail,XTail LR,Boom droit — +30° en dessous du plan,V2,oui
+XTAL-004,X-tail surface LL,X-Tail,XTail LL,Boom gauche — +30° en dessous du plan,V2,oui
+XTAL-005,X-tail servo UR,X-Tail,Servo,Sur TAIL-005 rib — actionne XTAL-001,XTAL-001,oui
+XTAL-006,X-tail servo UL,X-Tail,Servo,Sur TAIL-005 rib — actionne XTAL-002,XTAL-002,oui
+XTAL-007,X-tail servo LR,X-Tail,Servo,Sur TAIL-005 rib — actionne XTAL-003,XTAL-003,oui
+XTAL-008,X-tail servo LL,X-Tail,Servo,Sur TAIL-005 rib — actionne XTAL-004,XTAL-004,oui
+XTAL-009,X-tail mount brace (x4),X-Tail,Brace,4x entre boom et racine X-tail,V2,non
+XTAL-010,X-tail pushrod (x8),X-Tail,Pushrod,8x liaisons servo → surface,V2,non
+PROP-001,Lift rotor motor front L,Propulsion,Motor,Nacelle avant gauche — thrust vertical,V2,oui
+PROP-002,Lift rotor motor front R,Propulsion,Motor,Nacelle avant droit — thrust vertical,V2,oui
+PROP-003,Lift rotor motor rear L,Propulsion,Motor,Nacelle arrière gauche — thrust vertical,V2,oui
+PROP-004,Lift rotor motor rear R,Propulsion,Motor,Nacelle arrière droit — thrust vertical,V2,oui
+PROP-005,Lift rotor prop (x4),Propulsion,Prop,4x hélices lift,V2,oui
+PROP-006,Lift nacelle shell (x4),Propulsion,Nacelle,4x coquilles nacelle lift,V2,oui
+PROP-007,ESC lift front (x2),Propulsion,ESC,Sur pylon avant FUS-007,V2,oui
+PROP-008,ESC lift rear (x2),Propulsion,ESC,Sur pylon arrière FUS-008,V2,oui
+PROP-009,Tilt motor L,Propulsion,Motor,Nacelle tilt gauche — tilt 0-90°,V2,oui
+PROP-010,Tilt motor R,Propulsion,Motor,Nacelle tilt droit — tilt 0-90°,V2,oui
+PROP-011,Tilt nacelle assembly L,Propulsion,Nacelle,Nacelle tilt gauche complète,V2,oui
+PROP-012,Tilt nacelle assembly R,Propulsion,Nacelle,Nacelle tilt droite complète,V2,oui
+PROP-013,Tilt prop L,Propulsion,Prop,Nacelle tilt gauche — push cruise,V2,oui
+PROP-014,Tilt prop R,Propulsion,Prop,Nacelle tilt droite — push cruise,V2,oui
+PROP-015,Tilt servo L,Propulsion,Servo,Articulateur tilt gauche,V2,oui
+PROP-016,Tilt servo R,Propulsion,Servo,Articulateur tilt droit,V2,oui
+PROP-017,Tilt pushrod/linkage (x2),Propulsion,Pushrod,2x liaisons servo → pivot,V2,non
+PROP-018,ESC tilt L,Propulsion,ESC,Dans nacelle tilt gauche,V2,oui
+PROP-019,ESC tilt R,Propulsion,ESC,Dans nacelle tilt droite,V2,oui
+PROP-020,PDB / power distribution board,Propulsion,Power,FUS-004 — bus électrique central,V2,oui
+PROP-021,Battery 12S LiPo main,Propulsion,Battery,Glisse dans FUS-006,V2,oui
+PROP-022,Front lift nacelle motor mount bracket (x2),G2 Propulsion,G2 Motor Mount,Nacelle avant — support moteur,G2,nouveau
+PROP-023,Front lift nacelle shell (x2),G2 Propulsion,G2 Nacelle Shell,Nacelle avant — coquille,G2,nouveau
+PROP-024,Front lift pylon link (x2),G2 Propulsion,G2 Pylon Link,Pylônes avant — lien FUS-007→nacelles,G2,nouveau
+PROP-025,Front lift ESC mount bracket (x2),G2 Propulsion,G2 ESC Mount,Pylône avant FUS-007 — support ESC,G2,nouveau
+PROP-026,Tilt pivot bearing/bracket assembly (x2),G2 Propulsion,Pivot,Nacelles tilt gauche+droite — pivot,G2,nouveau
+AVN-001,Flight controller (autopilot),Avionics,FC,FUS-004 tray — cerveau du système,AVN-001,oui
+AVN-002,GPS + magnetometer module,Avionics,GPS,Dessus aile — minimise EMI,AVN-002,oui
+AVN-003,IMU primary,Avionics,IMU,FUS-004 tray,AVN-003,oui
+AVN-004,IMU redundant,Avionics,IMU,FUS-004 tray — bus séparé,AVN-004,oui
+AVN-005,Barometer / pitot module,Avionics,Baro,FUS-001 — prise pression,AVN-005,non
+AVN-006,Telemetry radio,Avionics,Radio,FUS-004 tray — liaison sol,AVN-006,non
+AVN-007,Power module / current sensor,Avionics,Power,Inline batterie → PDB,AVN-007,oui
+AVN-008,Battery checker / buzzer,Avionics,Buzzer,Extérieur nose,FUS-002,non
+AVN-009,Payload connector,Avionics,Payload,Payload bay — power+data,AVN-009,non
+AVN-010,Antenna telemetry ext,Avionics,Antenna,SMA bulkhead nose FUS-002,AVN-006,non
+STR-001,M3x0.5x6 button head bolt bagx30,Structure,Fastener,Distribué — subassemblies,STR-001,non
+STR-002,M4x0.7x8 button head bolt bagx20,Structure,Fastener,Distribué — joints primaires,STR-002,non
+STR-003,M5x0.8x12 socket head bolt bagx12,Structure,Fastener,Boom root, pylon mounts,STR-003,non
+STR-004,M3 heat-set inserts bagx20,Structure,Fastener,FUS-005, TAIL-005,STR-004,non
+STR-005,Ø3x0.5mm washer bagx40,Structure,Washer,Distribué,STR-005,non
+STR-006,Ø4x0.8mm washer bagx30,Structure,Washer,Distribué,STR-006,non
+STR-007,Cable ties 2.5x100mm bagx20,Structure,Fastener,Routage faisceau câblage,STR-007,non
+STR-008,Dual-lock velcro x4 strips,Structure,Fastener,Rétention batterie FUS-006,STR-008,non
+STR-009,Thread-locking fluid 10ml,Structure,Adhesive,Joints critiques,STR-009,non
+STR-010,Conducting lubricant 5g,Structure,Lubricant,Points de masse statique,STR-010,non
+
+# ===== SECTION B : CHANGEMENTS V2 → V3 =====
+Change_ID,Domaine,Element,V2 (Avant),V3 (Après),Raison,Impact,Ticket,Status
+CHG-001,Aéro,Profil aile,"12–15% t/c (vague)",NACA 4412 (12%),Permet calcul aéro, coordonnées, polaire,Critique / débloque INT-102,INT-101,resolved
+CHG-002,Aéro,X-tail sizing,"Non défini (chord/span/area)",À calculer (INT-102),"Autorite pitch/yaw, dimensionnement structurel",Blocant CAD,X-Tail sizing,INT-102,resolved
+CHG-003,Structure,Longueur boom,Non définie,TBD après INT-201,"CG, bras de levier, stabilite",Blocant CG,INT-201,resolved
+CHG-004,Structure,Confusion ailerons,"README=4, BOM=2",2 ailerons (BOM correct — README erreur),"Option B — resolution ambiguity",1 ligne README,INT-104,resolved
+CHG-005,Propulsion,Nacelle avant lift,ABSENTE du BOM,PROP-022→025 ajoutées (×2 each),"Propulsion avant impossible assembler","+5 pièces, ~400-800g",INT-301,resolved
+CHG-006,Propulsion,Mécanisme tilt,ABSENT (PROP-026 manquant),PROP-026 ajouté (×2),Nacelle tilt non assemblable,"+1 pièce, ~100-200g/piece",INT-302,resolved
+CHG-007,Masse,MTOW violation,"BOM total = 8587g (43% over MTOW)","≤6000g (cible) — 3 options resolution",Violation critique design,"MTOW ou allègement structure",INT-202,resolved
+CHG-008,Firmware,Mixing table,"Générique (README)",Mixing matrix complet documenté,X-tail 60/30° asymétrique besoin custom mixing,"Firmware + vol tuning",INT-404,resolved
+CHG-009,CG,CG envelope,Non calculé,À calculer (INT-203),"Sensibilité VTOL au CG — contrôle en vol","Marge de stabilité",INT-203,resolved
+CHG-010,BOM,Airfoil column,Absente,Ajoutée,Traçabilité profil par pièce,Data integrity,INT-401,resolved
+CHG-011,BOM,Length column TAIL,Absente,Ajoutée (TBD),Dimension boom pour CAD/structure,Data integrity,INT-401,resolved
+CHG-012,Repo,Folder hierarchy,Plate (flat),Structuré (docs/cad/data),Organisation engineering standard,All files,INT-501,resolved
+
+# ===== SECTION C : INTERFACES NOUVELLES V3 (PROP-022→026) =====
+Part_A,Part_B,Interface_Type,Notes,V3_New
+FUS-007,PROP-022,bolted,Front pylon to nacelle mount,oui
+PROP-022,PROP-001,bolted,Motor mount — Ø44mm bolt pattern match,oui
+PROP-023,PROP-001,mechanical,Nacelle shell — aerodynamic fairing,oui
+PROP-024,PROP-022,bolted,Pylon link upper attachment,oui
+PROP-024,FUS-007,bolted,Pylon link lower attachment,oui
+PROP-007,PROP-001,electrical,Front lift ESC to motor L (PROP-007 powers BOTH PROP-001+002 — confirm dual topology),oui
+PROP-007,PROP-002,electrical,Front lift ESC to motor R — confirm if single ESC handles both motors,oui
+PROP-025,PROP-007,mechanical,ESC mount bracket on front pylon,oui
+FUS-008,PROP-026,bolted,Pivot bracket attachment to rear pylon,oui
+PROP-026,PROP-011,pivot,Left tilt nacelle pivot bearing,oui
+PROP-026,PROP-012,pivot,Right tilt nacelle pivot bearing,oui
+PROP-015,PROP-026,mechanical,Tilt servo L drive to pivot arm,oui
+FUS-003,TAIL-001,bolted+bonded,Boom root attachment (add boom length after INT-201),oui
+FUS-003,TAIL-002,bolted+bonded,Boom root attachment (same as above),oui
+TAIL-001,TAIL-003,bonded,Cross-brace attachment left,oui
+TAIL-002,TAIL-003,bonded,Cross-brace attachment right,oui
+TAIL-001,TAIL-004,bolted,Boom to hinge bracket attachment,oui
+TAIL-004,XTAL-001,pivot,X-tail UR surface hinge — ±30° range,oui
+TAIL-004,XTAL-002,pivot,X-tail UL surface hinge — ±30° range,oui
+TAIL-004,XTAL-003,pivot,X-tail LR surface hinge — ±30° range,oui
+TAIL-004,XTAL-004,pivot,X-tail LL surface hinge — ±30° range,oui
+# --- Interfaces existantes conservées de V2 ---
+FUS-001,FUS-003,bolted,Root spar adapter bolted M5 to fuselage hull,non
+FUS-001,FUS-007,bolted,Front lift pylon mounts bolted M4 to FUS-001,non
+FUS-001,FUS-008,bolted,Rear lift pylon mounts bolted M4 to FUS-001,non
+FUS-003,WNG-001,bolted,Left wing panel root bolted M3 to FUS-003,non
+FUS-003,WNG-002,bolted,Right wing panel root bolted M3 to FUS-003,non
+PROP-020,PROP-007,electrical,12S/60A feed to front lift ESCs x2,non
+PROP-020,PROP-008,electrical,12S/60A feed to rear lift ESCs x2,non
+PROP-020,PROP-018,electrical,12S/80A feed to tilt L ESC,non
+PROP-020,PROP-019,electrical,12S/80A feed to tilt R ESC,non
+PROP-011,FUS-008,bolted,Left nacelle flange bolted M4 to rear pylon mount,non
+PROP-012,FUS-008,bolted,Right nacelle flange bolted M4 to rear pylon mount,non
+PROP-020,PROP-021,electrical,Anderson PP45 battery connector,non
+PROP-020,AVN-001,electrical,5V/12V power rails to flight controller,non

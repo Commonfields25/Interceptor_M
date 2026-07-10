@@ -1,10 +1,10 @@
 {
   "project": "Interceptor M",
   "version": "2.0.0",
-  "mtow_source": "DG decision — Consolidated System Definition v2.0",
+  "mtow_source": "DG decision \u2014 Consolidated System Definition v2.0",
   "lines": {
     "DC": {
-      "designation": "Drone Compact — Lightweight",
+      "designation": "Drone Compact \u2014 Lightweight",
       "mtow_g": 250.0,
       "mtow_source": "spec E1 nominal",
       "segments": {
@@ -17,9 +17,9 @@
       }
     },
     "DD": {
-      "designation": "Drone Déployable — Extended Range",
+      "designation": "Drone D\u00e9ployable \u2014 Extended Range",
       "mtow_g": 400.0,
-      "mtow_source": "DG decision — Baseline M7 lock",
+      "mtow_source": "DG decision \u2014 Baseline M7 lock",
       "segments": {
         "fuselage": {
           "L_mm": 380.0,
@@ -32,7 +32,7 @@
     "DI": {
       "designation": "Drone Industriel",
       "mtow_g": 300.0,
-      "mtow_source": "BOM LOCKED — M7 baseline",
+      "mtow_source": "BOM LOCKED \u2014 M7 baseline",
       "segments": {
         "fuselage": {
           "L_mm": 365.0,
@@ -43,7 +43,7 @@
       }
     },
     "F1": {
-      "designation": "F1-Chaser — High Speed Quad",
+      "designation": "F1-Chaser \u2014 High Speed Quad",
       "mtow_g": 450.0,
       "mtow_source": "Conceptual",
       "segments": {
@@ -54,11 +54,25 @@
         "propeller_diameter_in": 5.0,
         "hull_thickness_mm": 2.0
       }
+    },
+    "V3-1600": {
+      "designation": "Interceptor V3 \u2014 Parametric Redesign",
+      "mtow_g": 6000.0,
+      "mtow_source": "V3-dossier technical baseline",
+      "segments": {
+        "fuselage": {
+          "L_mm": 500.0,
+          "diameter_mm": 60.0
+        },
+        "wing_span_deployed_mm": 1600.0,
+        "hull_thickness_mm": 1.5,
+        "airfoil": "NACA 4412"
+      }
     }
   },
   "parts": {
     "BRK-001": {
-      "description": "Structure primaire — Coque fuselage",
+      "description": "Structure primaire \u2014 Coque fuselage",
       "material": "AlSi10Mg (DMLS)",
       "specs": {
         "E1": {
@@ -68,7 +82,7 @@
       }
     },
     "ACT-001": {
-      "description": "Mécanisme de déploiement des ailes",
+      "description": "M\u00e9canisme de d\u00e9ploiement des ailes",
       "material": "AlSi10Mg (DMLS) + Spring Steel",
       "specs": {
         "E3": {
