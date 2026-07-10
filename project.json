@@ -1,6 +1,6 @@
 {
   "name": "Interceptor_M",
-  "version": "1.2.0",
+  "version": "3.0.0",
   "project_type": "drone_interceptor_hybride",
   "phase": "PHASE_2_DESIGN",
   "missions_launched": 6,

@@ -7,18 +7,18 @@ status: Validated
 
 # Status Report — Interceptor_M
 
-**Version:** 1.2.0
+**Version:** 3.0.0
 **Date:** 2026-07-01
 **Author:** Jules (Lead Designer)
 
 ---
 
 ## 1. Executive Summary
-The project Knowledge base has been audited and synchronized to Baseline v1.2.0. All inconsistencies regarding MTOW and product dimensions have been resolved across documentation, JSON configurations, and simulation scripts.
+The project Knowledge base has been audited and synchronized to Baseline 3.0.0. All inconsistencies regarding MTOW and product dimensions have been resolved across documentation, JSON configurations, and simulation scripts.
 
 ---
 
-## 2. Technical Baseline (v1.2.0)
+## 2. Technical Baseline (3.0.0)
 - **Product Lines**:
   - DD (Defense): 400.0g MTOW
   - DI (Industrial): 300.0g MTOW
