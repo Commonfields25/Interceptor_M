@@ -1,0 +1,335 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="780" style="background:#fafafa;font-family:monospace">
+  <desc>Interceptor_M – Fuselage V1 Blueprint | L=360mm | Nose=Conical | Bays=FC/Batt/ESC | Motor=rear</desc>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  GRID – every 36px = 10mm real              ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <!-- vertical every 36px = 10mm -->
+  <line x1="70"  y1="40"  x2="70"  y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="106" y1="40"  x2="106" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="142" y1="40"  x2="142" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="178" y1="40"  x2="178" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="214" y1="40"  x2="214" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="250" y1="40"  x2="250" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="286" y1="40"  x2="286" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="322" y1="40"  x2="322" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="358" y1="40"  x2="358" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="394" y1="40"  x2="394" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="430" y1="40"  x2="430" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="466" y1="40"  x2="466" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="502" y1="40"  x2="502" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="538" y1="40"  x2="538" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="574" y1="40"  x2="574" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="610" y1="40"  x2="610" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="646" y1="40"  x2="646" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="682" y1="40"  x2="682" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="718" y1="40"  x2="718" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="754" y1="40"  x2="754" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="790" y1="40"  x2="790" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="826" y1="40"  x2="826" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="862" y1="40"  x2="862" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="898" y1="40"  x2="898" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="934" y1="40"  x2="934" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <line x1="970" y1="40"  x2="970" y2="740" stroke="#eee" stroke-width="0.5"/>
+  <!-- horizontal every 36px -->
+  <line x1="70" y1="76"  x2="970" y2="76"  stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="112" x2="970" y2="112" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="148" x2="970" y2="148" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="184" x2="970" y2="184" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="220" x2="970" y2="220" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="256" x2="970" y2="256" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="292" x2="970" y2="292" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="328" x2="970" y2="328" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="364" x2="970" y2="364" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="400" x2="970" y2="400" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="436" x2="970" y2="436" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="472" x2="970" y2="472" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="508" x2="970" y2="508" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="544" x2="970" y2="544" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="580" x2="970" y2="580" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="616" x2="970" y2="616" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="652" x2="970" y2="652" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="688" x2="970" y2="688" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="724" x2="970" y2="724" stroke="#eee" stroke-width="0.5"/>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  TITLE BLOCK                                 ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <rect x="70" y="40" width="900" height="36" fill="none" stroke="#2c3e50" stroke-width="1.5"/>
+  <text x="520" y="62" font-family="monospace" font-size="13" font-weight="bold" fill="#2c3e50" text-anchor="middle">INTERCEPTOR_M – FUSELAGE V1</text>
+  <text x="950" y="62" font-family="monospace" font-size="10" fill="#7f8c8d" text-anchor="end">REV 1.0 | 2026-07-10</text>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  VIEWS HEADER                                ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <line x1="70" y1="76" x2="970" y2="76" stroke="#2c3e50" stroke-width="1"/>
+  <text x="520" y="96" font-family="monospace" font-size="11" fill="#2c3e50" text-anchor="middle" font-weight="bold">—— SIDE VIEW (XY) ——</text>
+  <text x="520" y="396" font-family="monospace" font-size="11" fill="#2c3e50" text-anchor="middle" font-weight="bold">—— TOP VIEW (XZ) ——</text>
+  <line x1="70" y1="376" x2="970" y2="376" stroke="#2c3e50" stroke-width="0.8" stroke-dasharray="6,3"/>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  SCALE / DIMENSION RULER                     ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <!-- ruler along top -->
+  <line x1="70" y1="736" x2="970" y2="736" stroke="#555" stroke-width="1"/>
+  <line x1="70" y1="733" x2="70" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="142" y1="733" x2="142" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="214" y1="733" x2="214" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="286" y1="733" x2="286" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="358" y1="733" x2="358" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="430" y1="733" x2="430" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="502" y1="733" x2="502" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="574" y1="733" x2="574" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="646" y1="733" x2="646" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="718" y1="733" x2="718" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="790" y1="733" x2="790" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="862" y1="733" x2="862" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="934" y1="733" x2="934" y2="739" stroke="#555" stroke-width="1"/>
+  <line x1="970" y1="733" x2="970" y2="739" stroke="#555" stroke-width="1"/>
+  <text x="70"  y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">0</text>
+  <text x="142" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">40</text>
+  <text x="214" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">80</text>
+  <text x="286" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">120</text>
+  <text x="358" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">160</text>
+  <text x="430" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">200</text>
+  <text x="502" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">240</text>
+  <text x="574" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">280</text>
+  <text x="646" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">320</text>
+  <text x="718" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">360</text>
+  <text x="790" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">400</text>
+  <text x="862" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">440</text>
+  <text x="934" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">480</text>
+  <text x="970" y="728" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">500</text>
+  <text x="520" y="758" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">ALL DIMENSIONS IN mm  |  SCALE 1:1  |  DATUM: NOSE TIP</text>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  SIDE VIEW                                   ║ -->
+  <!-- X: 70..970 (900px = 360mm, so 2.5px/mm)        ║ -->
+  <!--   nose at x=70+0=70   tip                      ║ -->
+  <!--   tail at x=70+360=430                        ║ -->
+  <!-- Y reference: centerline at y=220               ║ -->
+  <!-- Body half-height: 15mm -> 37.5px               ║ -->
+  <!-- Nose cone: 40mm long                           ║ -->
+  <!-- Motor mount extends: 30mm beyond body          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+
+  <!-- CENTERLINE SIDE -->
+  <line x1="70" y1="220" x2="460" y2="220" stroke="#2c3e50" stroke-width="1" stroke-dasharray="8,3"/>
+  <text x="72" y="216" font-family="monospace" font-size="9" fill="#2c3e50">CL</text>
+
+  <!-- STATION LINES (vertical dashed at each 40mm station) -->
+  <line x1="70"  y1="100" x2="70"  y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="142" y1="100" x2="142" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="214" y1="100" x2="214" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="286" y1="100" x2="286" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="358" y1="100" x2="358" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="430" y1="100" x2="430" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="502" y1="100" x2="502" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="574" y1="100" x2="574" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="646" y1="100" x2="646" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="718" y1="100" x2="718" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="790" y1="100" x2="790" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <line x1="862" y1="100" x2="862" y2="340" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+
+  <!-- Station labels (bottom of side view) -->
+  <text x="70"  y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 0</text>
+  <text x="142" y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 40</text>
+  <text x="214" y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 80</text>
+  <text x="286" y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 120</text>
+  <text x="358" y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 160</text>
+  <text x="430" y="355" font-family="monospace" font-size="9" fill="#95a5a6" text-anchor="middle">STA 200</text>
+
+  <!-- NOSE CONE PROFILE (side) -->
+  <!-- Tip at x=70, y=220. Cone tip to body junction at x=170 (40mm), y=220 -->
+  <!-- Upper edge of nose cone (tangent to body top) -->
+  <path d="M70,220 Q100,202 140,182.5 Q162,177.5 170,182.5 L170,257.5 Q162,262.5 140,257.5 Q100,238 70,220" fill="#d5e8f7" stroke="#2c3e50" stroke-width="2"/>
+  <!-- Cone tip marker -->
+  <polygon points="70,220 63,215 63,225" fill="#e74c3c"/>
+
+  <!-- MAIN BODY (rectangular cross-section, 50×30mm) -->
+  <!-- X: 170 to 360 (= 190mm long)  →  px: 170 to 545 -->
+  <!-- Y: center 220, half-h 15 → top 182.5, bot 257.5 -->
+  <rect x="170" y="182.5" width="375" height="75" fill="#e8f4ff" stroke="#2c3e50" stroke-width="2" rx="2"/>
+  <!-- Body internal structure lines -->
+  <line x1="170" y1="220" x2="545" y2="220" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <line x1="170" y1="182.5" x2="545" y2="182.5" stroke="#bdc3c7" stroke-width="0.5"/>
+  <line x1="170" y1="257.5" x2="545" y2="257.5" stroke="#bdc3c7" stroke-width="0.5"/>
+
+  <!-- MOTOR MOUNT (cylindrical collar, rear) -->
+  <!-- X: 360 to 390 (= 30mm) → px: 545 to 620 -->
+  <rect x="545" y="188" width="75" height="64" fill="#f5e6d3" stroke="#2c3e50" stroke-width="2" rx="3"/>
+  <!-- Motor mount internal rings (side) -->
+  <line x1="570" y1="188" x2="570" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <line x1="595" y1="188" x2="595" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="610" y="186" font-family="monospace" font-size="8" fill="#c0392b">MTR COLLAR</text>
+
+  <!-- BAY PARTITION LINES (internal vertical walls) -->
+  <!-- FC bay: 40-110mm → px: 170 to 345 -->
+  <line x1="345" y1="182.5" x2="345" y2="257.5" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <line x1="170" y1="182.5" x2="170" y2="257.5" stroke="#27ae60" stroke-width="0.8"/>
+  <!-- Batt bay: 110-230mm → px: 345 to 645 -->
+  <line x1="645" y1="182.5" x2="645" y2="257.5" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <!-- ESC bay: 230-290mm → px: 645 to 795 (extends into motor collar) -->
+  <line x1="795" y1="182.5" x2="795" y2="257.5" stroke="#e67e22" stroke-width="1.2" stroke-dasharray="5,3"/>
+
+  <!-- BAY ANNOTATIONS (side view) -->
+  <!-- FC Bay (STA 40–110) -->
+  <text x="257" y="177" font-family="monospace" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">FC BAY</text>
+  <text x="257" y="268" font-family="monospace" font-size="8" fill="#27ae60" text-anchor="middle">STA 40–110 | 70×50×20mm</text>
+  <!-- Battery Bay (STA 110–230) -->
+  <text x="495" y="177" font-family="monospace" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="bold">BATTERY BAY</text>
+  <text x="495" y="268" font-family="monospace" font-size="8" fill="#8e44ad" text-anchor="middle">STA 110–230 | 120×50×25mm</text>
+  <!-- ESC Bay (STA 230–290) -->
+  <text x="720" y="177" font-family="monospace" font-size="9" fill="#e67e22" text-anchor="middle" font-weight="bold">ESC BAY</text>
+  <text x="720" y="268" font-family="monospace" font-size="8" fill="#e67e22" text-anchor="middle">STA 230–290 | 60×50×20mm</text>
+
+  <!-- MOTOR MOUNT ANNOTATION -->
+  <text x="590" y="276" font-family="monospace" font-size="8" fill="#c0392b" text-anchor="middle">STA 290–320 | Motor Collar Ø30mm</text>
+
+  <!-- NOSE TIP ANNOTATION -->
+  <text x="70" y="200" font-family="monospace" font-size="8" fill="#e74c3c">NOSE TIP</text>
+  <text x="70" y="242" font-family="monospace" font-size="8" fill="#7f8c8d">Datum 0</text>
+
+  <!-- DIMENSION LINES SIDE VIEW -->
+  <!-- Total length 360mm -->
+  <line x1="70" y1="120" x2="620" y2="120" stroke="#555" stroke-width="1"/>
+  <line x1="70" y1="117" x2="70" y2="123" stroke="#555" stroke-width="1"/>
+  <line x1="620" y1="117" x2="620" y2="123" stroke="#555" stroke-width="1"/>
+  <text x="345" y="116" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">L=360mm</text>
+  <!-- Body height dimension -->
+  <line x1="160" y1="182.5" x2="160" y2="257.5" stroke="#555" stroke-width="1"/>
+  <line x1="157" y1="182.5" x2="163" y2="182.5" stroke="#555" stroke-width="1"/>
+  <line x1="157" y1="257.5" x2="163" y2="257.5" stroke="#555" stroke-width="1"/>
+  <text x="158" y="222" font-family="monospace" font-size="9" fill="#555" text-anchor="end" transform="rotate(-90,158,222)">H=30mm</text>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  TOP VIEW                                    ║ -->
+  <!-- Y reference: centerline at y=560               ║ -->
+  <!-- Body width: 50mm -> 125px                      ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+
+  <!-- CENTERLINE TOP -->
+  <line x1="70" y1="560" x2="620" y2="560" stroke="#2c3e50" stroke-width="1" stroke-dasharray="8,3"/>
+  <text x="72" y="556" font-family="monospace" font-size="9" fill="#2c3e50">CL</text>
+
+  <!-- NOSE CONE (top) - cone tip to body -->
+  <path d="M70,560 Q110,540 150,497.5 L150,622.5 Q110,580 70,560" fill="#d5e8f7" stroke="#2c3e50" stroke-width="2"/>
+  <polygon points="70,560 63,555 63,565" fill="#e74c3c"/>
+
+  <!-- MAIN BODY TOP (50mm wide, 190mm long) -->
+  <rect x="170" y="497.5" width="375" height="125" fill="#e8f4ff" stroke="#2c3e50" stroke-width="2" rx="2"/>
+  <line x1="170" y1="560" x2="545" y2="560" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <line x1="545" y1="497.5" x2="545" y2="622.5" stroke="#bdc3c7" stroke-width="0.5"/>
+
+  <!-- MOTOR MOUNT TOP -->
+  <rect x="545" y="504" width="75" height="112" fill="#f5e6d3" stroke="#2c3e50" stroke-width="2" rx="3"/>
+  <!-- Motor bore circle -->
+  <circle cx="582" cy="560" r="25" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="582" cy="560" r="4" fill="#c0392b"/>
+  <text x="582" y="555" font-family="monospace" font-size="7" fill="#c0392b" text-anchor="middle">Ø50</text>
+  <!-- Mount bolt pattern -->
+  <circle cx="582" cy="560" r="18" fill="none" stroke="#c0392b" stroke-width="0.8" stroke-dasharray="2,2"/>
+
+  <!-- BAY PARTITION LINES TOP -->
+  <line x1="345" y1="497.5" x2="345" y2="622.5" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <line x1="645" y1="497.5" x2="645" y2="622.5" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <line x1="795" y1="497.5" x2="795" y2="622.5" stroke="#e67e22" stroke-width="1.2" stroke-dasharray="5,3"/>
+
+  <!-- BAY LABELS TOP -->
+  <text x="257" y="492" font-family="monospace" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">FC</text>
+  <text x="495" y="492" font-family="monospace" font-size="9" fill="#8e44ad" text-anchor="middle" font-weight="bold">BATTERY</text>
+  <text x="720" y="492" font-family="monospace" font-size="9" fill="#e67e22" text-anchor="middle" font-weight="bold">ESC</text>
+  <text x="720" y="638" font-family="monospace" font-size="8" fill="#e67e22" text-anchor="middle">STA 230–290</text>
+
+  <!-- WING ATTACHMENT PADS (top view) - left and right -->
+  <!-- Left wing attach: x=220, y=497.5 -->
+  <rect x="210" y="490" width="20" height="7" fill="#f39c12" rx="1"/>
+  <text x="220" y="487" font-family="monospace" font-size="7" fill="#f39c12" text-anchor="middle">WING-L</text>
+  <!-- Right wing attach: x=220, y=622.5 -->
+  <rect x="210" y="623" width="20" height="7" fill="#f39c12" rx="1"/>
+  <text x="220" y="638" font-family="monospace" font-size="7" fill="#f39c12" text-anchor="middle">WING-R</text>
+  <!-- Symmetry center marks -->
+  <line x1="170" y1="560" x2="545" y2="560" stroke="#f39c12" stroke-width="0.8" stroke-dasharray="3,2"/>
+  <text x="160" y="563" font-family="monospace" font-size="8" fill="#f39c12">SYM</text>
+
+  <!-- TOP DIMENSION LINES -->
+  <!-- Width dimension -->
+  <line x1="170" y1="680" x2="545" y2="680" stroke="#555" stroke-width="1"/>
+  <line x1="170" y1="677" x2="170" y2="683" stroke="#555" stroke-width="1"/>
+  <line x1="545" y1="677" x2="545" y2="683" stroke="#555" stroke-width="1"/>
+  <text x="357" y="678" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">W=50mm (section)</text>
+  <!-- Nose cone length -->
+  <line x1="70" y1="700" x2="170" y2="700" stroke="#555" stroke-width="1"/>
+  <line x1="70" y1="697" x2="70" y2="703" stroke="#555" stroke-width="1"/>
+  <line x1="170" y1="697" x2="170" y2="703" stroke="#555" stroke-width="1"/>
+  <text x="120" y="698" font-family="monospace" font-size="9" fill="#555" text-anchor="middle">NOSE=40mm</text>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  CROSS SECTION A-A (at battery bay center)   ║ -->
+  <!-- X pos: 170px, Y center: 560px                  ║ -->
+  <!-- Drawn at lower-right corner of drawing          ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <line x1="750" y1="376" x2="970" y2="376" stroke="#2c3e50" stroke-width="0.8" stroke-dasharray="6,3"/>
+  <text x="860" y="392" font-family="monospace" font-size="10" fill="#2c3e50" text-anchor="middle" font-weight="bold">SECTION A-A (STA 170)</text>
+  <!-- Cross-section rectangle 50x30 -->
+  <rect x="810" y="440" width="100" height="60" fill="#e8f4ff" stroke="#2c3e50" stroke-width="1.5" rx="2"/>
+  <!-- Internal features -->
+  <rect x="820" y="450" width="35" height="20" fill="#d5e8f7" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2" rx="1"/>
+  <text x="837" y="464" font-family="monospace" font-size="7" fill="#27ae60" text-anchor="middle">FC</text>
+  <rect x="860" y="448" width="40" height="24" fill="#d5e8f7" stroke="#8e44ad" stroke-width="1" stroke-dasharray="3,2" rx="1"/>
+  <text x="880" y="463" font-family="monospace" font-size="7" fill="#8e44ad" text-anchor="middle">BATT</text>
+  <line x1="810" y1="470" x2="910" y2="470" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <line x1="855" y1="440" x2="855" y2="500" stroke="#ccc" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <!-- Dimension labels on section -->
+  <line x1="800" y1="440" x2="800" y2="500" stroke="#555" stroke-width="0.8"/>
+  <text x="798" y="472" font-family="monospace" font-size="8" fill="#555" text-anchor="end">H=30</text>
+  <line x1="800" y1="440" x2="910" y2="440" stroke="#555" stroke-width="0.8"/>
+  <text x="855" y="438" font-family="monospace" font-size="8" fill="#555" text-anchor="middle">W=50</text>
+  <text x="920" y="470" font-family="monospace" font-size="8" fill="#7f8c8d" text-anchor="end">50×30</text>
+
+  <!-- ╔══════════════════════════════════════════════╗ -->
+  <!-- ║  MATERIAL / SPEC NOTES                       ║ -->
+  <!-- ╚══════════════════════════════════════════════╝ -->
+  <rect x="750" y="520" width="220" height="180" fill="#fdfefe" stroke="#bdc3c7" stroke-width="1" rx="3"/>
+  <text x="860" y="537" font-family="monospace" font-size="9" fill="#2c3e50" text-anchor="middle" font-weight="bold">SPEC NOTES</text>
+  <text x="760" y="554" font-family="monospace" font-size="8" fill="#555">Material: Carbon / PETG (TBD)</text>
+  <text x="760" y="568" font-family="monospace" font-size="8" fill="#555">Wall thickness: 2mm</text>
+  <text x="760" y="582" font-family="monospace" font-size="8" fill="#555">Nose: ABS or PLA (printed)</text>
+  <text x="760" y="596" font-family="monospace" font-size="8" fill="#555">Motor collar: aluminium 6061</text>
+  <text x="760" y="610" font-family="monospace" font-size="8" fill="#555">Bay fits ACT-001: 70×50mm</text>
+  <text x="760" y="624" font-family="monospace" font-size="8" fill="#555">Battery bay: 120×50mm (4S LiPo)</text>
+  <text x="760" y="638" font-family="monospace" font-size="8" fill="#555">CG target: 30–35% MAC (wing)</text>
+  <text x="760" y="652" font-family="monospace" font-size="8" fill="#555">Wing attach: M3×2 bolts</text>
+  <text x="760" y="666" font-family="monospace" font-size="8" fill="#555">Wing span: 460mm (root 90 tip 50)</text>
+  <text x="760" y="680" font-family="monospace" font-size="8" fill="#555">T-motor mount pattern: 16×19mm</text>
+  <text x="760" y="694" font-family="monospace" font-size="8" fill="#e74c3c">!! Verify motor shaft clearance !!</text>
+
+  <!-- LEGEND -->
+  <rect x="750" y="100" width="220" height="260" fill="#fdfefe" stroke="#bdc3c7" stroke-width="1" rx="3"/>
+  <text x="860" y="117" font-family="monospace" font-size="9" fill="#2c3e50" text-anchor="middle" font-weight="bold">LEGEND</text>
+  <rect x="760" y="128" width="16" height="10" fill="#d5e8f7" stroke="#2c3e50" stroke-width="1.5" rx="1"/>
+  <text x="780" y="138" font-family="monospace" font-size="8" fill="#555">Primary structure (body)</text>
+  <rect x="760" y="146" width="16" height="10" fill="#f5e6d3" stroke="#2c3e50" stroke-width="1.5" rx="1"/>
+  <text x="780" y="156" font-family="monospace" font-size="8" fill="#555">Motor collar (alu)</text>
+  <rect x="760" y="164" width="16" height="10" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="780" y="174" font-family="monospace" font-size="8" fill="#27ae60">FC Bay – ACT-001</text>
+  <rect x="760" y="182" width="16" height="10" fill="none" stroke="#8e44ad" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="780" y="192" font-family="monospace" font-size="8" fill="#8e44ad">Battery Bay</text>
+  <rect x="760" y="200" width="16" height="10" fill="none" stroke="#e67e22" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="780" y="210" font-family="monospace" font-size="8" fill="#e67e22">ESC Bay</text>
+  <rect x="760" y="218" width="16" height="10" fill="#f39c12" rx="1"/>
+  <text x="780" y="228" font-family="monospace" font-size="8" fill="#f39c12">Wing attachment pad</text>
+  <line x1="760" y1="244" x2="776" y2="244" stroke="#2c3e50" stroke-width="1" stroke-dasharray="8,3"/>
+  <text x="780" y="248" font-family="monospace" font-size="8" fill="#555">Centerline / CL</text>
+  <line x1="760" y1="262" x2="776" y2="262" stroke="#bdc3c7" stroke-width="0.5" stroke-dasharray="4,2"/>
+  <text x="780" y="266" font-family="monospace" font-size="8" fill="#555">Station line / grid</text>
+  <polygon points="760,280 757,285 763,285" fill="#e74c3c"/>
+  <text x="780" y="288" font-family="monospace" font-size="8" fill="#e74c3c">Datum / Nose tip (STA 0)</text>
+  <circle cx="768" cy="300" r="5" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="780" y="304" font-family="monospace" font-size="8" fill="#c0392b">Motor bore Ø50mm</text>
+
+  <!-- SECTION CALLOUT -->
+  <line x1="257" y1="375" x2="860" y2="375" stroke="#e74c3c" stroke-width="0.8"/>
+  <polygon points="257,375 247,370 247,380" fill="#e74c3c"/>
+  <text x="265" y="372" font-family="monospace" font-size="8" fill="#e74c3c">A</text>
+</svg>
