@@ -29,10 +29,10 @@ Shared platform strategy maximises reuse across market segments while preserving
 
 | Line | Market         | Priority | MTOW (g) | Fuselage L x Dia (mm) | Wing Span (m) | Wall (mm) | Status |
 |------|----------------|----------|----------|-----------------------|---------------|-----------|--------|
-| DD   | Defense        | High     | 400.0    | 380.0 x 35.0          | 0.150         | 2.0       | Active |
+| DD   | Defense        | High     | 400.0    | 380.0 x 35.0          | 0.150         | 3.0       | Active |
 | DI   | Industrial     | High     | 300.0    | 365.0 x 35.0          | 0.135         | 1.8       | Locked |
 | DC   | Civil          | Medium   | 250.0    | 350.0 x 35.0          | 0.120         | 1.5       | Active |
-| F1   | High-Speed     | Research | 450.0    | 400.0 x 40.0          | N/A (Quad)    | 2.0       | Concept|
+| F1   | High-Speed     | Research | 450.0    | 400.0 x 40.0          | N/A (Quad)    | 3.0       | Concept|
 
 > **F1-Chaser:** High-speed interceptor utilizing a 4-propeller rocket-shaped airframe for chasing F1-class speed targets.
 
