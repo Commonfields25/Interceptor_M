@@ -12,7 +12,7 @@ jobs:
   iso-baseline:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: ISO 27001 Baseline Check
         run: |
           echo "## ISO 27001 Compliance Check" >> $GITHUB_STEP_SUMMARY
@@ -35,7 +35,7 @@ jobs:
   traceability:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Requirements Traceability
         run: |
           echo "## Traceability Matrix" >> $GITHUB_STEP_SUMMARY
@@ -49,7 +49,7 @@ jobs:
   node-validation:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
