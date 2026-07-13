@@ -11,7 +11,7 @@ jobs:
   bom-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Sync BOM
         run: |
           # Check for requirements files
@@ -24,7 +24,7 @@ jobs:
   param-sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Parameter Sync
         run: |
           # Validate consistency across config files
@@ -32,7 +32,7 @@ jobs:
   agent-locks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Agent Lock Check
         run: |
           # Check for lock files older than 24h
