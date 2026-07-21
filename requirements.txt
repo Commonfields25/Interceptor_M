@@ -5,5 +5,5 @@ pytest>=7.0
 pytest-cov>=4.0
 pylint
 bandit>=1.7
-safety>=2.3
+safety>=3.8.1
 markdown-link-check>=3.10
