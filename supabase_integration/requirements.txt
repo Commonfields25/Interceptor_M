@@ -16,7 +16,7 @@ pytest-cov>=7.1.0
 pytest-xdist>=3.8.0
 
 # Linting / Code quality
-ruff>=0.15.22
+ruff>=0.16.1
 bandit>=1.9.4
 safety>=2.3.5
 
